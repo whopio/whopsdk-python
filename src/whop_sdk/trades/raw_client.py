@@ -22,6 +22,7 @@ from ..types.v1error_response import V1ErrorResponse
 from .types.create_trades_request_instrument_type import CreateTradesRequestInstrumentType
 from .types.create_trades_request_order_type import CreateTradesRequestOrderType
 from .types.create_trades_request_side import CreateTradesRequestSide
+from .types.create_trades_request_time_in_force import CreateTradesRequestTimeInForce
 from .types.create_trades_request_type import CreateTradesRequestType
 from .types.list_trades_request_direction import ListTradesRequestDirection
 from .types.list_trades_request_order import ListTradesRequestOrder
@@ -197,6 +198,7 @@ class RawTradesClient:
         side: typing.Optional[CreateTradesRequestSide] = OMIT,
         size: typing.Optional[str] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
+        time_in_force: typing.Optional[CreateTradesRequestTimeInForce] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Trade]:
         """
@@ -232,7 +234,7 @@ class RawTradesClient:
             Only for an order. The order value in USD, as a decimal string; the size is rounded down to the market's decimals. Send exactly one of `size` or `notional`; a spot buy takes `notional`, the USDT0 to spend.
 
         order_type : typing.Optional[CreateTradesRequestOrderType]
-            `market` fills now within `slippage_bps` of the mid price; `limit` fills now at `price` or better. Anything unfilled is canceled. Required for an order.
+            `market` fills now within `slippage_bps` of the mid price, and anything unfilled is canceled; `limit` fills at `price` or better, and how long it stays on the book follows `time_in_force`. Required for an order.
 
         price : typing.Optional[str]
             Only for an order. The limit price in USD, as a decimal string Hyperliquid accepts without rounding. Required for a limit order; not accepted for a market order.
@@ -248,6 +250,9 @@ class RawTradesClient:
 
         slippage_bps : typing.Optional[int]
             Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100 for a perpetual, and to the swap route's own default for spot.
+
+        time_in_force : typing.Optional[CreateTradesRequestTimeInForce]
+            Only for a perpetual limit order. `good_til_canceled` rests on the book until it fills; `add_liquidity_only` is canceled instead of filling at once; `immediate_or_cancel` fills what it can now and cancels the rest. Defaults to `good_til_canceled`. The trade stays `processing` while the order rests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -276,6 +281,7 @@ class RawTradesClient:
                 "side": side,
                 "size": size,
                 "slippage_bps": slippage_bps,
+                "time_in_force": time_in_force,
                 "type": type,
             },
             headers={
@@ -600,6 +606,7 @@ class AsyncRawTradesClient:
         side: typing.Optional[CreateTradesRequestSide] = OMIT,
         size: typing.Optional[str] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
+        time_in_force: typing.Optional[CreateTradesRequestTimeInForce] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Trade]:
         """
@@ -635,7 +642,7 @@ class AsyncRawTradesClient:
             Only for an order. The order value in USD, as a decimal string; the size is rounded down to the market's decimals. Send exactly one of `size` or `notional`; a spot buy takes `notional`, the USDT0 to spend.
 
         order_type : typing.Optional[CreateTradesRequestOrderType]
-            `market` fills now within `slippage_bps` of the mid price; `limit` fills now at `price` or better. Anything unfilled is canceled. Required for an order.
+            `market` fills now within `slippage_bps` of the mid price, and anything unfilled is canceled; `limit` fills at `price` or better, and how long it stays on the book follows `time_in_force`. Required for an order.
 
         price : typing.Optional[str]
             Only for an order. The limit price in USD, as a decimal string Hyperliquid accepts without rounding. Required for a limit order; not accepted for a market order.
@@ -651,6 +658,9 @@ class AsyncRawTradesClient:
 
         slippage_bps : typing.Optional[int]
             Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100 for a perpetual, and to the swap route's own default for spot.
+
+        time_in_force : typing.Optional[CreateTradesRequestTimeInForce]
+            Only for a perpetual limit order. `good_til_canceled` rests on the book until it fills; `add_liquidity_only` is canceled instead of filling at once; `immediate_or_cancel` fills what it can now and cancels the rest. Defaults to `good_til_canceled`. The trade stays `processing` while the order rests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -679,6 +689,7 @@ class AsyncRawTradesClient:
                 "side": side,
                 "size": size,
                 "slippage_bps": slippage_bps,
+                "time_in_force": time_in_force,
                 "type": type,
             },
             headers={
