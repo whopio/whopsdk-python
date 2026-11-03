@@ -11,6 +11,7 @@ AdGroupDeliveryStatus = typing.Union[
         "no_ads",
         "campaign_paused",
         "paused",
+        "in_review",
         "processing",
         "issues",
         "scheduled",
