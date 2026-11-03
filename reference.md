@@ -49542,6 +49542,7 @@ Required scopes depend on the preferences being updated:
 | `dispute_fighter_enabled` | `payment:dispute` |
 | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
 | `feedback_options`, `customer_tracking` | `company:manage_checkout` |
+| `review_request_emails` | `company:update` |
 
 When updating preferences from multiple rows, all corresponding scopes are required for the account.
 </dd>
@@ -49697,6 +49698,14 @@ client.accounts.preferences.update(
 <dd>
 
 **preferred_settlement_currency:** `typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]` — Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**review_request_emails:** `typing.Optional[bool]` — Whether Whop emails customers after a purchase asking them to leave a review. Set it to `false` to stop these emails, including ones already scheduled. Requires the `company:update` scope on your API key.
     
 </dd>
 </dl>
