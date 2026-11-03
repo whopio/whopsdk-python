@@ -24,6 +24,7 @@ if typing.TYPE_CHECKING:
         CreateInvoicesRequestItemsItemVariantProductVisibility,
     )
     from .create_invoices_request_items_item_variant_visibility import CreateInvoicesRequestItemsItemVariantVisibility
+    from .issue_invoices_request_collection_method import IssueInvoicesRequestCollectionMethod
     from .list_invoices_request_direction import ListInvoicesRequestDirection
     from .list_invoices_request_order import ListInvoicesRequestOrder
     from .list_invoices_request_status import ListInvoicesRequestStatus
@@ -44,6 +45,7 @@ if typing.TYPE_CHECKING:
     from .post_invoice_voided_payload import PostInvoiceVoidedPayload
     from .post_invoice_voided_payload_api_version import PostInvoiceVoidedPayloadApiVersion
     from .post_invoice_voided_payload_type import PostInvoiceVoidedPayloadType
+    from .send_invoices_request_collection_method import SendInvoicesRequestCollectionMethod
     from .update_invoices_request_billing_address import UpdateInvoicesRequestBillingAddress
     from .update_invoices_request_items_item import UpdateInvoicesRequestItemsItem
     from .update_invoices_request_items_item_variant import UpdateInvoicesRequestItemsItemVariant
@@ -73,6 +75,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".create_invoices_request_items_item_variant_product_global_affiliate_status",
     "CreateInvoicesRequestItemsItemVariantProductVisibility": ".create_invoices_request_items_item_variant_product_visibility",
     "CreateInvoicesRequestItemsItemVariantVisibility": ".create_invoices_request_items_item_variant_visibility",
+    "IssueInvoicesRequestCollectionMethod": ".issue_invoices_request_collection_method",
     "ListInvoicesRequestDirection": ".list_invoices_request_direction",
     "ListInvoicesRequestOrder": ".list_invoices_request_order",
     "ListInvoicesRequestStatus": ".list_invoices_request_status",
@@ -93,6 +96,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostInvoiceVoidedPayload": ".post_invoice_voided_payload",
     "PostInvoiceVoidedPayloadApiVersion": ".post_invoice_voided_payload_api_version",
     "PostInvoiceVoidedPayloadType": ".post_invoice_voided_payload_type",
+    "SendInvoicesRequestCollectionMethod": ".send_invoices_request_collection_method",
     "UpdateInvoicesRequestBillingAddress": ".update_invoices_request_billing_address",
     "UpdateInvoicesRequestItemsItem": ".update_invoices_request_items_item",
     "UpdateInvoicesRequestItemsItemVariant": ".update_invoices_request_items_item_variant",
@@ -138,6 +142,7 @@ __all__ = [
     "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
     "CreateInvoicesRequestItemsItemVariantProductVisibility",
     "CreateInvoicesRequestItemsItemVariantVisibility",
+    "IssueInvoicesRequestCollectionMethod",
     "ListInvoicesRequestDirection",
     "ListInvoicesRequestOrder",
     "ListInvoicesRequestStatus",
@@ -158,6 +163,7 @@ __all__ = [
     "PostInvoiceVoidedPayload",
     "PostInvoiceVoidedPayloadApiVersion",
     "PostInvoiceVoidedPayloadType",
+    "SendInvoicesRequestCollectionMethod",
     "UpdateInvoicesRequestBillingAddress",
     "UpdateInvoicesRequestItemsItem",
     "UpdateInvoicesRequestItemsItemVariant",

@@ -25302,7 +25302,7 @@ client.invoices.create(
 <dl>
 <dd>
 
-**items:** `typing.List[CreateInvoicesRequestItemsItem]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+**items:** `typing.List[CreateInvoicesRequestItemsItem]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription collected by the `collection_method` the invoice was sent or issued with. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
     
 </dd>
 </dl>
@@ -25568,7 +25568,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**items:** `typing.Optional[typing.List[UpdateInvoicesRequestItemsItem]]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+**items:** `typing.Optional[typing.List[UpdateInvoicesRequestItemsItem]]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription collected by the `collection_method` the invoice was sent or issued with. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
     
 </dd>
 </dl>
@@ -25859,6 +25859,14 @@ client.invoices.issue(
 <dl>
 <dd>
 
+**collection_method:** `typing.Optional[IssueInvoicesRequestCollectionMethod]` — How the subscription this invoice starts collects each renewal. `charge_automatically` charges the payment method that paid the invoice each period: the draft's `payment_method_id`, or the one the customer pays the invoice link with. `send_invoice` issues a numbered invoice each period, due on the renewal date and emailed with its payment link to the latest invoice's `recipient_emails`, so it needs at least one recipient and isn't available for invoices billed to a business. Defaults to `charge_automatically`. Only for a draft with a recurring item. A scheduled send applies it when it fires (see `scheduled_collection_method`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -26006,6 +26014,14 @@ client.invoices.send(
 <dd>
 
 **charge_at:** `typing.Optional[datetime.datetime]` — When to charge the draft's `payment_method_id`, as an ISO 8601 timestamp in the future and no earlier than `send_at`. Only for a draft with a `payment_method_id` and a total above zero. Omit to charge on `due_at` if it is still ahead when the draft is sent, or right away otherwise. A scheduled send that runs after `charge_at` charges right away.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**collection_method:** `typing.Optional[SendInvoicesRequestCollectionMethod]` — How the subscription this invoice starts collects each renewal. `charge_automatically` charges the payment method that paid the invoice each period: the draft's `payment_method_id`, or the one the customer pays the invoice link with. `send_invoice` issues a numbered invoice each period, due on the renewal date and emailed with its payment link to the latest invoice's `recipient_emails`, so it needs at least one recipient and isn't available for invoices billed to a business. Defaults to `charge_automatically`. Only for a draft with a recurring item. A scheduled send applies it when it fires (see `scheduled_collection_method`).
     
 </dd>
 </dl>
