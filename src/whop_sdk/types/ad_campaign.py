@@ -13,9 +13,15 @@ from .ad_campaign_result_event import AdCampaignResultEvent
 from .ad_campaign_special_ad_categories_item import AdCampaignSpecialAdCategoriesItem
 from .ad_campaign_status import AdCampaignStatus
 from .ad_platform_issue import AdPlatformIssue
+from .storefront_account import StorefrontAccount
 
 
 class AdCampaign(UniversalBaseModel):
+    account: typing.Optional[StorefrontAccount] = pydantic.Field(default=None)
+    """
+    The business running this campaign, with the name and logo its ads show.
+    """
+
     added_to_cart_value: float = pydantic.Field()
     """
     USD value attributed to add-to-cart events. Sums the value sent with each event, normalized to USD; events without a value contribute 0.
