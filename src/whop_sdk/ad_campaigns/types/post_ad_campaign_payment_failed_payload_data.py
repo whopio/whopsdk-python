@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...types.ad_platform_issue import AdPlatformIssue
+from ...types.storefront_account import StorefrontAccount
 from .post_ad_campaign_payment_failed_payload_data_budget_optimization import (
     PostAdCampaignPaymentFailedPayloadDataBudgetOptimization,
 )
@@ -23,6 +24,11 @@ from .post_ad_campaign_payment_failed_payload_data_status import PostAdCampaignP
 
 
 class PostAdCampaignPaymentFailedPayloadData(UniversalBaseModel):
+    account: typing.Optional[StorefrontAccount] = pydantic.Field(default=None)
+    """
+    The business running this campaign, with the name and logo its ads show.
+    """
+
     budget_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The campaign's budget in USD, which is what it is stored and billed in. `null` when each ad group sets its own budget instead.
