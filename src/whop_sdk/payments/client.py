@@ -111,6 +111,7 @@ class PaymentsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Payment, ListPaymentsResponse]:
         """
@@ -223,6 +224,9 @@ class PaymentsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -287,6 +291,7 @@ class PaymentsClient:
             after=after,
             last=last,
             before=before,
+            include_total_count=include_total_count,
             request_options=request_options,
         )
 
@@ -1108,6 +1113,7 @@ class AsyncPaymentsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Payment, ListPaymentsResponse]:
         """
@@ -1220,6 +1226,9 @@ class AsyncPaymentsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1293,6 +1302,7 @@ class AsyncPaymentsClient:
             after=after,
             last=last,
             before=before,
+            include_total_count=include_total_count,
             request_options=request_options,
         )
 

@@ -11,6 +11,15 @@ class ListMembershipsResponsePageInfo(UniversalBaseModel):
     has_next_page: bool
     has_previous_page: bool
     start_cursor: typing.Optional[str] = None
+    total_count: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Number of results matching the filters, across every page. Counting stops at 10,000. `null` when `include_total_count` isn't `true`, or when the count ran out of time.
+    """
+
+    total_count_capped: bool = pydantic.Field()
+    """
+    Whether counting stopped at the limit. `true` means `total_count` is 10,000 or more.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
