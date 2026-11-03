@@ -329,7 +329,7 @@ class DisputesClient:
 
     def submit(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Dispute:
         """
-        Sends a dispute's evidence to the payment processor. This is final — it cannot be edited or sent again.
+        Sends a dispute's evidence to the payment processor. The filing runs in the background: the dispute moves to `under_review` and `evidence_submitted_at` is set once the processor accepts the packet, and it stays `needs_response` if the processor rejects it. This is final — it cannot be edited or sent again.
 
         Parameters
         ----------
@@ -342,7 +342,7 @@ class DisputesClient:
         Returns
         -------
         Dispute
-            dispute submitted
+            dispute submission started
 
         Examples
         --------
@@ -758,7 +758,7 @@ class AsyncDisputesClient:
 
     async def submit(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Dispute:
         """
-        Sends a dispute's evidence to the payment processor. This is final — it cannot be edited or sent again.
+        Sends a dispute's evidence to the payment processor. The filing runs in the background: the dispute moves to `under_review` and `evidence_submitted_at` is set once the processor accepts the packet, and it stays `needs_response` if the processor rejects it. This is final — it cannot be edited or sent again.
 
         Parameters
         ----------
@@ -771,7 +771,7 @@ class AsyncDisputesClient:
         Returns
         -------
         Dispute
-            dispute submitted
+            dispute submission started
 
         Examples
         --------
