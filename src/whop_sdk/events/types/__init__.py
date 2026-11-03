@@ -38,6 +38,13 @@ if typing.TYPE_CHECKING:
     from .list_events_response_data_item_related_variant import ListEventsResponseDataItemRelatedVariant
     from .list_events_response_data_item_user import ListEventsResponseDataItemUser
     from .list_events_response_page_info import ListEventsResponsePageInfo
+    from .post_events_created_payload import PostEventsCreatedPayload
+    from .post_events_created_payload_api_version import PostEventsCreatedPayloadApiVersion
+    from .post_events_created_payload_data import PostEventsCreatedPayloadData
+    from .post_events_created_payload_data_events_item import PostEventsCreatedPayloadDataEventsItem
+    from .post_events_created_payload_data_events_item_context import PostEventsCreatedPayloadDataEventsItemContext
+    from .post_events_created_payload_data_events_item_user import PostEventsCreatedPayloadDataEventsItemUser
+    from .post_events_created_payload_type import PostEventsCreatedPayloadType
     from .pulse_events_response import PulseEventsResponse
     from .pulse_events_response_data_item import PulseEventsResponseDataItem
     from .pulse_events_response_data_item_event_name import PulseEventsResponseDataItemEventName
@@ -73,6 +80,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListEventsResponseDataItemRelatedVariant": ".list_events_response_data_item_related_variant",
     "ListEventsResponseDataItemUser": ".list_events_response_data_item_user",
     "ListEventsResponsePageInfo": ".list_events_response_page_info",
+    "PostEventsCreatedPayload": ".post_events_created_payload",
+    "PostEventsCreatedPayloadApiVersion": ".post_events_created_payload_api_version",
+    "PostEventsCreatedPayloadData": ".post_events_created_payload_data",
+    "PostEventsCreatedPayloadDataEventsItem": ".post_events_created_payload_data_events_item",
+    "PostEventsCreatedPayloadDataEventsItemContext": ".post_events_created_payload_data_events_item_context",
+    "PostEventsCreatedPayloadDataEventsItemUser": ".post_events_created_payload_data_events_item_user",
+    "PostEventsCreatedPayloadType": ".post_events_created_payload_type",
     "PulseEventsResponse": ".pulse_events_response",
     "PulseEventsResponseDataItem": ".pulse_events_response_data_item",
     "PulseEventsResponseDataItemEventName": ".pulse_events_response_data_item_event_name",
@@ -132,6 +146,13 @@ __all__ = [
     "ListEventsResponseDataItemRelatedVariant",
     "ListEventsResponseDataItemUser",
     "ListEventsResponsePageInfo",
+    "PostEventsCreatedPayload",
+    "PostEventsCreatedPayloadApiVersion",
+    "PostEventsCreatedPayloadData",
+    "PostEventsCreatedPayloadDataEventsItem",
+    "PostEventsCreatedPayloadDataEventsItemContext",
+    "PostEventsCreatedPayloadDataEventsItemUser",
+    "PostEventsCreatedPayloadType",
     "PulseEventsResponse",
     "PulseEventsResponseDataItem",
     "PulseEventsResponseDataItemEventName",
