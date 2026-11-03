@@ -51,7 +51,7 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
 
     commission_advance_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Estimated upfront advance per USD of annual card and BNPL payments, including advance share and remaining term. Multiply annual payments by this rate, cap at commission_advance_cap, and round down to cents. Uses observed commissions or, without history, reference US card fees minus estimated percentage costs times the partner share. Null when projections or pricing are unavailable. Only returned to the referring partner. Qualification and final offers use actual activity.
+    Estimated upfront advance per USD of annual card and BNPL payments, including advance share and remaining term. Multiply annual payments by this rate, cap at commission_advance_cap, and round down to cents. Uses observed commissions or, without history, a typical gross profit share adjusted for the business's US card fee, times the partner share. Null when projections or pricing are unavailable. Only returned to the referring partner. Qualification and final offers use actual activity.
     """
 
     created_at: dt.datetime = pydantic.Field()
