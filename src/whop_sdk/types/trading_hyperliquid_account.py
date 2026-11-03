@@ -13,6 +13,11 @@ class TradingHyperliquidAccount(UniversalBaseModel):
     Lowercase wallet address that holds the Hyperliquid account.
     """
 
+    depositable: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    USDT0 in the Whop wallet on Plasma that a `deposit` trade can move into this account, as a decimal string. `null` when the chain could not be read.
+    """
+
     websocket_subscriptions: typing.List[TradingWebsocketSubscription]
     websocket_url: str = pydantic.Field()
     """
