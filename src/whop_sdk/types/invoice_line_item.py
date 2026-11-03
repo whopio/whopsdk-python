@@ -8,6 +8,11 @@ from .money import Money
 
 
 class InvoiceLineItem(UniversalBaseModel):
+    description: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Text shown under the item on the invoice, its email, and its PDF, read from the variant's `description`. A custom charge sets it with the item's `description`; a product variant keeps its own. Null when the variant has none or has since been deleted.
+    """
+
     discount_amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
     The promo discount applied to this item, in the payment's `currency`. Null when no discount was recorded.

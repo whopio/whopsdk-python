@@ -25778,6 +25778,14 @@ client.invoices.generate_pdf(
 <dl>
 <dd>
 
+**include_descriptions:** `typing.Optional[bool]` — Whether to print each line item's `description` under it. Defaults to `true`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
