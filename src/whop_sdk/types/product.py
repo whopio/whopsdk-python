@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .product_custom_cta import ProductCustomCta
+from .product_experience import ProductExperience
 from .product_gallery_image import ProductGalleryImage
 from .product_global_affiliate_status import ProductGlobalAffiliateStatus
 from .product_marketplace_status import ProductMarketplaceStatus
@@ -54,6 +55,7 @@ class Product(UniversalBaseModel):
     Written description displayed on the product page. `null` if none is set.
     """
 
+    experiences: typing.List[ProductExperience]
     external_identifier: typing.Optional[str] = pydantic.Field(default=None)
     """
     External identifier stored on the product for your own reference.
@@ -81,6 +83,11 @@ class Product(UniversalBaseModel):
     """
 
     labels: typing.List[str]
+    logo_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Logo image URL shown on product pages and in search results. `null` when the product has no logo.
+    """
+
     marketplace_status: ProductMarketplaceStatus = pydantic.Field()
     """
     Listing state on the whop.com marketplace. `pending_review` means submitted and awaiting review; `live_marketplace` means approved and discoverable.

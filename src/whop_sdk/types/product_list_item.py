@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .product_experience import ProductExperience
 from .product_gallery_image import ProductGalleryImage
 from .product_public_variant import ProductPublicVariant
 
@@ -34,6 +35,7 @@ class ProductListItem(UniversalBaseModel):
     Written description displayed on the product page. `null` if none is set.
     """
 
+    experiences: typing.List[ProductExperience]
     external_identifier: typing.Optional[str] = pydantic.Field(default=None)
     """
     External identifier stored on the product for your own reference.
@@ -51,6 +53,11 @@ class ProductListItem(UniversalBaseModel):
     """
 
     labels: typing.List[str]
+    logo_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Logo image URL shown on product pages and in search results. `null` when the product has no logo.
+    """
+
     member_count: float = pydantic.Field()
     """
     Active memberships for this product; 0 if public member counts are disabled.
