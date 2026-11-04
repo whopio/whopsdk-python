@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .list_time_series_response import ListTimeSeriesResponse
     from .list_time_series_response_data_item import ListTimeSeriesResponseDataItem
     from .list_time_series_response_data_item_unit import ListTimeSeriesResponseDataItemUnit
+    from .retrieve_time_series_request_activity import RetrieveTimeSeriesRequestActivity
     from .retrieve_time_series_request_event_type import RetrieveTimeSeriesRequestEventType
     from .retrieve_time_series_request_interval import RetrieveTimeSeriesRequestInterval
     from .retrieve_time_series_request_snapshot_window import RetrieveTimeSeriesRequestSnapshotWindow
@@ -23,6 +24,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListTimeSeriesResponse": ".list_time_series_response",
     "ListTimeSeriesResponseDataItem": ".list_time_series_response_data_item",
     "ListTimeSeriesResponseDataItemUnit": ".list_time_series_response_data_item_unit",
+    "RetrieveTimeSeriesRequestActivity": ".retrieve_time_series_request_activity",
     "RetrieveTimeSeriesRequestEventType": ".retrieve_time_series_request_event_type",
     "RetrieveTimeSeriesRequestInterval": ".retrieve_time_series_request_interval",
     "RetrieveTimeSeriesRequestSnapshotWindow": ".retrieve_time_series_request_snapshot_window",
@@ -59,6 +61,7 @@ __all__ = [
     "ListTimeSeriesResponse",
     "ListTimeSeriesResponseDataItem",
     "ListTimeSeriesResponseDataItemUnit",
+    "RetrieveTimeSeriesRequestActivity",
     "RetrieveTimeSeriesRequestEventType",
     "RetrieveTimeSeriesRequestInterval",
     "RetrieveTimeSeriesRequestSnapshotWindow",
