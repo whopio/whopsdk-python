@@ -65,6 +65,7 @@ RetrieveFinancialReportsRequestLineTypesItem = typing.Union[
         "legacy_crypto_payment",
         "legacy_payment",
         "legacy_payment_refund",
+        "levels_rebate",
         "license_sale",
         "license_sale_commission",
         "license_sale_revenue",
