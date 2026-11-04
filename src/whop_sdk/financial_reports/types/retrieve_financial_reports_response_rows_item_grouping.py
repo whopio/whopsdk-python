@@ -15,6 +15,7 @@ RetrieveFinancialReportsResponseRowsItemGrouping = typing.Union[
         "fees",
         "fx",
         "legacy",
+        "levels_points",
         "misc",
         "operational_costs",
         "other",
