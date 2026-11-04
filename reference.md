@@ -45896,7 +45896,7 @@ client.users.check_access(
 <dl>
 <dd>
 
-Lists the recommended actions computed for the authenticated user: personal suggestions, such as starting a business or becoming an affiliate, pooled with the highest-impact actions across the accounts the user owns. You can only list your own recommended actions.
+Lists the recommended actions computed for the authenticated user, such as starting a business. You can only list your own recommended actions.
 </dd>
 </dl>
 </dd>
