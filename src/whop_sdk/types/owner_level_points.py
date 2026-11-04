@@ -9,17 +9,22 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class OwnerLevelPoints(UniversalBaseModel):
     ads: int = pydantic.Field()
     """
-    Points from charged Whop Ads spend: 10 for every whole dollar.
+    Points from paid Whop Ads charges, net of refunds: 10 for every dollar, rounded toward zero.
     """
 
     cards: int = pydantic.Field()
     """
-    Points from Whop Card spend: 10 for every whole dollar.
+    Points from captured Whop Card spend, net of refunds: 10 for every dollar, rounded toward zero.
+    """
+
+    partners: int = pydantic.Field()
+    """
+    Points from accounts the owner referred as a partner: 1 for every 3 they earn, rounded toward zero.
     """
 
     trading: int = pydantic.Field()
     """
-    Points from perpetual trading volume: 1 for every whole dollar traded.
+    Points from perpetual trading volume filled through Whop: 1 for every dollar traded, rounded toward zero.
     """
 
     if IS_PYDANTIC_V2:
