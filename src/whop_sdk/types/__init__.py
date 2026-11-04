@@ -1364,6 +1364,31 @@ if typing.TYPE_CHECKING:
     from .review_status import ReviewStatus
     from .review_user import ReviewUser
     from .schedule_frequencies import ScheduleFrequencies
+    from .search_record import (
+        SearchRecord,
+        SearchRecord_Account,
+        SearchRecord_Affiliate,
+        SearchRecord_Member,
+        SearchRecord_Membership,
+        SearchRecord_Payment,
+        SearchRecord_PromoCode,
+        SearchRecord_ResolutionCenterCase,
+        SearchRecord_Review,
+    )
+    from .search_record_account import SearchRecordAccount
+    from .search_record_affiliate import SearchRecordAffiliate
+    from .search_record_member import SearchRecordMember
+    from .search_record_member_status import SearchRecordMemberStatus
+    from .search_record_membership import SearchRecordMembership
+    from .search_record_membership_status import SearchRecordMembershipStatus
+    from .search_record_payment import SearchRecordPayment
+    from .search_record_promo_code import SearchRecordPromoCode
+    from .search_record_promo_code_currency import SearchRecordPromoCodeCurrency
+    from .search_record_promo_code_promo_type import SearchRecordPromoCodePromoType
+    from .search_record_resolution_center_case import SearchRecordResolutionCenterCase
+    from .search_record_review import SearchRecordReview
+    from .search_result import SearchResult
+    from .search_result_match_reason import SearchResultMatchReason
     from .setup_intent import SetupIntent
     from .setup_intent_legacy import SetupIntentLegacy
     from .setup_intent_legacy_checkout_configuration import SetupIntentLegacyCheckoutConfiguration
@@ -2759,6 +2784,29 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReviewStatus": ".review_status",
     "ReviewUser": ".review_user",
     "ScheduleFrequencies": ".schedule_frequencies",
+    "SearchRecord": ".search_record",
+    "SearchRecordAccount": ".search_record_account",
+    "SearchRecordAffiliate": ".search_record_affiliate",
+    "SearchRecordMember": ".search_record_member",
+    "SearchRecordMemberStatus": ".search_record_member_status",
+    "SearchRecordMembership": ".search_record_membership",
+    "SearchRecordMembershipStatus": ".search_record_membership_status",
+    "SearchRecordPayment": ".search_record_payment",
+    "SearchRecordPromoCode": ".search_record_promo_code",
+    "SearchRecordPromoCodeCurrency": ".search_record_promo_code_currency",
+    "SearchRecordPromoCodePromoType": ".search_record_promo_code_promo_type",
+    "SearchRecordResolutionCenterCase": ".search_record_resolution_center_case",
+    "SearchRecordReview": ".search_record_review",
+    "SearchRecord_Account": ".search_record",
+    "SearchRecord_Affiliate": ".search_record",
+    "SearchRecord_Member": ".search_record",
+    "SearchRecord_Membership": ".search_record",
+    "SearchRecord_Payment": ".search_record",
+    "SearchRecord_PromoCode": ".search_record",
+    "SearchRecord_ResolutionCenterCase": ".search_record",
+    "SearchRecord_Review": ".search_record",
+    "SearchResult": ".search_result",
+    "SearchResultMatchReason": ".search_result_match_reason",
     "SetupIntent": ".setup_intent",
     "SetupIntentLegacy": ".setup_intent_legacy",
     "SetupIntentLegacyCheckoutConfiguration": ".setup_intent_legacy_checkout_configuration",
@@ -4174,6 +4222,29 @@ __all__ = [
     "ReviewStatus",
     "ReviewUser",
     "ScheduleFrequencies",
+    "SearchRecord",
+    "SearchRecordAccount",
+    "SearchRecordAffiliate",
+    "SearchRecordMember",
+    "SearchRecordMemberStatus",
+    "SearchRecordMembership",
+    "SearchRecordMembershipStatus",
+    "SearchRecordPayment",
+    "SearchRecordPromoCode",
+    "SearchRecordPromoCodeCurrency",
+    "SearchRecordPromoCodePromoType",
+    "SearchRecordResolutionCenterCase",
+    "SearchRecordReview",
+    "SearchRecord_Account",
+    "SearchRecord_Affiliate",
+    "SearchRecord_Member",
+    "SearchRecord_Membership",
+    "SearchRecord_Payment",
+    "SearchRecord_PromoCode",
+    "SearchRecord_ResolutionCenterCase",
+    "SearchRecord_Review",
+    "SearchResult",
+    "SearchResultMatchReason",
     "SetupIntent",
     "SetupIntentLegacy",
     "SetupIntentLegacyCheckoutConfiguration",
