@@ -91,6 +91,8 @@ class PaymentsClient:
             typing.Union[ListPaymentsRequestBillingReasonsItem, typing.Sequence[ListPaymentsRequestBillingReasonsItem]]
         ] = None,
         currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        min_amount: typing.Optional[float] = None,
+        max_amount: typing.Optional[float] = None,
         variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         payment_methods: typing.Optional[
@@ -176,6 +178,12 @@ class PaymentsClient:
         currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several. Combined with `currency` when both are sent.
 
+        min_amount : typing.Optional[float]
+            Only payments charged at least this amount: what the buyer was charged after discounts and including tax, in the currency each payment was presented in, the same amount `order=amount` sorts by. Where tax is added on top of the price (`tax_behavior` is `exclusive`), that is the price plus the tax, so a 995 price with tax added does not match `995`: match a range instead. A failed payment that charged nothing matches 0, not its price. Inclusive and compared to the cent. Pair it with `currencies` when the account sells in several. Send the same value as `max_amount` to match one exact amount.
+
+        max_amount : typing.Optional[float]
+            Only payments charged at most this amount, measured like `min_amount`: after discounts and including tax, in the currency each payment was presented in. Inclusive and compared to the cent. Must not be less than `min_amount`.
+
         variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `variant_id` when both are sent.
 
@@ -246,6 +254,8 @@ class PaymentsClient:
         )
         response = client.payments.list(
             currencies=["eur"],
+            min_amount=995.0,
+            max_amount=995.0,
             variant_ids=["plan_xxxxxxxxxxxxx"],
             product_ids=["prod_xxxxxxxxxxxxx"],
         )
@@ -275,6 +285,8 @@ class PaymentsClient:
             substatuses=substatuses,
             billing_reasons=billing_reasons,
             currencies=currencies,
+            min_amount=min_amount,
+            max_amount=max_amount,
             variant_ids=variant_ids,
             product_ids=product_ids,
             payment_methods=payment_methods,
@@ -465,6 +477,8 @@ class PaymentsClient:
             ]
         ] = None,
         currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        min_amount: typing.Optional[float] = None,
+        max_amount: typing.Optional[float] = None,
         variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         payment_methods: typing.Optional[
@@ -511,6 +525,12 @@ class PaymentsClient:
 
         currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
+
+        min_amount : typing.Optional[float]
+            Only payments charged at least this amount: what the buyer was charged after discounts and including tax, in the currency each payment was presented in. Where tax is added on top of the price (`tax_behavior` is `exclusive`), that is the price plus the tax. A failed payment that charged nothing counts as 0. Inclusive and compared to the cent.
+
+        max_amount : typing.Optional[float]
+            Only payments charged at most this amount, measured like `min_amount`: after discounts and including tax. Inclusive and compared to the cent. Must not be less than `min_amount`.
 
         variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
@@ -573,6 +593,8 @@ class PaymentsClient:
         )
         client.payments.summary(
             currencies=["usd"],
+            min_amount=995.0,
+            max_amount=995.0,
             variant_ids=["plan_xxxxxxxxxxxxx"],
             product_ids=["prod_xxxxxxxxxxxxx"],
         )
@@ -584,6 +606,8 @@ class PaymentsClient:
             substatuses=substatuses,
             billing_reasons=billing_reasons,
             currencies=currencies,
+            min_amount=min_amount,
+            max_amount=max_amount,
             variant_ids=variant_ids,
             product_ids=product_ids,
             payment_methods=payment_methods,
@@ -1093,6 +1117,8 @@ class AsyncPaymentsClient:
             typing.Union[ListPaymentsRequestBillingReasonsItem, typing.Sequence[ListPaymentsRequestBillingReasonsItem]]
         ] = None,
         currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        min_amount: typing.Optional[float] = None,
+        max_amount: typing.Optional[float] = None,
         variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         payment_methods: typing.Optional[
@@ -1178,6 +1204,12 @@ class AsyncPaymentsClient:
         currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several. Combined with `currency` when both are sent.
 
+        min_amount : typing.Optional[float]
+            Only payments charged at least this amount: what the buyer was charged after discounts and including tax, in the currency each payment was presented in, the same amount `order=amount` sorts by. Where tax is added on top of the price (`tax_behavior` is `exclusive`), that is the price plus the tax, so a 995 price with tax added does not match `995`: match a range instead. A failed payment that charged nothing matches 0, not its price. Inclusive and compared to the cent. Pair it with `currencies` when the account sells in several. Send the same value as `max_amount` to match one exact amount.
+
+        max_amount : typing.Optional[float]
+            Only payments charged at most this amount, measured like `min_amount`: after discounts and including tax, in the currency each payment was presented in. Inclusive and compared to the cent. Must not be less than `min_amount`.
+
         variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `variant_id` when both are sent.
 
@@ -1253,6 +1285,8 @@ class AsyncPaymentsClient:
         async def main() -> None:
             response = await client.payments.list(
                 currencies=["eur"],
+                min_amount=995.0,
+                max_amount=995.0,
                 variant_ids=["plan_xxxxxxxxxxxxx"],
                 product_ids=["prod_xxxxxxxxxxxxx"],
             )
@@ -1286,6 +1320,8 @@ class AsyncPaymentsClient:
             substatuses=substatuses,
             billing_reasons=billing_reasons,
             currencies=currencies,
+            min_amount=min_amount,
+            max_amount=max_amount,
             variant_ids=variant_ids,
             product_ids=product_ids,
             payment_methods=payment_methods,
@@ -1484,6 +1520,8 @@ class AsyncPaymentsClient:
             ]
         ] = None,
         currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        min_amount: typing.Optional[float] = None,
+        max_amount: typing.Optional[float] = None,
         variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         payment_methods: typing.Optional[
@@ -1530,6 +1568,12 @@ class AsyncPaymentsClient:
 
         currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
+
+        min_amount : typing.Optional[float]
+            Only payments charged at least this amount: what the buyer was charged after discounts and including tax, in the currency each payment was presented in. Where tax is added on top of the price (`tax_behavior` is `exclusive`), that is the price plus the tax. A failed payment that charged nothing counts as 0. Inclusive and compared to the cent.
+
+        max_amount : typing.Optional[float]
+            Only payments charged at most this amount, measured like `min_amount`: after discounts and including tax. Inclusive and compared to the cent. Must not be less than `min_amount`.
 
         variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
@@ -1597,6 +1641,8 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.payments.summary(
                 currencies=["usd"],
+                min_amount=995.0,
+                max_amount=995.0,
                 variant_ids=["plan_xxxxxxxxxxxxx"],
                 product_ids=["prod_xxxxxxxxxxxxx"],
             )
@@ -1611,6 +1657,8 @@ class AsyncPaymentsClient:
             substatuses=substatuses,
             billing_reasons=billing_reasons,
             currencies=currencies,
+            min_amount=min_amount,
+            max_amount=max_amount,
             variant_ids=variant_ids,
             product_ids=product_ids,
             payment_methods=payment_methods,
