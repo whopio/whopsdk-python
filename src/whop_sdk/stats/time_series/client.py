@@ -8,6 +8,7 @@ from ...core.request_options import RequestOptions
 from ...types.retrieve_time_series_request_steps import RetrieveTimeSeriesRequestSteps
 from .raw_client import AsyncRawTimeSeriesClient, RawTimeSeriesClient
 from .types.list_time_series_response import ListTimeSeriesResponse
+from .types.retrieve_time_series_request_activity import RetrieveTimeSeriesRequestActivity
 from .types.retrieve_time_series_request_event_type import RetrieveTimeSeriesRequestEventType
 from .types.retrieve_time_series_request_interval import RetrieveTimeSeriesRequestInterval
 from .types.retrieve_time_series_request_snapshot_window import RetrieveTimeSeriesRequestSnapshotWindow
@@ -133,6 +134,9 @@ class TimeSeriesClient:
         event_count_lt: typing.Optional[float] = None,
         event_count_lte: typing.Optional[float] = None,
         referring_account_id: typing.Optional[str] = None,
+        team_lead_id: typing.Optional[str] = None,
+        activity: typing.Optional[RetrieveTimeSeriesRequestActivity] = None,
+        breakdown_limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveTimeSeriesResponse:
         """
@@ -359,6 +363,15 @@ class TimeSeriesClient:
         referring_account_id : typing.Optional[str]
             Read a referral metric for a business instead of the caller: the referrals its team members made, past members included, for example biz_AbC123. Requires company:basic:read on that business and cannot be combined with user_id. Available on metrics that list referring_account_id.
 
+        team_lead_id : typing.Optional[str]
+            Read a partner metric for one team lead and everyone under them in today's org chart, for example user_AbC123. Needs referring_account_id or a global query. As breakdown_by=team_lead_id, figures sit under the highest lead above the partner who earned them, so each group matches that lead's team_lead_id filter and the groups add up to the total. With team_lead_id set, or for a caller who reads only their own team, the groups are the leads under that person, who keeps the rest. Anyone with no lead is in a null group. Available on metrics that list team_lead_id.
+
+        activity : typing.Optional[RetrieveTimeSeriesRequestActivity]
+            partner_reps only: all counts the period's roster, earning counts those who earned in the period, and not_earning counts the roster minus them. Defaults to all.
+
+        breakdown_limit : typing.Optional[int]
+            With a single breakdown_by, keep the groups with the highest whole-range values, up to this many, and fold every other group into one entry named other. A rate or an average ranks its groups by the deals it divides by. The other entry is measured from the underlying rows, so a distinct count or a rate stays exact rather than being added up from groups. Available on partner metrics only.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -459,6 +472,9 @@ class TimeSeriesClient:
             event_count_lt=event_count_lt,
             event_count_lte=event_count_lte,
             referring_account_id=referring_account_id,
+            team_lead_id=team_lead_id,
+            activity=activity,
+            breakdown_limit=breakdown_limit,
             request_options=request_options,
         )
         return _response.data
@@ -591,6 +607,9 @@ class AsyncTimeSeriesClient:
         event_count_lt: typing.Optional[float] = None,
         event_count_lte: typing.Optional[float] = None,
         referring_account_id: typing.Optional[str] = None,
+        team_lead_id: typing.Optional[str] = None,
+        activity: typing.Optional[RetrieveTimeSeriesRequestActivity] = None,
+        breakdown_limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveTimeSeriesResponse:
         """
@@ -817,6 +836,15 @@ class AsyncTimeSeriesClient:
         referring_account_id : typing.Optional[str]
             Read a referral metric for a business instead of the caller: the referrals its team members made, past members included, for example biz_AbC123. Requires company:basic:read on that business and cannot be combined with user_id. Available on metrics that list referring_account_id.
 
+        team_lead_id : typing.Optional[str]
+            Read a partner metric for one team lead and everyone under them in today's org chart, for example user_AbC123. Needs referring_account_id or a global query. As breakdown_by=team_lead_id, figures sit under the highest lead above the partner who earned them, so each group matches that lead's team_lead_id filter and the groups add up to the total. With team_lead_id set, or for a caller who reads only their own team, the groups are the leads under that person, who keeps the rest. Anyone with no lead is in a null group. Available on metrics that list team_lead_id.
+
+        activity : typing.Optional[RetrieveTimeSeriesRequestActivity]
+            partner_reps only: all counts the period's roster, earning counts those who earned in the period, and not_earning counts the roster minus them. Defaults to all.
+
+        breakdown_limit : typing.Optional[int]
+            With a single breakdown_by, keep the groups with the highest whole-range values, up to this many, and fold every other group into one entry named other. A rate or an average ranks its groups by the deals it divides by. The other entry is measured from the underlying rows, so a distinct count or a rate stays exact rather than being added up from groups. Available on partner metrics only.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -925,6 +953,9 @@ class AsyncTimeSeriesClient:
             event_count_lt=event_count_lt,
             event_count_lte=event_count_lte,
             referring_account_id=referring_account_id,
+            team_lead_id=team_lead_id,
+            activity=activity,
+            breakdown_limit=breakdown_limit,
             request_options=request_options,
         )
         return _response.data
