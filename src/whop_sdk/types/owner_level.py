@@ -10,50 +10,45 @@ from .owner_level_points import OwnerLevelPoints
 
 
 class OwnerLevel(UniversalBaseModel):
-    current: int = pydantic.Field()
+    applied_level: int = pydantic.Field()
     """
-    Current level, from `0` before the first threshold up to `10`.
+    The level that applies: the highest the owner reached this month or in the 5 months before, from `0` up to `10`.
     """
 
     levels: typing.List[AccountProcessingOfferLevel]
     monthly_ads_spend: Money = pydantic.Field()
     """
-    Charged Whop Ads spend this calendar month across every account the owner owns, in USD.
+    Whop Ads charges paid this calendar month across every account the owner owns, net of refunds, in USD, so it can be negative. An account whose month nets to zero or below is left out.
     """
 
     monthly_card_spend: Money = pydantic.Field()
     """
-    Effective Whop Card spend this calendar month across every account the owner owns, in USD.
+    Captured Whop Card spend this calendar month across every account the owner owns, net of refunds, in USD, so it can be negative. An account whose month nets to zero or below is left out.
     """
 
     monthly_qualifying_spend: Money = pydantic.Field()
     """
-    Qualifying spend this calendar month across every account the owner owns, in USD: Whop Ads spend, Whop Card spend, and a tenth of perpetual trading volume.
+    Qualifying spend this calendar month across every account the owner owns, plus the owner's partner points, in USD: `points` divided by 10.
     """
 
     monthly_trading_volume: Money = pydantic.Field()
     """
-    Perpetual trading notional volume this calendar month across every account the owner owns, in USD.
+    Perpetual trading volume filled through Whop this calendar month across every account the owner owns, in USD. An account whose month nets to zero or below is left out.
     """
 
     points: int = pydantic.Field()
     """
-    Points earned this month across every account the owner owns.
+    Points earned this month across every account the owner owns, plus the owner's partner points, rounded down. An account whose month nets below zero counts as zero.
     """
 
     points_by_source: OwnerLevelPoints = pydantic.Field()
     """
-    This month's points, split by where they were earned.
+    This month's points, split by where they were earned. Each source is net of its refunds, so one can be negative.
     """
 
     points_to_next: typing.Optional[int] = pydantic.Field(default=None)
     """
     Points still needed this month to reach the next level, or `null` at level `10`.
-    """
-
-    processing_rate_percentage: float = pydantic.Field()
-    """
-    The standard US and Canada card processing percentage at `current`, before any account's custom rate.
     """
 
     resets_at: str = pydantic.Field()
