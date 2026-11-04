@@ -44,6 +44,7 @@ class RawAiChatsClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         agent_identifier: typing.Optional[AiChatAgentIdentifiers] = None,
+        account_id: typing.Optional[str] = None,
         only_active_crons: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AiChatListItem, ListAiChatsResponse]:
@@ -66,6 +67,9 @@ class RawAiChatsClient:
 
         agent_identifier : typing.Optional[AiChatAgentIdentifiers]
 
+        account_id : typing.Optional[str]
+            Only return chats associated with this business account.
+
         only_active_crons : typing.Optional[bool]
             When true, returns only chats with an active cron schedule
 
@@ -87,6 +91,7 @@ class RawAiChatsClient:
                 "first": first,
                 "last": last,
                 "agent_identifier": agent_identifier,
+                "account_id": account_id,
                 "only_active_crons": only_active_crons,
             },
             request_options=request_options,
@@ -112,6 +117,7 @@ class RawAiChatsClient:
                         first=first,
                         last=last,
                         agent_identifier=agent_identifier,
+                        account_id=account_id,
                         only_active_crons=only_active_crons,
                         request_options=request_options,
                     )
@@ -772,6 +778,7 @@ class AsyncRawAiChatsClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         agent_identifier: typing.Optional[AiChatAgentIdentifiers] = None,
+        account_id: typing.Optional[str] = None,
         only_active_crons: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AiChatListItem, ListAiChatsResponse]:
@@ -794,6 +801,9 @@ class AsyncRawAiChatsClient:
 
         agent_identifier : typing.Optional[AiChatAgentIdentifiers]
 
+        account_id : typing.Optional[str]
+            Only return chats associated with this business account.
+
         only_active_crons : typing.Optional[bool]
             When true, returns only chats with an active cron schedule
 
@@ -815,6 +825,7 @@ class AsyncRawAiChatsClient:
                 "first": first,
                 "last": last,
                 "agent_identifier": agent_identifier,
+                "account_id": account_id,
                 "only_active_crons": only_active_crons,
             },
             request_options=request_options,
@@ -842,6 +853,7 @@ class AsyncRawAiChatsClient:
                             first=first,
                             last=last,
                             agent_identifier=agent_identifier,
+                            account_id=account_id,
                             only_active_crons=only_active_crons,
                             request_options=request_options,
                         )

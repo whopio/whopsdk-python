@@ -41,6 +41,7 @@ class AiChatsClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         agent_identifier: typing.Optional[AiChatAgentIdentifiers] = None,
+        account_id: typing.Optional[str] = None,
         only_active_crons: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AiChatListItem, ListAiChatsResponse]:
@@ -62,6 +63,9 @@ class AiChatsClient:
             Returns the last _n_ elements from the list.
 
         agent_identifier : typing.Optional[AiChatAgentIdentifiers]
+
+        account_id : typing.Optional[str]
+            Only return chats associated with this business account.
 
         only_active_crons : typing.Optional[bool]
             When true, returns only chats with an active cron schedule
@@ -99,6 +103,7 @@ class AiChatsClient:
             first=first,
             last=last,
             agent_identifier=agent_identifier,
+            account_id=account_id,
             only_active_crons=only_active_crons,
             request_options=request_options,
         )
@@ -329,6 +334,7 @@ class AsyncAiChatsClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         agent_identifier: typing.Optional[AiChatAgentIdentifiers] = None,
+        account_id: typing.Optional[str] = None,
         only_active_crons: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AiChatListItem, ListAiChatsResponse]:
@@ -350,6 +356,9 @@ class AsyncAiChatsClient:
             Returns the last _n_ elements from the list.
 
         agent_identifier : typing.Optional[AiChatAgentIdentifiers]
+
+        account_id : typing.Optional[str]
+            Only return chats associated with this business account.
 
         only_active_crons : typing.Optional[bool]
             When true, returns only chats with an active cron schedule
@@ -396,6 +405,7 @@ class AsyncAiChatsClient:
             first=first,
             last=last,
             agent_identifier=agent_identifier,
+            account_id=account_id,
             only_active_crons=only_active_crons,
             request_options=request_options,
         )
