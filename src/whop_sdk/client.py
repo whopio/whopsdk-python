@@ -92,6 +92,7 @@ if typing.TYPE_CHECKING:
     from .refunds.client import AsyncRefundsClient, RefundsClient
     from .resolution_center_cases.client import AsyncResolutionCenterCasesClient, ResolutionCenterCasesClient
     from .reviews.client import AsyncReviewsClient, ReviewsClient
+    from .search.client import AsyncSearchClient, SearchClient
     from .setup_intents.client import AsyncSetupIntentsClient, SetupIntentsClient
     from .shipments.client import AsyncShipmentsClient, ShipmentsClient
     from .social_accounts.client import AsyncSocialAccountsClient, SocialAccountsClient
@@ -278,6 +279,7 @@ class Whop:
         self._refunds: typing.Optional[RefundsClient] = None
         self._resolution_center_cases: typing.Optional[ResolutionCenterCasesClient] = None
         self._reviews: typing.Optional[ReviewsClient] = None
+        self._search: typing.Optional[SearchClient] = None
         self._setup_intents: typing.Optional[SetupIntentsClient] = None
         self._shipments: typing.Optional[ShipmentsClient] = None
         self._social_accounts: typing.Optional[SocialAccountsClient] = None
@@ -950,6 +952,14 @@ class Whop:
         return self._reviews
 
     @property
+    def search(self):
+        if self._search is None:
+            from .search.client import SearchClient  # noqa: E402
+
+            self._search = SearchClient(client_wrapper=self._client_wrapper)
+        return self._search
+
+    @property
     def setup_intents(self):
         if self._setup_intents is None:
             from .setup_intents.client import SetupIntentsClient  # noqa: E402
@@ -1253,6 +1263,7 @@ class AsyncWhop:
         self._refunds: typing.Optional[AsyncRefundsClient] = None
         self._resolution_center_cases: typing.Optional[AsyncResolutionCenterCasesClient] = None
         self._reviews: typing.Optional[AsyncReviewsClient] = None
+        self._search: typing.Optional[AsyncSearchClient] = None
         self._setup_intents: typing.Optional[AsyncSetupIntentsClient] = None
         self._shipments: typing.Optional[AsyncShipmentsClient] = None
         self._social_accounts: typing.Optional[AsyncSocialAccountsClient] = None
@@ -1923,6 +1934,14 @@ class AsyncWhop:
 
             self._reviews = AsyncReviewsClient(client_wrapper=self._client_wrapper)
         return self._reviews
+
+    @property
+    def search(self):
+        if self._search is None:
+            from .search.client import AsyncSearchClient  # noqa: E402
+
+            self._search = AsyncSearchClient(client_wrapper=self._client_wrapper)
+        return self._search
 
     @property
     def setup_intents(self):

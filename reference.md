@@ -40785,6 +40785,119 @@ client.reviews.delete(
 </dl>
 </details>
 
+## Search
+<details><summary><code>client.search.<a href="src/whop_sdk/search/client.py">list</a>(...) -> ListSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Searches one account's records in one call. `account` rows are `account_id` itself and, when you send `include_subaccounts`, its subaccounts; every other row belongs to one of those accounts.
+
+Each `object` needs its own read permission on the record's account, and rows you can't read are left out without an error: `account` (`biz_`, `company:basic:read`), `member` (`mber_`, `member:basic:read`), `membership` (`mem_`, `member:basic:read`), `payment` (`pay_`, `payment:basic:read`), `affiliate` (`aff_`, `affiliate:basic:read`), `review` (`rev_`, `company:basic:read`), `resolution_center_case` (`reso_`, `payment:resolution_center_case:read`) and `promo_code` (`promo_`, `promo_code:basic:read`). A query containing `@` also needs `member:email:read`, and a phone match `member:phone:read`. An invoice's number finds the invoice as its `payment`.
+
+`query` is trimmed and has to be 2 to 250 characters; a full card number returns a `400`. `data` comes identifier matches first, such as a pasted ID, email address, card digits or invoice number, newest first within each kind of match. Every query of 3 or more characters is also ranked, and ranked rows follow, best match first. Each record appears once, and `match_reason` says why it matched. [Search](/api-reference/beta/search/search) lists the query shapes and match reasons.
+
+`first` caps the rows, 20 by default and up to 100. There is no cursor yet, so the response is a single page. Search ranks; to filter one resource or page through every match, use its list endpoint, such as `GET /payments?query=`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.search.list(
+    query="query",
+    account_id="account_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query:** `str` — Text to search for, 2 to 250 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `str` — The account to search, prefixed `biz_`. Records other than accounts belong to it, or with `include_subaccounts` to its subaccounts. Your credential needs read access to it; an account you can't read is a 404.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**types:** `typing.Optional[typing.Union[ListSearchRequestTypesItem, typing.Sequence[ListSearchRequestTypesItem]]]` — Kinds of records to search. Defaults to every kind. `account` rows are `account_id` itself and, with `include_subaccounts`, its subaccounts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_subaccounts:** `typing.Optional[bool]` — `true` also searches the subaccounts of a platform `account_id`: an ID, an email, card digits or a phone number finds their records, and the subaccounts themselves are found as `account` rows by name, ID or store link, or by the email of their owner, a team member or a customer. Safe to send for any account: one without subaccounts is searched as if this were false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Setup Intents
 <details><summary><code>client.setup_intents.<a href="src/whop_sdk/setup_intents/client.py">list</a>(...) -> ListSetupIntentsResponse</code></summary>
 <dl>
