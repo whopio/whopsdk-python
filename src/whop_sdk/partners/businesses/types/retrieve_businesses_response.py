@@ -65,6 +65,11 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
     """
 
     earnings_usd: RetrieveBusinessesResponseEarningsUsd
+    estimated_commission_rate: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Estimated regular commission per USD of card and BNPL payments, as a decimal string (for example `0.004`). Once the advance qualifies, the rate its terms were sized with; before that, observed payout rates or, without payment history, reference US card fees. Multiply payments by this rate to estimate commissions, including those that resume after a commission advance term. `null` when pricing is unavailable or the response has neither `commission_advance_rate` nor `commission_advance`.
+    """
+
     first_tier_partner: typing.Optional[RetrieveBusinessesResponseFirstTierPartner] = pydantic.Field(default=None)
     """
     The partner who referred the business owner onto Whop (first tier). Null if there is no active first-tier partner.
