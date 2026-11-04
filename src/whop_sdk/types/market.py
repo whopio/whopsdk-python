@@ -11,7 +11,7 @@ from .money import Money
 class Market(UniversalBaseModel):
     id: str = pydantic.Field()
     """
-    The market's name: a perpetual's Hyperliquid name such as `BTC`, which you send as `market` when you create a trade, or a spot asset's symbol such as `BTC` or `XAUT`. A perpetual and a spot market can share an `id`, so `id` and `instrument_type` together identify a market.
+    The market's name: a perpetual's Hyperliquid name such as `BTC` or `xyz:TSLA`, which you send as `market` when you create a trade, or a spot asset's symbol such as `BTC` or `XAUT`. A perpetual and a spot market can share an `id`, so `id` and `instrument_type` together identify a market.
     """
 
     instrument_type: MarketInstrumentType = pydantic.Field()

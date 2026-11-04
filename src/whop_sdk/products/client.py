@@ -64,12 +64,12 @@ class ProductsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ProductListItem, ListProductsResponse]:
         """
-        Lists an account's products, or searches the public marketplace when you omit `account_id`.
+        Lists an account's products, or searches the public marketplace when you omit `account_id`. Without the `access_pass:basic:read` permission on the account, including when signed out, the list holds only the products its store page lists.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The unique identifier of the account to list products for. Omit to search the public marketplace.
+            Account to list products for, prefixed `biz_`. Without the `access_pass:basic:read` permission on it, only the products its store page lists are returned. Omit to search the public marketplace.
 
         query : typing.Optional[str]
             Filters products by text. The public marketplace list searches product title, account name, headline and description, ranking products that match every word first and the closest partial matches after them; an account's own list is a plain substring match over title, headline and description. Omit to browse by recency.
@@ -78,16 +78,16 @@ class ProductsClient:
             Only return marketplace products assigned to this category route, such as `trading`.
 
         billing_types : typing.Optional[typing.Union[ListProductsRequestBillingTypesItem, typing.Sequence[ListProductsRequestBillingTypesItem]]]
-            Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
+            Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`. On an account list, needs the `access_pass:basic:read` permission.
 
         price_minimum : typing.Optional[float]
-            Only return products whose advertised buyable variant has a displayed price of at least this amount. Recurring variants use renewal price.
+            Only return products whose advertised buyable variant has a displayed price of at least this amount. Recurring variants use renewal price. On an account list, needs the `access_pass:basic:read` permission.
 
         price_maximum : typing.Optional[float]
-            Only return products whose advertised buyable variant has a displayed price of at most this amount. Recurring variants use renewal price.
+            Only return products whose advertised buyable variant has a displayed price of at most this amount. Recurring variants use renewal price. On an account list, needs the `access_pass:basic:read` permission.
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only products matching these visibility states. Ignored on the public marketplace list, which only returns visible products.
+            Filter to only products matching these visibility states. Ignored on the public marketplace list, which only returns visible products. Without the `access_pass:basic:read` permission on the account, only `visible` matches anything.
 
         access_pass_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only products matching these types.
@@ -99,7 +99,7 @@ class ProductsClient:
             The sort direction for results. Defaults to descending.
 
         order : typing.Optional[str]
-            The field to sort results by. Account lists default to `created_at`. Marketplace lists default to `discoverable_at` and accept `created_at` or `discoverable_at`. Cannot be combined with `query`.
+            Field to sort results by. Account lists accept `created_at` (the default), `active_memberships_count`, `usd_gmv`, `usd_gmv_30_days` and `position`; `position` with `direction` `asc` matches the order the store page shows. Without the `access_pass:basic:read` permission, an account list sorts only by `created_at` or `position`. Marketplace lists default to `discoverable_at`, accept only `created_at` or `discoverable_at`, and can't be combined with `query`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -128,7 +128,7 @@ class ProductsClient:
         Returns
         -------
         SyncPager[ProductListItem, ListProductsResponse]
-            marketplace products listed without an account
+            store-listed products for a caller without access
 
         Examples
         --------
@@ -572,12 +572,12 @@ class AsyncProductsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ProductListItem, ListProductsResponse]:
         """
-        Lists an account's products, or searches the public marketplace when you omit `account_id`.
+        Lists an account's products, or searches the public marketplace when you omit `account_id`. Without the `access_pass:basic:read` permission on the account, including when signed out, the list holds only the products its store page lists.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The unique identifier of the account to list products for. Omit to search the public marketplace.
+            Account to list products for, prefixed `biz_`. Without the `access_pass:basic:read` permission on it, only the products its store page lists are returned. Omit to search the public marketplace.
 
         query : typing.Optional[str]
             Filters products by text. The public marketplace list searches product title, account name, headline and description, ranking products that match every word first and the closest partial matches after them; an account's own list is a plain substring match over title, headline and description. Omit to browse by recency.
@@ -586,16 +586,16 @@ class AsyncProductsClient:
             Only return marketplace products assigned to this category route, such as `trading`.
 
         billing_types : typing.Optional[typing.Union[ListProductsRequestBillingTypesItem, typing.Sequence[ListProductsRequestBillingTypesItem]]]
-            Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
+            Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`. On an account list, needs the `access_pass:basic:read` permission.
 
         price_minimum : typing.Optional[float]
-            Only return products whose advertised buyable variant has a displayed price of at least this amount. Recurring variants use renewal price.
+            Only return products whose advertised buyable variant has a displayed price of at least this amount. Recurring variants use renewal price. On an account list, needs the `access_pass:basic:read` permission.
 
         price_maximum : typing.Optional[float]
-            Only return products whose advertised buyable variant has a displayed price of at most this amount. Recurring variants use renewal price.
+            Only return products whose advertised buyable variant has a displayed price of at most this amount. Recurring variants use renewal price. On an account list, needs the `access_pass:basic:read` permission.
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only products matching these visibility states. Ignored on the public marketplace list, which only returns visible products.
+            Filter to only products matching these visibility states. Ignored on the public marketplace list, which only returns visible products. Without the `access_pass:basic:read` permission on the account, only `visible` matches anything.
 
         access_pass_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only products matching these types.
@@ -607,7 +607,7 @@ class AsyncProductsClient:
             The sort direction for results. Defaults to descending.
 
         order : typing.Optional[str]
-            The field to sort results by. Account lists default to `created_at`. Marketplace lists default to `discoverable_at` and accept `created_at` or `discoverable_at`. Cannot be combined with `query`.
+            Field to sort results by. Account lists accept `created_at` (the default), `active_memberships_count`, `usd_gmv`, `usd_gmv_30_days` and `position`; `position` with `direction` `asc` matches the order the store page shows. Without the `access_pass:basic:read` permission, an account list sorts only by `created_at` or `position`. Marketplace lists default to `discoverable_at`, accept only `created_at` or `discoverable_at`, and can't be combined with `query`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -636,7 +636,7 @@ class AsyncProductsClient:
         Returns
         -------
         AsyncPager[ProductListItem, ListProductsResponse]
-            marketplace products listed without an account
+            store-listed products for a caller without access
 
         Examples
         --------

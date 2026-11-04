@@ -1263,6 +1263,8 @@ if typing.TYPE_CHECKING:
     from .product_affiliate_status import ProductAffiliateStatus
     from .product_affiliate_user import ProductAffiliateUser
     from .product_custom_cta import ProductCustomCta
+    from .product_experience import ProductExperience
+    from .product_experience_app import ProductExperienceApp
     from .product_gallery_image import ProductGalleryImage
     from .product_global_affiliate_status import ProductGlobalAffiliateStatus
     from .product_legacy import ProductLegacy
@@ -2656,6 +2658,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ProductAffiliateStatus": ".product_affiliate_status",
     "ProductAffiliateUser": ".product_affiliate_user",
     "ProductCustomCta": ".product_custom_cta",
+    "ProductExperience": ".product_experience",
+    "ProductExperienceApp": ".product_experience_app",
     "ProductGalleryImage": ".product_gallery_image",
     "ProductGlobalAffiliateStatus": ".product_global_affiliate_status",
     "ProductLegacy": ".product_legacy",
@@ -4069,6 +4073,8 @@ __all__ = [
     "ProductAffiliateStatus",
     "ProductAffiliateUser",
     "ProductCustomCta",
+    "ProductExperience",
+    "ProductExperienceApp",
     "ProductGalleryImage",
     "ProductGlobalAffiliateStatus",
     "ProductLegacy",
