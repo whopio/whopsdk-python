@@ -39,6 +39,7 @@ class PartnerReferralRequestsClient:
         account_id: typing.Optional[str] = None,
         target_user_id: typing.Optional[str] = None,
         partner_id: typing.Optional[str] = None,
+        referring_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListPartnerReferralRequestsRequestStatus] = None,
         request_type: typing.Optional[ListPartnerReferralRequestsRequestRequestType] = None,
         authorized_user_id: typing.Optional[str] = None,
@@ -65,6 +66,9 @@ class PartnerReferralRequestsClient:
 
         partner_id : typing.Optional[str]
             Only requests sent by this partner's user ID, prefixed `user_`.
+
+        referring_account_id : typing.Optional[str]
+            Only the referral links created for memberships on this business's team, prefixed `biz_`. Needs read access to the business: its owner sees every member's links, a manager the links of the people reporting to them, and other members only their own.
 
         status : typing.Optional[ListPartnerReferralRequestsRequestStatus]
             Only requests with this approval status.
@@ -127,6 +131,7 @@ class PartnerReferralRequestsClient:
             account_id=account_id,
             target_user_id=target_user_id,
             partner_id=partner_id,
+            referring_account_id=referring_account_id,
             status=status,
             request_type=request_type,
             authorized_user_id=authorized_user_id,
@@ -337,6 +342,7 @@ class AsyncPartnerReferralRequestsClient:
         account_id: typing.Optional[str] = None,
         target_user_id: typing.Optional[str] = None,
         partner_id: typing.Optional[str] = None,
+        referring_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListPartnerReferralRequestsRequestStatus] = None,
         request_type: typing.Optional[ListPartnerReferralRequestsRequestRequestType] = None,
         authorized_user_id: typing.Optional[str] = None,
@@ -363,6 +369,9 @@ class AsyncPartnerReferralRequestsClient:
 
         partner_id : typing.Optional[str]
             Only requests sent by this partner's user ID, prefixed `user_`.
+
+        referring_account_id : typing.Optional[str]
+            Only the referral links created for memberships on this business's team, prefixed `biz_`. Needs read access to the business: its owner sees every member's links, a manager the links of the people reporting to them, and other members only their own.
 
         status : typing.Optional[ListPartnerReferralRequestsRequestStatus]
             Only requests with this approval status.
@@ -434,6 +443,7 @@ class AsyncPartnerReferralRequestsClient:
             account_id=account_id,
             target_user_id=target_user_id,
             partner_id=partner_id,
+            referring_account_id=referring_account_id,
             status=status,
             request_type=request_type,
             authorized_user_id=authorized_user_id,
