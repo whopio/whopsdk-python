@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .post_card_created_payload_data_billing import PostCardCreatedPayloadDataBilling
+from .post_card_created_payload_data_digital_wallets_item import PostCardCreatedPayloadDataDigitalWalletsItem
 from .post_card_created_payload_data_limit import PostCardCreatedPayloadDataLimit
 from .post_card_created_payload_data_object import PostCardCreatedPayloadDataObject
 from .post_card_created_payload_data_secrets import PostCardCreatedPayloadDataSecrets
@@ -27,6 +28,13 @@ class PostCardCreatedPayloadData(UniversalBaseModel):
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the card was created.
+    """
+
+    digital_wallets: typing.Optional[typing.List[PostCardCreatedPayloadDataDigitalWalletsItem]] = pydantic.Field(
+        default=None
+    )
+    """
+    The digital wallets the card has been added to. List Cards, Update Card, and webhook payloads return `null`, as does Retrieve Card when the wallets cannot be retrieved.
     """
 
     expiration_month: typing.Optional[str] = pydantic.Field(default=None)

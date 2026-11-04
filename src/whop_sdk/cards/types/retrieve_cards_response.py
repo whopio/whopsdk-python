@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .retrieve_cards_response_billing import RetrieveCardsResponseBilling
+from .retrieve_cards_response_digital_wallets_item import RetrieveCardsResponseDigitalWalletsItem
 from .retrieve_cards_response_limit import RetrieveCardsResponseLimit
 from .retrieve_cards_response_object import RetrieveCardsResponseObject
 from .retrieve_cards_response_secrets import RetrieveCardsResponseSecrets
@@ -27,6 +28,13 @@ class RetrieveCardsResponse(UniversalBaseModel):
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the card was created.
+    """
+
+    digital_wallets: typing.Optional[typing.List[RetrieveCardsResponseDigitalWalletsItem]] = pydantic.Field(
+        default=None
+    )
+    """
+    The digital wallets the card has been added to. List Cards, Update Card, and webhook payloads return `null`, as does Retrieve Card when the wallets cannot be retrieved.
     """
 
     expiration_month: typing.Optional[str] = pydantic.Field(default=None)
