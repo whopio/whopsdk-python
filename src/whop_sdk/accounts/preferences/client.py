@@ -6,7 +6,6 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from .raw_client import AsyncRawPreferencesClient, RawPreferencesClient
 from .types.retrieve_preferences_response import RetrievePreferencesResponse
-from .types.update_preferences_request_ads_certifications_value import UpdatePreferencesRequestAdsCertificationsValue
 from .types.update_preferences_request_ads_payment_methods import UpdatePreferencesRequestAdsPaymentMethods
 from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
@@ -67,7 +66,7 @@ class PreferencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -82,7 +81,6 @@ class PreferencesClient:
         self,
         account_id: str,
         *,
-        ads_certifications: typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]] = OMIT,
         ads_payment_methods: typing.Optional[UpdatePreferencesRequestAdsPaymentMethods] = OMIT,
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
@@ -109,7 +107,7 @@ class PreferencesClient:
 
         | Preferences | Required scope |
         | --- | --- |
-        | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
+        | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration` | `ad_campaign:create` |
         | `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
@@ -122,9 +120,6 @@ class PreferencesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
-
-        ads_certifications : typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]]
-            Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review. Requires the `ad_campaign:create` scope on your API key.
 
         ads_payment_methods : typing.Optional[UpdatePreferencesRequestAdsPaymentMethods]
             How the account pays for Whop Ads spend. Requires `primary`; `backup` is optional and covers the charge when the primary fails. Requires the `ad_campaign:create` scope on your API key. Configuring a `card` requires a user token; account API keys can configure only `platform_balance` sources.
@@ -184,7 +179,7 @@ class PreferencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -194,7 +189,6 @@ class PreferencesClient:
         """
         _response = self._raw_client.update(
             account_id,
-            ads_certifications=ads_certifications,
             ads_payment_methods=ads_payment_methods,
             ads_reporting_currency=ads_reporting_currency,
             ads_scheduling_timezone=ads_scheduling_timezone,
@@ -256,7 +250,7 @@ class AsyncPreferencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -277,7 +271,6 @@ class AsyncPreferencesClient:
         self,
         account_id: str,
         *,
-        ads_certifications: typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]] = OMIT,
         ads_payment_methods: typing.Optional[UpdatePreferencesRequestAdsPaymentMethods] = OMIT,
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
@@ -304,7 +297,7 @@ class AsyncPreferencesClient:
 
         | Preferences | Required scope |
         | --- | --- |
-        | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
+        | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration` | `ad_campaign:create` |
         | `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
@@ -317,9 +310,6 @@ class AsyncPreferencesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
-
-        ads_certifications : typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]]
-            Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review. Requires the `ad_campaign:create` scope on your API key.
 
         ads_payment_methods : typing.Optional[UpdatePreferencesRequestAdsPaymentMethods]
             How the account pays for Whop Ads spend. Requires `primary`; `backup` is optional and covers the charge when the primary fails. Requires the `ad_campaign:create` scope on your API key. Configuring a `card` requires a user token; account API keys can configure only `platform_balance` sources.
@@ -381,7 +371,7 @@ class AsyncPreferencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -397,7 +387,6 @@ class AsyncPreferencesClient:
         """
         _response = await self._raw_client.update(
             account_id,
-            ads_certifications=ads_certifications,
             ads_payment_methods=ads_payment_methods,
             ads_reporting_currency=ads_reporting_currency,
             ads_scheduling_timezone=ads_scheduling_timezone,

@@ -145,7 +145,7 @@ class MembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -206,7 +206,7 @@ class MembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -244,7 +244,7 @@ class MembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -395,7 +395,7 @@ class AsyncMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -465,7 +465,7 @@ class AsyncMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -511,7 +511,7 @@ class AsyncMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03-1",
+            "2026-11-04",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

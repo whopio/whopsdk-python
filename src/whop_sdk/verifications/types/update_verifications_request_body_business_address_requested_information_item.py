@@ -64,7 +64,7 @@ class UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem(Univ
 
     values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Every chosen option for a `select` item that accepts more than one answer, such as the countries an advertising certification covers. Use `value` for every other item.
+    Every chosen option for a `select` item that accepts more than one answer. Use `value` for every other item.
     """
 
     if IS_PYDANTIC_V2:

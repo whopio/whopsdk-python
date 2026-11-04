@@ -49723,7 +49723,7 @@ Required scopes depend on the preferences being updated:
 
 | Preferences | Required scope |
 | --- | --- |
-| `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
+| `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration` | `ad_campaign:create` |
 | `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances` | `payout:account:update` |
 | `dispute_fighter_enabled` | `payment:dispute` |
 | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
@@ -49772,14 +49772,6 @@ client.accounts.preferences.update(
 <dd>
 
 **account_id:** `str` — Account ID, prefixed `biz_`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ads_certifications:** `typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]]` — Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review. Requires the `ad_campaign:create` scope on your API key.
     
 </dd>
 </dl>

@@ -12,12 +12,10 @@ from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.bad_request_error import BadRequestError
-from ...errors.conflict_error import ConflictError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
 from .types.retrieve_preferences_response import RetrievePreferencesResponse
-from .types.update_preferences_request_ads_certifications_value import UpdatePreferencesRequestAdsCertificationsValue
 from .types.update_preferences_request_ads_payment_methods import UpdatePreferencesRequestAdsPaymentMethods
 from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
@@ -114,7 +112,6 @@ class RawPreferencesClient:
         self,
         account_id: str,
         *,
-        ads_certifications: typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]] = OMIT,
         ads_payment_methods: typing.Optional[UpdatePreferencesRequestAdsPaymentMethods] = OMIT,
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
@@ -141,7 +138,7 @@ class RawPreferencesClient:
 
         | Preferences | Required scope |
         | --- | --- |
-        | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
+        | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration` | `ad_campaign:create` |
         | `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
@@ -154,9 +151,6 @@ class RawPreferencesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
-
-        ads_certifications : typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]]
-            Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review. Requires the `ad_campaign:create` scope on your API key.
 
         ads_payment_methods : typing.Optional[UpdatePreferencesRequestAdsPaymentMethods]
             How the account pays for Whop Ads spend. Requires `primary`; `backup` is optional and covers the charge when the primary fails. Requires the `ad_campaign:create` scope on your API key. Configuring a `card` requires a user token; account API keys can configure only `platform_balance` sources.
@@ -216,11 +210,6 @@ class RawPreferencesClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
-                "ads_certifications": convert_and_respect_annotation_metadata(
-                    object_=ads_certifications,
-                    annotation=typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue],
-                    direction="write",
-                ),
                 "ads_payment_methods": convert_and_respect_annotation_metadata(
                     object_=ads_payment_methods, annotation=UpdatePreferencesRequestAdsPaymentMethods, direction="write"
                 ),
@@ -302,17 +291,6 @@ class RawPreferencesClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -406,7 +384,6 @@ class AsyncRawPreferencesClient:
         self,
         account_id: str,
         *,
-        ads_certifications: typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]] = OMIT,
         ads_payment_methods: typing.Optional[UpdatePreferencesRequestAdsPaymentMethods] = OMIT,
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
@@ -433,7 +410,7 @@ class AsyncRawPreferencesClient:
 
         | Preferences | Required scope |
         | --- | --- |
-        | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
+        | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration` | `ad_campaign:create` |
         | `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
@@ -446,9 +423,6 @@ class AsyncRawPreferencesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
-
-        ads_certifications : typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]]
-            Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review. Requires the `ad_campaign:create` scope on your API key.
 
         ads_payment_methods : typing.Optional[UpdatePreferencesRequestAdsPaymentMethods]
             How the account pays for Whop Ads spend. Requires `primary`; `backup` is optional and covers the charge when the primary fails. Requires the `ad_campaign:create` scope on your API key. Configuring a `card` requires a user token; account API keys can configure only `platform_balance` sources.
@@ -508,11 +482,6 @@ class AsyncRawPreferencesClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
-                "ads_certifications": convert_and_respect_annotation_metadata(
-                    object_=ads_certifications,
-                    annotation=typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue],
-                    direction="write",
-                ),
                 "ads_payment_methods": convert_and_respect_annotation_metadata(
                     object_=ads_payment_methods, annotation=UpdatePreferencesRequestAdsPaymentMethods, direction="write"
                 ),
@@ -594,17 +563,6 @@ class AsyncRawPreferencesClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
