@@ -72,6 +72,11 @@ class PlatformTrendsReportsResponseDataReportsItemRowsItem(UniversalBaseModel):
     Businesses created in the window that also sold in it.
     """
 
+    new_customers: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Customers who joined Whop in the window and paid in it. A customer who pays in two groups counts in both.
+    """
+
     payments: typing.Optional[int] = pydantic.Field(default=None)
     """
     Paid payments.
