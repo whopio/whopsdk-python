@@ -12,6 +12,7 @@ if typing.TYPE_CHECKING:
     from .create_cards_request_spend_limit_frequency import CreateCardsRequestSpendLimitFrequency
     from .create_cards_response import CreateCardsResponse
     from .create_cards_response_billing import CreateCardsResponseBilling
+    from .create_cards_response_digital_wallets_item import CreateCardsResponseDigitalWalletsItem
     from .create_cards_response_limit import CreateCardsResponseLimit
     from .create_cards_response_limit_frequency import CreateCardsResponseLimitFrequency
     from .create_cards_response_object import CreateCardsResponseObject
@@ -21,6 +22,7 @@ if typing.TYPE_CHECKING:
     from .list_cards_response import ListCardsResponse
     from .list_cards_response_data_item import ListCardsResponseDataItem
     from .list_cards_response_data_item_billing import ListCardsResponseDataItemBilling
+    from .list_cards_response_data_item_digital_wallets_item import ListCardsResponseDataItemDigitalWalletsItem
     from .list_cards_response_data_item_limit import ListCardsResponseDataItemLimit
     from .list_cards_response_data_item_limit_frequency import ListCardsResponseDataItemLimitFrequency
     from .list_cards_response_data_item_object import ListCardsResponseDataItemObject
@@ -55,6 +57,7 @@ if typing.TYPE_CHECKING:
     from .post_card_canceled_payload_api_version import PostCardCanceledPayloadApiVersion
     from .post_card_canceled_payload_data import PostCardCanceledPayloadData
     from .post_card_canceled_payload_data_billing import PostCardCanceledPayloadDataBilling
+    from .post_card_canceled_payload_data_digital_wallets_item import PostCardCanceledPayloadDataDigitalWalletsItem
     from .post_card_canceled_payload_data_limit import PostCardCanceledPayloadDataLimit
     from .post_card_canceled_payload_data_limit_frequency import PostCardCanceledPayloadDataLimitFrequency
     from .post_card_canceled_payload_data_object import PostCardCanceledPayloadDataObject
@@ -66,6 +69,7 @@ if typing.TYPE_CHECKING:
     from .post_card_created_payload_api_version import PostCardCreatedPayloadApiVersion
     from .post_card_created_payload_data import PostCardCreatedPayloadData
     from .post_card_created_payload_data_billing import PostCardCreatedPayloadDataBilling
+    from .post_card_created_payload_data_digital_wallets_item import PostCardCreatedPayloadDataDigitalWalletsItem
     from .post_card_created_payload_data_limit import PostCardCreatedPayloadDataLimit
     from .post_card_created_payload_data_limit_frequency import PostCardCreatedPayloadDataLimitFrequency
     from .post_card_created_payload_data_object import PostCardCreatedPayloadDataObject
@@ -77,6 +81,7 @@ if typing.TYPE_CHECKING:
     from .post_card_frozen_payload_api_version import PostCardFrozenPayloadApiVersion
     from .post_card_frozen_payload_data import PostCardFrozenPayloadData
     from .post_card_frozen_payload_data_billing import PostCardFrozenPayloadDataBilling
+    from .post_card_frozen_payload_data_digital_wallets_item import PostCardFrozenPayloadDataDigitalWalletsItem
     from .post_card_frozen_payload_data_limit import PostCardFrozenPayloadDataLimit
     from .post_card_frozen_payload_data_limit_frequency import PostCardFrozenPayloadDataLimitFrequency
     from .post_card_frozen_payload_data_object import PostCardFrozenPayloadDataObject
@@ -103,6 +108,7 @@ if typing.TYPE_CHECKING:
     from .post_card_updated_payload_api_version import PostCardUpdatedPayloadApiVersion
     from .post_card_updated_payload_data import PostCardUpdatedPayloadData
     from .post_card_updated_payload_data_billing import PostCardUpdatedPayloadDataBilling
+    from .post_card_updated_payload_data_digital_wallets_item import PostCardUpdatedPayloadDataDigitalWalletsItem
     from .post_card_updated_payload_data_limit import PostCardUpdatedPayloadDataLimit
     from .post_card_updated_payload_data_limit_frequency import PostCardUpdatedPayloadDataLimitFrequency
     from .post_card_updated_payload_data_object import PostCardUpdatedPayloadDataObject
@@ -112,6 +118,7 @@ if typing.TYPE_CHECKING:
     from .post_card_updated_payload_type import PostCardUpdatedPayloadType
     from .retrieve_cards_response import RetrieveCardsResponse
     from .retrieve_cards_response_billing import RetrieveCardsResponseBilling
+    from .retrieve_cards_response_digital_wallets_item import RetrieveCardsResponseDigitalWalletsItem
     from .retrieve_cards_response_limit import RetrieveCardsResponseLimit
     from .retrieve_cards_response_limit_frequency import RetrieveCardsResponseLimitFrequency
     from .retrieve_cards_response_object import RetrieveCardsResponseObject
@@ -123,6 +130,7 @@ if typing.TYPE_CHECKING:
     from .update_cards_request_spend_limit_frequency import UpdateCardsRequestSpendLimitFrequency
     from .update_cards_response import UpdateCardsResponse
     from .update_cards_response_billing import UpdateCardsResponseBilling
+    from .update_cards_response_digital_wallets_item import UpdateCardsResponseDigitalWalletsItem
     from .update_cards_response_limit import UpdateCardsResponseLimit
     from .update_cards_response_limit_frequency import UpdateCardsResponseLimitFrequency
     from .update_cards_response_object import UpdateCardsResponseObject
@@ -136,6 +144,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateCardsRequestSpendLimitFrequency": ".create_cards_request_spend_limit_frequency",
     "CreateCardsResponse": ".create_cards_response",
     "CreateCardsResponseBilling": ".create_cards_response_billing",
+    "CreateCardsResponseDigitalWalletsItem": ".create_cards_response_digital_wallets_item",
     "CreateCardsResponseLimit": ".create_cards_response_limit",
     "CreateCardsResponseLimitFrequency": ".create_cards_response_limit_frequency",
     "CreateCardsResponseObject": ".create_cards_response_object",
@@ -145,6 +154,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListCardsResponse": ".list_cards_response",
     "ListCardsResponseDataItem": ".list_cards_response_data_item",
     "ListCardsResponseDataItemBilling": ".list_cards_response_data_item_billing",
+    "ListCardsResponseDataItemDigitalWalletsItem": ".list_cards_response_data_item_digital_wallets_item",
     "ListCardsResponseDataItemLimit": ".list_cards_response_data_item_limit",
     "ListCardsResponseDataItemLimitFrequency": ".list_cards_response_data_item_limit_frequency",
     "ListCardsResponseDataItemObject": ".list_cards_response_data_item_object",
@@ -179,6 +189,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostCardCanceledPayloadApiVersion": ".post_card_canceled_payload_api_version",
     "PostCardCanceledPayloadData": ".post_card_canceled_payload_data",
     "PostCardCanceledPayloadDataBilling": ".post_card_canceled_payload_data_billing",
+    "PostCardCanceledPayloadDataDigitalWalletsItem": ".post_card_canceled_payload_data_digital_wallets_item",
     "PostCardCanceledPayloadDataLimit": ".post_card_canceled_payload_data_limit",
     "PostCardCanceledPayloadDataLimitFrequency": ".post_card_canceled_payload_data_limit_frequency",
     "PostCardCanceledPayloadDataObject": ".post_card_canceled_payload_data_object",
@@ -190,6 +201,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostCardCreatedPayloadApiVersion": ".post_card_created_payload_api_version",
     "PostCardCreatedPayloadData": ".post_card_created_payload_data",
     "PostCardCreatedPayloadDataBilling": ".post_card_created_payload_data_billing",
+    "PostCardCreatedPayloadDataDigitalWalletsItem": ".post_card_created_payload_data_digital_wallets_item",
     "PostCardCreatedPayloadDataLimit": ".post_card_created_payload_data_limit",
     "PostCardCreatedPayloadDataLimitFrequency": ".post_card_created_payload_data_limit_frequency",
     "PostCardCreatedPayloadDataObject": ".post_card_created_payload_data_object",
@@ -201,6 +213,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostCardFrozenPayloadApiVersion": ".post_card_frozen_payload_api_version",
     "PostCardFrozenPayloadData": ".post_card_frozen_payload_data",
     "PostCardFrozenPayloadDataBilling": ".post_card_frozen_payload_data_billing",
+    "PostCardFrozenPayloadDataDigitalWalletsItem": ".post_card_frozen_payload_data_digital_wallets_item",
     "PostCardFrozenPayloadDataLimit": ".post_card_frozen_payload_data_limit",
     "PostCardFrozenPayloadDataLimitFrequency": ".post_card_frozen_payload_data_limit_frequency",
     "PostCardFrozenPayloadDataObject": ".post_card_frozen_payload_data_object",
@@ -227,6 +240,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostCardUpdatedPayloadApiVersion": ".post_card_updated_payload_api_version",
     "PostCardUpdatedPayloadData": ".post_card_updated_payload_data",
     "PostCardUpdatedPayloadDataBilling": ".post_card_updated_payload_data_billing",
+    "PostCardUpdatedPayloadDataDigitalWalletsItem": ".post_card_updated_payload_data_digital_wallets_item",
     "PostCardUpdatedPayloadDataLimit": ".post_card_updated_payload_data_limit",
     "PostCardUpdatedPayloadDataLimitFrequency": ".post_card_updated_payload_data_limit_frequency",
     "PostCardUpdatedPayloadDataObject": ".post_card_updated_payload_data_object",
@@ -236,6 +250,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostCardUpdatedPayloadType": ".post_card_updated_payload_type",
     "RetrieveCardsResponse": ".retrieve_cards_response",
     "RetrieveCardsResponseBilling": ".retrieve_cards_response_billing",
+    "RetrieveCardsResponseDigitalWalletsItem": ".retrieve_cards_response_digital_wallets_item",
     "RetrieveCardsResponseLimit": ".retrieve_cards_response_limit",
     "RetrieveCardsResponseLimitFrequency": ".retrieve_cards_response_limit_frequency",
     "RetrieveCardsResponseObject": ".retrieve_cards_response_object",
@@ -247,6 +262,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateCardsRequestSpendLimitFrequency": ".update_cards_request_spend_limit_frequency",
     "UpdateCardsResponse": ".update_cards_response",
     "UpdateCardsResponseBilling": ".update_cards_response_billing",
+    "UpdateCardsResponseDigitalWalletsItem": ".update_cards_response_digital_wallets_item",
     "UpdateCardsResponseLimit": ".update_cards_response_limit",
     "UpdateCardsResponseLimitFrequency": ".update_cards_response_limit_frequency",
     "UpdateCardsResponseObject": ".update_cards_response_object",
@@ -284,6 +300,7 @@ __all__ = [
     "CreateCardsRequestSpendLimitFrequency",
     "CreateCardsResponse",
     "CreateCardsResponseBilling",
+    "CreateCardsResponseDigitalWalletsItem",
     "CreateCardsResponseLimit",
     "CreateCardsResponseLimitFrequency",
     "CreateCardsResponseObject",
@@ -293,6 +310,7 @@ __all__ = [
     "ListCardsResponse",
     "ListCardsResponseDataItem",
     "ListCardsResponseDataItemBilling",
+    "ListCardsResponseDataItemDigitalWalletsItem",
     "ListCardsResponseDataItemLimit",
     "ListCardsResponseDataItemLimitFrequency",
     "ListCardsResponseDataItemObject",
@@ -327,6 +345,7 @@ __all__ = [
     "PostCardCanceledPayloadApiVersion",
     "PostCardCanceledPayloadData",
     "PostCardCanceledPayloadDataBilling",
+    "PostCardCanceledPayloadDataDigitalWalletsItem",
     "PostCardCanceledPayloadDataLimit",
     "PostCardCanceledPayloadDataLimitFrequency",
     "PostCardCanceledPayloadDataObject",
@@ -338,6 +357,7 @@ __all__ = [
     "PostCardCreatedPayloadApiVersion",
     "PostCardCreatedPayloadData",
     "PostCardCreatedPayloadDataBilling",
+    "PostCardCreatedPayloadDataDigitalWalletsItem",
     "PostCardCreatedPayloadDataLimit",
     "PostCardCreatedPayloadDataLimitFrequency",
     "PostCardCreatedPayloadDataObject",
@@ -349,6 +369,7 @@ __all__ = [
     "PostCardFrozenPayloadApiVersion",
     "PostCardFrozenPayloadData",
     "PostCardFrozenPayloadDataBilling",
+    "PostCardFrozenPayloadDataDigitalWalletsItem",
     "PostCardFrozenPayloadDataLimit",
     "PostCardFrozenPayloadDataLimitFrequency",
     "PostCardFrozenPayloadDataObject",
@@ -375,6 +396,7 @@ __all__ = [
     "PostCardUpdatedPayloadApiVersion",
     "PostCardUpdatedPayloadData",
     "PostCardUpdatedPayloadDataBilling",
+    "PostCardUpdatedPayloadDataDigitalWalletsItem",
     "PostCardUpdatedPayloadDataLimit",
     "PostCardUpdatedPayloadDataLimitFrequency",
     "PostCardUpdatedPayloadDataObject",
@@ -384,6 +406,7 @@ __all__ = [
     "PostCardUpdatedPayloadType",
     "RetrieveCardsResponse",
     "RetrieveCardsResponseBilling",
+    "RetrieveCardsResponseDigitalWalletsItem",
     "RetrieveCardsResponseLimit",
     "RetrieveCardsResponseLimitFrequency",
     "RetrieveCardsResponseObject",
@@ -395,6 +418,7 @@ __all__ = [
     "UpdateCardsRequestSpendLimitFrequency",
     "UpdateCardsResponse",
     "UpdateCardsResponseBilling",
+    "UpdateCardsResponseDigitalWalletsItem",
     "UpdateCardsResponseLimit",
     "UpdateCardsResponseLimitFrequency",
     "UpdateCardsResponseObject",
