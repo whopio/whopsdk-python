@@ -103,6 +103,16 @@ class PostAdCampaignPaymentFailedPayloadData(UniversalBaseModel):
     The configured lifecycle status of the ad campaign. Billing failures preserve active or paused here and set delivery_status to payment_failed.
     """
 
+    target_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The desired cost per result for `target_result_event`, in USD. `null` when none is set.
+    """
+
+    target_result_event: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The event `target_cost_per_result` is priced per, such as `purchase` or `lead`. `null` when the campaign has no single goal.
+    """
+
     title: str = pydantic.Field()
     """
     Display name of the ad campaign.

@@ -299,6 +299,16 @@ class AdCampaign(UniversalBaseModel):
     Whop pixel-attributed submit-application events, last-click.
     """
 
+    target_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The desired cost per result for `target_result_event`, in USD. `null` when none is set.
+    """
+
+    target_result_event: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The event `target_cost_per_result` is priced per, such as `purchase` or `lead`. `null` when the campaign has no single goal.
+    """
+
     title: str = pydantic.Field()
     """
     Display name of the ad campaign.
