@@ -45,6 +45,11 @@ class ProductPublicVariant(UniversalBaseModel):
     Variant display name shown to customers. `null` if no title has been set.
     """
 
+    trial_period_days: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Free trial days before the first renewal charge. `null` if no trial is configured or the signed-in user has already used a trial on this variant.
+    """
+
     unlimited_stock: bool = pydantic.Field()
     """
     Whether the variant has unlimited stock.

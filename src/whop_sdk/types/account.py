@@ -59,7 +59,7 @@ class Account(UniversalBaseModel):
 
     business_type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
+    High-level business category for the account. See the [business types and industries glossary](/api-reference/accounts/account#business-types-and-industries-glossary) for valid values.
     """
 
     can_transfer_pending_balance_to_children: bool = pydantic.Field()
@@ -89,7 +89,7 @@ class Account(UniversalBaseModel):
 
     company_formation: AccountCompanyFormation = pydantic.Field()
     """
-    Company formation state for the account, managed through [Form Company](/api-reference/beta/accounts/form-company). A `draft` `status` until the formation checkout is paid, then filing progress with downloadable documents and signatures awaiting action. Empty when the formation state is temporarily unavailable.
+    Company formation state for the account, managed through [Form Company](/api-reference/accounts/form-company). A `draft` `status` until the formation checkout is paid, then filing progress with downloadable documents and signatures awaiting action. Empty when the formation state is temporarily unavailable.
     """
 
     country: typing.Optional[str] = pydantic.Field(default=None)
@@ -155,7 +155,7 @@ class Account(UniversalBaseModel):
 
     industry_type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Specific industry vertical for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
+    Specific industry vertical for the account. See the [business types and industries glossary](/api-reference/accounts/account#business-types-and-industries-glossary) for valid values.
     """
 
     invoice_prefix: typing.Optional[str] = pydantic.Field(default=None)
