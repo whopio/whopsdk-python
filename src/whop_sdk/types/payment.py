@@ -9,6 +9,7 @@ from .currencies import Currencies
 from .friendly_receipt_status import FriendlyReceiptStatus
 from .money import Money
 from .payment_address import PaymentAddress
+from .payment_checkout_surface import PaymentCheckoutSurface
 from .payment_decline_codes import PaymentDeclineCodes
 from .payment_hold import PaymentHold
 from .payment_instrument import PaymentInstrument
@@ -60,6 +61,16 @@ class Payment(UniversalBaseModel):
     checkout_configuration_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The checkout configuration the buyer paid through, prefixed `ch_`, or null.
+    """
+
+    checkout_origin: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The scheme and host of the website where the buyer opened the checkout, such as `https://store.example.com`. Use it to tell apart payments from different websites on one account. Null when the website was not recorded, including for payments made without the buyer present.
+    """
+
+    checkout_surface: typing.Optional[PaymentCheckoutSurface] = pydantic.Field(default=None)
+    """
+    The checkout experience that produced this payment, such as `embedded_checkout` for a checkout on the account's own website or `off_session` for a subscription renewal. Null when the checkout was not recorded.
     """
 
     client_secret: typing.Optional[str] = pydantic.Field(default=None)
