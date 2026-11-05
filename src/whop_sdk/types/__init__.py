@@ -1367,6 +1367,8 @@ if typing.TYPE_CHECKING:
     from .review_list_item import ReviewListItem
     from .review_list_item_status import ReviewListItemStatus
     from .review_product import ReviewProduct
+    from .review_report import ReviewReport
+    from .review_report_status import ReviewReportStatus
     from .review_status import ReviewStatus
     from .review_user import ReviewUser
     from .schedule_frequencies import ScheduleFrequencies
@@ -2794,6 +2796,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReviewListItem": ".review_list_item",
     "ReviewListItemStatus": ".review_list_item_status",
     "ReviewProduct": ".review_product",
+    "ReviewReport": ".review_report",
+    "ReviewReportStatus": ".review_report_status",
     "ReviewStatus": ".review_status",
     "ReviewUser": ".review_user",
     "ScheduleFrequencies": ".schedule_frequencies",
@@ -4239,6 +4243,8 @@ __all__ = [
     "ReviewListItem",
     "ReviewListItemStatus",
     "ReviewProduct",
+    "ReviewReport",
+    "ReviewReportStatus",
     "ReviewStatus",
     "ReviewUser",
     "ScheduleFrequencies",
