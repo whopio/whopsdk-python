@@ -856,6 +856,7 @@ if typing.TYPE_CHECKING:
     from .payment_bank_transfer import PaymentBankTransfer
     from .payment_bank_transfer_instructions import PaymentBankTransferInstructions
     from .payment_billing_details_preview import PaymentBillingDetailsPreview
+    from .payment_checkout_surface import PaymentCheckoutSurface
     from .payment_decline_codes import PaymentDeclineCodes
     from .payment_fee import PaymentFee
     from .payment_fee_origin import PaymentFeeOrigin
@@ -2391,6 +2392,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentBankTransfer": ".payment_bank_transfer",
     "PaymentBankTransferInstructions": ".payment_bank_transfer_instructions",
     "PaymentBillingDetailsPreview": ".payment_billing_details_preview",
+    "PaymentCheckoutSurface": ".payment_checkout_surface",
     "PaymentDeclineCodes": ".payment_decline_codes",
     "PaymentFee": ".payment_fee",
     "PaymentFeeOrigin": ".payment_fee_origin",
@@ -3830,6 +3832,7 @@ __all__ = [
     "PaymentBankTransfer",
     "PaymentBankTransferInstructions",
     "PaymentBillingDetailsPreview",
+    "PaymentCheckoutSurface",
     "PaymentDeclineCodes",
     "PaymentFee",
     "PaymentFeeOrigin",
