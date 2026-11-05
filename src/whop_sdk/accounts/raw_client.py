@@ -940,7 +940,7 @@ class RawAccountsClient:
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
 
         whop_partner_enabled : typing.Optional[bool]
-            Set to `true` to turn on Whop Partner mode for the account, so its team can refer businesses and the account is paid partner commission on their sales. Recorded once; `false` is rejected.
+            Set to `true` to turn on Whop Partner mode for the account, so its team can refer businesses and the account is paid partner commission on their sales. Recorded once; `false` is rejected. Only a verified Whop Partner can turn it on.
 
         industry_type : typing.Optional[typing.Any]
 
@@ -2453,7 +2453,7 @@ class AsyncRawAccountsClient:
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
 
         whop_partner_enabled : typing.Optional[bool]
-            Set to `true` to turn on Whop Partner mode for the account, so its team can refer businesses and the account is paid partner commission on their sales. Recorded once; `false` is rejected.
+            Set to `true` to turn on Whop Partner mode for the account, so its team can refer businesses and the account is paid partner commission on their sales. Recorded once; `false` is rejected. Only a verified Whop Partner can turn it on.
 
         industry_type : typing.Optional[typing.Any]
 
