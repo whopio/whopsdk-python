@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class CreateSocialAccountsRequestBodyTiktok(UniversalBaseModel):
     """
-    Provisions a Whop-managed TikTok account for the account. Requires the account's `logo`; configure it with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before TikTok has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+    Provisions a Whop-managed TikTok account for the account. Requires the account's `logo`; configure it with [Update Account](/api-reference/accounts/update-account). The account is returned before TikTok has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
     """
 
     account_id: typing.Optional[str] = pydantic.Field(default=None)
