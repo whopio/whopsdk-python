@@ -46,6 +46,8 @@ class RawTeamMembersClient:
         reports_to_id: typing.Optional[str] = None,
         direct_reports_min: typing.Optional[int] = None,
         direct_reports_max: typing.Optional[int] = None,
+        team_lead_id: typing.Optional[str] = None,
+        has_referred_businesses: typing.Optional[bool] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListTeamMembersRequestOrder] = None,
@@ -57,12 +59,12 @@ class RawTeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[TeamMember, ListTeamMembersResponse]:
         """
-        Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope. Members with the view-only Partner role are listed after all other members.
+        Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope. A signed-in Partner, or a member others report to, without `company:authorized_user:read` lists only their own joined membership and the members who report up to them, never pending invites. Members with the view-only Partner role are listed after all other members.
 
         Parameters
         ----------
         account_id : str
-            Account ID, prefixed `biz_`.
+            Account ID, prefixed `biz_`. A global admin query passes `global` to list the joined members of every partner account, in `created_at` order; of the reporting line filters, only `team_lead_id` and `has_referred_businesses` apply.
 
         status : typing.Optional[ListTeamMembersRequestStatus]
             Only return members with this status: `joined` (accepted members) or `pending` (pending invites). Both are returned by default.
@@ -84,6 +86,12 @@ class RawTeamMembersClient:
 
         direct_reports_max : typing.Optional[int]
             Only return members with at most this many direct reports; `0` returns the people who manage no one. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+
+        team_lead_id : typing.Optional[str]
+            Only return this user, prefixed `user_`, and everyone under them in today's org chart: the same team the stats API's `team_lead_id` reads. With `account_id=global`, their line in every partner account where they hold a role. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+
+        has_referred_businesses : typing.Optional[bool]
+            When true, only members who referred at least one business for their account, the reps the `partner_reps` stats metric counts; when false, only members who referred none. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
 
         created_before : typing.Optional[str]
             Only return members added before this ISO 8601 timestamp.
@@ -130,6 +138,8 @@ class RawTeamMembersClient:
                 "reports_to_id": reports_to_id,
                 "direct_reports_min": direct_reports_min,
                 "direct_reports_max": direct_reports_max,
+                "team_lead_id": team_lead_id,
+                "has_referred_businesses": has_referred_businesses,
                 "created_before": created_before,
                 "created_after": created_after,
                 "order": order,
@@ -165,6 +175,8 @@ class RawTeamMembersClient:
                         reports_to_id=reports_to_id,
                         direct_reports_min=direct_reports_min,
                         direct_reports_max=direct_reports_max,
+                        team_lead_id=team_lead_id,
+                        has_referred_businesses=has_referred_businesses,
                         created_before=created_before,
                         created_after=created_after,
                         order=order,
@@ -557,6 +569,8 @@ class AsyncRawTeamMembersClient:
         reports_to_id: typing.Optional[str] = None,
         direct_reports_min: typing.Optional[int] = None,
         direct_reports_max: typing.Optional[int] = None,
+        team_lead_id: typing.Optional[str] = None,
+        has_referred_businesses: typing.Optional[bool] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListTeamMembersRequestOrder] = None,
@@ -568,12 +582,12 @@ class AsyncRawTeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[TeamMember, ListTeamMembersResponse]:
         """
-        Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope. Members with the view-only Partner role are listed after all other members.
+        Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope. A signed-in Partner, or a member others report to, without `company:authorized_user:read` lists only their own joined membership and the members who report up to them, never pending invites. Members with the view-only Partner role are listed after all other members.
 
         Parameters
         ----------
         account_id : str
-            Account ID, prefixed `biz_`.
+            Account ID, prefixed `biz_`. A global admin query passes `global` to list the joined members of every partner account, in `created_at` order; of the reporting line filters, only `team_lead_id` and `has_referred_businesses` apply.
 
         status : typing.Optional[ListTeamMembersRequestStatus]
             Only return members with this status: `joined` (accepted members) or `pending` (pending invites). Both are returned by default.
@@ -595,6 +609,12 @@ class AsyncRawTeamMembersClient:
 
         direct_reports_max : typing.Optional[int]
             Only return members with at most this many direct reports; `0` returns the people who manage no one. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+
+        team_lead_id : typing.Optional[str]
+            Only return this user, prefixed `user_`, and everyone under them in today's org chart: the same team the stats API's `team_lead_id` reads. With `account_id=global`, their line in every partner account where they hold a role. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+
+        has_referred_businesses : typing.Optional[bool]
+            When true, only members who referred at least one business for their account, the reps the `partner_reps` stats metric counts; when false, only members who referred none. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
 
         created_before : typing.Optional[str]
             Only return members added before this ISO 8601 timestamp.
@@ -641,6 +661,8 @@ class AsyncRawTeamMembersClient:
                 "reports_to_id": reports_to_id,
                 "direct_reports_min": direct_reports_min,
                 "direct_reports_max": direct_reports_max,
+                "team_lead_id": team_lead_id,
+                "has_referred_businesses": has_referred_businesses,
                 "created_before": created_before,
                 "created_after": created_after,
                 "order": order,
@@ -678,6 +700,8 @@ class AsyncRawTeamMembersClient:
                             reports_to_id=reports_to_id,
                             direct_reports_min=direct_reports_min,
                             direct_reports_max=direct_reports_max,
+                            team_lead_id=team_lead_id,
+                            has_referred_businesses=has_referred_businesses,
                             created_before=created_before,
                             created_after=created_after,
                             order=order,

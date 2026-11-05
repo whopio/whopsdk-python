@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .team_member_authorized_role import TeamMemberAuthorizedRole
+from .team_member_manager import TeamMemberManager
 from .team_member_role import TeamMemberRole
 from .team_member_status import TeamMemberStatus
 from .user_summary import UserSummary
@@ -46,6 +47,7 @@ class TeamMember(UniversalBaseModel):
     Whether this member is an agent (app-controlled account) rather than a human team member. Always `false` for invites.
     """
 
+    reports_to_chain: typing.Optional[typing.List[TeamMemberManager]] = None
     reports_to_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The ID of the team member this member reports to, starting with `ausr_` or `mber_`; treat it as opaque. `null` when the member reports to the business directly, and for invites.
