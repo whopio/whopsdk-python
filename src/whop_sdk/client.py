@@ -91,6 +91,7 @@ if typing.TYPE_CHECKING:
     from .reactions.client import AsyncReactionsClient, ReactionsClient
     from .refunds.client import AsyncRefundsClient, RefundsClient
     from .resolution_center_cases.client import AsyncResolutionCenterCasesClient, ResolutionCenterCasesClient
+    from .review_reports.client import AsyncReviewReportsClient, ReviewReportsClient
     from .reviews.client import AsyncReviewsClient, ReviewsClient
     from .search.client import AsyncSearchClient, SearchClient
     from .setup_intents.client import AsyncSetupIntentsClient, SetupIntentsClient
@@ -278,6 +279,7 @@ class Whop:
         self._reactions: typing.Optional[ReactionsClient] = None
         self._refunds: typing.Optional[RefundsClient] = None
         self._resolution_center_cases: typing.Optional[ResolutionCenterCasesClient] = None
+        self._review_reports: typing.Optional[ReviewReportsClient] = None
         self._reviews: typing.Optional[ReviewsClient] = None
         self._search: typing.Optional[SearchClient] = None
         self._setup_intents: typing.Optional[SetupIntentsClient] = None
@@ -944,6 +946,14 @@ class Whop:
         return self._resolution_center_cases
 
     @property
+    def review_reports(self):
+        if self._review_reports is None:
+            from .review_reports.client import ReviewReportsClient  # noqa: E402
+
+            self._review_reports = ReviewReportsClient(client_wrapper=self._client_wrapper)
+        return self._review_reports
+
+    @property
     def reviews(self):
         if self._reviews is None:
             from .reviews.client import ReviewsClient  # noqa: E402
@@ -1262,6 +1272,7 @@ class AsyncWhop:
         self._reactions: typing.Optional[AsyncReactionsClient] = None
         self._refunds: typing.Optional[AsyncRefundsClient] = None
         self._resolution_center_cases: typing.Optional[AsyncResolutionCenterCasesClient] = None
+        self._review_reports: typing.Optional[AsyncReviewReportsClient] = None
         self._reviews: typing.Optional[AsyncReviewsClient] = None
         self._search: typing.Optional[AsyncSearchClient] = None
         self._setup_intents: typing.Optional[AsyncSetupIntentsClient] = None
@@ -1926,6 +1937,14 @@ class AsyncWhop:
 
             self._resolution_center_cases = AsyncResolutionCenterCasesClient(client_wrapper=self._client_wrapper)
         return self._resolution_center_cases
+
+    @property
+    def review_reports(self):
+        if self._review_reports is None:
+            from .review_reports.client import AsyncReviewReportsClient  # noqa: E402
+
+            self._review_reports = AsyncReviewReportsClient(client_wrapper=self._client_wrapper)
+        return self._review_reports
 
     @property
     def reviews(self):
