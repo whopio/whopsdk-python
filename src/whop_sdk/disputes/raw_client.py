@@ -571,7 +571,7 @@ class RawDisputesClient:
 
     def submit(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Dispute]:
         """
-        Sends a dispute's evidence to the payment processor. The filing runs in the background: the dispute moves to `under_review` and `evidence_submitted_at` is set once the processor accepts the packet, and it stays `needs_response` if the processor rejects it. This is final — it cannot be edited or sent again.
+        Sends a dispute's evidence to the payment processor. The packet is checked against the processor's limits first, so a file over a cap is refused here with the file and the limit named. Otherwise the dispute is returned as `generating_response` with its evidence locked and the filing completes in the background: the dispute moves to `under_review` with `evidence_submitted_at` set once the processor accepts it, or back to `needs_response` with `submission_failure_reason` set when the processor refuses it, so it can be fixed and sent again before `evidence_due_at`. Either move is sent as `dispute.updated`.
 
         Parameters
         ----------
@@ -584,7 +584,7 @@ class RawDisputesClient:
         Returns
         -------
         HttpResponse[Dispute]
-            dispute submission started
+            the filing started; the dispute is in flight
         """
         _response = self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}/submit",
@@ -1309,7 +1309,7 @@ class AsyncRawDisputesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Dispute]:
         """
-        Sends a dispute's evidence to the payment processor. The filing runs in the background: the dispute moves to `under_review` and `evidence_submitted_at` is set once the processor accepts the packet, and it stays `needs_response` if the processor rejects it. This is final — it cannot be edited or sent again.
+        Sends a dispute's evidence to the payment processor. The packet is checked against the processor's limits first, so a file over a cap is refused here with the file and the limit named. Otherwise the dispute is returned as `generating_response` with its evidence locked and the filing completes in the background: the dispute moves to `under_review` with `evidence_submitted_at` set once the processor accepts it, or back to `needs_response` with `submission_failure_reason` set when the processor refuses it, so it can be fixed and sent again before `evidence_due_at`. Either move is sent as `dispute.updated`.
 
         Parameters
         ----------
@@ -1322,7 +1322,7 @@ class AsyncRawDisputesClient:
         Returns
         -------
         AsyncHttpResponse[Dispute]
-            dispute submission started
+            the filing started; the dispute is in flight
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}/submit",
