@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .ad_call_to_action import AdCallToAction
+from .ad_content_review import AdContentReview
 from .ad_creative import AdCreative
 from .ad_delivery_status import AdDeliveryStatus
 from .ad_entity_reference import AdEntityReference
@@ -68,6 +69,11 @@ class Ad(UniversalBaseModel):
     contacts: float = pydantic.Field()
     """
     Whop pixel-attributed contact events, last-click.
+    """
+
+    content_review: AdContentReview = pydantic.Field()
+    """
+    Whop's content review of this ad: whether it has finished, which ad networks it is recommended for, and the content rules it breaks.
     """
 
     cost_per_added_to_cart: typing.Optional[float] = pydantic.Field(default=None)

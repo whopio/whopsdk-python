@@ -124,6 +124,11 @@ if typing.TYPE_CHECKING:
     from .ad_campaign_result_event import AdCampaignResultEvent
     from .ad_campaign_special_ad_categories_item import AdCampaignSpecialAdCategoriesItem
     from .ad_campaign_status import AdCampaignStatus
+    from .ad_content_review import AdContentReview
+    from .ad_content_review_network import AdContentReviewNetwork
+    from .ad_content_review_network_title import AdContentReviewNetworkTitle
+    from .ad_content_review_status import AdContentReviewStatus
+    from .ad_content_review_tag import AdContentReviewTag
     from .ad_creative import AdCreative
     from .ad_creative_crop import AdCreativeCrop
     from .ad_creative_format import AdCreativeFormat
@@ -1680,6 +1685,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdCampaignResultEvent": ".ad_campaign_result_event",
     "AdCampaignSpecialAdCategoriesItem": ".ad_campaign_special_ad_categories_item",
     "AdCampaignStatus": ".ad_campaign_status",
+    "AdContentReview": ".ad_content_review",
+    "AdContentReviewNetwork": ".ad_content_review_network",
+    "AdContentReviewNetworkTitle": ".ad_content_review_network_title",
+    "AdContentReviewStatus": ".ad_content_review_status",
+    "AdContentReviewTag": ".ad_content_review_tag",
     "AdCreative": ".ad_creative",
     "AdCreativeCrop": ".ad_creative_crop",
     "AdCreativeFormat": ".ad_creative_format",
@@ -3120,6 +3130,11 @@ __all__ = [
     "AdCampaignResultEvent",
     "AdCampaignSpecialAdCategoriesItem",
     "AdCampaignStatus",
+    "AdContentReview",
+    "AdContentReviewNetwork",
+    "AdContentReviewNetworkTitle",
+    "AdContentReviewStatus",
+    "AdContentReviewTag",
     "AdCreative",
     "AdCreativeCrop",
     "AdCreativeFormat",
