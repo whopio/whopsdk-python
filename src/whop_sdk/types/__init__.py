@@ -1456,6 +1456,7 @@ if typing.TYPE_CHECKING:
     from .tax_types import TaxTypes
     from .team_member import TeamMember
     from .team_member_authorized_role import TeamMemberAuthorizedRole
+    from .team_member_manager import TeamMemberManager
     from .team_member_role import TeamMemberRole
     from .team_member_status import TeamMemberStatus
     from .too_many_requests_error_body import TooManyRequestsErrorBody
@@ -2870,6 +2871,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TaxTypes": ".tax_types",
     "TeamMember": ".team_member",
     "TeamMemberAuthorizedRole": ".team_member_authorized_role",
+    "TeamMemberManager": ".team_member_manager",
     "TeamMemberRole": ".team_member_role",
     "TeamMemberStatus": ".team_member_status",
     "TooManyRequestsErrorBody": ".too_many_requests_error_body",
@@ -4308,6 +4310,7 @@ __all__ = [
     "TaxTypes",
     "TeamMember",
     "TeamMemberAuthorizedRole",
+    "TeamMemberManager",
     "TeamMemberRole",
     "TeamMemberStatus",
     "TooManyRequestsErrorBody",
