@@ -8,6 +8,7 @@ ListDisputesRequestStatusItem = typing.Union[
         "warning_needs_response",
         "under_review",
         "warning_under_review",
+        "generating_response",
         "won",
         "lost",
         "prevented",

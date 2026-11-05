@@ -105,7 +105,7 @@ class ReviewsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-04-1",
+            "2026-11-05",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -158,7 +158,7 @@ class ReviewsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-04-1",
+            "2026-11-05",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -191,7 +191,7 @@ class ReviewsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-04-1",
+            "2026-11-05",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -295,7 +295,7 @@ class AsyncReviewsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-04-1",
+            "2026-11-05",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -357,7 +357,7 @@ class AsyncReviewsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-04-1",
+            "2026-11-05",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -400,7 +400,7 @@ class AsyncReviewsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-04-1",
+            "2026-11-05",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
