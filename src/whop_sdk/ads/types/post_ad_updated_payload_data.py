@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.ad_content_review import AdContentReview
 from ...types.ad_creative import AdCreative
 from ...types.ad_entity_reference import AdEntityReference
 from ...types.ad_platform_issue import AdPlatformIssue
@@ -27,6 +28,11 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     call_to_action: typing.Optional[PostAdUpdatedPayloadDataCallToAction] = pydantic.Field(default=None)
     """
     The call-to-action button shown on the ad.
+    """
+
+    content_review: AdContentReview = pydantic.Field()
+    """
+    Whop's content review of this ad: whether it has finished, which ad networks it is recommended for, and the content rules it breaks.
     """
 
     created_at: str = pydantic.Field()
