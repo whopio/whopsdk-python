@@ -94,6 +94,11 @@ class CreatePaymentsRequestLineItemsItemVariant(UniversalBaseModel):
     Recurring price in the variant currency.
     """
 
+    split_pay_required_payments: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    How many payments a recurring variant collects before it stops billing, from 2 to 115. Only valid for `renewal` variants. `null` bills until the subscription is canceled.
+    """
+
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
     Variant title.
