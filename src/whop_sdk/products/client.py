@@ -15,6 +15,7 @@ from .types.create_products_request_member_affiliate_status import CreateProduct
 from .types.delete_products_response import DeleteProductsResponse
 from .types.list_products_request_billing_types_item import ListProductsRequestBillingTypesItem
 from .types.list_products_request_direction import ListProductsRequestDirection
+from .types.list_products_request_order import ListProductsRequestOrder
 from .types.list_products_response import ListProductsResponse
 from .types.update_products_request_banner_image import UpdateProductsRequestBannerImage
 from .types.update_products_request_gallery_images_item import UpdateProductsRequestGalleryImagesItem
@@ -53,7 +54,7 @@ class ProductsClient:
         access_pass_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         labels: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         direction: typing.Optional[ListProductsRequestDirection] = None,
-        order: typing.Optional[str] = None,
+        order: typing.Optional[ListProductsRequestOrder] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -98,8 +99,8 @@ class ProductsClient:
         direction : typing.Optional[ListProductsRequestDirection]
             The sort direction for results. Defaults to descending.
 
-        order : typing.Optional[str]
-            Field to sort results by. Account lists accept `created_at` (the default), `active_memberships_count`, `usd_gmv`, `usd_gmv_30_days` and `position`; `position` with `direction` `asc` matches the order the store page shows. Without the `access_pass:basic:read` permission, an account list sorts only by `created_at` or `position`. Marketplace lists default to `discoverable_at`, accept only `created_at` or `discoverable_at`, and can't be combined with `query`.
+        order : typing.Optional[ListProductsRequestOrder]
+            Field to sort results by. Account lists default to `created_at`, and `position` with `direction` `asc` matches the order the store page shows. Without the `access_pass:basic:read` permission, an account list sorts only by `created_at` or `position`. Marketplace lists default to `discoverable_at`, accept only `created_at` or `discoverable_at`, and can't be combined with `query`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -561,7 +562,7 @@ class AsyncProductsClient:
         access_pass_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         labels: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         direction: typing.Optional[ListProductsRequestDirection] = None,
-        order: typing.Optional[str] = None,
+        order: typing.Optional[ListProductsRequestOrder] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -606,8 +607,8 @@ class AsyncProductsClient:
         direction : typing.Optional[ListProductsRequestDirection]
             The sort direction for results. Defaults to descending.
 
-        order : typing.Optional[str]
-            Field to sort results by. Account lists accept `created_at` (the default), `active_memberships_count`, `usd_gmv`, `usd_gmv_30_days` and `position`; `position` with `direction` `asc` matches the order the store page shows. Without the `access_pass:basic:read` permission, an account list sorts only by `created_at` or `position`. Marketplace lists default to `discoverable_at`, accept only `created_at` or `discoverable_at`, and can't be combined with `query`.
+        order : typing.Optional[ListProductsRequestOrder]
+            Field to sort results by. Account lists default to `created_at`, and `position` with `direction` `asc` matches the order the store page shows. Without the `access_pass:basic:read` permission, an account list sorts only by `created_at` or `position`. Marketplace lists default to `discoverable_at`, accept only `created_at` or `discoverable_at`, and can't be combined with `query`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.

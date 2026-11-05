@@ -2,4 +2,7 @@
 
 import typing
 
-TradeStep = typing.Union[typing.Literal["depositing", "landing", "placing", "withdrawing", "returning"], typing.Any]
+TradeStep = typing.Union[
+    typing.Literal["depositing", "landing", "placing", "withdrawing", "returning", "quoting", "swapping", "crediting"],
+    typing.Any,
+]
