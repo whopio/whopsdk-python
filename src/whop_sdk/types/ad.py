@@ -287,7 +287,7 @@ class Ad(UniversalBaseModel):
 
     url_parameters: typing.Dict[str, typing.Any] = pydantic.Field()
     """
-    Every query parameter appended to the URL, keyed by parameter name — including any you sent on `url` itself. Whop adds its own click-attribution parameters; those are reserved, and setting one returns an error that names it.
+    Query parameters appended to `url`, keyed by name. Whop's click-attribution parameters are reserved.
     """
 
     viewed_content_value: float = pydantic.Field()
