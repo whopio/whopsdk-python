@@ -7,24 +7,24 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CustomerTrackingPreferences(UniversalBaseModel):
-    accent_color: typing.Optional[str] = pydantic.Field(default=None)
+    accent_color: str = pydantic.Field()
     """
-    Accent color, as a `#rrggbb` hex color. `null` uses the default.
-    """
-
-    enabled: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether the public tracking page and guest lookup are available. `null` is off.
+    Accent color, as a `#rrggbb` hex color. Defaults to `#1d4ed8`.
     """
 
-    show_business_name: typing.Optional[bool] = pydantic.Field(default=None)
+    enabled: bool = pydantic.Field()
     """
-    Whether to display the business name on the tracking page and Element. `null` shows it.
+    Whether the public tracking page and guest lookup are available. Defaults to false.
     """
 
-    show_logo: typing.Optional[bool] = pydantic.Field(default=None)
+    show_business_name: bool = pydantic.Field()
     """
-    Whether to display the logo on the tracking page and Element. `null` shows it.
+    Whether to display the business name on the tracking page and Element. Defaults to true.
+    """
+
+    show_logo: bool = pydantic.Field()
+    """
+    Whether to display the logo on the tracking page and Element. Defaults to true.
     """
 
     support_email: typing.Optional[str] = pydantic.Field(default=None)

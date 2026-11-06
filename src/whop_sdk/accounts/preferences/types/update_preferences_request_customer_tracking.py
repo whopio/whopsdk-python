@@ -13,22 +13,22 @@ class UpdatePreferencesRequestCustomerTracking(UniversalBaseModel):
 
     accent_color: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Accent color, as a `#rrggbb` hex color. Unset uses the default.
+    Accent color, as a `#rrggbb` hex color. Omitted or null resets to `#1d4ed8`.
     """
 
     enabled: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Turns the public tracking page and guest lookup on. Unset is off.
+    Turns the public tracking page and guest lookup on. Omitted or null resets to false.
     """
 
     show_business_name: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Show the business name on the tracking page and Element. Unset shows it.
+    Show the business name on the tracking page and Element. Omitted or null resets to true.
     """
 
     show_logo: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Show the account logo on the tracking page and Element. Unset shows it.
+    Show the account logo on the tracking page and Element. Omitted or null resets to true.
     """
 
     support_email: typing.Optional[str] = pydantic.Field(default=None)

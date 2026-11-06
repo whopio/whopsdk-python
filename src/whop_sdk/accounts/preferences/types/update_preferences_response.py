@@ -66,7 +66,7 @@ class UpdatePreferencesResponse(UniversalBaseModel):
 
     customer_tracking: typing.Optional[CustomerTrackingPreferences] = pydantic.Field(default=None)
     """
-    The saved customer tracking settings for the hosted tracking page and Element, exactly as saved. `null` until set; tracking is off unless `enabled` is `true`.
+    The saved customer tracking settings for the hosted tracking page and Element, with defaults applied. `null` until set; tracking is off unless `enabled` is `true`.
     """
 
     dispute_fighter_enabled: bool = pydantic.Field()
