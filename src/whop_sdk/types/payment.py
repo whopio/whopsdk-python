@@ -155,6 +155,11 @@ class Payment(UniversalBaseModel):
     Your own key-value data attached when the payment was created.
     """
 
+    missing_tracking: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    True for a paid payment with a shipping address, no shipment, and no full refund. Null without the shipment:basic:read permission.
+    """
+
     needs_tracking: typing.Optional[bool] = pydantic.Field(default=None)
     """
     True when funds are held until the order ships and no tracking number has been added yet. Null without the shipment:basic:read permission.

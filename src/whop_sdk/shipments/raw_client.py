@@ -314,7 +314,7 @@ class RawShipmentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ShipmentLookup]:
         """
-        Finds the delivery for a purchase from an account with customer tracking turned on, using exactly one order or tracking number plus the buyer's current receipt email. No authentication is required and no sign-in or session is created. Email matching ignores case and surrounding whitespace, but dots and +tags must match. Every miss returns the same 404: an unknown account, tracking turned off, a wrong number or email, an unpaid order or a purchase with nothing to ship. `shipment` is `null` while a paid physical purchase has no tracking yet. Limited to 30 attempts per five minutes per client IP. Responses are never cached or replayed with Idempotency-Key.
+        Finds the delivery for a purchase from an account with customer tracking turned on, using exactly one order or tracking number plus the buyer's current receipt email. No authentication is required and no sign-in or session is created. Email matching ignores case and surrounding whitespace, but dots and +tags must match. Every miss returns the same 404: an unknown account, tracking turned off, a wrong number or email, an unpaid order or a purchase with nothing to ship. `shipment` is `null` while a paid physical purchase has no tracking yet, unless it has been fully refunded. Limited to 10 attempts per hour per order or tracking number within the account, and 30 attempts per five minutes per client IP and per email within the account. Responses are never cached or replayed with Idempotency-Key.
 
         Parameters
         ----------
@@ -869,7 +869,7 @@ class AsyncRawShipmentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ShipmentLookup]:
         """
-        Finds the delivery for a purchase from an account with customer tracking turned on, using exactly one order or tracking number plus the buyer's current receipt email. No authentication is required and no sign-in or session is created. Email matching ignores case and surrounding whitespace, but dots and +tags must match. Every miss returns the same 404: an unknown account, tracking turned off, a wrong number or email, an unpaid order or a purchase with nothing to ship. `shipment` is `null` while a paid physical purchase has no tracking yet. Limited to 30 attempts per five minutes per client IP. Responses are never cached or replayed with Idempotency-Key.
+        Finds the delivery for a purchase from an account with customer tracking turned on, using exactly one order or tracking number plus the buyer's current receipt email. No authentication is required and no sign-in or session is created. Email matching ignores case and surrounding whitespace, but dots and +tags must match. Every miss returns the same 404: an unknown account, tracking turned off, a wrong number or email, an unpaid order or a purchase with nothing to ship. `shipment` is `null` while a paid physical purchase has no tracking yet, unless it has been fully refunded. Limited to 10 attempts per hour per order or tracking number within the account, and 30 attempts per five minutes per client IP and per email within the account. Responses are never cached or replayed with Idempotency-Key.
 
         Parameters
         ----------
