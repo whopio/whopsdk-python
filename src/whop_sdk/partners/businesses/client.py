@@ -57,6 +57,7 @@ class BusinessesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         order: typing.Optional[ListBusinessesRequestOrder] = None,
         direction: typing.Optional[ListBusinessesRequestDirection] = None,
         created_before: typing.Optional[str] = None,
@@ -97,6 +98,9 @@ class BusinessesClient:
 
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
 
         order : typing.Optional[ListBusinessesRequestOrder]
             The field to sort partner businesses by.
@@ -161,6 +165,7 @@ class BusinessesClient:
             after=after,
             last=last,
             before=before,
+            include_total_count=include_total_count,
             order=order,
             direction=direction,
             created_before=created_before,
@@ -405,6 +410,7 @@ class AsyncBusinessesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         order: typing.Optional[ListBusinessesRequestOrder] = None,
         direction: typing.Optional[ListBusinessesRequestDirection] = None,
         created_before: typing.Optional[str] = None,
@@ -445,6 +451,9 @@ class AsyncBusinessesClient:
 
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
 
         order : typing.Optional[ListBusinessesRequestOrder]
             The field to sort partner businesses by.
@@ -518,6 +527,7 @@ class AsyncBusinessesClient:
             after=after,
             last=last,
             before=before,
+            include_total_count=include_total_count,
             order=order,
             direction=direction,
             created_before=created_before,
