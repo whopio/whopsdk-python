@@ -13,6 +13,7 @@ from .list_methods_response_data_item_quote import ListMethodsResponseDataItemQu
 from .list_methods_response_data_item_recipient import ListMethodsResponseDataItemRecipient
 from .list_methods_response_data_item_status import ListMethodsResponseDataItemStatus
 from .list_methods_response_data_item_supported_payout_method import ListMethodsResponseDataItemSupportedPayoutMethod
+from .list_methods_response_data_item_type import ListMethodsResponseDataItemType
 from .list_methods_response_data_item_unavailable_reason import ListMethodsResponseDataItemUnavailableReason
 
 
@@ -120,6 +121,11 @@ class ListMethodsResponseDataItem(UniversalBaseModel):
     )
     """
     The supported payout method this saved method was created from.
+    """
+
+    type: ListMethodsResponseDataItemType = pydantic.Field()
+    """
+    The kind of payout method. `external` sends funds out of Whop. `whop_card` moves funds onto the account's own Whop Card. A `whop_card` method takes standard-speed payouts only, and cannot be updated, reconnected, or deleted.
     """
 
     unavailable_reason: typing.Optional[ListMethodsResponseDataItemUnavailableReason] = pydantic.Field(default=None)

@@ -157,7 +157,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-11-05",
+        "2026-11-05-1",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -167,7 +167,7 @@ class Whop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-11-05",
+        api_version_date: typing.Optional[str] = "2026-11-05-1",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1150,7 +1150,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-11-05",
+        "2026-11-05-1",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -1160,7 +1160,7 @@ class AsyncWhop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-11-05",
+        api_version_date: typing.Optional[str] = "2026-11-05-1",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,

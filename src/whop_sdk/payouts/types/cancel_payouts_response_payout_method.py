@@ -7,6 +7,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .cancel_payouts_response_payout_method_supported_payout_method import (
     CancelPayoutsResponsePayoutMethodSupportedPayoutMethod,
 )
+from .cancel_payouts_response_payout_method_type import CancelPayoutsResponsePayoutMethodType
 
 
 class CancelPayoutsResponsePayoutMethod(UniversalBaseModel):
@@ -24,6 +25,11 @@ class CancelPayoutsResponsePayoutMethod(UniversalBaseModel):
     )
     """
     Supported payout method display details.
+    """
+
+    type: CancelPayoutsResponsePayoutMethodType = pydantic.Field()
+    """
+    The kind of payout method the payout used. `external` sent funds out of Whop. `whop_card` moved funds onto the account's own Whop Card.
     """
 
     if IS_PYDANTIC_V2:
