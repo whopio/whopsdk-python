@@ -31,6 +31,11 @@ class CreateCheckoutConfigurationsRequestVariant(UniversalBaseModel):
     Account ID for the inline variant, prefixed `biz_`. Defaults to the account resolved from the request.
     """
 
+    application_fee_amount: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Application fee the platform collects per unit, in the variant currency (5.00 means $5.00 for USD). Must be positive and below the initial price for one-time variants or renewal price for recurring variants. Paid to the parent account alongside other processing fees; collection is capped to remaining proceeds. Applies to subsequent payments on recurring variants. Only valid for subaccounts with a parent account.
+    """
+
     billing_period: typing.Optional[int] = pydantic.Field(default=None)
     """
     Recurring billing interval in days, such as 30 for monthly or 365 for annual.
