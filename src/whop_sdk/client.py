@@ -26,6 +26,9 @@ if typing.TYPE_CHECKING:
     from .apps.client import AppsClient, AsyncAppsClient
     from .audiences.client import AsyncAudiencesClient, AudiencesClient
     from .authorized_users.client import AsyncAuthorizedUsersClient, AuthorizedUsersClient
+    from .automation_enrollments.client import AsyncAutomationEnrollmentsClient, AutomationEnrollmentsClient
+    from .automation_steps.client import AsyncAutomationStepsClient, AutomationStepsClient
+    from .automations.client import AsyncAutomationsClient, AutomationsClient
     from .bounties.client import AsyncBountiesClient, BountiesClient
     from .bounty_submissions.client import AsyncBountySubmissionsClient, BountySubmissionsClient
     from .card_transactions.client import AsyncCardTransactionsClient, CardTransactionsClient
@@ -214,6 +217,9 @@ class Whop:
         self._apps: typing.Optional[AppsClient] = None
         self._audiences: typing.Optional[AudiencesClient] = None
         self._authorized_users: typing.Optional[AuthorizedUsersClient] = None
+        self._automation_enrollments: typing.Optional[AutomationEnrollmentsClient] = None
+        self._automation_steps: typing.Optional[AutomationStepsClient] = None
+        self._automations: typing.Optional[AutomationsClient] = None
         self._bounties: typing.Optional[BountiesClient] = None
         self._bounty_submissions: typing.Optional[BountySubmissionsClient] = None
         self._card_transactions: typing.Optional[CardTransactionsClient] = None
@@ -424,6 +430,30 @@ class Whop:
 
             self._authorized_users = AuthorizedUsersClient(client_wrapper=self._client_wrapper)
         return self._authorized_users
+
+    @property
+    def automation_enrollments(self):
+        if self._automation_enrollments is None:
+            from .automation_enrollments.client import AutomationEnrollmentsClient  # noqa: E402
+
+            self._automation_enrollments = AutomationEnrollmentsClient(client_wrapper=self._client_wrapper)
+        return self._automation_enrollments
+
+    @property
+    def automation_steps(self):
+        if self._automation_steps is None:
+            from .automation_steps.client import AutomationStepsClient  # noqa: E402
+
+            self._automation_steps = AutomationStepsClient(client_wrapper=self._client_wrapper)
+        return self._automation_steps
+
+    @property
+    def automations(self):
+        if self._automations is None:
+            from .automations.client import AutomationsClient  # noqa: E402
+
+            self._automations = AutomationsClient(client_wrapper=self._client_wrapper)
+        return self._automations
 
     @property
     def bounties(self):
@@ -1207,6 +1237,9 @@ class AsyncWhop:
         self._apps: typing.Optional[AsyncAppsClient] = None
         self._audiences: typing.Optional[AsyncAudiencesClient] = None
         self._authorized_users: typing.Optional[AsyncAuthorizedUsersClient] = None
+        self._automation_enrollments: typing.Optional[AsyncAutomationEnrollmentsClient] = None
+        self._automation_steps: typing.Optional[AsyncAutomationStepsClient] = None
+        self._automations: typing.Optional[AsyncAutomationsClient] = None
         self._bounties: typing.Optional[AsyncBountiesClient] = None
         self._bounty_submissions: typing.Optional[AsyncBountySubmissionsClient] = None
         self._card_transactions: typing.Optional[AsyncCardTransactionsClient] = None
@@ -1417,6 +1450,30 @@ class AsyncWhop:
 
             self._authorized_users = AsyncAuthorizedUsersClient(client_wrapper=self._client_wrapper)
         return self._authorized_users
+
+    @property
+    def automation_enrollments(self):
+        if self._automation_enrollments is None:
+            from .automation_enrollments.client import AsyncAutomationEnrollmentsClient  # noqa: E402
+
+            self._automation_enrollments = AsyncAutomationEnrollmentsClient(client_wrapper=self._client_wrapper)
+        return self._automation_enrollments
+
+    @property
+    def automation_steps(self):
+        if self._automation_steps is None:
+            from .automation_steps.client import AsyncAutomationStepsClient  # noqa: E402
+
+            self._automation_steps = AsyncAutomationStepsClient(client_wrapper=self._client_wrapper)
+        return self._automation_steps
+
+    @property
+    def automations(self):
+        if self._automations is None:
+            from .automations.client import AsyncAutomationsClient  # noqa: E402
+
+            self._automations = AsyncAutomationsClient(client_wrapper=self._client_wrapper)
+        return self._automations
 
     @property
     def bounties(self):
