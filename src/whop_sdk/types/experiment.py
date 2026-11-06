@@ -74,6 +74,11 @@ class Experiment(UniversalBaseModel):
     Unique identifier for the experiment, prefixed `expt_`.
     """
 
+    metadata: typing.Optional[typing.Dict[str, str]] = pydantic.Field(default=None)
+    """
+    Key-value pairs attached when the experiment was created. Empty when none were set.
+    """
+
     name: str = pydantic.Field()
     """
     Human-readable display name.

@@ -20839,6 +20839,14 @@ client.experiments.create(
 <dl>
 <dd>
 
+**metadata:** `typing.Optional[typing.Dict[str, str]]` — Up to 20 key-value pairs you can attach to the experiment for your own use, such as which pages it changes. Keys are at most 40 characters and values at most 500.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **name:** `typing.Optional[str]` — Human-readable display name. Defaults to `flag_key` when omitted.
     
 </dd>
