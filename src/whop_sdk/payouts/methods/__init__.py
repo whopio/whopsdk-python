@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
         CreateMethodsResponseStatus,
         CreateMethodsResponseSupportedPayoutMethod,
         CreateMethodsResponseSupportedPayoutMethodDeliveryType,
+        CreateMethodsResponseType,
         CreateMethodsResponseUnavailableReason,
         DeleteMethodsResponse,
         ListMethodsRequestStatus,
@@ -33,6 +34,7 @@ if typing.TYPE_CHECKING:
         ListMethodsResponseDataItemStatus,
         ListMethodsResponseDataItemSupportedPayoutMethod,
         ListMethodsResponseDataItemSupportedPayoutMethodDeliveryType,
+        ListMethodsResponseDataItemType,
         ListMethodsResponseDataItemUnavailableReason,
         ListMethodsResponseLimits,
         ListMethodsResponseLimitsInstant,
@@ -49,6 +51,7 @@ if typing.TYPE_CHECKING:
         UpdateMethodsResponseStatus,
         UpdateMethodsResponseSupportedPayoutMethod,
         UpdateMethodsResponseSupportedPayoutMethodDeliveryType,
+        UpdateMethodsResponseType,
         UpdateMethodsResponseUnavailableReason,
     )
 _dynamic_imports: typing.Dict[str, str] = {
@@ -61,6 +64,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateMethodsResponseStatus": ".types",
     "CreateMethodsResponseSupportedPayoutMethod": ".types",
     "CreateMethodsResponseSupportedPayoutMethodDeliveryType": ".types",
+    "CreateMethodsResponseType": ".types",
     "CreateMethodsResponseUnavailableReason": ".types",
     "DeleteMethodsResponse": ".types",
     "ListMethodsRequestStatus": ".types",
@@ -78,6 +82,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListMethodsResponseDataItemStatus": ".types",
     "ListMethodsResponseDataItemSupportedPayoutMethod": ".types",
     "ListMethodsResponseDataItemSupportedPayoutMethodDeliveryType": ".types",
+    "ListMethodsResponseDataItemType": ".types",
     "ListMethodsResponseDataItemUnavailableReason": ".types",
     "ListMethodsResponseLimits": ".types",
     "ListMethodsResponseLimitsInstant": ".types",
@@ -94,6 +99,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMethodsResponseStatus": ".types",
     "UpdateMethodsResponseSupportedPayoutMethod": ".types",
     "UpdateMethodsResponseSupportedPayoutMethodDeliveryType": ".types",
+    "UpdateMethodsResponseType": ".types",
     "UpdateMethodsResponseUnavailableReason": ".types",
 }
 
@@ -129,6 +135,7 @@ __all__ = [
     "CreateMethodsResponseStatus",
     "CreateMethodsResponseSupportedPayoutMethod",
     "CreateMethodsResponseSupportedPayoutMethodDeliveryType",
+    "CreateMethodsResponseType",
     "CreateMethodsResponseUnavailableReason",
     "DeleteMethodsResponse",
     "ListMethodsRequestStatus",
@@ -146,6 +153,7 @@ __all__ = [
     "ListMethodsResponseDataItemStatus",
     "ListMethodsResponseDataItemSupportedPayoutMethod",
     "ListMethodsResponseDataItemSupportedPayoutMethodDeliveryType",
+    "ListMethodsResponseDataItemType",
     "ListMethodsResponseDataItemUnavailableReason",
     "ListMethodsResponseLimits",
     "ListMethodsResponseLimitsInstant",
@@ -162,5 +170,6 @@ __all__ = [
     "UpdateMethodsResponseStatus",
     "UpdateMethodsResponseSupportedPayoutMethod",
     "UpdateMethodsResponseSupportedPayoutMethodDeliveryType",
+    "UpdateMethodsResponseType",
     "UpdateMethodsResponseUnavailableReason",
 ]

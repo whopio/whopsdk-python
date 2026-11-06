@@ -10,6 +10,7 @@ from .update_methods_response_object import UpdateMethodsResponseObject
 from .update_methods_response_recipient import UpdateMethodsResponseRecipient
 from .update_methods_response_status import UpdateMethodsResponseStatus
 from .update_methods_response_supported_payout_method import UpdateMethodsResponseSupportedPayoutMethod
+from .update_methods_response_type import UpdateMethodsResponseType
 from .update_methods_response_unavailable_reason import UpdateMethodsResponseUnavailableReason
 
 
@@ -91,6 +92,11 @@ class UpdateMethodsResponse(UniversalBaseModel):
     """
 
     supported_payout_method: typing.Optional[UpdateMethodsResponseSupportedPayoutMethod] = None
+    type: UpdateMethodsResponseType = pydantic.Field()
+    """
+    The kind of payout method. `external` sends funds out of Whop. `whop_card` moves funds onto the account's own Whop Card. A `whop_card` method takes standard-speed payouts only, and cannot be updated, reconnected, or deleted.
+    """
+
     unavailable_reason: typing.Optional[UpdateMethodsResponseUnavailableReason] = pydantic.Field(default=None)
     """
     Why this method is unavailable: `destination_retired` means the payout provider stopped offering the destination. Whop may automatically remap an eligible method that was not linked through Plaid to a compatible replacement; otherwise, the account owner must re-add it. `null` means no unavailability reason is known.

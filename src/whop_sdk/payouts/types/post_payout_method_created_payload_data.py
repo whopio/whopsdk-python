@@ -19,6 +19,7 @@ from .post_payout_method_created_payload_data_status import PostPayoutMethodCrea
 from .post_payout_method_created_payload_data_supported_payout_method import (
     PostPayoutMethodCreatedPayloadDataSupportedPayoutMethod,
 )
+from .post_payout_method_created_payload_data_type import PostPayoutMethodCreatedPayloadDataType
 from .post_payout_method_created_payload_data_unavailable_reason import (
     PostPayoutMethodCreatedPayloadDataUnavailableReason,
 )
@@ -130,6 +131,11 @@ class PostPayoutMethodCreatedPayloadData(UniversalBaseModel):
     )
     """
     The supported payout method this saved method was created from.
+    """
+
+    type: PostPayoutMethodCreatedPayloadDataType = pydantic.Field()
+    """
+    The kind of payout method. `external` sends funds out of Whop. `whop_card` moves funds onto the account's own Whop Card. A `whop_card` method takes standard-speed payouts only, and cannot be updated, reconnected, or deleted.
     """
 
     unavailable_reason: typing.Optional[PostPayoutMethodCreatedPayloadDataUnavailableReason] = pydantic.Field(

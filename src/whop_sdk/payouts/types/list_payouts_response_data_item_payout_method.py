@@ -7,6 +7,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .list_payouts_response_data_item_payout_method_supported_payout_method import (
     ListPayoutsResponseDataItemPayoutMethodSupportedPayoutMethod,
 )
+from .list_payouts_response_data_item_payout_method_type import ListPayoutsResponseDataItemPayoutMethodType
 
 
 class ListPayoutsResponseDataItemPayoutMethod(UniversalBaseModel):
@@ -24,6 +25,11 @@ class ListPayoutsResponseDataItemPayoutMethod(UniversalBaseModel):
     )
     """
     Supported payout method display details.
+    """
+
+    type: ListPayoutsResponseDataItemPayoutMethodType = pydantic.Field()
+    """
+    The kind of payout method the payout used. `external` sent funds out of Whop. `whop_card` moved funds onto the account's own Whop Card.
     """
 
     if IS_PYDANTIC_V2:
