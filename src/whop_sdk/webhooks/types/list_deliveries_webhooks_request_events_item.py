@@ -120,6 +120,7 @@ ListDeliveriesWebhooksRequestEventsItem = typing.Union[
         "app_payment.pending",
         "app_payment.requires_action",
         "app_membership.cancel_at_period_end_changed",
+        "shipping_address.changed",
     ],
     typing.Any,
 ]
