@@ -10,12 +10,12 @@ from .money import Money
 class ShippingAddressChangedWebhookLineItem(UniversalBaseModel):
     amount: Money = pydantic.Field()
     """
-    The line's original total, the same on every call for this payment.
+    The line's original total, the same on every call for this purchase.
     """
 
     id: str = pydantic.Field()
     """
-    The line item, prefixed `li_`. Your reply names each line by this id.
+    Identifies the line. Your reply names each line by this id, so send it back unchanged.
     """
 
     quantity: float = pydantic.Field()

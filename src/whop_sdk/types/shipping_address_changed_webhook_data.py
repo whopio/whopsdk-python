@@ -12,13 +12,18 @@ from .shipping_address_changed_webhook_line_item import ShippingAddressChangedWe
 class ShippingAddressChangedWebhookData(UniversalBaseModel):
     amount: Money = pydantic.Field()
     """
-    The payment's original total, before your price for this address.
+    The original total, before your price for this address.
+    """
+
+    checkout_session_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The checkout session being priced, prefixed `chs_`, when the buyer is paying through one. `null` for a payment.
     """
 
     line_items: typing.List[ShippingAddressChangedWebhookLineItem]
-    payment_id: str = pydantic.Field()
+    payment_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The payment being priced, prefixed `pay_`.
+    The payment being priced, prefixed `pay_`. `null` when the buyer is paying through a checkout session: the payment is created only after they approve, at your price.
     """
 
     shipping_address: ShippingAddressChangedWebhookAddress = pydantic.Field()
