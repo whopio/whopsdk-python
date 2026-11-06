@@ -133,6 +133,7 @@ class ExperimentsClient:
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
         feature_flag_only: typing.Optional[bool] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
         targeting_rules: typing.Optional[typing.Sequence[CreateExperimentsRequestTargetingRulesItem]] = OMIT,
@@ -160,6 +161,9 @@ class ExperimentsClient:
 
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
+
+        metadata : typing.Optional[typing.Dict[str, str]]
+            Up to 20 key-value pairs you can attach to the experiment for your own use, such as which pages it changes. Keys are at most 40 characters and values at most 500.
 
         name : typing.Optional[str]
             Human-readable display name. Defaults to `flag_key` when omitted.
@@ -202,6 +206,7 @@ class ExperimentsClient:
             control=control,
             feature_flag_only=feature_flag_only,
             hypothesis=hypothesis,
+            metadata=metadata,
             name=name,
             related_resource=related_resource,
             targeting_rules=targeting_rules,
@@ -646,6 +651,7 @@ class AsyncExperimentsClient:
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
         feature_flag_only: typing.Optional[bool] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
         targeting_rules: typing.Optional[typing.Sequence[CreateExperimentsRequestTargetingRulesItem]] = OMIT,
@@ -673,6 +679,9 @@ class AsyncExperimentsClient:
 
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
+
+        metadata : typing.Optional[typing.Dict[str, str]]
+            Up to 20 key-value pairs you can attach to the experiment for your own use, such as which pages it changes. Keys are at most 40 characters and values at most 500.
 
         name : typing.Optional[str]
             Human-readable display name. Defaults to `flag_key` when omitted.
@@ -723,6 +732,7 @@ class AsyncExperimentsClient:
             control=control,
             feature_flag_only=feature_flag_only,
             hypothesis=hypothesis,
+            metadata=metadata,
             name=name,
             related_resource=related_resource,
             targeting_rules=targeting_rules,
