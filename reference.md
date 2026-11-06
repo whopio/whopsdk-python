@@ -9722,6 +9722,1512 @@ client.authorized_users.delete(
 </dl>
 </details>
 
+## Automation Enrollments
+<details><summary><code>client.automation_enrollments.<a href="src/whop_sdk/automation_enrollments/client.py">list</a>(...) -> ListAutomationEnrollmentsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists members' enrollments in automations, newest first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_enrollments.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Only this account's enrollments, prefixed `biz_`. Defaults to the credential's account, or every account a user can read.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**automation_id:** `typing.Optional[str]` — Only this automation's enrollments, prefixed `ato_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `typing.Optional[str]` — Only this member's enrollments, prefixed `mber_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ListAutomationEnrollmentsRequestStatus]` — Only enrollments with this status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `typing.Optional[int]` — Only members on this automation version.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListAutomationEnrollmentsRequestOrder]` — Field to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListAutomationEnrollmentsRequestDirection]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automation_enrollments.<a href="src/whop_sdk/automation_enrollments/client.py">retrieve</a>(...) -> AutomationEnrollment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a member's enrollment in an automation, with the step they're waiting on.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_enrollments.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation enrollment ID, prefixed `atoe_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automation_enrollments.<a href="src/whop_sdk/automation_enrollments/client.py">cancel</a>(...) -> AutomationEnrollment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels an `active` enrollment: the member gets none of the automation's remaining steps, and their enrollment becomes `canceled`. The member can enroll in the automation again later.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_enrollments.cancel(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation enrollment ID, prefixed `atoe_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Automation Steps
+<details><summary><code>client.automation_steps.<a href="src/whop_sdk/automation_steps/client.py">list</a>(...) -> ListAutomationStepsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists automation steps. With `automation_id`, lists one version of that automation in the order its steps run: the draft version unless `version` names another. Without it, lists the steps of every version of every automation, newest first. Steps get new IDs at every publish, so list them again afterwards and match them up by `key`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_steps.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**automation_id:** `typing.Optional[str]` — Only this automation's steps, in run order, prefixed `ato_`. `order` doesn't apply.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `typing.Optional[int]` — With `automation_id`, the version to list, such as its `published_version`. Defaults to its `draft_version`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Without `automation_id`, only this account's steps, prefixed `biz_`. Defaults to the credential's account, or every account a user can read.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListAutomationStepsRequestOrder]` — Field to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListAutomationStepsRequestDirection]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automation_steps.<a href="src/whop_sdk/automation_steps/client.py">create</a>(...) -> AutomationStep</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds a step to an automation's draft version, directly after `previous_step_id`, or first when it's left out. The step that held that position now runs after the new one. Steps can't be moved, so add each one where it belongs. Setting `source_code` also needs every read permission listed for previewing a step, which the step's code reads the account with.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_steps.create(
+    action_type="wait",
+    automation_id="ato_xxxxxxxxxxxxxx",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**action_type:** `CreateAutomationStepsRequestActionType` — What the step does: `wait` holds the member for `config.delay_seconds`, `email` emails them, and `message` sends them a message from a team member. A draft step can switch between `email` and `message`, which clears `config.sender_id`. A `wait` can't become a sending step, or the other way round.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — ID of the automation to add the step to, prefixed `ato_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**config:** `typing.Optional[AutomationStepConfig]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**previous_step_id:** `typing.Optional[str]` — ID of the draft step the new one runs after, prefixed `atos_`. Leave it out to make the new step run first.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_code:** `typing.Optional[str]` — An `email` or `message` step's code: a TSX module whose default export gets the member and returns `message.send()`, `message.skip()` or `message.exit()` from `whop:message`. An `email` step sends its `subject`, its `react` element as the body and its `text` as the plain-text part; a `message` step sends its `text`. The code can import `react` and `@react-email/components`, and reads the account through the `whop` client from `whop:message`, which can only read: it holds every account-level `:read` permission that both the admin role and Whop AI hold except `payout:account:read`, as listed for previewing a step. Setting it, or previewing the step, needs every one of those permissions. Up to 64,000 characters. `null` on a `wait`, and until it is written.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automation_steps.<a href="src/whop_sdk/automation_steps/client.py">retrieve</a>(...) -> AutomationStep</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves an automation step, with how many members are waiting for it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_steps.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation step ID, prefixed `atos_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automation_steps.<a href="src/whop_sdk/automation_steps/client.py">delete</a>(...) -> AutomationStep</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a step of the draft version. The step after it runs in its place. Members already in the automation aren't affected until the draft is published.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_steps.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation step ID, prefixed `atos_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automation_steps.<a href="src/whop_sdk/automation_steps/client.py">update</a>(...) -> AutomationStep</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Edits a step of the draft version. A published version's steps never change; edit the same `key` in the draft instead. `previous_step_id` can't change. Setting `source_code` also needs every read permission listed for previewing a step, which the step's code reads the account with.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_steps.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation step ID, prefixed `atos_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**action_type:** `typing.Optional[UpdateAutomationStepsRequestActionType]` — What the step does: `wait` holds the member for `config.delay_seconds`, `email` emails them, and `message` sends them a message from a team member. A draft step can switch between `email` and `message`, which clears `config.sender_id`. A `wait` can't become a sending step, or the other way round.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**config:** `typing.Optional[AutomationStepConfig]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_code:** `typing.Optional[str]` — An `email` or `message` step's code: a TSX module whose default export gets the member and returns `message.send()`, `message.skip()` or `message.exit()` from `whop:message`. An `email` step sends its `subject`, its `react` element as the body and its `text` as the plain-text part; a `message` step sends its `text`. The code can import `react` and `@react-email/components`, and reads the account through the `whop` client from `whop:message`, which can only read: it holds every account-level `:read` permission that both the admin role and Whop AI hold except `payout:account:read`, as listed for previewing a step. Setting it, or previewing the step, needs every one of those permissions. Up to 64,000 characters. `null` on a `wait`, and until it is written.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automation_steps.<a href="src/whop_sdk/automation_steps/client.py">preview</a>(...) -> AutomationStepPreview</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Runs an `email` or `message` step's code for one member, as if they had reached it, and returns what it would send. Nothing is sent. The step's code reads the account with every account-level `:read` permission that both the admin role and Whop AI hold except `payout:account:read`, so previewing, like setting `source_code`, needs `automation:write` and every one of those permissions. OAuth apps can't be granted all of them, so they can't preview or set step code.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automation_steps.preview(
+    id="id",
+    member_id="mber_xxxxxxxxxxxxxx",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation step ID, prefixed `atos_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `str` — The member to preview the step for, prefixed `mber_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trigger_resource_id:** `typing.Optional[str]` — ID of the record the automation's trigger event was about for this member, such as a `pay_` payment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Automations
+<details><summary><code>client.automations.<a href="src/whop_sdk/automations/client.py">list</a>(...) -> ListAutomationsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists automations, newest first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automations.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Only this account's automations, prefixed `biz_`. Defaults to the credential's account, or every account a user can read.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ListAutomationsRequestStatus]` — Only automations with this status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trigger_event:** `typing.Optional[ListAutomationsRequestTriggerEvent]` — Only automations this webhook event enrolls into.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListAutomationsRequestOrder]` — Field to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListAutomationsRequestDirection]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/whop_sdk/automations/client.py">create</a>(...) -> Automation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an automation, `stopped`, with an empty draft version. Add steps with `POST /automation_steps`, then publish it with `POST /automations/{id}/publish`, which makes it `active`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automations.create(
+    name="Welcome",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — The automation's name, shown on the dashboard. Up to 255 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`. Required for user credentials; otherwise defaults to the credential's account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trigger_event:** `typing.Optional[CreateAutomationsRequestTriggerEvent]` — The webhook event that enrolls the member it's about, such as `payment.succeeded`. `null` for an automation that only `POST /automations/{id}/trigger` enrolls into. Fixed once the automation has been published.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/whop_sdk/automations/client.py">retrieve</a>(...) -> Automation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves an automation, with how many members are in it now and how many times members have enrolled in it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automations.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation ID, prefixed `ato_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/whop_sdk/automations/client.py">delete</a>(...) -> Automation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes an automation. It stops enrolling members, and every member in it stops.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automations.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation ID, prefixed `ato_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/whop_sdk/automations/client.py">update</a>(...) -> Automation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Renames an automation, changes its trigger event before its first publish, sets its secrets, or changes its status. Changing `secrets` or `status` also needs `automation:manage`. Use `POST /automations/{id}/publish` to publish the draft, and the steps endpoints to change what it does.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automations.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation ID, prefixed `ato_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — The automation's name, shown on the dashboard. Up to 255 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secrets:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Secrets to set, by name, merged into the automation's: a name set to `null` is removed. Step code reads them as environment variables, and no endpoint returns their values. Names are uppercase letters, digits and underscores, starting with a letter, up to 64 characters. Up to 50 secrets, each up to 4 KB.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[UpdateAutomationsRequestStatus]` — `active` enrolls members and runs their steps. `closed` stops new enrollments and lets members already in it finish. `stopped` stops new enrollments and ends every member's enrollment. `active` and `closed` need a published version.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trigger_event:** `typing.Optional[UpdateAutomationsRequestTriggerEvent]` — The webhook event that enrolls the member it's about, such as `payment.succeeded`. `null` for an automation that only `POST /automations/{id}/trigger` enrolls into. Fixed once the automation has been published.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/whop_sdk/automations/client.py">publish</a>(...) -> Automation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Publishes the draft version: new members start on it, and the automation becomes `active`. Members already in the automation move onto it: onto the same step when it's still there, or, when the draft removed it, onto the step that now follows the nearest earlier step the draft kept. The draft is then copied into the next draft version, whose steps get new IDs and keep their `key`. Every draft step's `issues` must be empty. When the draft has no edits since the last publish, no new version is made, and this only makes a `closed` or `stopped` automation `active` again.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automations.publish(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation ID, prefixed `ato_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/whop_sdk/automations/client.py">trigger</a>(...) -> Automation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Enrolls members into an active automation at the first step of its published version: the members you name, or every member `GET /members` lists with the filters you pass, as they match now. Members already in the automation are skipped. Enrolling runs in the background, so this returns the automation right away and `active_enrollments_count` grows as members enroll.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.automations.trigger(
+    id="id",
+    members=[
+        "mber_xxxxxxxxxxxxxx"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Automation ID, prefixed `ato_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**members:** `TriggerAutomationsRequestMembers` — Who to enroll: up to 1,000 member IDs, or an object of `GET /members` filters. An empty object enrolls every member.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Bounties
 <details><summary><code>client.bounties.<a href="src/whop_sdk/bounties/client.py">list</a>(...) -> ListBountiesResponse</code></summary>
 <dl>

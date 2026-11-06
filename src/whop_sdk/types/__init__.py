@@ -266,6 +266,30 @@ if typing.TYPE_CHECKING:
     from .authorized_user_list_item_user import AuthorizedUserListItemUser
     from .authorized_user_roles import AuthorizedUserRoles
     from .authorized_user_user import AuthorizedUserUser
+    from .automation import Automation
+    from .automation_actor import AutomationActor
+    from .automation_actor_object import AutomationActorObject
+    from .automation_enrollment import AutomationEnrollment
+    from .automation_enrollment_status import AutomationEnrollmentStatus
+    from .automation_enrollment_trigger_event import AutomationEnrollmentTriggerEvent
+    from .automation_status import AutomationStatus
+    from .automation_step import AutomationStep
+    from .automation_step_action_type import AutomationStepActionType
+    from .automation_step_config import AutomationStepConfig
+    from .automation_step_email_address_sender import AutomationStepEmailAddressSender
+    from .automation_step_email_config import AutomationStepEmailConfig
+    from .automation_step_message_config import AutomationStepMessageConfig
+    from .automation_step_preview import AutomationStepPreview
+    from .automation_step_preview_action_type import AutomationStepPreviewActionType
+    from .automation_step_preview_outcome import AutomationStepPreviewOutcome
+    from .automation_step_sender import (
+        AutomationStepSender,
+        AutomationStepSender_EmailAddress,
+        AutomationStepSender_User,
+    )
+    from .automation_step_user_sender import AutomationStepUserSender
+    from .automation_step_wait_config import AutomationStepWaitConfig
+    from .automation_trigger_event import AutomationTriggerEvent
     from .bad_request_error_body import BadRequestErrorBody
     from .bad_request_error_body_error import BadRequestErrorBodyError
     from .billing_reasons import BillingReasons
@@ -1832,6 +1856,28 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AuthorizedUserListItemUser": ".authorized_user_list_item_user",
     "AuthorizedUserRoles": ".authorized_user_roles",
     "AuthorizedUserUser": ".authorized_user_user",
+    "Automation": ".automation",
+    "AutomationActor": ".automation_actor",
+    "AutomationActorObject": ".automation_actor_object",
+    "AutomationEnrollment": ".automation_enrollment",
+    "AutomationEnrollmentStatus": ".automation_enrollment_status",
+    "AutomationEnrollmentTriggerEvent": ".automation_enrollment_trigger_event",
+    "AutomationStatus": ".automation_status",
+    "AutomationStep": ".automation_step",
+    "AutomationStepActionType": ".automation_step_action_type",
+    "AutomationStepConfig": ".automation_step_config",
+    "AutomationStepEmailAddressSender": ".automation_step_email_address_sender",
+    "AutomationStepEmailConfig": ".automation_step_email_config",
+    "AutomationStepMessageConfig": ".automation_step_message_config",
+    "AutomationStepPreview": ".automation_step_preview",
+    "AutomationStepPreviewActionType": ".automation_step_preview_action_type",
+    "AutomationStepPreviewOutcome": ".automation_step_preview_outcome",
+    "AutomationStepSender": ".automation_step_sender",
+    "AutomationStepSender_EmailAddress": ".automation_step_sender",
+    "AutomationStepSender_User": ".automation_step_sender",
+    "AutomationStepUserSender": ".automation_step_user_sender",
+    "AutomationStepWaitConfig": ".automation_step_wait_config",
+    "AutomationTriggerEvent": ".automation_trigger_event",
     "BadRequestErrorBody": ".bad_request_error_body",
     "BadRequestErrorBodyError": ".bad_request_error_body_error",
     "BillingReasons": ".billing_reasons",
@@ -3284,6 +3330,28 @@ __all__ = [
     "AuthorizedUserListItemUser",
     "AuthorizedUserRoles",
     "AuthorizedUserUser",
+    "Automation",
+    "AutomationActor",
+    "AutomationActorObject",
+    "AutomationEnrollment",
+    "AutomationEnrollmentStatus",
+    "AutomationEnrollmentTriggerEvent",
+    "AutomationStatus",
+    "AutomationStep",
+    "AutomationStepActionType",
+    "AutomationStepConfig",
+    "AutomationStepEmailAddressSender",
+    "AutomationStepEmailConfig",
+    "AutomationStepMessageConfig",
+    "AutomationStepPreview",
+    "AutomationStepPreviewActionType",
+    "AutomationStepPreviewOutcome",
+    "AutomationStepSender",
+    "AutomationStepSender_EmailAddress",
+    "AutomationStepSender_User",
+    "AutomationStepUserSender",
+    "AutomationStepWaitConfig",
+    "AutomationTriggerEvent",
     "BadRequestErrorBody",
     "BadRequestErrorBodyError",
     "BillingReasons",
