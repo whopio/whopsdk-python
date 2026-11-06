@@ -10,12 +10,12 @@ from .money import Money
 class ShippingAddressChangedWebhookReplyLineItem(UniversalBaseModel):
     amount: Money = pydantic.Field()
     """
-    The line's total at this address, tax and shipping included, in the payment's currency.
+    The line's total at this address, tax and shipping included, in the currency of `data.amount`.
     """
 
     id: str = pydantic.Field()
     """
-    The line item, prefixed `li_`, from `data.line_items`.
+    The line's `id` from `data.line_items`, unchanged.
     """
 
     if IS_PYDANTIC_V2:
