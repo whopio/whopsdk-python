@@ -13,6 +13,10 @@ class LedgerActivitySourcePayoutDestination(UniversalBaseModel):
 
     icon_url: typing.Optional[str] = None
     payer_name: typing.Optional[str] = None
+    security_answer: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The security answer the merchant set when adding this payout method (for example an Interac e-Transfer), needed to claim the payout. null when the destination has no custom answer. Requires payout:destination:read.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
