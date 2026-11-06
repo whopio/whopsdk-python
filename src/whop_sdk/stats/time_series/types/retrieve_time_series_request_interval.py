@@ -3,5 +3,8 @@
 import typing
 
 RetrieveTimeSeriesRequestInterval = typing.Union[
-    typing.Literal["minute", "five_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"], typing.Any
+    typing.Literal[
+        "minute", "five_minutes", "fifteen_minutes", "thirty_minutes", "hour", "day", "week", "month", "year"
+    ],
+    typing.Any,
 ]
