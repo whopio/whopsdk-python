@@ -44243,7 +44243,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**has_referred_businesses:** `typing.Optional[bool]` — When true, only members who referred at least one business for their account, the reps the `partner_reps` stats metric counts; when false, only members who referred none. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+**has_referred_businesses:** `typing.Optional[bool]` — When true, only members who referred at least one business for their account; when false, only members who referred none. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
     
 </dd>
 </dl>
