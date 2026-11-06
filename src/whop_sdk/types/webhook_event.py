@@ -104,6 +104,7 @@ WebhookEvent = typing.Union[
         "refund.updated",
         "dispute_alert.created",
         "membership.cancel_at_period_end_changed",
+        "shipping_address.changed",
     ],
     typing.Any,
 ]

@@ -1431,6 +1431,11 @@ if typing.TYPE_CHECKING:
     from .shipment_status import ShipmentStatus
     from .shipment_statuses import ShipmentStatuses
     from .shipment_substatuses import ShipmentSubstatuses
+    from .shipping_address_changed_webhook_address import ShippingAddressChangedWebhookAddress
+    from .shipping_address_changed_webhook_data import ShippingAddressChangedWebhookData
+    from .shipping_address_changed_webhook_line_item import ShippingAddressChangedWebhookLineItem
+    from .shipping_address_changed_webhook_reply import ShippingAddressChangedWebhookReply
+    from .shipping_address_changed_webhook_reply_line_item import ShippingAddressChangedWebhookReplyLineItem
     from .social_account import SocialAccount
     from .social_account_parent import SocialAccountParent
     from .social_account_parent_platform import SocialAccountParentPlatform
@@ -2858,6 +2863,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ShipmentStatus": ".shipment_status",
     "ShipmentStatuses": ".shipment_statuses",
     "ShipmentSubstatuses": ".shipment_substatuses",
+    "ShippingAddressChangedWebhookAddress": ".shipping_address_changed_webhook_address",
+    "ShippingAddressChangedWebhookData": ".shipping_address_changed_webhook_data",
+    "ShippingAddressChangedWebhookLineItem": ".shipping_address_changed_webhook_line_item",
+    "ShippingAddressChangedWebhookReply": ".shipping_address_changed_webhook_reply",
+    "ShippingAddressChangedWebhookReplyLineItem": ".shipping_address_changed_webhook_reply_line_item",
     "SocialAccount": ".social_account",
     "SocialAccountParent": ".social_account_parent",
     "SocialAccountParentPlatform": ".social_account_parent_platform",
@@ -4305,6 +4315,11 @@ __all__ = [
     "ShipmentStatus",
     "ShipmentStatuses",
     "ShipmentSubstatuses",
+    "ShippingAddressChangedWebhookAddress",
+    "ShippingAddressChangedWebhookData",
+    "ShippingAddressChangedWebhookLineItem",
+    "ShippingAddressChangedWebhookReply",
+    "ShippingAddressChangedWebhookReplyLineItem",
     "SocialAccount",
     "SocialAccountParent",
     "SocialAccountParentPlatform",
