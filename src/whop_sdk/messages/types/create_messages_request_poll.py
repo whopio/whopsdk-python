@@ -8,14 +8,7 @@ from .create_messages_request_poll_options_item import CreateMessagesRequestPoll
 
 
 class CreateMessagesRequestPoll(UniversalBaseModel):
-    """
-    A poll to attach to this message, allowing recipients to vote on options.
-    """
-
-    options: typing.List[CreateMessagesRequestPollOptionsItem] = pydantic.Field()
-    """
-    The options for the poll. Must have sequential IDs starting from 1
-    """
+    options: typing.List[CreateMessagesRequestPollOptionsItem]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -4,24 +4,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.message_list_item import MessageListItem
-from ...types.page_info import PageInfo
+from ...types.chat_message import ChatMessage
+from .list_messages_response_page_info import ListMessagesResponsePageInfo
 
 
 class ListMessagesResponse(UniversalBaseModel):
-    """
-    The connection type for DmsPost.
-    """
-
-    data: typing.List[MessageListItem] = pydantic.Field()
-    """
-    A list of nodes.
-    """
-
-    page_info: PageInfo = pydantic.Field()
-    """
-    Information to aid in pagination.
-    """
+    data: typing.List[ChatMessage]
+    page_info: ListMessagesResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

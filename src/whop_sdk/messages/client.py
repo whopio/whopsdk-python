@@ -5,14 +5,18 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
-from ..types.direction import Direction
-from ..types.message import Message
-from ..types.message_list_item import MessageListItem
+from ..types.chat_message import ChatMessage
+from ..types.chat_reaction import ChatReaction
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
 from .types.create_messages_request_attachments_item import CreateMessagesRequestAttachmentsItem
+from .types.create_messages_request_link_previews_item import CreateMessagesRequestLinkPreviewsItem
 from .types.create_messages_request_poll import CreateMessagesRequestPoll
+from .types.list_messages_request_direction import ListMessagesRequestDirection
+from .types.list_messages_request_order import ListMessagesRequestOrder
 from .types.list_messages_response import ListMessagesResponse
+from .types.list_reactions_messages_response import ListReactionsMessagesResponse
 from .types.update_messages_request_attachments_item import UpdateMessagesRequestAttachmentsItem
+from .types.update_messages_request_link_previews_item import UpdateMessagesRequestLinkPreviewsItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,60 +41,98 @@ class MessagesClient:
         self,
         *,
         channel_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
+        replying_to_message_id: typing.Optional[str] = None,
+        pinned: typing.Optional[bool] = None,
+        include_deleted: typing.Optional[bool] = None,
+        created_after: typing.Optional[str] = None,
+        created_before: typing.Optional[str] = None,
+        updated_after: typing.Optional[str] = None,
+        before_message_id: typing.Optional[str] = None,
+        after_message_id: typing.Optional[str] = None,
+        around_message_id: typing.Optional[str] = None,
+        around_timestamp: typing.Optional[str] = None,
+        order: typing.Optional[ListMessagesRequestOrder] = None,
+        direction: typing.Optional[ListMessagesRequestDirection] = None,
         first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[MessageListItem, ListMessagesResponse]:
+    ) -> SyncPager[ChatMessage, ListMessagesResponse]:
         """
-        Lists messages in an experience chat, DM, or group chat channel, sorted by creation time.
-
-        Required permissions (one of):
-         - `chat:read`
-         - `dms:read`
-         - `support_chat:read`
+        Lists messages in a channel. Existing public message and channel IDs are preserved. For reconnect synchronization, use inclusive updated_after with include_deleted=true; results use ascending change order. Follow the returned cursors and replace cached messages by ID, including when updated_at is unchanged. The returned updated_at is the stored message update time; reaction changes only affect synchronization ordering. Deleted entries contain identity and timestamps with their content redacted. To jump into history, specify channel_id and one around anchor; results use ascending creation-time order. For older messages in chronological order, use before_message_id with last and direction=asc; for newer messages, use after_message_id with first and direction=asc. Do not supply order or direction with updated_after or an around anchor. Keep message-ID filters when continuing with cursors. For around queries, omit the around anchor and continue with direction=asc.
 
         Parameters
         ----------
         channel_id : str
-            The unique identifier of the channel or experience to list messages for.
+            Filter by public channel ID. An experience ID is also accepted for experience chat.
 
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
+        replying_to_message_id : typing.Optional[str]
+            Return replies to this message.
 
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
+        pinned : typing.Optional[bool]
+            Filter by message pin state.
+
+        include_deleted : typing.Optional[bool]
+            Include redacted deletion entries for cache synchronization.
+
+        created_after : typing.Optional[str]
+            Return messages created strictly after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[str]
+            Return messages created strictly before this ISO 8601 timestamp.
+
+        updated_after : typing.Optional[str]
+            Return messages changed at or after this ISO 8601 timestamp in ascending change order. Cannot be combined with history filters, around anchors, order, or direction.
+
+        before_message_id : typing.Optional[str]
+            Filter messages strictly before this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+
+        after_message_id : typing.Optional[str]
+            Filter messages strictly after this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+
+        around_message_id : typing.Optional[str]
+            Center the first page around this live message in the selected channel.
+
+        around_timestamp : typing.Optional[str]
+            Center the first page around this ISO 8601 timestamp in the selected channel.
+
+        order : typing.Optional[ListMessagesRequestOrder]
+            History sort field. Defaults to created_at. Cannot be supplied with updated_after or around anchors.
+
+        direction : typing.Optional[ListMessagesRequestDirection]
+            History sort direction. Defaults to desc. Cannot be supplied with updated_after or around anchors.
 
         first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+            Number of results to return from the end of the range.
 
-        direction : typing.Optional[Direction]
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[MessageListItem, ListMessagesResponse]
-            A successful response
+        SyncPager[ChatMessage, ListMessagesResponse]
+            messages listed
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.messages.list(
-            first=42,
-            last=42,
             channel_id="channel_id",
         )
         for item in response:
@@ -101,11 +143,22 @@ class MessagesClient:
         """
         return self._raw_client.list(
             channel_id=channel_id,
-            after=after,
-            before=before,
-            first=first,
-            last=last,
+            replying_to_message_id=replying_to_message_id,
+            pinned=pinned,
+            include_deleted=include_deleted,
+            created_after=created_after,
+            created_before=created_before,
+            updated_after=updated_after,
+            before_message_id=before_message_id,
+            after_message_id=after_message_id,
+            around_message_id=around_message_id,
+            around_timestamp=around_timestamp,
+            order=order,
             direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
@@ -116,59 +169,56 @@ class MessagesClient:
         content: str,
         attachments: typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]] = OMIT,
         auto_detect_links: typing.Optional[bool] = OMIT,
+        link_previews: typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]] = OMIT,
         poll: typing.Optional[CreateMessagesRequestPoll] = OMIT,
         replying_to_message_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Message:
+    ) -> ChatMessage:
         """
-        Sends a message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
-
-        Required permissions (one of):
-         - `chat:message:create`
-         - `dms:message:manage`
-         - `livestream:chat:write`
-         - `support_chat:message:create`
+        Sends a Markdown message as the authenticated user or app agent. Channel access, posting restrictions, moderation, and delivery follow the existing chat services. Use Idempotency-Key to safely retry a send. The response and realtime message use the same message ID. Custom author presentation and embeds are read-only.
 
         Parameters
         ----------
         channel_id : str
-            The unique identifier of the channel or experience to send the message in. For example, 'exp_xxxxx' or 'feed_xxxxx'.
+            Public channel ID, or an experience ID for experience chat.
 
         content : str
-            The body of the message in Markdown format. For example, 'Hello **world**'.
+            Markdown content. May be empty when the message contains media or a poll.
 
         attachments : typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]]
-            A list of file attachments to include with the message, such as images or videos.
+            Files to attach to the message.
 
         auto_detect_links : typing.Optional[bool]
-            Automatically detect URLs in the message and generate link previews.
+            Generate previews for URLs in content. Mutually exclusive with link_previews.
+
+        link_previews : typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]]
+            Explicit URLs for the server to preview.
 
         poll : typing.Optional[CreateMessagesRequestPoll]
-            A poll to attach to this message, allowing recipients to vote on options.
 
         replying_to_message_id : typing.Optional[str]
-            The unique identifier of the message this is replying to, creating a threaded reply.
+            A live message in the same channel to reply to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Message
-            A successful response
+        ChatMessage
+            message sent
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.messages.create(
-            channel_id="channel_id",
-            content="content",
+            channel_id="feed_xxxxxxxxxxxxxxxxxxxxxx",
+            content="New **message**",
         )
         """
         _response = self._raw_client.create(
@@ -176,41 +226,36 @@ class MessagesClient:
             content=content,
             attachments=attachments,
             auto_detect_links=auto_detect_links,
+            link_previews=link_previews,
             poll=poll,
             replying_to_message_id=replying_to_message_id,
             request_options=request_options,
         )
         return _response.data
 
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Message:
+    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
         """
-        Retrieves the details of an existing message.
-
-        Required permissions (one of):
-         - `chat:read`
-         - `dms:read`
-         - `livestream:chat:read`
-         - `support_chat:read`
+        Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to retrieve.
+            Existing public message ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Message
-            A successful response
+        ChatMessage
+            message retrieved
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -221,35 +266,28 @@ class MessagesClient:
         _response = self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
-    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
+    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Permanently deletes a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
-
-        Required permissions (one of):
-         - `chat:message:create` and `chat:read`
-         - `dms:message:manage` and `dms:read`
-         - `livestream:chat:write` and `livestream:chat:read`
-         - `support_chat:message:create` and `support_chat:read`
+        Deletes a message as its author or a permitted moderator. Deleted messages remain available as redacted entries through list synchronization.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to delete.
+            Existing public message ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        bool
-            A successful response
+        None
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -266,46 +304,40 @@ class MessagesClient:
         *,
         attachments: typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]] = OMIT,
         content: typing.Optional[str] = OMIT,
-        is_pinned: typing.Optional[bool] = OMIT,
+        link_previews: typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Message:
+    ) -> ChatMessage:
         """
-        Edits the content, attachments, or pinned status of a message in an experience chat, DM, or group chat channel.
-
-        Required permissions (one of):
-         - `chat:message:create`
-         - `dms:message:manage`
-         - `livestream:chat:write`
-         - `support_chat:message:create`
+        Updates the author's message. Use the pin and unpin actions to change its pin state. Omitted fields are preserved; attachment and preview collections replace their previous values.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to update.
+            Existing public message ID.
 
         attachments : typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]]
-            A replacement list of file attachments for this message, such as images or videos.
+            Replacement attachment list; pass an empty list to remove attachments.
 
         content : typing.Optional[str]
-            The updated body of the message in Markdown format. For example, 'Hello **world**'.
+            Replacement Markdown content.
 
-        is_pinned : typing.Optional[bool]
-            Whether this message should be pinned to the top of the channel.
+        link_previews : typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]]
+            Replacement preview URLs; pass an empty list to remove previews.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Message
-            A successful response
+        ChatMessage
+            message updated
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -314,8 +346,251 @@ class MessagesClient:
         )
         """
         _response = self._raw_client.update(
-            id, attachments=attachments, content=content, is_pinned=is_pinned, request_options=request_options
+            id, attachments=attachments, content=content, link_previews=link_previews, request_options=request_options
         )
+        return _response.data
+
+    def pin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
+        """
+        Pins a message in its channel. Requires the channel's pin permission.
+
+        Parameters
+        ----------
+        id : str
+            The message to pin.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            message pinned
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.messages.pin(
+            id="id",
+        )
+        """
+        _response = self._raw_client.pin(id, request_options=request_options)
+        return _response.data
+
+    def react(self, id: str, *, emoji: str, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
+        """
+        Add your emoji reaction to a message. Reacting again with the same emoji changes nothing.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message to react to.
+
+        emoji : str
+            A single Unicode emoji or a supported shortcode such as `:heart:`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            the message with updated reaction counts
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.messages.react(
+            id="id",
+            emoji="❤️",
+        )
+        """
+        _response = self._raw_client.react(id, emoji=emoji, request_options=request_options)
+        return _response.data
+
+    def list_reactions(
+        self,
+        id: str,
+        *,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        emoji: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ChatReaction, ListReactionsMessagesResponse]:
+        """
+        List who reacted to a message, newest first. Optionally filter by emoji.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        emoji : typing.Optional[str]
+            Only return reactions with this emoji, as a Unicode emoji or a supported shortcode.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ChatReaction, ListReactionsMessagesResponse]
+            operation completed
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        response = client.messages.list_reactions(
+            id="id",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.list_reactions(
+            id, first=first, after=after, last=last, before=before, emoji=emoji, request_options=request_options
+        )
+
+    def unpin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
+        """
+        Unpins a message in its channel. Requires the channel's pin permission.
+
+        Parameters
+        ----------
+        id : str
+            The message to unpin.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            message unpinned
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.messages.unpin(
+            id="id",
+        )
+        """
+        _response = self._raw_client.unpin(id, request_options=request_options)
+        return _response.data
+
+    def unreact(self, id: str, *, emoji: str, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
+        """
+        Remove your emoji reaction from a message. Removing a reaction you have not added changes nothing.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message to remove your reaction from.
+
+        emoji : str
+            The emoji to remove, as a Unicode emoji or a supported shortcode.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            the message with updated reaction counts
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.messages.unreact(
+            id="id",
+            emoji="❤️",
+        )
+        """
+        _response = self._raw_client.unreact(id, emoji=emoji, request_options=request_options)
+        return _response.data
+
+    def vote(
+        self, id: str, *, poll_option_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ChatMessage:
+        """
+        Vote for one option on a message poll. Each user can vote once per poll.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message containing the poll.
+
+        poll_option_id : str
+            The option ID from the poll, not its display text.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            updated poll-containing resource
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.messages.vote(
+            id="id",
+            poll_option_id="2",
+        )
+        """
+        _response = self._raw_client.vote(id, poll_option_id=poll_option_id, request_options=request_options)
         return _response.data
 
 
@@ -338,47 +613,87 @@ class AsyncMessagesClient:
         self,
         *,
         channel_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
+        replying_to_message_id: typing.Optional[str] = None,
+        pinned: typing.Optional[bool] = None,
+        include_deleted: typing.Optional[bool] = None,
+        created_after: typing.Optional[str] = None,
+        created_before: typing.Optional[str] = None,
+        updated_after: typing.Optional[str] = None,
+        before_message_id: typing.Optional[str] = None,
+        after_message_id: typing.Optional[str] = None,
+        around_message_id: typing.Optional[str] = None,
+        around_timestamp: typing.Optional[str] = None,
+        order: typing.Optional[ListMessagesRequestOrder] = None,
+        direction: typing.Optional[ListMessagesRequestDirection] = None,
         first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[MessageListItem, ListMessagesResponse]:
+    ) -> AsyncPager[ChatMessage, ListMessagesResponse]:
         """
-        Lists messages in an experience chat, DM, or group chat channel, sorted by creation time.
-
-        Required permissions (one of):
-         - `chat:read`
-         - `dms:read`
-         - `support_chat:read`
+        Lists messages in a channel. Existing public message and channel IDs are preserved. For reconnect synchronization, use inclusive updated_after with include_deleted=true; results use ascending change order. Follow the returned cursors and replace cached messages by ID, including when updated_at is unchanged. The returned updated_at is the stored message update time; reaction changes only affect synchronization ordering. Deleted entries contain identity and timestamps with their content redacted. To jump into history, specify channel_id and one around anchor; results use ascending creation-time order. For older messages in chronological order, use before_message_id with last and direction=asc; for newer messages, use after_message_id with first and direction=asc. Do not supply order or direction with updated_after or an around anchor. Keep message-ID filters when continuing with cursors. For around queries, omit the around anchor and continue with direction=asc.
 
         Parameters
         ----------
         channel_id : str
-            The unique identifier of the channel or experience to list messages for.
+            Filter by public channel ID. An experience ID is also accepted for experience chat.
 
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
+        replying_to_message_id : typing.Optional[str]
+            Return replies to this message.
 
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
+        pinned : typing.Optional[bool]
+            Filter by message pin state.
+
+        include_deleted : typing.Optional[bool]
+            Include redacted deletion entries for cache synchronization.
+
+        created_after : typing.Optional[str]
+            Return messages created strictly after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[str]
+            Return messages created strictly before this ISO 8601 timestamp.
+
+        updated_after : typing.Optional[str]
+            Return messages changed at or after this ISO 8601 timestamp in ascending change order. Cannot be combined with history filters, around anchors, order, or direction.
+
+        before_message_id : typing.Optional[str]
+            Filter messages strictly before this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+
+        after_message_id : typing.Optional[str]
+            Filter messages strictly after this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+
+        around_message_id : typing.Optional[str]
+            Center the first page around this live message in the selected channel.
+
+        around_timestamp : typing.Optional[str]
+            Center the first page around this ISO 8601 timestamp in the selected channel.
+
+        order : typing.Optional[ListMessagesRequestOrder]
+            History sort field. Defaults to created_at. Cannot be supplied with updated_after or around anchors.
+
+        direction : typing.Optional[ListMessagesRequestDirection]
+            History sort direction. Defaults to desc. Cannot be supplied with updated_after or around anchors.
 
         first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+            Number of results to return from the end of the range.
 
-        direction : typing.Optional[Direction]
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[MessageListItem, ListMessagesResponse]
-            A successful response
+        AsyncPager[ChatMessage, ListMessagesResponse]
+            messages listed
 
         Examples
         --------
@@ -387,7 +702,7 @@ class AsyncMessagesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -395,8 +710,6 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             response = await client.messages.list(
-                first=42,
-                last=42,
                 channel_id="channel_id",
             )
             async for item in response:
@@ -411,11 +724,22 @@ class AsyncMessagesClient:
         """
         return await self._raw_client.list(
             channel_id=channel_id,
-            after=after,
-            before=before,
-            first=first,
-            last=last,
+            replying_to_message_id=replying_to_message_id,
+            pinned=pinned,
+            include_deleted=include_deleted,
+            created_after=created_after,
+            created_before=created_before,
+            updated_after=updated_after,
+            before_message_id=before_message_id,
+            after_message_id=after_message_id,
+            around_message_id=around_message_id,
+            around_timestamp=around_timestamp,
+            order=order,
             direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
@@ -426,46 +750,43 @@ class AsyncMessagesClient:
         content: str,
         attachments: typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]] = OMIT,
         auto_detect_links: typing.Optional[bool] = OMIT,
+        link_previews: typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]] = OMIT,
         poll: typing.Optional[CreateMessagesRequestPoll] = OMIT,
         replying_to_message_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Message:
+    ) -> ChatMessage:
         """
-        Sends a message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
-
-        Required permissions (one of):
-         - `chat:message:create`
-         - `dms:message:manage`
-         - `livestream:chat:write`
-         - `support_chat:message:create`
+        Sends a Markdown message as the authenticated user or app agent. Channel access, posting restrictions, moderation, and delivery follow the existing chat services. Use Idempotency-Key to safely retry a send. The response and realtime message use the same message ID. Custom author presentation and embeds are read-only.
 
         Parameters
         ----------
         channel_id : str
-            The unique identifier of the channel or experience to send the message in. For example, 'exp_xxxxx' or 'feed_xxxxx'.
+            Public channel ID, or an experience ID for experience chat.
 
         content : str
-            The body of the message in Markdown format. For example, 'Hello **world**'.
+            Markdown content. May be empty when the message contains media or a poll.
 
         attachments : typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]]
-            A list of file attachments to include with the message, such as images or videos.
+            Files to attach to the message.
 
         auto_detect_links : typing.Optional[bool]
-            Automatically detect URLs in the message and generate link previews.
+            Generate previews for URLs in content. Mutually exclusive with link_previews.
+
+        link_previews : typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]]
+            Explicit URLs for the server to preview.
 
         poll : typing.Optional[CreateMessagesRequestPoll]
-            A poll to attach to this message, allowing recipients to vote on options.
 
         replying_to_message_id : typing.Optional[str]
-            The unique identifier of the message this is replying to, creating a threaded reply.
+            A live message in the same channel to reply to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Message
-            A successful response
+        ChatMessage
+            message sent
 
         Examples
         --------
@@ -474,7 +795,7 @@ class AsyncMessagesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -482,8 +803,8 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.messages.create(
-                channel_id="channel_id",
-                content="content",
+                channel_id="feed_xxxxxxxxxxxxxxxxxxxxxx",
+                content="New **message**",
             )
 
 
@@ -494,34 +815,29 @@ class AsyncMessagesClient:
             content=content,
             attachments=attachments,
             auto_detect_links=auto_detect_links,
+            link_previews=link_previews,
             poll=poll,
             replying_to_message_id=replying_to_message_id,
             request_options=request_options,
         )
         return _response.data
 
-    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Message:
+    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
         """
-        Retrieves the details of an existing message.
-
-        Required permissions (one of):
-         - `chat:read`
-         - `dms:read`
-         - `livestream:chat:read`
-         - `support_chat:read`
+        Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to retrieve.
+            Existing public message ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Message
-            A successful response
+        ChatMessage
+            message retrieved
 
         Examples
         --------
@@ -530,7 +846,7 @@ class AsyncMessagesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -547,28 +863,21 @@ class AsyncMessagesClient:
         _response = await self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
-    async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
+    async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Permanently deletes a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
-
-        Required permissions (one of):
-         - `chat:message:create` and `chat:read`
-         - `dms:message:manage` and `dms:read`
-         - `livestream:chat:write` and `livestream:chat:read`
-         - `support_chat:message:create` and `support_chat:read`
+        Deletes a message as its author or a permitted moderator. Deleted messages remain available as redacted entries through list synchronization.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to delete.
+            Existing public message ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        bool
-            A successful response
+        None
 
         Examples
         --------
@@ -577,7 +886,7 @@ class AsyncMessagesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -600,39 +909,33 @@ class AsyncMessagesClient:
         *,
         attachments: typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]] = OMIT,
         content: typing.Optional[str] = OMIT,
-        is_pinned: typing.Optional[bool] = OMIT,
+        link_previews: typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Message:
+    ) -> ChatMessage:
         """
-        Edits the content, attachments, or pinned status of a message in an experience chat, DM, or group chat channel.
-
-        Required permissions (one of):
-         - `chat:message:create`
-         - `dms:message:manage`
-         - `livestream:chat:write`
-         - `support_chat:message:create`
+        Updates the author's message. Use the pin and unpin actions to change its pin state. Omitted fields are preserved; attachment and preview collections replace their previous values.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to update.
+            Existing public message ID.
 
         attachments : typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]]
-            A replacement list of file attachments for this message, such as images or videos.
+            Replacement attachment list; pass an empty list to remove attachments.
 
         content : typing.Optional[str]
-            The updated body of the message in Markdown format. For example, 'Hello **world**'.
+            Replacement Markdown content.
 
-        is_pinned : typing.Optional[bool]
-            Whether this message should be pinned to the top of the channel.
+        link_previews : typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]]
+            Replacement preview URLs; pass an empty list to remove previews.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Message
-            A successful response
+        ChatMessage
+            message updated
 
         Examples
         --------
@@ -641,7 +944,7 @@ class AsyncMessagesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -656,6 +959,302 @@ class AsyncMessagesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id, attachments=attachments, content=content, is_pinned=is_pinned, request_options=request_options
+            id, attachments=attachments, content=content, link_previews=link_previews, request_options=request_options
         )
+        return _response.data
+
+    async def pin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
+        """
+        Pins a message in its channel. Requires the channel's pin permission.
+
+        Parameters
+        ----------
+        id : str
+            The message to pin.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            message pinned
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.messages.pin(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.pin(id, request_options=request_options)
+        return _response.data
+
+    async def react(
+        self, id: str, *, emoji: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ChatMessage:
+        """
+        Add your emoji reaction to a message. Reacting again with the same emoji changes nothing.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message to react to.
+
+        emoji : str
+            A single Unicode emoji or a supported shortcode such as `:heart:`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            the message with updated reaction counts
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.messages.react(
+                id="id",
+                emoji="❤️",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.react(id, emoji=emoji, request_options=request_options)
+        return _response.data
+
+    async def list_reactions(
+        self,
+        id: str,
+        *,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        emoji: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ChatReaction, ListReactionsMessagesResponse]:
+        """
+        List who reacted to a message, newest first. Optionally filter by emoji.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        emoji : typing.Optional[str]
+            Only return reactions with this emoji, as a Unicode emoji or a supported shortcode.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ChatReaction, ListReactionsMessagesResponse]
+            operation completed
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.messages.list_reactions(
+                id="id",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.list_reactions(
+            id, first=first, after=after, last=last, before=before, emoji=emoji, request_options=request_options
+        )
+
+    async def unpin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
+        """
+        Unpins a message in its channel. Requires the channel's pin permission.
+
+        Parameters
+        ----------
+        id : str
+            The message to unpin.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            message unpinned
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.messages.unpin(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.unpin(id, request_options=request_options)
+        return _response.data
+
+    async def unreact(
+        self, id: str, *, emoji: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ChatMessage:
+        """
+        Remove your emoji reaction from a message. Removing a reaction you have not added changes nothing.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message to remove your reaction from.
+
+        emoji : str
+            The emoji to remove, as a Unicode emoji or a supported shortcode.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            the message with updated reaction counts
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.messages.unreact(
+                id="id",
+                emoji="❤️",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.unreact(id, emoji=emoji, request_options=request_options)
+        return _response.data
+
+    async def vote(
+        self, id: str, *, poll_option_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ChatMessage:
+        """
+        Vote for one option on a message poll. Each user can vote once per poll.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message containing the poll.
+
+        poll_option_id : str
+            The option ID from the poll, not its display text.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ChatMessage
+            updated poll-containing resource
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.messages.vote(
+                id="id",
+                poll_option_id="2",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.vote(id, poll_option_id=poll_option_id, request_options=request_options)
         return _response.data
