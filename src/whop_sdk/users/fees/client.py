@@ -45,7 +45,7 @@ class FeesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-05-1",
+            "2026-11-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -96,7 +96,7 @@ class AsyncFeesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-05-1",
+            "2026-11-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
