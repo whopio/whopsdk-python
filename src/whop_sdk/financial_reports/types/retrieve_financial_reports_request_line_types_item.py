@@ -21,7 +21,6 @@ RetrieveFinancialReportsRequestLineTypesItem = typing.Union[
         "application_fee_payout",
         "balance_reservation",
         "balance_reservation_reversal",
-        "bank_transfer",
         "billing_percentage_fee",
         "buyer_fee",
         "card_interchange",

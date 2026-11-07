@@ -314,7 +314,6 @@ LedgerActivityLineType = typing.Union[
         "clawback_receivable_settlement_reversal",
         "clawback_fee",
         "psp_clawback_fee",
-        "bank_transfer",
         "deposit",
         "wallet_transfer_incoming",
         "wallet_transfer_outgoing",
