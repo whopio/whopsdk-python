@@ -43,7 +43,7 @@ class UpdateFeesRequestChildMarkups(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Markups on withdrawals, keyed by payout method.
+    Markups on withdrawals, keyed by payout method. Percentage and fixed components may be negative, down to negative 100, to subsidize Whop's fee from the platform's balance in the withdrawal currency. The creator's total fee cannot go below zero. An unfunded subsidy keeps the payout pending until funded or failed by the creation deadline.
     """
 
     transfers: typing.Optional[UpdateFeesRequestChildMarkupsTransfers] = pydantic.Field(default=None)
