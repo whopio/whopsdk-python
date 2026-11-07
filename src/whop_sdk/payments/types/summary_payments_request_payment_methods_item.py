@@ -85,6 +85,7 @@ SummaryPaymentsRequestPaymentMethodsItem = typing.Union[
         "claritypay",
         "coinbase",
         "crypto",
+        "crypto_subscription",
         "custom",
         "customer_balance",
         "demo_pay",
