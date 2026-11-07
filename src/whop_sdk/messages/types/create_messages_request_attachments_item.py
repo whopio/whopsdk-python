@@ -7,13 +7,9 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreateMessagesRequestAttachmentsItem(UniversalBaseModel):
-    """
-    Input for an attachment
-    """
-
     id: str = pydantic.Field()
     """
-    The ID of an existing file object.
+    Uploaded file ID.
     """
 
     if IS_PYDANTIC_V2:

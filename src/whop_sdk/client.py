@@ -34,6 +34,8 @@ if typing.TYPE_CHECKING:
     from .card_transactions.client import AsyncCardTransactionsClient, CardTransactionsClient
     from .cards.client import AsyncCardsClient, CardsClient
     from .cashback_rules.client import AsyncCashbackRulesClient, CashbackRulesClient
+    from .channel_members.client import AsyncChannelMembersClient, ChannelMembersClient
+    from .channels.client import AsyncChannelsClient, ChannelsClient
     from .chat_channels.client import AsyncChatChannelsClient, ChatChannelsClient
     from .checkout_configurations.client import AsyncCheckoutConfigurationsClient, CheckoutConfigurationsClient
     from .claim_links.client import AsyncClaimLinksClient, ClaimLinksClient
@@ -160,7 +162,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-11-06",
+        "2026-11-07",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -170,7 +172,7 @@ class Whop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-11-06",
+        api_version_date: typing.Optional[str] = "2026-11-07",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -225,6 +227,8 @@ class Whop:
         self._card_transactions: typing.Optional[CardTransactionsClient] = None
         self._cards: typing.Optional[CardsClient] = None
         self._cashback_rules: typing.Optional[CashbackRulesClient] = None
+        self._channel_members: typing.Optional[ChannelMembersClient] = None
+        self._channels: typing.Optional[ChannelsClient] = None
         self._chat_channels: typing.Optional[ChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[CheckoutConfigurationsClient] = None
         self._claim_links: typing.Optional[ClaimLinksClient] = None
@@ -494,6 +498,22 @@ class Whop:
 
             self._cashback_rules = CashbackRulesClient(client_wrapper=self._client_wrapper)
         return self._cashback_rules
+
+    @property
+    def channel_members(self):
+        if self._channel_members is None:
+            from .channel_members.client import ChannelMembersClient  # noqa: E402
+
+            self._channel_members = ChannelMembersClient(client_wrapper=self._client_wrapper)
+        return self._channel_members
+
+    @property
+    def channels(self):
+        if self._channels is None:
+            from .channels.client import ChannelsClient  # noqa: E402
+
+            self._channels = ChannelsClient(client_wrapper=self._client_wrapper)
+        return self._channels
 
     @property
     def chat_channels(self):
@@ -1180,7 +1200,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-11-06",
+        "2026-11-07",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -1190,7 +1210,7 @@ class AsyncWhop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-11-06",
+        api_version_date: typing.Optional[str] = "2026-11-07",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1245,6 +1265,8 @@ class AsyncWhop:
         self._card_transactions: typing.Optional[AsyncCardTransactionsClient] = None
         self._cards: typing.Optional[AsyncCardsClient] = None
         self._cashback_rules: typing.Optional[AsyncCashbackRulesClient] = None
+        self._channel_members: typing.Optional[AsyncChannelMembersClient] = None
+        self._channels: typing.Optional[AsyncChannelsClient] = None
         self._chat_channels: typing.Optional[AsyncChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[AsyncCheckoutConfigurationsClient] = None
         self._claim_links: typing.Optional[AsyncClaimLinksClient] = None
@@ -1514,6 +1536,22 @@ class AsyncWhop:
 
             self._cashback_rules = AsyncCashbackRulesClient(client_wrapper=self._client_wrapper)
         return self._cashback_rules
+
+    @property
+    def channel_members(self):
+        if self._channel_members is None:
+            from .channel_members.client import AsyncChannelMembersClient  # noqa: E402
+
+            self._channel_members = AsyncChannelMembersClient(client_wrapper=self._client_wrapper)
+        return self._channel_members
+
+    @property
+    def channels(self):
+        if self._channels is None:
+            from .channels.client import AsyncChannelsClient  # noqa: E402
+
+            self._channels = AsyncChannelsClient(client_wrapper=self._client_wrapper)
+        return self._channels
 
     @property
     def chat_channels(self):

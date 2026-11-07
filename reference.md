@@ -13549,6 +13549,1654 @@ client.cashback_rules.update(
 </dl>
 </details>
 
+## Channel Members
+<details><summary><code>client.channel_members.<a href="src/whop_sdk/channel_members/client.py">list</a>(...) -> ListChannelMembersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List or search the people in a channel.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channel_members.list(
+    channel_id="channel_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**channel_id:** `str` — The channel whose members to list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query:** `typing.Optional[str]` — Search by name or username.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channel_members.<a href="src/whop_sdk/channel_members/client.py">create</a>(...) -> ChannelMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a member to a direct or support channel.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channel_members.create(
+    channel_id="feed_xxxxxxxxxxxxxxxxxxxxxx",
+    user_id="user_xxxxxxxxxxxxxx",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**channel_id:** `str` — The channel to add the user to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `str` — The user to add.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channel_members.<a href="src/whop_sdk/channel_members/client.py">retrieve</a>(...) -> ChannelMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a channel member and their read position.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channel_members.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channel_members.<a href="src/whop_sdk/channel_members/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a channel member, or leave the channel yourself. Requires dms:channel:manage and access to the channel. Removing someone else also requires permission to manage its members.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channel_members.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channel_members.<a href="src/whop_sdk/channel_members/client.py">update</a>(...) -> ChannelMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update your notification preference using your stored membership ID in a private or support channel.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channel_members.update(
+    id="id",
+    notification_preference="all",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notification_preference:** `UpdateChannelMembersRequestNotificationPreference` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Channels
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">list</a>(...) -> ListChannelsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List channels you can access.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.list(
+    kind=[
+        "private"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**kind:** `typing.Optional[typing.Union[ListChannelsRequestKindItem, typing.Sequence[ListChannelsRequestKindItem]]]` — Channel kinds to return. Combine `private` and `support`, or pass `community` alone. `private` includes one-to-one and group direct messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**support_role:** `typing.Optional[ListChannelsRequestSupportRole]` — Which support channels to return. `customer` returns support chats you opened, including when `account_id` is set. `staff` returns the support inbox of the account in `account_id`, and requires permission to read that account's support chats. Applies only to `support` channels.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Filter channels by their owning account, prefixed `biz_`. Applies to private, community and support channels.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query:** `typing.Optional[str]` — Return only channels whose name contains this text. Private and support channels also match a member's username or name. `%` and `_` match literally.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ListChannelsRequestStatus]` — Return only support channels with this resolution. Requires `kind` to be `support` alone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**awaiting_reply:** `typing.Optional[bool]` — `true` returns unresolved support channels whose last message came from the customer; `false` returns the other support channels. Other channel kinds are returned either way.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**unread:** `typing.Optional[bool]` — `true` returns channels with messages you have not read; `false` returns the rest. Requires authenticating as a user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pinned:** `typing.Optional[bool]` — `true` returns private and support channels you have pinned; `false` returns those you have not. Requires authenticating as a user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**viewed:** `typing.Optional[bool]` — `true` returns community channels you have opened; `false` returns those you never have. Requires authenticating as a user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requested:** `typing.Optional[bool]` — `true` returns your pending direct-message requests; `false` returns your accepted private channels. Requires `private` in `kind` and authenticating as a user. With `support` also in `kind`, `false` keeps support channels and `true` returns only pending requests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListChannelsRequestOrder]` — The field to sort by. Defaults to `last_viewed_at` for community channels and `last_message_at` for private and support channels. Ties sort in a stable order.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_members:** `typing.Optional[bool]` — Include the current members of private and support channels, including you, with their public profiles.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_last_message:** `typing.Optional[bool]` — Include the most recent message you can see, with its author.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListChannelsRequestDirection]` — The sort direction. Defaults to `desc`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[str]` — Return only channels created before this ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[str]` — Return only channels created after this ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">create</a>(...) -> Channel</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a private, community or support channel. Returns an existing private or support channel unchanged with `200`, or a new channel with `201`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.create(
+    kind="private",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**kind:** `CreateChannelsRequestKind` — Channel kind. `private` is a one-to-one or group conversation, `community` creates a Chat experience on the account, and `support` opens a conversation between the account and a customer.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Owning account ID, prefixed `biz_`. Accepted for all channel kinds. Required for community and support channels unless supplied by the credential's account context.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_user_id:** `typing.Optional[str]` — Customer ID, prefixed `user_`. Support channels only; requires support management permission. Omit to open your own support conversation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Channel display name, accepted for all channel kinds. Used only when a channel is created. For community channels, names the new Chat experience; defaults to the Chat app's name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notifications_enabled:** `typing.Optional[bool]` — Whether app notifications are on for any channel kind. Webhooks fire either way. Defaults to `true`. Used only when a channel is created; change an existing channel with `PATCH /channels/:id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**participant_user_ids:** `typing.Optional[typing.List[str]]` — Other participant IDs, prefixed `user_`, excluding the sender. Required for private channels and accepted only for them. One ID creates a one-to-one conversation; more create a group.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**product_id:** `typing.Optional[str]` — Product ID, prefixed `prod_`, to attach the new community channel to. Accepted only for community channels. Must belong to the owning account and requires the `experience:attach` permission on it. Omit to leave the channel unattached.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sender_user_id:** `typing.Optional[str]` — Sender ID, prefixed `user_`. Private channels only. Required for account API keys; omit when authenticating as a user. Requires channel management permission on the account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">retrieve</a>(...) -> Channel</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a channel.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a channel. Deleting a support channel requires `support_chat:create` on the account. Community channels delete their backing experience and accept account API keys with the `experience:delete` permission. Private and support channels require a user identity with channel management permission; account API keys cannot act as a channel participant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">update</a>(...) -> Channel</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a channel. Community icon changes update the experience logo and require `experience:update`. Support rename and notification changes require `support_chat:create`. Private and support writes require a user identity with channel management permission; account API keys can update community channels only.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**icon:** `typing.Optional[UpdateChannelsRequestIcon]` — Community channels only. File reference for the experience logo; `null` clears it and restores the app icon fallback. Omit to preserve the current logo.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**moderation:** `typing.Optional[UpdateChannelsRequestModeration]` — Moderation settings, accepted only for community channels. Requires chat moderation permission. Omitted settings are preserved.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Replacement display name for any channel kind. Send `null` to clear a private or support channel name. Community channels require a name and also rename the experience.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notifications_enabled:** `typing.Optional[bool]` — Whether app notifications are on for any channel kind. Webhooks fire either way. Omit to preserve the current setting.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">accept</a>(...) -> ChannelMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Accept a direct-message request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.accept(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">hide</a>(...) -> ChannelMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Decline a DM request by hiding the channel from your inbox.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.hide(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">mark_read</a>(...) -> ChannelMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Mark a channel as read and optionally record viewed messages.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.mark_read(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_viewed_at:** `typing.Optional[datetime.datetime]` — Required for DM-backed kinds; not accepted for experience.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**viewed_message_ids:** `typing.Optional[typing.List[str]]` — Messages actually seen in this channel. Optional for all channel kinds; up to 100 IDs. Omitted or empty records no message views. Experience view counts update asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">mark_unread</a>(...) -> ChannelMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Mark a channel as unread for the authenticated user. Experience channels are unchanged.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.mark_unread(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">pin</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Pin a private or support channel for yourself. Omit position to append a new pin or keep an existing pin in place. An explicit zero-based position inserts or moves the pin and shifts the rest. At most 12 channels can be pinned.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.pin(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The channel ID, prefixed `feed_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**position:** `typing.Optional[int]` — Zero-based position in the resulting list. Must not exceed the last index after insertion. Omit to append a new pin or preserve an existing position.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">reopen</a>(...) -> Channel</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Reopen a resolved support channel.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.reopen(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">resolve</a>(...) -> Channel</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resolve a support channel.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.resolve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Public resource ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.<a href="src/whop_sdk/channels/client.py">unpin</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a channel from your pins and compact the remaining order. Your discarded memberships and inaccessible channels can be unpinned. Does not return channel data or grant read access.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.channels.unpin(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The channel ID, prefixed `feed_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## ChatChannels
 <details><summary><code>client.chat_channels.<a href="src/whop_sdk/chat_channels/client.py">list</a>(...) -> ListChatChannelsResponse</code></summary>
 <dl>
@@ -30443,12 +32091,7 @@ client.memberships.transfer(
 <dl>
 <dd>
 
-Lists messages in an experience chat, DM, or group chat channel, sorted by creation time.
-
-Required permissions (one of):
- - `chat:read`
- - `dms:read`
- - `support_chat:read`
+Lists messages in a channel. Existing public message and channel IDs are preserved. For reconnect synchronization, use inclusive updated_after with include_deleted=true; results use ascending change order. Follow the returned cursors and replace cached messages by ID, including when updated_at is unchanged. The returned updated_at is the stored message update time; reaction changes only affect synchronization ordering. Deleted entries contain identity and timestamps with their content redacted. To jump into history, specify channel_id and one around anchor; results use ascending creation-time order. For older messages in chronological order, use before_message_id with last and direction=asc; for newer messages, use after_message_id with first and direction=asc. Do not supply order or direction with updated_after or an around anchor. Keep message-ID filters when continuing with cursors. For around queries, omit the around anchor and continue with direction=asc.
 </dd>
 </dl>
 </dd>
@@ -30472,8 +32115,6 @@ client = Whop(
 )
 
 client.messages.list(
-    first=42,
-    last=42,
     channel_id="channel_id",
 )
 
@@ -30491,7 +32132,7 @@ client.messages.list(
 <dl>
 <dd>
 
-**channel_id:** `str` — The unique identifier of the channel or experience to list messages for.
+**channel_id:** `str` — Filter by public channel ID. An experience ID is also accepted for experience chat.
     
 </dd>
 </dl>
@@ -30499,7 +32140,7 @@ client.messages.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Returns the elements in the list that come after the specified cursor.
+**replying_to_message_id:** `typing.Optional[str]` — Return replies to this message.
     
 </dd>
 </dl>
@@ -30507,7 +32148,7 @@ client.messages.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Returns the elements in the list that come before the specified cursor.
+**pinned:** `typing.Optional[bool]` — Filter by message pin state.
     
 </dd>
 </dl>
@@ -30515,7 +32156,7 @@ client.messages.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Returns the first _n_ elements from the list.
+**include_deleted:** `typing.Optional[bool]` — Include redacted deletion entries for cache synchronization.
     
 </dd>
 </dl>
@@ -30523,7 +32164,7 @@ client.messages.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Returns the last _n_ elements from the list.
+**created_after:** `typing.Optional[str]` — Return messages created strictly after this ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -30531,7 +32172,95 @@ client.messages.list(
 <dl>
 <dd>
 
-**direction:** `typing.Optional[Direction]` 
+**created_before:** `typing.Optional[str]` — Return messages created strictly before this ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**updated_after:** `typing.Optional[str]` — Return messages changed at or after this ISO 8601 timestamp in ascending change order. Cannot be combined with history filters, around anchors, order, or direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before_message_id:** `typing.Optional[str]` — Filter messages strictly before this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after_message_id:** `typing.Optional[str]` — Filter messages strictly after this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**around_message_id:** `typing.Optional[str]` — Center the first page around this live message in the selected channel.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**around_timestamp:** `typing.Optional[str]` — Center the first page around this ISO 8601 timestamp in the selected channel.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListMessagesRequestOrder]` — History sort field. Defaults to created_at. Cannot be supplied with updated_after or around anchors.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListMessagesRequestDirection]` — History sort direction. Defaults to desc. Cannot be supplied with updated_after or around anchors.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -30551,7 +32280,7 @@ client.messages.list(
 </dl>
 </details>
 
-<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">create</a>(...) -> Message</code></summary>
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">create</a>(...) -> ChatMessage</code></summary>
 <dl>
 <dd>
 
@@ -30563,13 +32292,7 @@ client.messages.list(
 <dl>
 <dd>
 
-Sends a message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
-
-Required permissions (one of):
- - `chat:message:create`
- - `dms:message:manage`
- - `livestream:chat:write`
- - `support_chat:message:create`
+Sends a Markdown message as the authenticated user or app agent. Channel access, posting restrictions, moderation, and delivery follow the existing chat services. Use Idempotency-Key to safely retry a send. The response and realtime message use the same message ID. Custom author presentation and embeds are read-only.
 </dd>
 </dl>
 </dd>
@@ -30593,8 +32316,8 @@ client = Whop(
 )
 
 client.messages.create(
-    channel_id="channel_id",
-    content="content",
+    channel_id="feed_xxxxxxxxxxxxxxxxxxxxxx",
+    content="New **message**",
 )
 
 ```
@@ -30611,7 +32334,7 @@ client.messages.create(
 <dl>
 <dd>
 
-**channel_id:** `str` — The unique identifier of the channel or experience to send the message in. For example, 'exp_xxxxx' or 'feed_xxxxx'.
+**channel_id:** `str` — Public channel ID, or an experience ID for experience chat.
     
 </dd>
 </dl>
@@ -30619,7 +32342,7 @@ client.messages.create(
 <dl>
 <dd>
 
-**content:** `str` — The body of the message in Markdown format. For example, 'Hello **world**'.
+**content:** `str` — Markdown content. May be empty when the message contains media or a poll.
     
 </dd>
 </dl>
@@ -30627,7 +32350,7 @@ client.messages.create(
 <dl>
 <dd>
 
-**attachments:** `typing.Optional[typing.List[CreateMessagesRequestAttachmentsItem]]` — A list of file attachments to include with the message, such as images or videos.
+**attachments:** `typing.Optional[typing.List[CreateMessagesRequestAttachmentsItem]]` — Files to attach to the message.
     
 </dd>
 </dl>
@@ -30635,7 +32358,7 @@ client.messages.create(
 <dl>
 <dd>
 
-**auto_detect_links:** `typing.Optional[bool]` — Automatically detect URLs in the message and generate link previews.
+**auto_detect_links:** `typing.Optional[bool]` — Generate previews for URLs in content. Mutually exclusive with link_previews.
     
 </dd>
 </dl>
@@ -30643,7 +32366,7 @@ client.messages.create(
 <dl>
 <dd>
 
-**poll:** `typing.Optional[CreateMessagesRequestPoll]` — A poll to attach to this message, allowing recipients to vote on options.
+**link_previews:** `typing.Optional[typing.List[CreateMessagesRequestLinkPreviewsItem]]` — Explicit URLs for the server to preview.
     
 </dd>
 </dl>
@@ -30651,7 +32374,15 @@ client.messages.create(
 <dl>
 <dd>
 
-**replying_to_message_id:** `typing.Optional[str]` — The unique identifier of the message this is replying to, creating a threaded reply.
+**poll:** `typing.Optional[CreateMessagesRequestPoll]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**replying_to_message_id:** `typing.Optional[str]` — A live message in the same channel to reply to.
     
 </dd>
 </dl>
@@ -30671,7 +32402,7 @@ client.messages.create(
 </dl>
 </details>
 
-<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">retrieve</a>(...) -> Message</code></summary>
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">retrieve</a>(...) -> ChatMessage</code></summary>
 <dl>
 <dd>
 
@@ -30683,13 +32414,7 @@ client.messages.create(
 <dl>
 <dd>
 
-Retrieves the details of an existing message.
-
-Required permissions (one of):
- - `chat:read`
- - `dms:read`
- - `livestream:chat:read`
- - `support_chat:read`
+Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
 </dd>
 </dl>
 </dd>
@@ -30730,7 +32455,7 @@ client.messages.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the message to retrieve.
+**id:** `str` — Existing public message ID.
     
 </dd>
 </dl>
@@ -30750,7 +32475,7 @@ client.messages.retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">delete</a>(...) -> bool</code></summary>
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -30762,13 +32487,7 @@ client.messages.retrieve(
 <dl>
 <dd>
 
-Permanently deletes a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
-
-Required permissions (one of):
- - `chat:message:create` and `chat:read`
- - `dms:message:manage` and `dms:read`
- - `livestream:chat:write` and `livestream:chat:read`
- - `support_chat:message:create` and `support_chat:read`
+Deletes a message as its author or a permitted moderator. Deleted messages remain available as redacted entries through list synchronization.
 </dd>
 </dl>
 </dd>
@@ -30809,7 +32528,7 @@ client.messages.delete(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the message to delete.
+**id:** `str` — Existing public message ID.
     
 </dd>
 </dl>
@@ -30829,7 +32548,7 @@ client.messages.delete(
 </dl>
 </details>
 
-<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">update</a>(...) -> Message</code></summary>
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">update</a>(...) -> ChatMessage</code></summary>
 <dl>
 <dd>
 
@@ -30841,13 +32560,7 @@ client.messages.delete(
 <dl>
 <dd>
 
-Edits the content, attachments, or pinned status of a message in an experience chat, DM, or group chat channel.
-
-Required permissions (one of):
- - `chat:message:create`
- - `dms:message:manage`
- - `livestream:chat:write`
- - `support_chat:message:create`
+Updates the author's message. Use the pin and unpin actions to change its pin state. Omitted fields are preserved; attachment and preview collections replace their previous values.
 </dd>
 </dl>
 </dd>
@@ -30888,7 +32601,7 @@ client.messages.update(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the message to update.
+**id:** `str` — Existing public message ID.
     
 </dd>
 </dl>
@@ -30896,7 +32609,7 @@ client.messages.update(
 <dl>
 <dd>
 
-**attachments:** `typing.Optional[typing.List[UpdateMessagesRequestAttachmentsItem]]` — A replacement list of file attachments for this message, such as images or videos.
+**attachments:** `typing.Optional[typing.List[UpdateMessagesRequestAttachmentsItem]]` — Replacement attachment list; pass an empty list to remove attachments.
     
 </dd>
 </dl>
@@ -30904,7 +32617,7 @@ client.messages.update(
 <dl>
 <dd>
 
-**content:** `typing.Optional[str]` — The updated body of the message in Markdown format. For example, 'Hello **world**'.
+**content:** `typing.Optional[str]` — Replacement Markdown content.
     
 </dd>
 </dl>
@@ -30912,7 +32625,512 @@ client.messages.update(
 <dl>
 <dd>
 
-**is_pinned:** `typing.Optional[bool]` — Whether this message should be pinned to the top of the channel.
+**link_previews:** `typing.Optional[typing.List[UpdateMessagesRequestLinkPreviewsItem]]` — Replacement preview URLs; pass an empty list to remove previews.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">pin</a>(...) -> ChatMessage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Pins a message in its channel. Requires the channel's pin permission.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.messages.pin(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The message to pin.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">react</a>(...) -> ChatMessage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add your emoji reaction to a message. Reacting again with the same emoji changes nothing.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.messages.react(
+    id="id",
+    emoji="❤️",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the message to react to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**emoji:** `str` — A single Unicode emoji or a supported shortcode such as `:heart:`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">list_reactions</a>(...) -> ListReactionsMessagesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List who reacted to a message, newest first. Optionally filter by emoji.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.messages.list_reactions(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the message.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**emoji:** `typing.Optional[str]` — Only return reactions with this emoji, as a Unicode emoji or a supported shortcode.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">unpin</a>(...) -> ChatMessage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Unpins a message in its channel. Requires the channel's pin permission.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.messages.unpin(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The message to unpin.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">unreact</a>(...) -> ChatMessage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove your emoji reaction from a message. Removing a reaction you have not added changes nothing.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.messages.unreact(
+    id="id",
+    emoji="❤️",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the message to remove your reaction from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**emoji:** `str` — The emoji to remove, as a Unicode emoji or a supported shortcode.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.<a href="src/whop_sdk/messages/client.py">vote</a>(...) -> ChatMessage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Vote for one option on a message poll. Each user can vote once per poll.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.messages.vote(
+    id="id",
+    poll_option_id="2",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the message containing the poll.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**poll_option_id:** `str` — The option ID from the poll, not its display text.
     
 </dd>
 </dl>
@@ -47108,6 +49326,14 @@ client.users.list()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**context_channel_id:** `typing.Optional[str]` — Prioritize people relevant to this channel for mentions. Results remain global; channel access is required.
+    
+</dd>
+</dl>
 
 <dl>
 <dd>

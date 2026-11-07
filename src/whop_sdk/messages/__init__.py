@@ -8,9 +8,15 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         CreateMessagesRequestAttachmentsItem,
+        CreateMessagesRequestLinkPreviewsItem,
         CreateMessagesRequestPoll,
         CreateMessagesRequestPollOptionsItem,
+        ListMessagesRequestDirection,
+        ListMessagesRequestOrder,
         ListMessagesResponse,
+        ListMessagesResponsePageInfo,
+        ListReactionsMessagesResponse,
+        ListReactionsMessagesResponsePageInfo,
         PostChatMessageCreatedPayload,
         PostChatMessageCreatedPayloadApiVersion,
         PostChatMessageCreatedPayloadData,
@@ -20,12 +26,19 @@ if typing.TYPE_CHECKING:
         PostChatMessageCreatedPayloadDataChannelType,
         PostChatMessageCreatedPayloadType,
         UpdateMessagesRequestAttachmentsItem,
+        UpdateMessagesRequestLinkPreviewsItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateMessagesRequestAttachmentsItem": ".types",
+    "CreateMessagesRequestLinkPreviewsItem": ".types",
     "CreateMessagesRequestPoll": ".types",
     "CreateMessagesRequestPollOptionsItem": ".types",
+    "ListMessagesRequestDirection": ".types",
+    "ListMessagesRequestOrder": ".types",
     "ListMessagesResponse": ".types",
+    "ListMessagesResponsePageInfo": ".types",
+    "ListReactionsMessagesResponse": ".types",
+    "ListReactionsMessagesResponsePageInfo": ".types",
     "PostChatMessageCreatedPayload": ".types",
     "PostChatMessageCreatedPayloadApiVersion": ".types",
     "PostChatMessageCreatedPayloadData": ".types",
@@ -35,6 +48,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostChatMessageCreatedPayloadDataChannelType": ".types",
     "PostChatMessageCreatedPayloadType": ".types",
     "UpdateMessagesRequestAttachmentsItem": ".types",
+    "UpdateMessagesRequestLinkPreviewsItem": ".types",
 }
 
 
@@ -61,9 +75,15 @@ def __dir__():
 
 __all__ = [
     "CreateMessagesRequestAttachmentsItem",
+    "CreateMessagesRequestLinkPreviewsItem",
     "CreateMessagesRequestPoll",
     "CreateMessagesRequestPollOptionsItem",
+    "ListMessagesRequestDirection",
+    "ListMessagesRequestOrder",
     "ListMessagesResponse",
+    "ListMessagesResponsePageInfo",
+    "ListReactionsMessagesResponse",
+    "ListReactionsMessagesResponsePageInfo",
     "PostChatMessageCreatedPayload",
     "PostChatMessageCreatedPayloadApiVersion",
     "PostChatMessageCreatedPayloadData",
@@ -73,4 +93,5 @@ __all__ = [
     "PostChatMessageCreatedPayloadDataChannelType",
     "PostChatMessageCreatedPayloadType",
     "UpdateMessagesRequestAttachmentsItem",
+    "UpdateMessagesRequestLinkPreviewsItem",
 ]

@@ -40,6 +40,7 @@ class RawUsersClient:
     def list(
         self,
         *,
+        context_channel_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
@@ -52,6 +53,9 @@ class RawUsersClient:
 
         Parameters
         ----------
+        context_channel_id : typing.Optional[str]
+            Prioritize people relevant to this channel for mentions. Results remain global; channel access is required.
+
         query : typing.Optional[str]
             A search term to filter users by name or username.
 
@@ -80,6 +84,7 @@ class RawUsersClient:
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
+                "context_channel_id": context_channel_id,
                 "query": query,
                 "first": first,
                 "after": after,
@@ -104,6 +109,7 @@ class RawUsersClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
+                        context_channel_id=context_channel_id,
                         query=query,
                         first=first,
                         after=_parsed_next,
@@ -634,6 +640,7 @@ class AsyncRawUsersClient:
     async def list(
         self,
         *,
+        context_channel_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
@@ -646,6 +653,9 @@ class AsyncRawUsersClient:
 
         Parameters
         ----------
+        context_channel_id : typing.Optional[str]
+            Prioritize people relevant to this channel for mentions. Results remain global; channel access is required.
+
         query : typing.Optional[str]
             A search term to filter users by name or username.
 
@@ -674,6 +684,7 @@ class AsyncRawUsersClient:
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
+                "context_channel_id": context_channel_id,
                 "query": query,
                 "first": first,
                 "after": after,
@@ -700,6 +711,7 @@ class AsyncRawUsersClient:
 
                     async def _get_next():
                         return await self.list(
+                            context_channel_id=context_channel_id,
                             query=query,
                             first=first,
                             after=_parsed_next,

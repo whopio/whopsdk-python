@@ -52,6 +52,7 @@ class UsersClient:
     def list(
         self,
         *,
+        context_channel_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
@@ -64,6 +65,9 @@ class UsersClient:
 
         Parameters
         ----------
+        context_channel_id : typing.Optional[str]
+            Prioritize people relevant to this channel for mentions. Results remain global; channel access is required.
+
         query : typing.Optional[str]
             A search term to filter users by name or username.
 
@@ -92,7 +96,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -104,7 +108,13 @@ class UsersClient:
             yield page
         """
         return self._raw_client.list(
-            query=query, first=first, after=after, last=last, before=before, request_options=request_options
+            context_channel_id=context_channel_id,
+            query=query,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
+            request_options=request_options,
         )
 
     def me(
@@ -162,7 +172,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -227,7 +237,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -304,7 +314,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -376,7 +386,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -424,7 +434,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -460,7 +470,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -527,6 +537,7 @@ class AsyncUsersClient:
     async def list(
         self,
         *,
+        context_channel_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
@@ -539,6 +550,9 @@ class AsyncUsersClient:
 
         Parameters
         ----------
+        context_channel_id : typing.Optional[str]
+            Prioritize people relevant to this channel for mentions. Results remain global; channel access is required.
+
         query : typing.Optional[str]
             A search term to filter users by name or username.
 
@@ -569,7 +583,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -588,7 +602,13 @@ class AsyncUsersClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            query=query, first=first, after=after, last=last, before=before, request_options=request_options
+            context_channel_id=context_channel_id,
+            query=query,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
+            request_options=request_options,
         )
 
     async def me(
@@ -648,7 +668,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -721,7 +741,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -806,7 +826,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -886,7 +906,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -942,7 +962,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -986,7 +1006,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-06",
+            "2026-11-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

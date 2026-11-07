@@ -13,19 +13,21 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
+from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
-from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
-from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.direction import Direction
-from ..types.message import Message
-from ..types.message_list_item import MessageListItem
+from ..types.chat_message import ChatMessage
+from ..types.chat_reaction import ChatReaction
 from .types.create_messages_request_attachments_item import CreateMessagesRequestAttachmentsItem
+from .types.create_messages_request_link_previews_item import CreateMessagesRequestLinkPreviewsItem
 from .types.create_messages_request_poll import CreateMessagesRequestPoll
+from .types.list_messages_request_direction import ListMessagesRequestDirection
+from .types.list_messages_request_order import ListMessagesRequestOrder
 from .types.list_messages_response import ListMessagesResponse
+from .types.list_reactions_messages_response import ListReactionsMessagesResponse
 from .types.update_messages_request_attachments_item import UpdateMessagesRequestAttachmentsItem
+from .types.update_messages_request_link_previews_item import UpdateMessagesRequestLinkPreviewsItem
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -40,59 +42,110 @@ class RawMessagesClient:
         self,
         *,
         channel_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
+        replying_to_message_id: typing.Optional[str] = None,
+        pinned: typing.Optional[bool] = None,
+        include_deleted: typing.Optional[bool] = None,
+        created_after: typing.Optional[str] = None,
+        created_before: typing.Optional[str] = None,
+        updated_after: typing.Optional[str] = None,
+        before_message_id: typing.Optional[str] = None,
+        after_message_id: typing.Optional[str] = None,
+        around_message_id: typing.Optional[str] = None,
+        around_timestamp: typing.Optional[str] = None,
+        order: typing.Optional[ListMessagesRequestOrder] = None,
+        direction: typing.Optional[ListMessagesRequestDirection] = None,
         first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[MessageListItem, ListMessagesResponse]:
+    ) -> SyncPager[ChatMessage, ListMessagesResponse]:
         """
-        Lists messages in an experience chat, DM, or group chat channel, sorted by creation time.
-
-        Required permissions (one of):
-         - `chat:read`
-         - `dms:read`
-         - `support_chat:read`
+        Lists messages in a channel. Existing public message and channel IDs are preserved. For reconnect synchronization, use inclusive updated_after with include_deleted=true; results use ascending change order. Follow the returned cursors and replace cached messages by ID, including when updated_at is unchanged. The returned updated_at is the stored message update time; reaction changes only affect synchronization ordering. Deleted entries contain identity and timestamps with their content redacted. To jump into history, specify channel_id and one around anchor; results use ascending creation-time order. For older messages in chronological order, use before_message_id with last and direction=asc; for newer messages, use after_message_id with first and direction=asc. Do not supply order or direction with updated_after or an around anchor. Keep message-ID filters when continuing with cursors. For around queries, omit the around anchor and continue with direction=asc.
 
         Parameters
         ----------
         channel_id : str
-            The unique identifier of the channel or experience to list messages for.
+            Filter by public channel ID. An experience ID is also accepted for experience chat.
 
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
+        replying_to_message_id : typing.Optional[str]
+            Return replies to this message.
 
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
+        pinned : typing.Optional[bool]
+            Filter by message pin state.
+
+        include_deleted : typing.Optional[bool]
+            Include redacted deletion entries for cache synchronization.
+
+        created_after : typing.Optional[str]
+            Return messages created strictly after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[str]
+            Return messages created strictly before this ISO 8601 timestamp.
+
+        updated_after : typing.Optional[str]
+            Return messages changed at or after this ISO 8601 timestamp in ascending change order. Cannot be combined with history filters, around anchors, order, or direction.
+
+        before_message_id : typing.Optional[str]
+            Filter messages strictly before this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+
+        after_message_id : typing.Optional[str]
+            Filter messages strictly after this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+
+        around_message_id : typing.Optional[str]
+            Center the first page around this live message in the selected channel.
+
+        around_timestamp : typing.Optional[str]
+            Center the first page around this ISO 8601 timestamp in the selected channel.
+
+        order : typing.Optional[ListMessagesRequestOrder]
+            History sort field. Defaults to created_at. Cannot be supplied with updated_after or around anchors.
+
+        direction : typing.Optional[ListMessagesRequestDirection]
+            History sort direction. Defaults to desc. Cannot be supplied with updated_after or around anchors.
 
         first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+            Number of results to return from the end of the range.
 
-        direction : typing.Optional[Direction]
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[MessageListItem, ListMessagesResponse]
-            A successful response
+        SyncPager[ChatMessage, ListMessagesResponse]
+            messages listed
         """
         _response = self._client_wrapper.httpx_client.request(
             "messages",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
                 "channel_id": channel_id,
+                "replying_to_message_id": replying_to_message_id,
+                "pinned": pinned,
+                "include_deleted": include_deleted,
+                "created_after": created_after,
+                "created_before": created_before,
+                "updated_after": updated_after,
+                "before_message_id": before_message_id,
+                "after_message_id": after_message_id,
+                "around_message_id": around_message_id,
+                "around_timestamp": around_timestamp,
+                "order": order,
                 "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
             },
             request_options=request_options,
         )
@@ -113,11 +166,22 @@ class RawMessagesClient:
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
                         channel_id=channel_id,
-                        after=_parsed_next,
-                        before=before,
-                        first=first,
-                        last=last,
+                        replying_to_message_id=replying_to_message_id,
+                        pinned=pinned,
+                        include_deleted=include_deleted,
+                        created_after=created_after,
+                        created_before=created_before,
+                        updated_after=updated_after,
+                        before_message_id=before_message_id,
+                        after_message_id=after_message_id,
+                        around_message_id=around_message_id,
+                        around_timestamp=around_timestamp,
+                        order=order,
                         direction=direction,
+                        first=first,
+                        after=_parsed_next,
+                        last=last,
+                        before=before,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -165,39 +229,6 @@ class RawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -214,46 +245,43 @@ class RawMessagesClient:
         content: str,
         attachments: typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]] = OMIT,
         auto_detect_links: typing.Optional[bool] = OMIT,
+        link_previews: typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]] = OMIT,
         poll: typing.Optional[CreateMessagesRequestPoll] = OMIT,
         replying_to_message_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[Message]:
+    ) -> HttpResponse[ChatMessage]:
         """
-        Sends a message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
-
-        Required permissions (one of):
-         - `chat:message:create`
-         - `dms:message:manage`
-         - `livestream:chat:write`
-         - `support_chat:message:create`
+        Sends a Markdown message as the authenticated user or app agent. Channel access, posting restrictions, moderation, and delivery follow the existing chat services. Use Idempotency-Key to safely retry a send. The response and realtime message use the same message ID. Custom author presentation and embeds are read-only.
 
         Parameters
         ----------
         channel_id : str
-            The unique identifier of the channel or experience to send the message in. For example, 'exp_xxxxx' or 'feed_xxxxx'.
+            Public channel ID, or an experience ID for experience chat.
 
         content : str
-            The body of the message in Markdown format. For example, 'Hello **world**'.
+            Markdown content. May be empty when the message contains media or a poll.
 
         attachments : typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]]
-            A list of file attachments to include with the message, such as images or videos.
+            Files to attach to the message.
 
         auto_detect_links : typing.Optional[bool]
-            Automatically detect URLs in the message and generate link previews.
+            Generate previews for URLs in content. Mutually exclusive with link_previews.
+
+        link_previews : typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]]
+            Explicit URLs for the server to preview.
 
         poll : typing.Optional[CreateMessagesRequestPoll]
-            A poll to attach to this message, allowing recipients to vote on options.
 
         replying_to_message_id : typing.Optional[str]
-            The unique identifier of the message this is replying to, creating a threaded reply.
+            A live message in the same channel to reply to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[Message]
-            A successful response
+        HttpResponse[ChatMessage]
+            message sent
         """
         _response = self._client_wrapper.httpx_client.request(
             "messages",
@@ -262,14 +290,19 @@ class RawMessagesClient:
             json={
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments,
-                    annotation=typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]],
+                    annotation=typing.Sequence[CreateMessagesRequestAttachmentsItem],
                     direction="write",
                 ),
                 "auto_detect_links": auto_detect_links,
                 "channel_id": channel_id,
                 "content": content,
+                "link_previews": convert_and_respect_annotation_metadata(
+                    object_=link_previews,
+                    annotation=typing.Sequence[CreateMessagesRequestLinkPreviewsItem],
+                    direction="write",
+                ),
                 "poll": convert_and_respect_annotation_metadata(
-                    object_=poll, annotation=typing.Optional[CreateMessagesRequestPoll], direction="write"
+                    object_=poll, annotation=CreateMessagesRequestPoll, direction="write"
                 ),
                 "replying_to_message_id": replying_to_message_id,
             },
@@ -282,26 +315,15 @@ class RawMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Message,
+                    ChatMessage,
                     parse_obj_as(
-                        type_=Message,  # type: ignore
+                        type_=ChatMessage,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
                 raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -322,41 +344,8 @@ class RawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -375,28 +364,24 @@ class RawMessagesClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Message]:
+    def retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ChatMessage]:
         """
-        Retrieves the details of an existing message.
-
-        Required permissions (one of):
-         - `chat:read`
-         - `dms:read`
-         - `livestream:chat:read`
-         - `support_chat:read`
+        Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to retrieve.
+            Existing public message ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[Message]
-            A successful response
+        HttpResponse[ChatMessage]
+            message retrieved
         """
         _response = self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
@@ -407,81 +392,15 @@ class RawMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Message,
+                    ChatMessage,
                     parse_obj_as(
-                        type_=Message,  # type: ignore
+                        type_=ChatMessage,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -500,28 +419,21 @@ class RawMessagesClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[bool]:
+    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        Permanently deletes a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
-
-        Required permissions (one of):
-         - `chat:message:create` and `chat:read`
-         - `dms:message:manage` and `dms:read`
-         - `livestream:chat:write` and `livestream:chat:read`
-         - `support_chat:message:create` and `support_chat:read`
+        Deletes a message as its author or a permitted moderator. Deleted messages remain available as redacted entries through list synchronization.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to delete.
+            Existing public message ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[bool]
-            A successful response
+        HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
@@ -531,82 +443,9 @@ class RawMessagesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    bool,
-                    parse_obj_as(
-                        type_=bool,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
+                return HttpResponse(response=_response, data=None)
             if _response.status_code == 403:
                 raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -631,39 +470,33 @@ class RawMessagesClient:
         *,
         attachments: typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]] = OMIT,
         content: typing.Optional[str] = OMIT,
-        is_pinned: typing.Optional[bool] = OMIT,
+        link_previews: typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[Message]:
+    ) -> HttpResponse[ChatMessage]:
         """
-        Edits the content, attachments, or pinned status of a message in an experience chat, DM, or group chat channel.
-
-        Required permissions (one of):
-         - `chat:message:create`
-         - `dms:message:manage`
-         - `livestream:chat:write`
-         - `support_chat:message:create`
+        Updates the author's message. Use the pin and unpin actions to change its pin state. Omitted fields are preserved; attachment and preview collections replace their previous values.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to update.
+            Existing public message ID.
 
         attachments : typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]]
-            A replacement list of file attachments for this message, such as images or videos.
+            Replacement attachment list; pass an empty list to remove attachments.
 
         content : typing.Optional[str]
-            The updated body of the message in Markdown format. For example, 'Hello **world**'.
+            Replacement Markdown content.
 
-        is_pinned : typing.Optional[bool]
-            Whether this message should be pinned to the top of the channel.
+        link_previews : typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]]
+            Replacement preview URLs; pass an empty list to remove previews.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[Message]
-            A successful response
+        HttpResponse[ChatMessage]
+            message updated
         """
         _response = self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
@@ -672,11 +505,15 @@ class RawMessagesClient:
             json={
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments,
-                    annotation=typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]],
+                    annotation=typing.Sequence[UpdateMessagesRequestAttachmentsItem],
                     direction="write",
                 ),
                 "content": content,
-                "is_pinned": is_pinned,
+                "link_previews": convert_and_respect_annotation_metadata(
+                    object_=link_previews,
+                    annotation=typing.Sequence[UpdateMessagesRequestLinkPreviewsItem],
+                    direction="write",
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -687,15 +524,15 @@ class RawMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Message,
+                    ChatMessage,
                     parse_obj_as(
-                        type_=Message,  # type: ignore
+                        type_=ChatMessage,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -705,17 +542,48 @@ class RawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def pin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[ChatMessage]:
+        """
+        Pins a message in its channel. Requires the channel's pin permission.
+
+        Parameters
+        ----------
+        id : str
+            The message to pin.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ChatMessage]
+            message pinned
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/pin",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
                     ),
                 )
+                return HttpResponse(response=_response, data=_data)
             if _response.status_code == 403:
                 raise ForbiddenError(
                     headers=dict(_response.headers),
@@ -738,8 +606,8 @@ class RawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -749,8 +617,62 @@ class RawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def react(
+        self, id: str, *, emoji: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ChatMessage]:
+        """
+        Add your emoji reaction to a message. Reacting again with the same emoji changes nothing.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message to react to.
+
+        emoji : str
+            A single Unicode emoji or a supported shortcode such as `:heart:`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ChatMessage]
+            the message with updated reaction counts
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/react",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "emoji": emoji,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -760,8 +682,335 @@ class RawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 500:
-                raise InternalServerError(
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_reactions(
+        self,
+        id: str,
+        *,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        emoji: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[ChatReaction, ListReactionsMessagesResponse]:
+        """
+        List who reacted to a message, newest first. Optionally filter by emoji.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        emoji : typing.Optional[str]
+            Only return reactions with this emoji, as a Unicode emoji or a supported shortcode.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[ChatReaction, ListReactionsMessagesResponse]
+            operation completed
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/reactions",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
+                "emoji": emoji,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    ListReactionsMessagesResponse,
+                    parse_obj_as(
+                        type_=ListReactionsMessagesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.data
+                _has_next = False
+                _get_next = None
+                if _parsed_response.page_info is not None:
+                    _parsed_next = _parsed_response.page_info.end_cursor
+                    _has_next = _parsed_next is not None and _parsed_next != ""
+                    _get_next = lambda: self.list_reactions(
+                        id,
+                        first=first,
+                        after=_parsed_next,
+                        last=last,
+                        before=before,
+                        emoji=emoji,
+                        request_options=request_options,
+                    )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def unpin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[ChatMessage]:
+        """
+        Unpins a message in its channel. Requires the channel's pin permission.
+
+        Parameters
+        ----------
+        id : str
+            The message to unpin.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ChatMessage]
+            message unpinned
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/unpin",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def unreact(
+        self, id: str, *, emoji: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ChatMessage]:
+        """
+        Remove your emoji reaction from a message. Removing a reaction you have not added changes nothing.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message to remove your reaction from.
+
+        emoji : str
+            The emoji to remove, as a Unicode emoji or a supported shortcode.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ChatMessage]
+            the message with updated reaction counts
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/unreact",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "emoji": emoji,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def vote(
+        self, id: str, *, poll_option_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ChatMessage]:
+        """
+        Vote for one option on a message poll. Each user can vote once per poll.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message containing the poll.
+
+        poll_option_id : str
+            The option ID from the poll, not its display text.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ChatMessage]
+            updated poll-containing resource
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/vote",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "poll_option_id": poll_option_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -789,59 +1038,110 @@ class AsyncRawMessagesClient:
         self,
         *,
         channel_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
+        replying_to_message_id: typing.Optional[str] = None,
+        pinned: typing.Optional[bool] = None,
+        include_deleted: typing.Optional[bool] = None,
+        created_after: typing.Optional[str] = None,
+        created_before: typing.Optional[str] = None,
+        updated_after: typing.Optional[str] = None,
+        before_message_id: typing.Optional[str] = None,
+        after_message_id: typing.Optional[str] = None,
+        around_message_id: typing.Optional[str] = None,
+        around_timestamp: typing.Optional[str] = None,
+        order: typing.Optional[ListMessagesRequestOrder] = None,
+        direction: typing.Optional[ListMessagesRequestDirection] = None,
         first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[MessageListItem, ListMessagesResponse]:
+    ) -> AsyncPager[ChatMessage, ListMessagesResponse]:
         """
-        Lists messages in an experience chat, DM, or group chat channel, sorted by creation time.
-
-        Required permissions (one of):
-         - `chat:read`
-         - `dms:read`
-         - `support_chat:read`
+        Lists messages in a channel. Existing public message and channel IDs are preserved. For reconnect synchronization, use inclusive updated_after with include_deleted=true; results use ascending change order. Follow the returned cursors and replace cached messages by ID, including when updated_at is unchanged. The returned updated_at is the stored message update time; reaction changes only affect synchronization ordering. Deleted entries contain identity and timestamps with their content redacted. To jump into history, specify channel_id and one around anchor; results use ascending creation-time order. For older messages in chronological order, use before_message_id with last and direction=asc; for newer messages, use after_message_id with first and direction=asc. Do not supply order or direction with updated_after or an around anchor. Keep message-ID filters when continuing with cursors. For around queries, omit the around anchor and continue with direction=asc.
 
         Parameters
         ----------
         channel_id : str
-            The unique identifier of the channel or experience to list messages for.
+            Filter by public channel ID. An experience ID is also accepted for experience chat.
 
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
+        replying_to_message_id : typing.Optional[str]
+            Return replies to this message.
 
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
+        pinned : typing.Optional[bool]
+            Filter by message pin state.
+
+        include_deleted : typing.Optional[bool]
+            Include redacted deletion entries for cache synchronization.
+
+        created_after : typing.Optional[str]
+            Return messages created strictly after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[str]
+            Return messages created strictly before this ISO 8601 timestamp.
+
+        updated_after : typing.Optional[str]
+            Return messages changed at or after this ISO 8601 timestamp in ascending change order. Cannot be combined with history filters, around anchors, order, or direction.
+
+        before_message_id : typing.Optional[str]
+            Filter messages strictly before this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+
+        after_message_id : typing.Optional[str]
+            Filter messages strictly after this message in channel_id by creation time and message ID. Deleted anchors are accepted; missing or other-channel IDs return 404. Cannot be combined with around anchors or updated_after.
+
+        around_message_id : typing.Optional[str]
+            Center the first page around this live message in the selected channel.
+
+        around_timestamp : typing.Optional[str]
+            Center the first page around this ISO 8601 timestamp in the selected channel.
+
+        order : typing.Optional[ListMessagesRequestOrder]
+            History sort field. Defaults to created_at. Cannot be supplied with updated_after or around anchors.
+
+        direction : typing.Optional[ListMessagesRequestDirection]
+            History sort direction. Defaults to desc. Cannot be supplied with updated_after or around anchors.
 
         first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+            Number of results to return from the end of the range.
 
-        direction : typing.Optional[Direction]
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[MessageListItem, ListMessagesResponse]
-            A successful response
+        AsyncPager[ChatMessage, ListMessagesResponse]
+            messages listed
         """
         _response = await self._client_wrapper.httpx_client.request(
             "messages",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
                 "channel_id": channel_id,
+                "replying_to_message_id": replying_to_message_id,
+                "pinned": pinned,
+                "include_deleted": include_deleted,
+                "created_after": created_after,
+                "created_before": created_before,
+                "updated_after": updated_after,
+                "before_message_id": before_message_id,
+                "after_message_id": after_message_id,
+                "around_message_id": around_message_id,
+                "around_timestamp": around_timestamp,
+                "order": order,
                 "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
             },
             request_options=request_options,
         )
@@ -864,11 +1164,22 @@ class AsyncRawMessagesClient:
                     async def _get_next():
                         return await self.list(
                             channel_id=channel_id,
-                            after=_parsed_next,
-                            before=before,
-                            first=first,
-                            last=last,
+                            replying_to_message_id=replying_to_message_id,
+                            pinned=pinned,
+                            include_deleted=include_deleted,
+                            created_after=created_after,
+                            created_before=created_before,
+                            updated_after=updated_after,
+                            before_message_id=before_message_id,
+                            after_message_id=after_message_id,
+                            around_message_id=around_message_id,
+                            around_timestamp=around_timestamp,
+                            order=order,
                             direction=direction,
+                            first=first,
+                            after=_parsed_next,
+                            last=last,
+                            before=before,
                             request_options=request_options,
                         )
 
@@ -917,39 +1228,6 @@ class AsyncRawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -966,46 +1244,43 @@ class AsyncRawMessagesClient:
         content: str,
         attachments: typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]] = OMIT,
         auto_detect_links: typing.Optional[bool] = OMIT,
+        link_previews: typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]] = OMIT,
         poll: typing.Optional[CreateMessagesRequestPoll] = OMIT,
         replying_to_message_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[Message]:
+    ) -> AsyncHttpResponse[ChatMessage]:
         """
-        Sends a message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
-
-        Required permissions (one of):
-         - `chat:message:create`
-         - `dms:message:manage`
-         - `livestream:chat:write`
-         - `support_chat:message:create`
+        Sends a Markdown message as the authenticated user or app agent. Channel access, posting restrictions, moderation, and delivery follow the existing chat services. Use Idempotency-Key to safely retry a send. The response and realtime message use the same message ID. Custom author presentation and embeds are read-only.
 
         Parameters
         ----------
         channel_id : str
-            The unique identifier of the channel or experience to send the message in. For example, 'exp_xxxxx' or 'feed_xxxxx'.
+            Public channel ID, or an experience ID for experience chat.
 
         content : str
-            The body of the message in Markdown format. For example, 'Hello **world**'.
+            Markdown content. May be empty when the message contains media or a poll.
 
         attachments : typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]]
-            A list of file attachments to include with the message, such as images or videos.
+            Files to attach to the message.
 
         auto_detect_links : typing.Optional[bool]
-            Automatically detect URLs in the message and generate link previews.
+            Generate previews for URLs in content. Mutually exclusive with link_previews.
+
+        link_previews : typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]]
+            Explicit URLs for the server to preview.
 
         poll : typing.Optional[CreateMessagesRequestPoll]
-            A poll to attach to this message, allowing recipients to vote on options.
 
         replying_to_message_id : typing.Optional[str]
-            The unique identifier of the message this is replying to, creating a threaded reply.
+            A live message in the same channel to reply to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[Message]
-            A successful response
+        AsyncHttpResponse[ChatMessage]
+            message sent
         """
         _response = await self._client_wrapper.httpx_client.request(
             "messages",
@@ -1014,14 +1289,19 @@ class AsyncRawMessagesClient:
             json={
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments,
-                    annotation=typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]],
+                    annotation=typing.Sequence[CreateMessagesRequestAttachmentsItem],
                     direction="write",
                 ),
                 "auto_detect_links": auto_detect_links,
                 "channel_id": channel_id,
                 "content": content,
+                "link_previews": convert_and_respect_annotation_metadata(
+                    object_=link_previews,
+                    annotation=typing.Sequence[CreateMessagesRequestLinkPreviewsItem],
+                    direction="write",
+                ),
                 "poll": convert_and_respect_annotation_metadata(
-                    object_=poll, annotation=typing.Optional[CreateMessagesRequestPoll], direction="write"
+                    object_=poll, annotation=CreateMessagesRequestPoll, direction="write"
                 ),
                 "replying_to_message_id": replying_to_message_id,
             },
@@ -1034,26 +1314,15 @@ class AsyncRawMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Message,
+                    ChatMessage,
                     parse_obj_as(
-                        type_=Message,  # type: ignore
+                        type_=ChatMessage,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
                 raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1074,41 +1343,8 @@ class AsyncRawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1129,28 +1365,22 @@ class AsyncRawMessagesClient:
 
     async def retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[Message]:
+    ) -> AsyncHttpResponse[ChatMessage]:
         """
-        Retrieves the details of an existing message.
-
-        Required permissions (one of):
-         - `chat:read`
-         - `dms:read`
-         - `livestream:chat:read`
-         - `support_chat:read`
+        Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to retrieve.
+            Existing public message ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[Message]
-            A successful response
+        AsyncHttpResponse[ChatMessage]
+            message retrieved
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
@@ -1161,81 +1391,15 @@ class AsyncRawMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Message,
+                    ChatMessage,
                     parse_obj_as(
-                        type_=Message,  # type: ignore
+                        type_=ChatMessage,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1256,28 +1420,21 @@ class AsyncRawMessagesClient:
 
     async def delete(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[bool]:
+    ) -> AsyncHttpResponse[None]:
         """
-        Permanently deletes a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
-
-        Required permissions (one of):
-         - `chat:message:create` and `chat:read`
-         - `dms:message:manage` and `dms:read`
-         - `livestream:chat:write` and `livestream:chat:read`
-         - `support_chat:message:create` and `support_chat:read`
+        Deletes a message as its author or a permitted moderator. Deleted messages remain available as redacted entries through list synchronization.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to delete.
+            Existing public message ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[bool]
-            A successful response
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
@@ -1287,82 +1444,9 @@ class AsyncRawMessagesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    bool,
-                    parse_obj_as(
-                        type_=bool,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
+                return AsyncHttpResponse(response=_response, data=None)
             if _response.status_code == 403:
                 raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1387,39 +1471,33 @@ class AsyncRawMessagesClient:
         *,
         attachments: typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]] = OMIT,
         content: typing.Optional[str] = OMIT,
-        is_pinned: typing.Optional[bool] = OMIT,
+        link_previews: typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[Message]:
+    ) -> AsyncHttpResponse[ChatMessage]:
         """
-        Edits the content, attachments, or pinned status of a message in an experience chat, DM, or group chat channel.
-
-        Required permissions (one of):
-         - `chat:message:create`
-         - `dms:message:manage`
-         - `livestream:chat:write`
-         - `support_chat:message:create`
+        Updates the author's message. Use the pin and unpin actions to change its pin state. Omitted fields are preserved; attachment and preview collections replace their previous values.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the message to update.
+            Existing public message ID.
 
         attachments : typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]]
-            A replacement list of file attachments for this message, such as images or videos.
+            Replacement attachment list; pass an empty list to remove attachments.
 
         content : typing.Optional[str]
-            The updated body of the message in Markdown format. For example, 'Hello **world**'.
+            Replacement Markdown content.
 
-        is_pinned : typing.Optional[bool]
-            Whether this message should be pinned to the top of the channel.
+        link_previews : typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]]
+            Replacement preview URLs; pass an empty list to remove previews.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[Message]
-            A successful response
+        AsyncHttpResponse[ChatMessage]
+            message updated
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
@@ -1428,11 +1506,15 @@ class AsyncRawMessagesClient:
             json={
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments,
-                    annotation=typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]],
+                    annotation=typing.Sequence[UpdateMessagesRequestAttachmentsItem],
                     direction="write",
                 ),
                 "content": content,
-                "is_pinned": is_pinned,
+                "link_previews": convert_and_respect_annotation_metadata(
+                    object_=link_previews,
+                    annotation=typing.Sequence[UpdateMessagesRequestLinkPreviewsItem],
+                    direction="write",
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -1443,15 +1525,15 @@ class AsyncRawMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Message,
+                    ChatMessage,
                     parse_obj_as(
-                        type_=Message,  # type: ignore
+                        type_=ChatMessage,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1461,17 +1543,50 @@ class AsyncRawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def pin(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ChatMessage]:
+        """
+        Pins a message in its channel. Requires the channel's pin permission.
+
+        Parameters
+        ----------
+        id : str
+            The message to pin.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ChatMessage]
+            message pinned
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/pin",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
                     ),
                 )
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 403:
                 raise ForbiddenError(
                     headers=dict(_response.headers),
@@ -1494,8 +1609,8 @@ class AsyncRawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1505,8 +1620,62 @@ class AsyncRawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def react(
+        self, id: str, *, emoji: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ChatMessage]:
+        """
+        Add your emoji reaction to a message. Reacting again with the same emoji changes nothing.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message to react to.
+
+        emoji : str
+            A single Unicode emoji or a supported shortcode such as `:heart:`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ChatMessage]
+            the message with updated reaction counts
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/react",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "emoji": emoji,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1516,8 +1685,340 @@ class AsyncRawMessagesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 500:
-                raise InternalServerError(
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_reactions(
+        self,
+        id: str,
+        *,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        emoji: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[ChatReaction, ListReactionsMessagesResponse]:
+        """
+        List who reacted to a message, newest first. Optionally filter by emoji.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        emoji : typing.Optional[str]
+            Only return reactions with this emoji, as a Unicode emoji or a supported shortcode.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[ChatReaction, ListReactionsMessagesResponse]
+            operation completed
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/reactions",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
+                "emoji": emoji,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    ListReactionsMessagesResponse,
+                    parse_obj_as(
+                        type_=ListReactionsMessagesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.data
+                _has_next = False
+                _get_next = None
+                if _parsed_response.page_info is not None:
+                    _parsed_next = _parsed_response.page_info.end_cursor
+                    _has_next = _parsed_next is not None and _parsed_next != ""
+
+                    async def _get_next():
+                        return await self.list_reactions(
+                            id,
+                            first=first,
+                            after=_parsed_next,
+                            last=last,
+                            before=before,
+                            emoji=emoji,
+                            request_options=request_options,
+                        )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def unpin(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ChatMessage]:
+        """
+        Unpins a message in its channel. Requires the channel's pin permission.
+
+        Parameters
+        ----------
+        id : str
+            The message to unpin.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ChatMessage]
+            message unpinned
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/unpin",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def unreact(
+        self, id: str, *, emoji: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ChatMessage]:
+        """
+        Remove your emoji reaction from a message. Removing a reaction you have not added changes nothing.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message to remove your reaction from.
+
+        emoji : str
+            The emoji to remove, as a Unicode emoji or a supported shortcode.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ChatMessage]
+            the message with updated reaction counts
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/unreact",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "emoji": emoji,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def vote(
+        self, id: str, *, poll_option_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ChatMessage]:
+        """
+        Vote for one option on a message poll. Each user can vote once per poll.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the message containing the poll.
+
+        poll_option_id : str
+            The option ID from the poll, not its display text.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ChatMessage]
+            updated poll-containing resource
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"messages/{encode_path_param(id)}/vote",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "poll_option_id": poll_option_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ChatMessage,
+                    parse_obj_as(
+                        type_=ChatMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

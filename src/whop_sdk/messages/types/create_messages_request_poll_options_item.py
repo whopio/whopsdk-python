@@ -7,19 +7,8 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreateMessagesRequestPollOptionsItem(UniversalBaseModel):
-    """
-    Input type for a single poll option
-    """
-
-    id: str = pydantic.Field()
-    """
-    Sequential ID for the poll option (starting from '1')
-    """
-
-    text: str = pydantic.Field()
-    """
-    The text of the poll option
-    """
+    id: str
+    text: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
