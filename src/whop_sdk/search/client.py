@@ -51,7 +51,7 @@ class SearchClient:
             Text to search for, 2 to 250 characters.
 
         account_id : str
-            The account to search, prefixed `biz_`. Records other than accounts belong to it, or with `include_subaccounts` to its subaccounts. Your credential needs read access to it; an account you can't read is a 404.
+            The account to search, prefixed `biz_`. Records other than accounts belong to it, or with `include_subaccounts` to its subaccounts. Your credential needs read access to at least one kind of record on it that search returns, or the account is a 404.
 
         types : typing.Optional[typing.Union[ListSearchRequestTypesItem, typing.Sequence[ListSearchRequestTypesItem]]]
             Kinds of records to search. Defaults to every kind. `account` rows are `account_id` itself and, with `include_subaccounts`, its subaccounts.
@@ -137,7 +137,7 @@ class AsyncSearchClient:
             Text to search for, 2 to 250 characters.
 
         account_id : str
-            The account to search, prefixed `biz_`. Records other than accounts belong to it, or with `include_subaccounts` to its subaccounts. Your credential needs read access to it; an account you can't read is a 404.
+            The account to search, prefixed `biz_`. Records other than accounts belong to it, or with `include_subaccounts` to its subaccounts. Your credential needs read access to at least one kind of record on it that search returns, or the account is a 404.
 
         types : typing.Optional[typing.Union[ListSearchRequestTypesItem, typing.Sequence[ListSearchRequestTypesItem]]]
             Kinds of records to search. Defaults to every kind. `account` rows are `account_id` itself and, with `include_subaccounts`, its subaccounts.
