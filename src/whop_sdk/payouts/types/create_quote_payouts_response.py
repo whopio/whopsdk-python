@@ -41,6 +41,16 @@ class CreateQuotePayoutsResponse(UniversalBaseModel):
     Provider-backed payout quote ID, prefixed `pout_`.
     """
 
+    market_exchange_rate: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Interbank mid-market rate, with no spread, for the same conversion as `exchange_rate`. The gap between the two is the cost of the conversion. `null` when the payout provider does no foreign exchange for this payout, such as USD to a USD bank account or to a USD stablecoin, when no market rate from the last 15 minutes is available, and on card-funded quotes.
+    """
+
+    market_exchange_rate_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    When `market_exchange_rate` was taken from the market feed, as an ISO 8601 timestamp. `null` when `market_exchange_rate` is `null`.
+    """
+
     net_amount: Money = pydantic.Field()
     """
     Amount remaining after fees.
