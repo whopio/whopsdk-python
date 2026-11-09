@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .member_access_level import MemberAccessLevel
+from .member_last_activity import MemberLastActivity
 from .member_most_recent_action import MemberMostRecentAction
 from .member_status import MemberStatus
 from .money import Money
@@ -56,6 +57,11 @@ class Member(UniversalBaseModel):
     last_accessed_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the member last opened the account's content, as an ISO 8601 timestamp. `null` if they never have.
+    """
+
+    last_activity: typing.Optional[MemberLastActivity] = pydantic.Field(default=None)
+    """
+    What happened at `last_activity_at`. `object` says which kind of activity it is. `null` without `support_chat:read` on the account, or when `last_activity_at` is `null`.
     """
 
     last_activity_at: typing.Optional[str] = pydantic.Field(default=None)

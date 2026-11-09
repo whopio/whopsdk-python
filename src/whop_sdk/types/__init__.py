@@ -788,6 +788,9 @@ if typing.TYPE_CHECKING:
     from .media_asset_status import MediaAssetStatus
     from .member import Member
     from .member_access_level import MemberAccessLevel
+    from .member_last_activity import MemberLastActivity
+    from .member_last_activity_message import MemberLastActivityMessage
+    from .member_last_activity_message_object import MemberLastActivityMessageObject
     from .member_legacy import MemberLegacy
     from .member_legacy_company import MemberLegacyCompany
     from .member_legacy_user import MemberLegacyUser
@@ -2387,6 +2390,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MediaAssetStatus": ".media_asset_status",
     "Member": ".member",
     "MemberAccessLevel": ".member_access_level",
+    "MemberLastActivity": ".member_last_activity",
+    "MemberLastActivityMessage": ".member_last_activity_message",
+    "MemberLastActivityMessageObject": ".member_last_activity_message_object",
     "MemberLegacy": ".member_legacy",
     "MemberLegacyCompany": ".member_legacy_company",
     "MemberLegacyUser": ".member_legacy_user",
@@ -3890,6 +3896,9 @@ __all__ = [
     "MediaAssetStatus",
     "Member",
     "MemberAccessLevel",
+    "MemberLastActivity",
+    "MemberLastActivityMessage",
+    "MemberLastActivityMessageObject",
     "MemberLegacy",
     "MemberLegacyCompany",
     "MemberLegacyUser",
