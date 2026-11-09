@@ -34,6 +34,11 @@ class LedgerActivityResourceAuthorizedAt(UniversalBaseModel):
     Card transaction ID.
     """
 
+    levels_points: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Whop Levels points this transaction earned for the business, as a decimal string. Negative for a refund that takes them back. Null when it earns none: a transaction that hasn't settled, was declined, or was made on a personal card.
+    """
+
     local_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
     Amount the merchant charged in their local currency, as a decimal string. Pair with local_currency.
