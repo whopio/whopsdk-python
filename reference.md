@@ -7883,6 +7883,14 @@ client.apps.list()
 <dl>
 <dd>
 
+**marketplace_category_route:** `typing.Optional[str]` — Only return apps in this app store category. Use a `route` from `GET /apps/categories`, such as `business-productivity`. An unknown route is rejected.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **order:** `typing.Optional[ListAppsRequestOrder]` — The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template. `template_recent_sales` ranks them by how many of those businesses processed a payment in the last 24 hours, recounted hourly, breaking ties by `template_usage`.
     
 </dd>
@@ -8304,6 +8312,14 @@ client.apps.update(
 <dd>
 
 **base_url:** `typing.Optional[str]` — The base production URL where the app is hosted. Set to `null` to take the app proxy offline.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**category_id:** `typing.Optional[str]` — The App Store category of a business app. Pass an `mcat_` ID from `GET /apps/categories?app_type=b2b_app`, or `null` to clear it. Omit it to keep the current category. Setting a category needs the app to have an App Store product.
     
 </dd>
 </dl>
@@ -54562,6 +54578,110 @@ client.affiliates.overrides.update(
 <dd>
 
 **revenue_basis:** `typing.Optional[AffiliateRevenueBases]` — The revenue calculation basis (rev-share only).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Apps Categories
+<details><summary><code>client.apps.categories.<a href="src/whop_sdk/apps/categories/client.py">list</a>(...) -> ListCategoriesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the App Store's categories. Pass `app_type` for one store's categories in the order that store shows them; without it, every category either store shows is listed. Use a business category's ID as an app's `category_id`, or any category's `route` to filter apps. This endpoint is public and does not require authentication.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.apps.categories.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**app_type:** `typing.Optional[ListCategoriesRequestAppType]` — Only return the categories of this app type's store, in that store's order: `b2b_app` for the business App Store, `b2c_app` for the community App Store.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>

@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_parent import AccountParent
 from .app_banner_image import AppBannerImage
+from .app_category import AppCategory
 from .app_creator import AppCreator
 from .app_domain import AppDomain
 from .app_icon import AppIcon
@@ -43,6 +44,11 @@ class AppListItem(UniversalBaseModel):
     businesses_with_recent_sales_count: int = pydantic.Field()
     """
     Number of businesses created from this app as a template that processed a payment in the last 24 hours. Recounted hourly, so it can be up to an hour behind.
+    """
+
+    category: typing.Optional[AppCategory] = pydantic.Field(default=None)
+    """
+    The app's App Store category, or `null` when none has been set. An app can show a category that `GET /apps/categories` does not list, if it was categorized before the current store categories.
     """
 
     creator: AppCreator = pydantic.Field()

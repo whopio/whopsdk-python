@@ -223,6 +223,7 @@ if typing.TYPE_CHECKING:
     from .app_build_status import AppBuildStatus
     from .app_build_statuses import AppBuildStatuses
     from .app_build_supported_app_view_types_item import AppBuildSupportedAppViewTypesItem
+    from .app_category import AppCategory
     from .app_creator import AppCreator
     from .app_default_api_key import AppDefaultApiKey
     from .app_deployment import AppDeployment
@@ -1841,6 +1842,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AppBuildStatus": ".app_build_status",
     "AppBuildStatuses": ".app_build_statuses",
     "AppBuildSupportedAppViewTypesItem": ".app_build_supported_app_view_types_item",
+    "AppCategory": ".app_category",
     "AppCreator": ".app_creator",
     "AppDefaultApiKey": ".app_default_api_key",
     "AppDeployment": ".app_deployment",
@@ -3343,6 +3345,7 @@ __all__ = [
     "AppBuildStatus",
     "AppBuildStatuses",
     "AppBuildSupportedAppViewTypesItem",
+    "AppCategory",
     "AppCreator",
     "AppDefaultApiKey",
     "AppDeployment",
