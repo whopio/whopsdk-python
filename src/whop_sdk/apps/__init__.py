@@ -28,6 +28,8 @@ if typing.TYPE_CHECKING:
         UpdateAppsRequestStatus,
         UpdatePermissionsAppsRequestRequestedPermissionsItem,
     )
+    from . import categories
+    from .categories import ListCategoriesRequestAppType, ListCategoriesResponse, ListCategoriesResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAppsRequestAppType": ".types",
     "CreateAppsRequestIcon": ".types",
@@ -38,6 +40,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAppsRequestViewType": ".types",
     "ListAppsResponse": ".types",
     "ListAppsResponsePageInfo": ".types",
+    "ListCategoriesRequestAppType": ".categories",
+    "ListCategoriesResponse": ".categories",
+    "ListCategoriesResponsePageInfo": ".categories",
     "LogsAppsRequestLevel": ".types",
     "LogsAppsResponse": ".types",
     "LogsAppsResponseDataItem": ".types",
@@ -49,6 +54,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAppsRequestOauthClientType": ".types",
     "UpdateAppsRequestStatus": ".types",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem": ".types",
+    "categories": ".categories",
 }
 
 
@@ -83,6 +89,9 @@ __all__ = [
     "ListAppsRequestViewType",
     "ListAppsResponse",
     "ListAppsResponsePageInfo",
+    "ListCategoriesRequestAppType",
+    "ListCategoriesResponse",
+    "ListCategoriesResponsePageInfo",
     "LogsAppsRequestLevel",
     "LogsAppsResponse",
     "LogsAppsResponseDataItem",
@@ -94,4 +103,5 @@ __all__ = [
     "UpdateAppsRequestOauthClientType",
     "UpdateAppsRequestStatus",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem",
+    "categories",
 ]

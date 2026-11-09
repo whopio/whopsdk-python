@@ -61,6 +61,7 @@ class RawAppsClient:
         recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
         product_category: typing.Optional[str] = None,
+        marketplace_category_route: typing.Optional[str] = None,
         order: typing.Optional[ListAppsRequestOrder] = None,
         direction: typing.Optional[ListAppsRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -97,6 +98,9 @@ class RawAppsClient:
 
         product_category : typing.Optional[str]
             Only return apps whose `product_category` is this product category, such as `pressure_washing`. An unknown product category is rejected.
+
+        marketplace_category_route : typing.Optional[str]
+            Only return apps in this app store category. Use a `route` from `GET /apps/categories`, such as `business-productivity`. An unknown route is rejected.
 
         order : typing.Optional[ListAppsRequestOrder]
             The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template. `template_recent_sales` ranks them by how many of those businesses processed a payment in the last 24 hours, recounted hourly, breaking ties by `template_usage`.
@@ -137,6 +141,7 @@ class RawAppsClient:
                 "recommended": recommended,
                 "query": query,
                 "product_category": product_category,
+                "marketplace_category_route": marketplace_category_route,
                 "order": order,
                 "direction": direction,
                 "first": first,
@@ -170,6 +175,7 @@ class RawAppsClient:
                         recommended=recommended,
                         query=query,
                         product_category=product_category,
+                        marketplace_category_route=marketplace_category_route,
                         order=order,
                         direction=direction,
                         first=first,
@@ -498,6 +504,7 @@ class RawAppsClient:
         app_store_description: typing.Optional[str] = OMIT,
         app_type: typing.Optional[UpdateAppsRequestAppType] = OMIT,
         base_url: typing.Optional[str] = OMIT,
+        category_id: typing.Optional[str] = OMIT,
         dashboard_path: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         discover_path: typing.Optional[str] = OMIT,
@@ -536,6 +543,9 @@ class RawAppsClient:
 
         base_url : typing.Optional[str]
             The base production URL where the app is hosted. Set to `null` to take the app proxy offline.
+
+        category_id : typing.Optional[str]
+            The App Store category of a business app. Pass an `mcat_` ID from `GET /apps/categories?app_type=b2b_app`, or `null` to clear it. Omit it to keep the current category. Setting a category needs the app to have an App Store product.
 
         dashboard_path : typing.Optional[str]
             The URL path for the account dashboard view.
@@ -613,6 +623,7 @@ class RawAppsClient:
                 "app_store_description": app_store_description,
                 "app_type": app_type,
                 "base_url": base_url,
+                "category_id": category_id,
                 "dashboard_path": dashboard_path,
                 "description": description,
                 "discover_path": discover_path,
@@ -1043,6 +1054,7 @@ class AsyncRawAppsClient:
         recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
         product_category: typing.Optional[str] = None,
+        marketplace_category_route: typing.Optional[str] = None,
         order: typing.Optional[ListAppsRequestOrder] = None,
         direction: typing.Optional[ListAppsRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -1079,6 +1091,9 @@ class AsyncRawAppsClient:
 
         product_category : typing.Optional[str]
             Only return apps whose `product_category` is this product category, such as `pressure_washing`. An unknown product category is rejected.
+
+        marketplace_category_route : typing.Optional[str]
+            Only return apps in this app store category. Use a `route` from `GET /apps/categories`, such as `business-productivity`. An unknown route is rejected.
 
         order : typing.Optional[ListAppsRequestOrder]
             The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template. `template_recent_sales` ranks them by how many of those businesses processed a payment in the last 24 hours, recounted hourly, breaking ties by `template_usage`.
@@ -1119,6 +1134,7 @@ class AsyncRawAppsClient:
                 "recommended": recommended,
                 "query": query,
                 "product_category": product_category,
+                "marketplace_category_route": marketplace_category_route,
                 "order": order,
                 "direction": direction,
                 "first": first,
@@ -1154,6 +1170,7 @@ class AsyncRawAppsClient:
                             recommended=recommended,
                             query=query,
                             product_category=product_category,
+                            marketplace_category_route=marketplace_category_route,
                             order=order,
                             direction=direction,
                             first=first,
@@ -1485,6 +1502,7 @@ class AsyncRawAppsClient:
         app_store_description: typing.Optional[str] = OMIT,
         app_type: typing.Optional[UpdateAppsRequestAppType] = OMIT,
         base_url: typing.Optional[str] = OMIT,
+        category_id: typing.Optional[str] = OMIT,
         dashboard_path: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         discover_path: typing.Optional[str] = OMIT,
@@ -1523,6 +1541,9 @@ class AsyncRawAppsClient:
 
         base_url : typing.Optional[str]
             The base production URL where the app is hosted. Set to `null` to take the app proxy offline.
+
+        category_id : typing.Optional[str]
+            The App Store category of a business app. Pass an `mcat_` ID from `GET /apps/categories?app_type=b2b_app`, or `null` to clear it. Omit it to keep the current category. Setting a category needs the app to have an App Store product.
 
         dashboard_path : typing.Optional[str]
             The URL path for the account dashboard view.
@@ -1600,6 +1621,7 @@ class AsyncRawAppsClient:
                 "app_store_description": app_store_description,
                 "app_type": app_type,
                 "base_url": base_url,
+                "category_id": category_id,
                 "dashboard_path": dashboard_path,
                 "description": description,
                 "discover_path": discover_path,
