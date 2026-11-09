@@ -138,7 +138,7 @@ class CreatePayoutsResponse(UniversalBaseModel):
 
     trace_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    ACH trace number the recipient's bank can use to locate this payout. Always `null` here — it is assigned when the payout is submitted to the bank, and appears on the payout in GET /payouts once it has been sent; payouts not sent over ACH never get one.
+    Payment network reference for this payout, such as an ACH trace number, an RTP or FedNow end-to-end ID, a wire IMAD, or a SWIFT UETR. Always `null` here. It appears on the payout in GET /payouts once the reference is available, and stays `null` on payouts that have none.
     """
 
     if IS_PYDANTIC_V2:
