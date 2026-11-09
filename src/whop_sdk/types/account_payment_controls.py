@@ -47,6 +47,7 @@ class AccountPaymentControls(UniversalBaseModel):
     Additional processing fee percentage for high-risk processing.
     """
 
+    payment_method_warnings: typing.List[typing.Dict[str, typing.Any]]
     pending_auto_topup_fee_percentage: float = pydantic.Field()
     """
     Percentage fee charged when pending, not-yet-settled balance is advanced to fund the account's cards balance, where `2` means 2%. `0` when the account is exempt.
