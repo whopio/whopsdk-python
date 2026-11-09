@@ -90,7 +90,7 @@ class Audience(UniversalBaseModel):
 
     status: AudienceStatus = pydantic.Field()
     """
-    Current state of audience creation. `syncing` means Whop is sending matched rows to connected ad accounts. When a `pending` audience is waiting on something, such as an ad account to upload to, `error_message` says what. When status is `partial` or `failed`, `error_message` explains what went wrong.
+    Current state of audience creation. When a `pending` audience is waiting on something, such as an ad account to upload to, `error_message` says what. When status is `partial` or `failed`, `error_message` explains what went wrong.
     """
 
     total_rows: float = pydantic.Field()
