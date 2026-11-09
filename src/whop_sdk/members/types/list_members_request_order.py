@@ -3,6 +3,8 @@
 import typing
 
 ListMembersRequestOrder = typing.Union[
-    typing.Literal["created_at", "joined_at", "last_accessed_at", "most_recent_action_at", "usd_total_spent"],
+    typing.Literal[
+        "created_at", "joined_at", "last_accessed_at", "last_activity_at", "most_recent_action_at", "usd_total_spent"
+    ],
     typing.Any,
 ]

@@ -30599,7 +30599,7 @@ client.members.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[ListMembersRequestOrder]` — Sort field. `most_recent_action_at` places members without one first when ascending and last when descending.
+**order:** `typing.Optional[ListMembersRequestOrder]` — Sort field. `most_recent_action_at` and `last_activity_at` place members without one first when ascending and last when descending.
     
 </dd>
 </dl>

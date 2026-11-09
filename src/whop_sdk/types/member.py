@@ -58,6 +58,11 @@ class Member(UniversalBaseModel):
     When the member last opened the account's content, as an ISO 8601 timestamp. `null` if they never have.
     """
 
+    last_activity_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the member and the account last interacted, as an ISO 8601 timestamp. For example, a message in the member's support chat.
+    """
+
     most_recent_action: typing.Optional[MemberMostRecentAction] = pydantic.Field(default=None)
     """
     The member's latest lifecycle state on the account, derived from their memberships, such as `paid_subscriber`, `canceling`, or `churned`. `null` until it is first computed.
