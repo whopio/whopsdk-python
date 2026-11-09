@@ -48,6 +48,9 @@ class AiChatsClient:
         """
         Returns a paginated list of AI chat threads for the current authenticated user.
 
+        Required permissions:
+         - `ai_chat:read`
+
         Parameters
         ----------
         after : typing.Optional[str]
@@ -185,6 +188,9 @@ class AiChatsClient:
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AiChat:
         """
         Retrieves the details of an existing AI chat.
+
+        Required permissions:
+         - `ai_chat:read`
 
         Parameters
         ----------
@@ -341,6 +347,9 @@ class AsyncAiChatsClient:
         """
         Returns a paginated list of AI chat threads for the current authenticated user.
 
+        Required permissions:
+         - `ai_chat:read`
+
         Parameters
         ----------
         after : typing.Optional[str]
@@ -495,6 +504,9 @@ class AsyncAiChatsClient:
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AiChat:
         """
         Retrieves the details of an existing AI chat.
+
+        Required permissions:
+         - `ai_chat:read`
 
         Parameters
         ----------

@@ -5744,6 +5744,9 @@ client.affiliates.unarchive(
 <dd>
 
 Returns a paginated list of AI chat threads for the current authenticated user.
+
+Required permissions:
+ - `ai_chat:read`
 </dd>
 </dl>
 </dd>
@@ -5990,6 +5993,9 @@ client.ai_chats.create(
 <dd>
 
 Retrieves the details of an existing AI chat.
+
+Required permissions:
+ - `ai_chat:read`
 </dd>
 </dl>
 </dd>
