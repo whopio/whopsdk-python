@@ -3,19 +3,5 @@
 import typing
 
 PostAdCampaignPaymentFailedPayloadDataStatus = typing.Union[
-    typing.Literal[
-        "active",
-        "paused",
-        "inactive",
-        "stale",
-        "pending_refund",
-        "payment_failed",
-        "draft",
-        "in_review",
-        "flagged",
-        "importing",
-        "imported",
-        "duplicating",
-    ],
-    typing.Any,
+    typing.Literal["active", "paused", "inactive", "payment_failed", "draft", "duplicating"], typing.Any
 ]
