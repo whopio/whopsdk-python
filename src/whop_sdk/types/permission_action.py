@@ -165,6 +165,7 @@ PermissionAction = typing.Union[
         "member:payment_methods:read",
         "member:payment_methods:use",
         "member:phone:read",
+        "member:reporting_line:update",
         "member:stats:export",
         "member:stats:read",
         "membership:cancel",

@@ -2,6 +2,4 @@
 
 import typing
 
-AudienceStatus = typing.Union[
-    typing.Literal["pending", "processing", "syncing", "ready", "partial", "failed"], typing.Any
-]
+AudienceStatus = typing.Union[typing.Literal["pending", "processing", "ready", "partial", "failed"], typing.Any]
