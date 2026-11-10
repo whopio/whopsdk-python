@@ -52,6 +52,11 @@ class PartnerReferralRequest(UniversalBaseModel):
     Public profile of the requesting partner.
     """
 
+    referring_account: typing.Optional[AccountSummary] = pydantic.Field(default=None)
+    """
+    Business the partner sent this request on behalf of, when the referral belongs to their team. `null` for a personal referral.
+    """
+
     request_type: PartnerReferralRequestRequestType = pydantic.Field()
     """
     How the referral request was initiated.
