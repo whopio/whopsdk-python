@@ -42,6 +42,7 @@ from .types.update_payments_request_shipping_address import UpdatePaymentsReques
 
 if typing.TYPE_CHECKING:
     from .direct.client import AsyncDirectClient, DirectClient
+    from .levels_rebate.client import AsyncLevelsRebateClient, LevelsRebateClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
@@ -51,6 +52,7 @@ class PaymentsClient:
         self._raw_client = RawPaymentsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._direct: typing.Optional[DirectClient] = None
+        self._levels_rebate: typing.Optional[LevelsRebateClient] = None
 
     @property
     def with_raw_response(self) -> RawPaymentsClient:
@@ -1071,12 +1073,21 @@ class PaymentsClient:
             self._direct = DirectClient(client_wrapper=self._client_wrapper)
         return self._direct
 
+    @property
+    def levels_rebate(self):
+        if self._levels_rebate is None:
+            from .levels_rebate.client import LevelsRebateClient  # noqa: E402
+
+            self._levels_rebate = LevelsRebateClient(client_wrapper=self._client_wrapper)
+        return self._levels_rebate
+
 
 class AsyncPaymentsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawPaymentsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._direct: typing.Optional[AsyncDirectClient] = None
+        self._levels_rebate: typing.Optional[AsyncLevelsRebateClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawPaymentsClient:
@@ -2209,3 +2220,11 @@ class AsyncPaymentsClient:
 
             self._direct = AsyncDirectClient(client_wrapper=self._client_wrapper)
         return self._direct
+
+    @property
+    def levels_rebate(self):
+        if self._levels_rebate is None:
+            from .levels_rebate.client import AsyncLevelsRebateClient  # noqa: E402
+
+            self._levels_rebate = AsyncLevelsRebateClient(client_wrapper=self._client_wrapper)
+        return self._levels_rebate

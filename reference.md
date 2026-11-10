@@ -56434,6 +56434,80 @@ client.payments.direct.create(
 </dl>
 </details>
 
+## Payments LevelsRebate
+<details><summary><code>client.payments.levels_rebate.<a href="src/whop_sdk/payments/levels_rebate/client.py">retrieve</a>(...) -> PaymentLevelsRebate</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the part of its account's monthly Whop Levels rebate a card payment earned: the processing fee above its level's rate, once the month its fee posted in has closed. The rebate is paid to the account as one sum each month, so the payment's own amounts and fees never change.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.payments.levels_rebate.retrieve(
+    payment_id="payment_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**payment_id:** `str` — The payment whose rebate to retrieve, prefixed `pay_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Payouts Methods
 <details><summary><code>client.payouts.methods.<a href="src/whop_sdk/payouts/methods/client.py">list</a>(...) -> ListMethodsResponse</code></summary>
 <dl>
