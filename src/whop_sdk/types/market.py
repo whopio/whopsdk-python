@@ -3,20 +3,39 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .market_instrument_type import MarketInstrumentType
 from .money import Money
 
 
 class Market(UniversalBaseModel):
+    change24h_percentage: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="change_24h_percentage"),
+        pydantic.Field(
+            alias="change_24h_percentage",
+            description="How much the price moved over the last 24 hours, as a percentage where `2` means up 2%. Set for tokenized stocks; `null` when it is not available.",
+        ),
+    ] = None
+    """
+    How much the price moved over the last 24 hours, as a percentage where `2` means up 2%. Set for tokenized stocks; `null` when it is not available.
+    """
+
     id: str = pydantic.Field()
     """
-    The market's name: a perpetual's Hyperliquid name such as `BTC` or `xyz:TSLA`, which you send as `market` when you create a trade, or a spot asset's symbol such as `BTC` or `XAUT`. A perpetual and a spot market can share an `id`, so `id` and `instrument_type` together identify a market.
+    The market's name: a perpetual's Hyperliquid name such as `BTC` or `xyz:TSLA`, which you send as `market` when you create a trade, or a spot asset's symbol such as `BTC`, `XAUT`, or a tokenized stock's ticker such as `AAPL`. A perpetual and a spot market can share an `id`, so `id` and `instrument_type` together identify a market.
     """
 
     instrument_type: MarketInstrumentType = pydantic.Field()
     """
     Whether this is a perpetual or a spot market. With `id`, it identifies the market.
+    """
+
+    logo_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A logo image URL for the asset. Set for tokenized stocks; `null` when there is no logo.
     """
 
     max_leverage: typing.Optional[int] = pydantic.Field(default=None)
@@ -26,7 +45,7 @@ class Market(UniversalBaseModel):
 
     price: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The current price in USD: the midpoint between the best bid and ask. `null` when no price is available.
+    The current price in USD: the midpoint between the best bid and ask, or a tokenized stock's latest market price. `null` when no price is available.
     """
 
     size_decimals: int = pydantic.Field()
