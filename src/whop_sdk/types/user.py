@@ -43,6 +43,16 @@ class User(UniversalBaseModel):
     Where the user's personal card application stands. Populated only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, or when the user has never applied for a card.
     """
 
+    city: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The user's city, derived from their IP address. `null` when unknown or the user turned off location sharing.
+    """
+
+    country: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The user's country as an ISO 3166-1 alpha-2 code, derived from their IP address. `null` when unknown or the user turned off location sharing.
+    """
+
     created_at: str = pydantic.Field()
     """
     When the user was created, as an ISO 8601 timestamp
@@ -84,6 +94,11 @@ class User(UniversalBaseModel):
     """
 
     social_links: typing.List[UserSocialLink]
+    state: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The user's state or region, derived from their IP address. `null` when unknown or the user turned off location sharing.
+    """
+
     total_usd: typing.Optional[str] = pydantic.Field(default=None)
     """
     Total USD value of the user's personal holdings in `balances`, across those with known exchange rates. Computed only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, when `include_balance=false`, or when the balance source is unavailable.
