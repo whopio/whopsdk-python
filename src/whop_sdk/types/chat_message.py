@@ -46,7 +46,7 @@ class ChatMessage(UniversalBaseModel):
     gifs: typing.List[Gif]
     id: str = pydantic.Field()
     """
-    Existing public message ID, preserved across REST and chat clients.
+    Message ID, prefixed `post_`. Matches the `id` sent on create, when one was sent.
     """
 
     link_previews: typing.List[MessageLinkPreview]

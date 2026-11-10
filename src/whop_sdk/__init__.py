@@ -2610,6 +2610,7 @@ if typing.TYPE_CHECKING:
     )
     from .messages import (
         CreateMessagesRequestAttachmentsItem,
+        CreateMessagesRequestGifsItem,
         CreateMessagesRequestLinkPreviewsItem,
         CreateMessagesRequestPoll,
         CreateMessagesRequestPollOptionsItem,
@@ -2628,6 +2629,7 @@ if typing.TYPE_CHECKING:
         PostChatMessageCreatedPayloadDataChannelType,
         PostChatMessageCreatedPayloadType,
         UpdateMessagesRequestAttachmentsItem,
+        UpdateMessagesRequestGifsItem,
         UpdateMessagesRequestLinkPreviewsItem,
     )
     from .notifications import (
@@ -4101,6 +4103,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestItemsItemVariantProductVisibility": ".invoices",
     "CreateInvoicesRequestItemsItemVariantVisibility": ".invoices",
     "CreateMessagesRequestAttachmentsItem": ".messages",
+    "CreateMessagesRequestGifsItem": ".messages",
     "CreateMessagesRequestLinkPreviewsItem": ".messages",
     "CreateMessagesRequestPoll": ".messages",
     "CreateMessagesRequestPollOptionsItem": ".messages",
@@ -6571,6 +6574,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMeUsersRequestBanner": ".users",
     "UpdateMeUsersRequestProfilePicture": ".users",
     "UpdateMessagesRequestAttachmentsItem": ".messages",
+    "UpdateMessagesRequestGifsItem": ".messages",
     "UpdateMessagesRequestLinkPreviewsItem": ".messages",
     "UpdatePaymentsRequestShippingAddress": ".payments",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem": ".apps",
@@ -7444,6 +7448,7 @@ __all__ = [
     "CreateInvoicesRequestItemsItemVariantProductVisibility",
     "CreateInvoicesRequestItemsItemVariantVisibility",
     "CreateMessagesRequestAttachmentsItem",
+    "CreateMessagesRequestGifsItem",
     "CreateMessagesRequestLinkPreviewsItem",
     "CreateMessagesRequestPoll",
     "CreateMessagesRequestPollOptionsItem",
@@ -9914,6 +9919,7 @@ __all__ = [
     "UpdateMeUsersRequestBanner",
     "UpdateMeUsersRequestProfilePicture",
     "UpdateMessagesRequestAttachmentsItem",
+    "UpdateMessagesRequestGifsItem",
     "UpdateMessagesRequestLinkPreviewsItem",
     "UpdatePaymentsRequestShippingAddress",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem",
