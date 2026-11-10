@@ -8,9 +8,9 @@ from .member_access_level import MemberAccessLevel
 from .member_last_activity import MemberLastActivity
 from .member_most_recent_action import MemberMostRecentAction
 from .member_status import MemberStatus
+from .member_user import MemberUser
 from .money import Money
 from .user_earnings_amount import UserEarningsAmount
-from .user_summary import UserSummary
 
 
 class Member(UniversalBaseModel):
@@ -104,7 +104,7 @@ class Member(UniversalBaseModel):
     How much the member has spent on the account's products, in USD.
     """
 
-    user: typing.Optional[UserSummary] = pydantic.Field(default=None)
+    user: typing.Optional[MemberUser] = pydantic.Field(default=None)
     """
     The user behind this member. `null` when the buyer is another business rather than a person.
     """

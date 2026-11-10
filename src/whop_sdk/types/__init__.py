@@ -801,6 +801,7 @@ if typing.TYPE_CHECKING:
     from .member_note import MemberNote
     from .member_status import MemberStatus
     from .member_statuses import MemberStatuses
+    from .member_user import MemberUser
     from .members_sortable_columns import MembersSortableColumns
     from .membership import Membership
     from .membership_affiliate import MembershipAffiliate
@@ -2403,6 +2404,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MemberNote": ".member_note",
     "MemberStatus": ".member_status",
     "MemberStatuses": ".member_statuses",
+    "MemberUser": ".member_user",
     "MembersSortableColumns": ".members_sortable_columns",
     "Membership": ".membership",
     "MembershipAffiliate": ".membership_affiliate",
@@ -3909,6 +3911,7 @@ __all__ = [
     "MemberNote",
     "MemberStatus",
     "MemberStatuses",
+    "MemberUser",
     "MembersSortableColumns",
     "Membership",
     "MembershipAffiliate",
