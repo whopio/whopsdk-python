@@ -595,6 +595,59 @@ class RawAdCampaignsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def claim(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[AdCampaign]:
+        """
+        Attributes the whole campaign and its daily budget to the calling user as its runner. One runner holds a campaign at a time. Takes the runner's Whop session, or a user API key with `ad_campaign:update`, plus active advertiser-supplier program access; everyone else gets a 404. Returns 403 until the caller has verified their identity and added a phone number and a social account, 409 when another user holds the campaign, and changes nothing when the caller already holds it.
+
+        Parameters
+        ----------
+        id : str
+            The ad campaign ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[AdCampaign]
+            ad campaign claimed
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"ad_campaigns/{encode_path_param(id)}/claim",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AdCampaign,
+                    parse_obj_as(
+                        type_=AdCampaign,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def duplicate(
         self, id: str, *, count: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DuplicateAdCampaignsResponse]:
@@ -1333,6 +1386,61 @@ class AsyncRawAdCampaignsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def claim(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[AdCampaign]:
+        """
+        Attributes the whole campaign and its daily budget to the calling user as its runner. One runner holds a campaign at a time. Takes the runner's Whop session, or a user API key with `ad_campaign:update`, plus active advertiser-supplier program access; everyone else gets a 404. Returns 403 until the caller has verified their identity and added a phone number and a social account, 409 when another user holds the campaign, and changes nothing when the caller already holds it.
+
+        Parameters
+        ----------
+        id : str
+            The ad campaign ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[AdCampaign]
+            ad campaign claimed
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"ad_campaigns/{encode_path_param(id)}/claim",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AdCampaign,
+                    parse_obj_as(
+                        type_=AdCampaign,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

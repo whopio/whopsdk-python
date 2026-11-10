@@ -455,6 +455,39 @@ class AdCampaignsClient:
         )
         return _response.data
 
+    def claim(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdCampaign:
+        """
+        Attributes the whole campaign and its daily budget to the calling user as its runner. One runner holds a campaign at a time. Takes the runner's Whop session, or a user API key with `ad_campaign:update`, plus active advertiser-supplier program access; everyone else gets a 404. Returns 403 until the caller has verified their identity and added a phone number and a social account, 409 when another user holds the campaign, and changes nothing when the caller already holds it.
+
+        Parameters
+        ----------
+        id : str
+            The ad campaign ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AdCampaign
+            ad campaign claimed
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.ad_campaigns.claim(
+            id="id",
+        )
+        """
+        _response = self._raw_client.claim(id, request_options=request_options)
+        return _response.data
+
     def duplicate(
         self, id: str, *, count: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> DuplicateAdCampaignsResponse:
@@ -1021,6 +1054,47 @@ class AsyncAdCampaignsClient:
             title=title,
             request_options=request_options,
         )
+        return _response.data
+
+    async def claim(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdCampaign:
+        """
+        Attributes the whole campaign and its daily budget to the calling user as its runner. One runner holds a campaign at a time. Takes the runner's Whop session, or a user API key with `ad_campaign:update`, plus active advertiser-supplier program access; everyone else gets a 404. Returns 403 until the caller has verified their identity and added a phone number and a social account, 409 when another user holds the campaign, and changes nothing when the caller already holds it.
+
+        Parameters
+        ----------
+        id : str
+            The ad campaign ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AdCampaign
+            ad campaign claimed
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-07",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.ad_campaigns.claim(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.claim(id, request_options=request_options)
         return _response.data
 
     async def duplicate(
