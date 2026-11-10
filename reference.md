@@ -46894,7 +46894,7 @@ client.stats.retrieve(
 <dl>
 <dd>
 
-**confidence_level:** `typing.Optional[float]` — Funnel only. Confidence level for whole-window final conversion intervals, for example 0.95. Requires mature_only=true. Exposure steps must each filter one user-randomized experiment.
+**confidence_level:** `typing.Optional[float]` — Funnel only. Confidence level for whole-window final conversion intervals, for example 0.95. Requires mature_only=true. Exposure steps must each filter one user- or visitor-randomized experiment.
     
 </dd>
 </dl>
@@ -57993,7 +57993,7 @@ client.stats.time_series.retrieve(
 <dl>
 <dd>
 
-**confidence_level:** `typing.Optional[float]` — Funnel only. Confidence level for whole-window final conversion intervals, for example 0.95. Requires mature_only=true. Exposure steps must each filter one user-randomized experiment.
+**confidence_level:** `typing.Optional[float]` — Funnel only. Confidence level for whole-window final conversion intervals, for example 0.95. Requires mature_only=true. Exposure steps must each filter one user- or visitor-randomized experiment.
     
 </dd>
 </dl>
