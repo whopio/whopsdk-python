@@ -3902,7 +3902,7 @@ client.ads.report_issues(
 <dl>
 <dd>
 
-Records a runner's stats for one of their ads in one hour, and pays them for the spend. Send the ad's totals so far for an hour that started in the last 24 hours; they replace what the ad held for that hour, and its ad group's and campaign's hours are rebuilt from their ads. The spend can go up but never down. Reporting on a campaign starts with the hour of its first recorded report; earlier hours are refused. The spend is recorded and paid exactly as sent, with no markup added, so send it with the runner's markup already applied. Takes the runner's Whop session, a user API key, or a user OAuth token with `ad_campaign:update`. A token without that scope gets a 403, and anyone not holding the ad's campaign gets a 404.
+Records a runner's stats for one of their ads in one hour, and pays them for the spend. Send the ad's totals so far for an hour that has started; they replace what the ad held for that hour, and its ad group's and campaign's hours are rebuilt from their ads. The spend can go up but never down. Hours before the runner's first report on the campaign can be reported too. The spend is recorded and paid exactly as sent, with no markup added, so send it with the runner's markup already applied. Takes the runner's Whop session, a user API key, or a user OAuth token with `ad_campaign:update`. A token without that scope gets a 403, and anyone not holding the ad's campaign gets a 404.
 </dd>
 </dl>
 </dd>
@@ -3954,7 +3954,7 @@ client.ads.report_stats(
 <dl>
 <dd>
 
-**hour_started_at:** `datetime.datetime` — Start of the hour, on the hour, within the last 24 hours.
+**hour_started_at:** `datetime.datetime` — Start of the hour, on the hour, for an hour that has already started.
     
 </dd>
 </dl>
