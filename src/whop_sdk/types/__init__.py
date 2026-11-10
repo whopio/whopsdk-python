@@ -632,6 +632,7 @@ if typing.TYPE_CHECKING:
     from .forbidden_error_body import ForbiddenErrorBody
     from .forbidden_error_body_error import ForbiddenErrorBodyError
     from .forum import Forum
+    from .forum_banner_image import ForumBannerImage
     from .forum_email_notification_preferences import ForumEmailNotificationPreferences
     from .forum_experience import ForumExperience
     from .forum_list_item import ForumListItem
@@ -2243,6 +2244,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ForbiddenErrorBody": ".forbidden_error_body",
     "ForbiddenErrorBodyError": ".forbidden_error_body_error",
     "Forum": ".forum",
+    "ForumBannerImage": ".forum_banner_image",
     "ForumEmailNotificationPreferences": ".forum_email_notification_preferences",
     "ForumExperience": ".forum_experience",
     "ForumListItem": ".forum_list_item",
@@ -3754,6 +3756,7 @@ __all__ = [
     "ForbiddenErrorBody",
     "ForbiddenErrorBodyError",
     "Forum",
+    "ForumBannerImage",
     "ForumEmailNotificationPreferences",
     "ForumExperience",
     "ForumListItem",

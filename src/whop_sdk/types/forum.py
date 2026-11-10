@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .forum_banner_image import ForumBannerImage
 from .forum_email_notification_preferences import ForumEmailNotificationPreferences
 from .forum_experience import ForumExperience
 from .forum_who_can_comment_types import ForumWhoCanCommentTypes
@@ -13,6 +14,16 @@ from .forum_who_can_post_types import ForumWhoCanPostTypes
 class Forum(UniversalBaseModel):
     """
     A discussion forum where members can create posts, comment, and react, belonging to an experience.
+    """
+
+    banned_words: typing.List[str] = pydantic.Field()
+    """
+    A list of words that are automatically filtered from posts in this forum.
+    """
+
+    banner_image: typing.Optional[ForumBannerImage] = pydantic.Field(default=None)
+    """
+    The banner image displayed at the top of the forum page. Null if no banner has been uploaded.
     """
 
     email_notification_preference: ForumEmailNotificationPreferences = pydantic.Field()
