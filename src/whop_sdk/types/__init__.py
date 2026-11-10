@@ -973,6 +973,10 @@ if typing.TYPE_CHECKING:
     from .payment_legacy_shipping_address import PaymentLegacyShippingAddress
     from .payment_legacy_user import PaymentLegacyUser
     from .payment_legacy_verification_checks import PaymentLegacyVerificationChecks
+    from .payment_levels_rebate import PaymentLevelsRebate
+    from .payment_levels_rebate_ineligible_reason import PaymentLevelsRebateIneligibleReason
+    from .payment_levels_rebate_region import PaymentLevelsRebateRegion
+    from .payment_levels_rebate_status import PaymentLevelsRebateStatus
     from .payment_list_item import PaymentListItem
     from .payment_list_item_application_fee import PaymentListItemApplicationFee
     from .payment_list_item_billing_address import PaymentListItemBillingAddress
@@ -2574,6 +2578,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentLegacyShippingAddress": ".payment_legacy_shipping_address",
     "PaymentLegacyUser": ".payment_legacy_user",
     "PaymentLegacyVerificationChecks": ".payment_legacy_verification_checks",
+    "PaymentLevelsRebate": ".payment_levels_rebate",
+    "PaymentLevelsRebateIneligibleReason": ".payment_levels_rebate_ineligible_reason",
+    "PaymentLevelsRebateRegion": ".payment_levels_rebate_region",
+    "PaymentLevelsRebateStatus": ".payment_levels_rebate_status",
     "PaymentListItem": ".payment_list_item",
     "PaymentListItemApplicationFee": ".payment_list_item_application_fee",
     "PaymentListItemBillingAddress": ".payment_list_item_billing_address",
@@ -4081,6 +4089,10 @@ __all__ = [
     "PaymentLegacyShippingAddress",
     "PaymentLegacyUser",
     "PaymentLegacyVerificationChecks",
+    "PaymentLevelsRebate",
+    "PaymentLevelsRebateIneligibleReason",
+    "PaymentLevelsRebateRegion",
+    "PaymentLevelsRebateStatus",
     "PaymentListItem",
     "PaymentListItemApplicationFee",
     "PaymentListItemBillingAddress",
