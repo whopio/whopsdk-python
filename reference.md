@@ -32469,6 +32469,22 @@ client.messages.create(
 <dl>
 <dd>
 
+**gifs:** `typing.Optional[typing.List[CreateMessagesRequestGifsItem]]` — Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[str]` — Optional, for clients that show a message before the server confirms it. Use `post_` followed by 22 Base58 characters. Omit to generate an ID. Reuse the same ID and `Idempotency-Key` when retrying a send.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **link_previews:** `typing.Optional[typing.List[CreateMessagesRequestLinkPreviewsItem]]` — Explicit URLs for the server to preview.
     
 </dd>
@@ -32721,6 +32737,14 @@ client.messages.update(
 <dd>
 
 **content:** `typing.Optional[str]` — Replacement Markdown content.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**gifs:** `typing.Optional[typing.List[UpdateMessagesRequestGifsItem]]` — Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
     
 </dd>
 </dl>

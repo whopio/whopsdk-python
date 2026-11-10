@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         CreateMessagesRequestAttachmentsItem,
+        CreateMessagesRequestGifsItem,
         CreateMessagesRequestLinkPreviewsItem,
         CreateMessagesRequestPoll,
         CreateMessagesRequestPollOptionsItem,
@@ -26,10 +27,12 @@ if typing.TYPE_CHECKING:
         PostChatMessageCreatedPayloadDataChannelType,
         PostChatMessageCreatedPayloadType,
         UpdateMessagesRequestAttachmentsItem,
+        UpdateMessagesRequestGifsItem,
         UpdateMessagesRequestLinkPreviewsItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateMessagesRequestAttachmentsItem": ".types",
+    "CreateMessagesRequestGifsItem": ".types",
     "CreateMessagesRequestLinkPreviewsItem": ".types",
     "CreateMessagesRequestPoll": ".types",
     "CreateMessagesRequestPollOptionsItem": ".types",
@@ -48,6 +51,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostChatMessageCreatedPayloadDataChannelType": ".types",
     "PostChatMessageCreatedPayloadType": ".types",
     "UpdateMessagesRequestAttachmentsItem": ".types",
+    "UpdateMessagesRequestGifsItem": ".types",
     "UpdateMessagesRequestLinkPreviewsItem": ".types",
 }
 
@@ -75,6 +79,7 @@ def __dir__():
 
 __all__ = [
     "CreateMessagesRequestAttachmentsItem",
+    "CreateMessagesRequestGifsItem",
     "CreateMessagesRequestLinkPreviewsItem",
     "CreateMessagesRequestPoll",
     "CreateMessagesRequestPollOptionsItem",
@@ -93,5 +98,6 @@ __all__ = [
     "PostChatMessageCreatedPayloadDataChannelType",
     "PostChatMessageCreatedPayloadType",
     "UpdateMessagesRequestAttachmentsItem",
+    "UpdateMessagesRequestGifsItem",
     "UpdateMessagesRequestLinkPreviewsItem",
 ]

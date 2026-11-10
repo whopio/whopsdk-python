@@ -20,6 +20,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.chat_message import ChatMessage
 from ..types.chat_reaction import ChatReaction
 from .types.create_messages_request_attachments_item import CreateMessagesRequestAttachmentsItem
+from .types.create_messages_request_gifs_item import CreateMessagesRequestGifsItem
 from .types.create_messages_request_link_previews_item import CreateMessagesRequestLinkPreviewsItem
 from .types.create_messages_request_poll import CreateMessagesRequestPoll
 from .types.list_messages_request_direction import ListMessagesRequestDirection
@@ -27,6 +28,7 @@ from .types.list_messages_request_order import ListMessagesRequestOrder
 from .types.list_messages_response import ListMessagesResponse
 from .types.list_reactions_messages_response import ListReactionsMessagesResponse
 from .types.update_messages_request_attachments_item import UpdateMessagesRequestAttachmentsItem
+from .types.update_messages_request_gifs_item import UpdateMessagesRequestGifsItem
 from .types.update_messages_request_link_previews_item import UpdateMessagesRequestLinkPreviewsItem
 from pydantic import ValidationError
 
@@ -245,6 +247,8 @@ class RawMessagesClient:
         content: str,
         attachments: typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]] = OMIT,
         auto_detect_links: typing.Optional[bool] = OMIT,
+        gifs: typing.Optional[typing.Sequence[CreateMessagesRequestGifsItem]] = OMIT,
+        id: typing.Optional[str] = OMIT,
         link_previews: typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]] = OMIT,
         poll: typing.Optional[CreateMessagesRequestPoll] = OMIT,
         replying_to_message_id: typing.Optional[str] = OMIT,
@@ -266,6 +270,12 @@ class RawMessagesClient:
 
         auto_detect_links : typing.Optional[bool]
             Generate previews for URLs in content. Mutually exclusive with link_previews.
+
+        gifs : typing.Optional[typing.Sequence[CreateMessagesRequestGifsItem]]
+            Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
+
+        id : typing.Optional[str]
+            Optional, for clients that show a message before the server confirms it. Use `post_` followed by 22 Base58 characters. Omit to generate an ID. Reuse the same ID and `Idempotency-Key` when retrying a send.
 
         link_previews : typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]]
             Explicit URLs for the server to preview.
@@ -296,6 +306,10 @@ class RawMessagesClient:
                 "auto_detect_links": auto_detect_links,
                 "channel_id": channel_id,
                 "content": content,
+                "gifs": convert_and_respect_annotation_metadata(
+                    object_=gifs, annotation=typing.Sequence[CreateMessagesRequestGifsItem], direction="write"
+                ),
+                "id": id,
                 "link_previews": convert_and_respect_annotation_metadata(
                     object_=link_previews,
                     annotation=typing.Sequence[CreateMessagesRequestLinkPreviewsItem],
@@ -470,6 +484,7 @@ class RawMessagesClient:
         *,
         attachments: typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]] = OMIT,
         content: typing.Optional[str] = OMIT,
+        gifs: typing.Optional[typing.Sequence[UpdateMessagesRequestGifsItem]] = OMIT,
         link_previews: typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ChatMessage]:
@@ -486,6 +501,9 @@ class RawMessagesClient:
 
         content : typing.Optional[str]
             Replacement Markdown content.
+
+        gifs : typing.Optional[typing.Sequence[UpdateMessagesRequestGifsItem]]
+            Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
 
         link_previews : typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]]
             Replacement preview URLs; pass an empty list to remove previews.
@@ -509,6 +527,9 @@ class RawMessagesClient:
                     direction="write",
                 ),
                 "content": content,
+                "gifs": convert_and_respect_annotation_metadata(
+                    object_=gifs, annotation=typing.Sequence[UpdateMessagesRequestGifsItem], direction="write"
+                ),
                 "link_previews": convert_and_respect_annotation_metadata(
                     object_=link_previews,
                     annotation=typing.Sequence[UpdateMessagesRequestLinkPreviewsItem],
@@ -1244,6 +1265,8 @@ class AsyncRawMessagesClient:
         content: str,
         attachments: typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]] = OMIT,
         auto_detect_links: typing.Optional[bool] = OMIT,
+        gifs: typing.Optional[typing.Sequence[CreateMessagesRequestGifsItem]] = OMIT,
+        id: typing.Optional[str] = OMIT,
         link_previews: typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]] = OMIT,
         poll: typing.Optional[CreateMessagesRequestPoll] = OMIT,
         replying_to_message_id: typing.Optional[str] = OMIT,
@@ -1265,6 +1288,12 @@ class AsyncRawMessagesClient:
 
         auto_detect_links : typing.Optional[bool]
             Generate previews for URLs in content. Mutually exclusive with link_previews.
+
+        gifs : typing.Optional[typing.Sequence[CreateMessagesRequestGifsItem]]
+            Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
+
+        id : typing.Optional[str]
+            Optional, for clients that show a message before the server confirms it. Use `post_` followed by 22 Base58 characters. Omit to generate an ID. Reuse the same ID and `Idempotency-Key` when retrying a send.
 
         link_previews : typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]]
             Explicit URLs for the server to preview.
@@ -1295,6 +1324,10 @@ class AsyncRawMessagesClient:
                 "auto_detect_links": auto_detect_links,
                 "channel_id": channel_id,
                 "content": content,
+                "gifs": convert_and_respect_annotation_metadata(
+                    object_=gifs, annotation=typing.Sequence[CreateMessagesRequestGifsItem], direction="write"
+                ),
+                "id": id,
                 "link_previews": convert_and_respect_annotation_metadata(
                     object_=link_previews,
                     annotation=typing.Sequence[CreateMessagesRequestLinkPreviewsItem],
@@ -1471,6 +1504,7 @@ class AsyncRawMessagesClient:
         *,
         attachments: typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]] = OMIT,
         content: typing.Optional[str] = OMIT,
+        gifs: typing.Optional[typing.Sequence[UpdateMessagesRequestGifsItem]] = OMIT,
         link_previews: typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ChatMessage]:
@@ -1487,6 +1521,9 @@ class AsyncRawMessagesClient:
 
         content : typing.Optional[str]
             Replacement Markdown content.
+
+        gifs : typing.Optional[typing.Sequence[UpdateMessagesRequestGifsItem]]
+            Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
 
         link_previews : typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]]
             Replacement preview URLs; pass an empty list to remove previews.
@@ -1510,6 +1547,9 @@ class AsyncRawMessagesClient:
                     direction="write",
                 ),
                 "content": content,
+                "gifs": convert_and_respect_annotation_metadata(
+                    object_=gifs, annotation=typing.Sequence[UpdateMessagesRequestGifsItem], direction="write"
+                ),
                 "link_previews": convert_and_respect_annotation_metadata(
                     object_=link_previews,
                     annotation=typing.Sequence[UpdateMessagesRequestLinkPreviewsItem],

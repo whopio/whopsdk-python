@@ -7,13 +7,40 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class Gif(UniversalBaseModel):
-    height: int
-    original_url: str
-    preview_url: str
-    slug: str
-    title: str
-    url: str
-    width: int
+    height: int = pydantic.Field()
+    """
+    Height of `original_url`, in pixels.
+    """
+
+    original_url: str = pydantic.Field()
+    """
+    Full-size GIF. HTTPS on a Klipy media host.
+    """
+
+    preview_url: str = pydantic.Field()
+    """
+    Smaller version for previews and placeholders. HTTPS on a Klipy media host.
+    """
+
+    slug: str = pydantic.Field()
+    """
+    Identifier for the GIF.
+    """
+
+    title: str = pydantic.Field()
+    """
+    GIF title.
+    """
+
+    url: str = pydantic.Field()
+    """
+    URL the message renders the GIF from. HTTPS on a Klipy media host.
+    """
+
+    width: int = pydantic.Field()
+    """
+    Width of `original_url`, in pixels.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

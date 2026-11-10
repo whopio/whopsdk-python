@@ -9,6 +9,7 @@ from ..types.chat_message import ChatMessage
 from ..types.chat_reaction import ChatReaction
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
 from .types.create_messages_request_attachments_item import CreateMessagesRequestAttachmentsItem
+from .types.create_messages_request_gifs_item import CreateMessagesRequestGifsItem
 from .types.create_messages_request_link_previews_item import CreateMessagesRequestLinkPreviewsItem
 from .types.create_messages_request_poll import CreateMessagesRequestPoll
 from .types.list_messages_request_direction import ListMessagesRequestDirection
@@ -16,6 +17,7 @@ from .types.list_messages_request_order import ListMessagesRequestOrder
 from .types.list_messages_response import ListMessagesResponse
 from .types.list_reactions_messages_response import ListReactionsMessagesResponse
 from .types.update_messages_request_attachments_item import UpdateMessagesRequestAttachmentsItem
+from .types.update_messages_request_gifs_item import UpdateMessagesRequestGifsItem
 from .types.update_messages_request_link_previews_item import UpdateMessagesRequestLinkPreviewsItem
 
 # this is used as the default value for optional parameters
@@ -169,6 +171,8 @@ class MessagesClient:
         content: str,
         attachments: typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]] = OMIT,
         auto_detect_links: typing.Optional[bool] = OMIT,
+        gifs: typing.Optional[typing.Sequence[CreateMessagesRequestGifsItem]] = OMIT,
+        id: typing.Optional[str] = OMIT,
         link_previews: typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]] = OMIT,
         poll: typing.Optional[CreateMessagesRequestPoll] = OMIT,
         replying_to_message_id: typing.Optional[str] = OMIT,
@@ -190,6 +194,12 @@ class MessagesClient:
 
         auto_detect_links : typing.Optional[bool]
             Generate previews for URLs in content. Mutually exclusive with link_previews.
+
+        gifs : typing.Optional[typing.Sequence[CreateMessagesRequestGifsItem]]
+            Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
+
+        id : typing.Optional[str]
+            Optional, for clients that show a message before the server confirms it. Use `post_` followed by 22 Base58 characters. Omit to generate an ID. Reuse the same ID and `Idempotency-Key` when retrying a send.
 
         link_previews : typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]]
             Explicit URLs for the server to preview.
@@ -226,6 +236,8 @@ class MessagesClient:
             content=content,
             attachments=attachments,
             auto_detect_links=auto_detect_links,
+            gifs=gifs,
+            id=id,
             link_previews=link_previews,
             poll=poll,
             replying_to_message_id=replying_to_message_id,
@@ -304,6 +316,7 @@ class MessagesClient:
         *,
         attachments: typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]] = OMIT,
         content: typing.Optional[str] = OMIT,
+        gifs: typing.Optional[typing.Sequence[UpdateMessagesRequestGifsItem]] = OMIT,
         link_previews: typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ChatMessage:
@@ -320,6 +333,9 @@ class MessagesClient:
 
         content : typing.Optional[str]
             Replacement Markdown content.
+
+        gifs : typing.Optional[typing.Sequence[UpdateMessagesRequestGifsItem]]
+            Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
 
         link_previews : typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]]
             Replacement preview URLs; pass an empty list to remove previews.
@@ -346,7 +362,12 @@ class MessagesClient:
         )
         """
         _response = self._raw_client.update(
-            id, attachments=attachments, content=content, link_previews=link_previews, request_options=request_options
+            id,
+            attachments=attachments,
+            content=content,
+            gifs=gifs,
+            link_previews=link_previews,
+            request_options=request_options,
         )
         return _response.data
 
@@ -750,6 +771,8 @@ class AsyncMessagesClient:
         content: str,
         attachments: typing.Optional[typing.Sequence[CreateMessagesRequestAttachmentsItem]] = OMIT,
         auto_detect_links: typing.Optional[bool] = OMIT,
+        gifs: typing.Optional[typing.Sequence[CreateMessagesRequestGifsItem]] = OMIT,
+        id: typing.Optional[str] = OMIT,
         link_previews: typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]] = OMIT,
         poll: typing.Optional[CreateMessagesRequestPoll] = OMIT,
         replying_to_message_id: typing.Optional[str] = OMIT,
@@ -771,6 +794,12 @@ class AsyncMessagesClient:
 
         auto_detect_links : typing.Optional[bool]
             Generate previews for URLs in content. Mutually exclusive with link_previews.
+
+        gifs : typing.Optional[typing.Sequence[CreateMessagesRequestGifsItem]]
+            Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
+
+        id : typing.Optional[str]
+            Optional, for clients that show a message before the server confirms it. Use `post_` followed by 22 Base58 characters. Omit to generate an ID. Reuse the same ID and `Idempotency-Key` when retrying a send.
 
         link_previews : typing.Optional[typing.Sequence[CreateMessagesRequestLinkPreviewsItem]]
             Explicit URLs for the server to preview.
@@ -815,6 +844,8 @@ class AsyncMessagesClient:
             content=content,
             attachments=attachments,
             auto_detect_links=auto_detect_links,
+            gifs=gifs,
+            id=id,
             link_previews=link_previews,
             poll=poll,
             replying_to_message_id=replying_to_message_id,
@@ -909,6 +940,7 @@ class AsyncMessagesClient:
         *,
         attachments: typing.Optional[typing.Sequence[UpdateMessagesRequestAttachmentsItem]] = OMIT,
         content: typing.Optional[str] = OMIT,
+        gifs: typing.Optional[typing.Sequence[UpdateMessagesRequestGifsItem]] = OMIT,
         link_previews: typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ChatMessage:
@@ -925,6 +957,9 @@ class AsyncMessagesClient:
 
         content : typing.Optional[str]
             Replacement Markdown content.
+
+        gifs : typing.Optional[typing.Sequence[UpdateMessagesRequestGifsItem]]
+            Up to 10 GIFs to attach. URLs must use HTTPS on static.klipy.com, static1.klipy.com, or static2.klipy.com. Omit to preserve on edit; an empty list clears them.
 
         link_previews : typing.Optional[typing.Sequence[UpdateMessagesRequestLinkPreviewsItem]]
             Replacement preview URLs; pass an empty list to remove previews.
@@ -959,7 +994,12 @@ class AsyncMessagesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id, attachments=attachments, content=content, link_previews=link_previews, request_options=request_options
+            id,
+            attachments=attachments,
+            content=content,
+            gifs=gifs,
+            link_previews=link_previews,
+            request_options=request_options,
         )
         return _response.data
 
