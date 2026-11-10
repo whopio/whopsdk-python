@@ -31313,7 +31313,7 @@ client.memberships.retrieve(
 <dl>
 <dd>
 
-Updates a membership's metadata, scheduled cancellation, renewal payment method, renewal cadence, or next renewal date.
+Updates a membership's metadata, scheduled cancellation, renewal payment method, renewal cadence, next renewal date, or renewal price.
 </dd>
 </dl>
 </dd>
@@ -31396,6 +31396,14 @@ client.memberships.update(
 <dd>
 
 **payment_method_id:** `typing.Optional[str]` — The ID of a payment method the customer has saved with your account. Future renewals charge it, and an open past-due payment is retried on it right away. Requires the `member:payment_methods:manage` permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**renewal_price:** `typing.Optional[float]` — The amount future renewals charge, in the membership's renewal currency. Can only lower the current renewal price; raising a price is not supported here. Moves only this membership to the new price and emails the customer the change. Only for active or trialing renewing memberships billed by Whop whose payments are not paused. Cannot be combined with other fields.
     
 </dd>
 </dl>

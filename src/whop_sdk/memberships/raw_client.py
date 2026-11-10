@@ -435,10 +435,11 @@ class RawMembershipsClient:
         current_period_end: typing.Optional[dt.datetime] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
+        renewal_price: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Membership]:
         """
-        Updates a membership's metadata, scheduled cancellation, renewal payment method, renewal cadence, or next renewal date.
+        Updates a membership's metadata, scheduled cancellation, renewal payment method, renewal cadence, next renewal date, or renewal price.
 
         Parameters
         ----------
@@ -460,6 +461,9 @@ class RawMembershipsClient:
         payment_method_id : typing.Optional[str]
             The ID of a payment method the customer has saved with your account. Future renewals charge it, and an open past-due payment is retried on it right away. Requires the `member:payment_methods:manage` permission.
 
+        renewal_price : typing.Optional[float]
+            The amount future renewals charge, in the membership's renewal currency. Can only lower the current renewal price; raising a price is not supported here. Moves only this membership to the new price and emails the customer the change. Only for active or trialing renewing memberships billed by Whop whose payments are not paused. Cannot be combined with other fields.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -478,6 +482,7 @@ class RawMembershipsClient:
                 "current_period_end": current_period_end,
                 "metadata": metadata,
                 "payment_method_id": payment_method_id,
+                "renewal_price": renewal_price,
             },
             headers={
                 "content-type": "application/json",
@@ -1797,10 +1802,11 @@ class AsyncRawMembershipsClient:
         current_period_end: typing.Optional[dt.datetime] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
+        renewal_price: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Membership]:
         """
-        Updates a membership's metadata, scheduled cancellation, renewal payment method, renewal cadence, or next renewal date.
+        Updates a membership's metadata, scheduled cancellation, renewal payment method, renewal cadence, next renewal date, or renewal price.
 
         Parameters
         ----------
@@ -1822,6 +1828,9 @@ class AsyncRawMembershipsClient:
         payment_method_id : typing.Optional[str]
             The ID of a payment method the customer has saved with your account. Future renewals charge it, and an open past-due payment is retried on it right away. Requires the `member:payment_methods:manage` permission.
 
+        renewal_price : typing.Optional[float]
+            The amount future renewals charge, in the membership's renewal currency. Can only lower the current renewal price; raising a price is not supported here. Moves only this membership to the new price and emails the customer the change. Only for active or trialing renewing memberships billed by Whop whose payments are not paused. Cannot be combined with other fields.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1840,6 +1849,7 @@ class AsyncRawMembershipsClient:
                 "current_period_end": current_period_end,
                 "metadata": metadata,
                 "payment_method_id": payment_method_id,
+                "renewal_price": renewal_price,
             },
             headers={
                 "content-type": "application/json",
