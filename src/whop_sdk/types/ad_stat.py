@@ -25,7 +25,7 @@ class AdStat(UniversalBaseModel):
 
     clicks: int = pydantic.Field()
     """
-    The ad's clicks in the hour.
+    Always 0. Whop stores no clicks for a runner's hour: an ad's clicks are its Whop pixel page views, counted when its stats are shown.
     """
 
     hour_started_at: str = pydantic.Field()

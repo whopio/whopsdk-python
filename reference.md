@@ -3970,7 +3970,7 @@ client.ads.report_stats(
 <dl>
 <dd>
 
-**clicks:** `typing.Optional[ReportStatsAdsRequestClicks]` — The ad's clicks in the hour so far, at most `impressions`. Zero when left out.
+**clicks:** `typing.Optional[ReportStatsAdsRequestClicks]` — Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
     
 </dd>
 </dl>

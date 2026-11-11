@@ -199,7 +199,7 @@ class RawAdsClient:
             The USD to be paid for the ad's hour so far, to the cent: what the ad spent plus any markup, such as 105.00 for 100.00 spent with a 5% markup.
 
         clicks : typing.Optional[ReportStatsAdsRequestClicks]
-            The ad's clicks in the hour so far, at most `impressions`. Zero when left out.
+            Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
 
         impressions : typing.Optional[ReportStatsAdsRequestImpressions]
             The ad's impressions in the hour so far. Zero when left out.
@@ -245,17 +245,6 @@ class RawAdsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -1236,7 +1225,7 @@ class AsyncRawAdsClient:
             The USD to be paid for the ad's hour so far, to the cent: what the ad spent plus any markup, such as 105.00 for 100.00 spent with a 5% markup.
 
         clicks : typing.Optional[ReportStatsAdsRequestClicks]
-            The ad's clicks in the hour so far, at most `impressions`. Zero when left out.
+            Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
 
         impressions : typing.Optional[ReportStatsAdsRequestImpressions]
             The ad's impressions in the hour so far. Zero when left out.
@@ -1282,17 +1271,6 @@ class AsyncRawAdsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
