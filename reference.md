@@ -55852,6 +55852,14 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
+**earning_partner_id:** `typing.Optional[str]` — Only the referrals this team member made, plus the ones they were added to as a deal participant. User ID, prefixed `user_`. Requires `referring_account_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
