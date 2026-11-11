@@ -14252,7 +14252,7 @@ client.channels.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[ListChannelsRequestOrder]` — The field to sort by. Defaults to `last_viewed_at` for community channels and `last_message_at` for private and support channels. Ties sort in a stable order.
+**order:** `typing.Optional[ListChannelsRequestOrder]` — The field to sort by. Defaults to `last_viewed_at` for community channels and `last_message_at` for private and support channels. Ties sort in a stable order. Cannot be supplied with updated_after.
     
 </dd>
 </dl>
@@ -14276,7 +14276,23 @@ client.channels.list(
 <dl>
 <dd>
 
-**direction:** `typing.Optional[ListChannelsRequestDirection]` — The sort direction. Defaults to `desc`.
+**direction:** `typing.Optional[ListChannelsRequestDirection]` — The sort direction. Defaults to `desc`. Cannot be supplied with updated_after.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted:** `typing.Optional[bool]` — Include redacted entries for deleted channels and your removed memberships. Use deleted_at to remove these channels from your cache.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**updated_after:** `typing.Optional[str]` — Return channels where the channel or your membership changed at or after this ISO 8601 timestamp. Cannot be more than one hour old, including on subsequent pages. For older changes, reload channels without updated_after. Results use ascending synchronized_at order. Cannot be combined with order, direction, query, status, awaiting_reply, unread, pinned, viewed, requested, created_before, or created_after.
     
 </dd>
 </dl>
