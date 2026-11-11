@@ -114,7 +114,7 @@ class RawSwapsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateSwapsResponse]:
         """
-        Swaps one token for another in an account or user's wallet, or converts between their fiat balances at the mid-market rate. Crypto swaps finish in the background — retrieve the swap to follow its status.
+        Swaps one token for another in an account or user's wallet, or converts between their fiat balances. Crypto swaps finish in the background — retrieve the swap to follow its status.
 
         Parameters
         ----------
@@ -128,7 +128,7 @@ class RawSwapsClient:
             Business account that makes the swap, prefixed `biz_`. Provide this or `user_id`.
 
         amount : typing.Optional[str]
-            Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
+            Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert; omit (along with to_amount) to repay the full negative to_token balance instead.
 
         from_chain : typing.Optional[CreateSwapsRequestFromChain]
             Source chain name or chain ID. Defaults to the source token's chain when omitted.
@@ -236,16 +236,18 @@ class RawSwapsClient:
         amount: str,
         from_token: str,
         to_token: str,
+        account_id: typing.Optional[str] = OMIT,
         from_address: typing.Optional[str] = OMIT,
         from_chain: typing.Optional[CreateQuoteSwapsRequestFromChain] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
         to_address: typing.Optional[str] = OMIT,
         to_chain: typing.Optional[CreateQuoteSwapsRequestToChain] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateQuoteSwapsResponse]:
         """
-        Previews the price of a swap before you create it. Fiat pairs quote the mid-market rate — the same rate creating the swap fills at. No funds move, nothing is saved, and no authentication is required.
+        Previews the price of a swap before you create it. A fiat pair quotes the same rate creating the swap fills at; name the account with `account_id` or `user_id` to quote the rate for that account. No funds move, nothing is saved, and no authentication is required unless you name an account.
 
         Parameters
         ----------
@@ -257,6 +259,9 @@ class RawSwapsClient:
 
         to_token : str
             Destination token contract address or ticker symbol, such as "XAUT".
+
+        account_id : typing.Optional[str]
+            Fiat pairs only: business account to quote the swap for, prefixed `biz_`. Requires a credential with `payout:transfer_funds` on that account. Provide this, `user_id`, or neither for a public quote.
 
         from_address : typing.Optional[str]
             Source wallet address used for the quote.
@@ -276,6 +281,9 @@ class RawSwapsClient:
         to_chain : typing.Optional[CreateQuoteSwapsRequestToChain]
             Destination chain name or chain ID. Defaults to the destination token's chain when omitted.
 
+        user_id : typing.Optional[str]
+            Fiat pairs only: the caller's own user ID, prefixed `user_`, to quote the swap for their personal account. Provide this or `account_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -289,6 +297,7 @@ class RawSwapsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "account_id": account_id,
                 "amount": amount,
                 "from_address": from_address,
                 "from_chain": convert_and_respect_annotation_metadata(
@@ -302,6 +311,7 @@ class RawSwapsClient:
                     object_=to_chain, annotation=typing.Optional[CreateQuoteSwapsRequestToChain], direction="write"
                 ),
                 "to_token": to_token,
+                "user_id": user_id,
             },
             headers={
                 "content-type": "application/json",
@@ -513,7 +523,7 @@ class AsyncRawSwapsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateSwapsResponse]:
         """
-        Swaps one token for another in an account or user's wallet, or converts between their fiat balances at the mid-market rate. Crypto swaps finish in the background — retrieve the swap to follow its status.
+        Swaps one token for another in an account or user's wallet, or converts between their fiat balances. Crypto swaps finish in the background — retrieve the swap to follow its status.
 
         Parameters
         ----------
@@ -527,7 +537,7 @@ class AsyncRawSwapsClient:
             Business account that makes the swap, prefixed `biz_`. Provide this or `user_id`.
 
         amount : typing.Optional[str]
-            Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
+            Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert; omit (along with to_amount) to repay the full negative to_token balance instead.
 
         from_chain : typing.Optional[CreateSwapsRequestFromChain]
             Source chain name or chain ID. Defaults to the source token's chain when omitted.
@@ -635,16 +645,18 @@ class AsyncRawSwapsClient:
         amount: str,
         from_token: str,
         to_token: str,
+        account_id: typing.Optional[str] = OMIT,
         from_address: typing.Optional[str] = OMIT,
         from_chain: typing.Optional[CreateQuoteSwapsRequestFromChain] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
         to_address: typing.Optional[str] = OMIT,
         to_chain: typing.Optional[CreateQuoteSwapsRequestToChain] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateQuoteSwapsResponse]:
         """
-        Previews the price of a swap before you create it. Fiat pairs quote the mid-market rate — the same rate creating the swap fills at. No funds move, nothing is saved, and no authentication is required.
+        Previews the price of a swap before you create it. A fiat pair quotes the same rate creating the swap fills at; name the account with `account_id` or `user_id` to quote the rate for that account. No funds move, nothing is saved, and no authentication is required unless you name an account.
 
         Parameters
         ----------
@@ -656,6 +668,9 @@ class AsyncRawSwapsClient:
 
         to_token : str
             Destination token contract address or ticker symbol, such as "XAUT".
+
+        account_id : typing.Optional[str]
+            Fiat pairs only: business account to quote the swap for, prefixed `biz_`. Requires a credential with `payout:transfer_funds` on that account. Provide this, `user_id`, or neither for a public quote.
 
         from_address : typing.Optional[str]
             Source wallet address used for the quote.
@@ -675,6 +690,9 @@ class AsyncRawSwapsClient:
         to_chain : typing.Optional[CreateQuoteSwapsRequestToChain]
             Destination chain name or chain ID. Defaults to the destination token's chain when omitted.
 
+        user_id : typing.Optional[str]
+            Fiat pairs only: the caller's own user ID, prefixed `user_`, to quote the swap for their personal account. Provide this or `account_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -688,6 +706,7 @@ class AsyncRawSwapsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "account_id": account_id,
                 "amount": amount,
                 "from_address": from_address,
                 "from_chain": convert_and_respect_annotation_metadata(
@@ -701,6 +720,7 @@ class AsyncRawSwapsClient:
                     object_=to_chain, annotation=typing.Optional[CreateQuoteSwapsRequestToChain], direction="write"
                 ),
                 "to_token": to_token,
+                "user_id": user_id,
             },
             headers={
                 "content-type": "application/json",
