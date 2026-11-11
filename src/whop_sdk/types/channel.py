@@ -18,6 +18,11 @@ class Channel(UniversalBaseModel):
     Creation time as an ISO 8601 timestamp.
     """
 
+    deleted_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the channel was deleted or removed from your channel list, as an ISO 8601 timestamp. Null for a live channel.
+    """
+
     experience_id: typing.Optional[str] = None
     icon: typing.Optional[File] = pydantic.Field(default=None)
     """

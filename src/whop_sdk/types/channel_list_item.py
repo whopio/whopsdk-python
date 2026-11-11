@@ -19,6 +19,11 @@ class ChannelListItem(UniversalBaseModel):
     Creation time as an ISO 8601 timestamp.
     """
 
+    deleted_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the channel was deleted or removed from your channel list, as an ISO 8601 timestamp. Null for a live channel.
+    """
+
     experience_id: typing.Optional[str] = None
     icon: typing.Optional[File] = pydantic.Field(default=None)
     """
@@ -52,6 +57,11 @@ class ChannelListItem(UniversalBaseModel):
     """
 
     support: typing.Optional[ChannelSupportState] = None
+    synchronized_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Latest change to the channel or your membership, as an ISO 8601 timestamp. Use this value as updated_after for synchronization.
+    """
+
     updated_at: str = pydantic.Field()
     """
     Last channel change as an ISO 8601 timestamp.
