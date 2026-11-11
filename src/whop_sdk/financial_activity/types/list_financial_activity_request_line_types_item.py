@@ -23,6 +23,8 @@ ListFinancialActivityRequestLineTypesItem = typing.Union[
         "balance_reservation_reversal",
         "billing_percentage_fee",
         "buyer_fee",
+        "capital_withholding",
+        "capital_withholding_reversal",
         "card_interchange",
         "card_load_deposit",
         "card_load_transfer",
