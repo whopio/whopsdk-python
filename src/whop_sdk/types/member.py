@@ -8,6 +8,7 @@ from .member_access_level import MemberAccessLevel
 from .member_last_activity import MemberLastActivity
 from .member_most_recent_action import MemberMostRecentAction
 from .member_status import MemberStatus
+from .member_unsubscribe_status import MemberUnsubscribeStatus
 from .member_user import MemberUser
 from .money import Money
 from .user_earnings_amount import UserEarningsAmount
@@ -97,6 +98,11 @@ class Member(UniversalBaseModel):
     token_balance: float = pydantic.Field()
     """
     The member's current token balance for this account, computed from token transactions.
+    """
+
+    unsubscribe_status: typing.Optional[MemberUnsubscribeStatus] = pydantic.Field(default=None)
+    """
+    `unsubscribed` once the member opts out of the account's marketing communications, `null` while they're subscribed. Only the member can change it.
     """
 
     usd_total_spent: Money = pydantic.Field()
