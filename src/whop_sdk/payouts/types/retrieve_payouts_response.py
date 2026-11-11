@@ -134,7 +134,7 @@ class RetrievePayoutsResponse(UniversalBaseModel):
 
     source: typing.Optional[RetrievePayoutsResponseSource] = pydantic.Field(default=None)
     """
-    How the payout was created. `automatic` means a scheduled auto-payout; `null` on payouts created before source tracking or through internal tooling. Only returned to callers with payout:withdrawal:read on the owning ledger.
+    How the payout was created. `automatic` means a scheduled auto-payout. `null` when the payout has no recorded source. Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
     speed: RetrievePayoutsResponseSpeed = pydantic.Field()

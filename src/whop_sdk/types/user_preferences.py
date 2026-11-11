@@ -17,11 +17,6 @@ class UserPreferences(UniversalBaseModel):
     Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. `false` when the user has no cards balance.
     """
 
-    investigation_enabled: bool = pydantic.Field()
-    """
-    Whether investigation mode is enabled for the user. Only meaningful for staff users with investigation access.
-    """
-
     terms_accepted: bool = pydantic.Field()
     """
     Whether the user has accepted Whop's terms and policies. `false` until recorded via `PATCH` with `terms_accepted: true`.

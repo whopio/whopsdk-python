@@ -113,7 +113,7 @@ class PostPayoutReversedPayloadData(UniversalBaseModel):
 
     source: typing.Optional[PostPayoutReversedPayloadDataSource] = pydantic.Field(default=None)
     """
-    How the payout was created. `automatic` means a scheduled auto-payout; `null` on payouts created before source tracking or through internal tooling.
+    How the payout was created. `automatic` means a scheduled auto-payout. `null` when the payout has no recorded source.
     """
 
     speed: PostPayoutReversedPayloadDataSpeed = pydantic.Field()

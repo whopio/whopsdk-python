@@ -83,7 +83,7 @@ class WebhookListItem(UniversalBaseModel):
 
     webhook_secret: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Secret key used to sign webhook payloads for verification. Include this in your HMAC validation logic. Returned on the create response and to interactive dashboard sessions; `null` for API-key and OAuth callers on later reads.
+    Secret key used to sign webhook payloads. Use it to verify the HMAC signature of each delivery. Returned in the create response. `null` on later reads by API keys and OAuth apps.
     """
 
     if IS_PYDANTIC_V2:

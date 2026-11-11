@@ -45,8 +45,6 @@ class RawFinancialReportsClient:
             ]
         ] = None,
         direction: typing.Optional[RetrieveFinancialReportsRequestDirection] = None,
-        cumulative: typing.Optional[bool] = None,
-        scope_account_id: typing.Optional[str] = None,
         include_payment_fee_breakdown: typing.Optional[bool] = None,
         period_only_currencies: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -57,7 +55,7 @@ class RawFinancialReportsClient:
         Parameters
         ----------
         account_id : str
-            The owning account ID (a biz_ identifier), or `global` for a platform-wide report across all ledger accounts (requires internal admin access).
+            The account that owns the report, prefixed `biz_`.
 
         report_type : RetrieveFinancialReportsRequestReportType
             The type of financial report to generate.
@@ -69,10 +67,10 @@ class RawFinancialReportsClient:
             Aggregate all activity into this display currency via FX conversion.
 
         from_ : typing.Optional[dt.datetime]
-            Start of the report window as an ISO 8601 timestamp. Required for platform-wide (global) reports.
+            Start of the report window as an ISO 8601 timestamp.
 
         to : typing.Optional[dt.datetime]
-            Exclusive end of the report window as an ISO 8601 timestamp. Required for platform-wide (global) reports.
+            Exclusive end of the report window as an ISO 8601 timestamp.
 
         group_by : typing.Optional[RetrieveFinancialReportsRequestGroupBy]
             Grouping granularity for report rows. Hourly grouping is supported for account-level balance activity reports only; hourly periods are timestamps in the requested timezone.
@@ -85,12 +83,6 @@ class RawFinancialReportsClient:
 
         direction : typing.Optional[RetrieveFinancialReportsRequestDirection]
             Account-level balance activity only: include money moving in or money moving out.
-
-        cumulative : typing.Optional[bool]
-            Platform-wide (global) reports only: when true, return cumulative balances as of to (all history, no lower bound) instead of activity within the period.
-
-        scope_account_id : typing.Optional[str]
-            Platform-wide (global) reports only: narrow the report to ledger lines on the ledger account owned by this account ID (a biz_ identifier). Ignored unless account_id is `global`.
 
         include_payment_fee_breakdown : typing.Optional[bool]
             Balance activity only: include payment costs grouped by payment method and provider.
@@ -121,8 +113,6 @@ class RawFinancialReportsClient:
                 "timezone": timezone,
                 "line_types": line_types,
                 "direction": direction,
-                "cumulative": cumulative,
-                "scope_account_id": scope_account_id,
                 "include_payment_fee_breakdown": include_payment_fee_breakdown,
                 "period_only_currencies": period_only_currencies,
             },
@@ -214,8 +204,6 @@ class AsyncRawFinancialReportsClient:
             ]
         ] = None,
         direction: typing.Optional[RetrieveFinancialReportsRequestDirection] = None,
-        cumulative: typing.Optional[bool] = None,
-        scope_account_id: typing.Optional[str] = None,
         include_payment_fee_breakdown: typing.Optional[bool] = None,
         period_only_currencies: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -226,7 +214,7 @@ class AsyncRawFinancialReportsClient:
         Parameters
         ----------
         account_id : str
-            The owning account ID (a biz_ identifier), or `global` for a platform-wide report across all ledger accounts (requires internal admin access).
+            The account that owns the report, prefixed `biz_`.
 
         report_type : RetrieveFinancialReportsRequestReportType
             The type of financial report to generate.
@@ -238,10 +226,10 @@ class AsyncRawFinancialReportsClient:
             Aggregate all activity into this display currency via FX conversion.
 
         from_ : typing.Optional[dt.datetime]
-            Start of the report window as an ISO 8601 timestamp. Required for platform-wide (global) reports.
+            Start of the report window as an ISO 8601 timestamp.
 
         to : typing.Optional[dt.datetime]
-            Exclusive end of the report window as an ISO 8601 timestamp. Required for platform-wide (global) reports.
+            Exclusive end of the report window as an ISO 8601 timestamp.
 
         group_by : typing.Optional[RetrieveFinancialReportsRequestGroupBy]
             Grouping granularity for report rows. Hourly grouping is supported for account-level balance activity reports only; hourly periods are timestamps in the requested timezone.
@@ -254,12 +242,6 @@ class AsyncRawFinancialReportsClient:
 
         direction : typing.Optional[RetrieveFinancialReportsRequestDirection]
             Account-level balance activity only: include money moving in or money moving out.
-
-        cumulative : typing.Optional[bool]
-            Platform-wide (global) reports only: when true, return cumulative balances as of to (all history, no lower bound) instead of activity within the period.
-
-        scope_account_id : typing.Optional[str]
-            Platform-wide (global) reports only: narrow the report to ledger lines on the ledger account owned by this account ID (a biz_ identifier). Ignored unless account_id is `global`.
 
         include_payment_fee_breakdown : typing.Optional[bool]
             Balance activity only: include payment costs grouped by payment method and provider.
@@ -290,8 +272,6 @@ class AsyncRawFinancialReportsClient:
                 "timezone": timezone,
                 "line_types": line_types,
                 "direction": direction,
-                "cumulative": cumulative,
-                "scope_account_id": scope_account_id,
                 "include_payment_fee_breakdown": include_payment_fee_breakdown,
                 "period_only_currencies": period_only_currencies,
             },

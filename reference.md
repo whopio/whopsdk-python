@@ -26562,7 +26562,7 @@ client.financial_reports.retrieve(
 <dl>
 <dd>
 
-**account_id:** `str` — The owning account ID (a biz_ identifier), or `global` for a platform-wide report across all ledger accounts (requires internal admin access).
+**account_id:** `str` — The account that owns the report, prefixed `biz_`.
     
 </dd>
 </dl>
@@ -26594,7 +26594,7 @@ client.financial_reports.retrieve(
 <dl>
 <dd>
 
-**from:** `typing.Optional[datetime.datetime]` — Start of the report window as an ISO 8601 timestamp. Required for platform-wide (global) reports.
+**from:** `typing.Optional[datetime.datetime]` — Start of the report window as an ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -26602,7 +26602,7 @@ client.financial_reports.retrieve(
 <dl>
 <dd>
 
-**to:** `typing.Optional[datetime.datetime]` — Exclusive end of the report window as an ISO 8601 timestamp. Required for platform-wide (global) reports.
+**to:** `typing.Optional[datetime.datetime]` — Exclusive end of the report window as an ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -26635,22 +26635,6 @@ client.financial_reports.retrieve(
 <dd>
 
 **direction:** `typing.Optional[RetrieveFinancialReportsRequestDirection]` — Account-level balance activity only: include money moving in or money moving out.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cumulative:** `typing.Optional[bool]` — Platform-wide (global) reports only: when true, return cumulative balances as of to (all history, no lower bound) instead of activity within the period.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scope_account_id:** `typing.Optional[str]` — Platform-wide (global) reports only: narrow the report to ledger lines on the ledger account owned by this account ID (a biz_ identifier). Ignored unless account_id is `global`.
     
 </dd>
 </dl>
@@ -38812,7 +38796,7 @@ client.payouts.list()
 <dl>
 <dd>
 
-**source:** `typing.Optional[ListPayoutsRequestSource]` — Filter by how the payout was created. Payouts created before source tracking or through internal tooling carry no source and never match.
+**source:** `typing.Optional[ListPayoutsRequestSource]` — Filter by how the payout was created. A payout with no recorded source never matches.
     
 </dd>
 </dl>
@@ -48136,7 +48120,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**account_id:** `str` — Account ID, prefixed `biz_`. A global admin query passes `global` to list the joined members of every partner account, in `created_at` order; of the reporting line filters, only `team_lead_id` and `has_referred_businesses` apply.
+**account_id:** `str` — Account ID, prefixed `biz_`.
     
 </dd>
 </dl>
@@ -59329,14 +59313,6 @@ client.users.preferences.update()
 <dd>
 
 **cards_auto_top_up:** `typing.Optional[bool]` — Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**investigation_enabled:** `typing.Optional[bool]` — Whether investigation mode is enabled for the user. Only meaningful for staff users with investigation access.
     
 </dd>
 </dl>
