@@ -48168,6 +48168,14 @@ client.team_members.list(
 <dl>
 <dd>
 
+**user_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return the memberships of these users, prefixed `user_`, at most 100. IDs that match no user are ignored. With `account_id=global`, a user can have one in each partner account. Can't be combined with `user_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **role:** `typing.Optional[ListTeamMembersRequestRole]` — Only return members with this role. `custom` matches members on a dashboard-managed custom role.
     
 </dd>

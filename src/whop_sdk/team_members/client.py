@@ -41,6 +41,7 @@ class TeamMembersClient:
         account_id: str,
         status: typing.Optional[ListTeamMembersRequestStatus] = None,
         user_id: typing.Optional[str] = None,
+        user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         role: typing.Optional[ListTeamMembersRequestRole] = None,
         query: typing.Optional[str] = None,
         reports_to_id: typing.Optional[str] = None,
@@ -71,6 +72,9 @@ class TeamMembersClient:
 
         user_id : typing.Optional[str]
             Only return the membership for this user ID, prefixed `user_`.
+
+        user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return the memberships of these users, prefixed `user_`, at most 100. IDs that match no user are ignored. With `account_id=global`, a user can have one in each partner account. Can't be combined with `user_id`.
 
         role : typing.Optional[ListTeamMembersRequestRole]
             Only return members with this role. `custom` matches members on a dashboard-managed custom role.
@@ -147,6 +151,7 @@ class TeamMembersClient:
             account_id=account_id,
             status=status,
             user_id=user_id,
+            user_ids=user_ids,
             role=role,
             query=query,
             reports_to_id=reports_to_id,
@@ -349,6 +354,7 @@ class AsyncTeamMembersClient:
         account_id: str,
         status: typing.Optional[ListTeamMembersRequestStatus] = None,
         user_id: typing.Optional[str] = None,
+        user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         role: typing.Optional[ListTeamMembersRequestRole] = None,
         query: typing.Optional[str] = None,
         reports_to_id: typing.Optional[str] = None,
@@ -379,6 +385,9 @@ class AsyncTeamMembersClient:
 
         user_id : typing.Optional[str]
             Only return the membership for this user ID, prefixed `user_`.
+
+        user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return the memberships of these users, prefixed `user_`, at most 100. IDs that match no user are ignored. With `account_id=global`, a user can have one in each partner account. Can't be combined with `user_id`.
 
         role : typing.Optional[ListTeamMembersRequestRole]
             Only return members with this role. `custom` matches members on a dashboard-managed custom role.
@@ -464,6 +473,7 @@ class AsyncTeamMembersClient:
             account_id=account_id,
             status=status,
             user_id=user_id,
+            user_ids=user_ids,
             role=role,
             query=query,
             reports_to_id=reports_to_id,
