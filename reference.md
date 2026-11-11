@@ -5081,7 +5081,7 @@ client.ad_pixels.create(
 <dl>
 <dd>
 
-**access_token:** `str` — A credential that can send events to the pixel on the ad platform: a Meta Conversions API access token, a TikTok Events API access token, or for `google`, the JSON key of a Google Cloud service account. The service account needs Standard access to the Google Ads account, and its project needs the Google Ads API and the Data Manager API turned on and Explorer access or higher to the Google Ads API. Use a service account made only for Whop, with no roles in its project. Whop never returns it.
+**access_token:** `str` — A credential that can send events to the pixel on the ad platform. For `meta`, a Conversions API access token. For `tiktok`, an Events API access token. For `thrad`, an API key with `events:write` for the tag. For `google`, the JSON key of a Google Cloud service account. Give the service account Standard access to the Google Ads account. In its project, turn on the Google Ads API and the Data Manager API. The project also needs Explorer access or higher to the Google Ads API. Use a service account made only for Whop, with no roles in its project. Whop never returns it.
     
 </dd>
 </dl>
@@ -5097,7 +5097,7 @@ client.ad_pixels.create(
 <dl>
 <dd>
 
-**external_id:** `str` — The pixel's ID on the ad platform: the Meta pixel or dataset ID, the TikTok pixel code, or the Google Ads customer ID.
+**external_id:** `str` — The pixel's ID on the ad platform: a Meta pixel or dataset ID, TikTok pixel code, Google Ads customer ID, or Thrad tag ID.
     
 </dd>
 </dl>
@@ -5319,7 +5319,7 @@ client.ad_pixels.update(
 <dl>
 <dd>
 
-**access_token:** `str` — A credential that can send events to the pixel on the ad platform: a Meta Conversions API access token, a TikTok Events API access token, or for `google`, the JSON key of a Google Cloud service account. The service account needs Standard access to the Google Ads account, and its project needs the Google Ads API and the Data Manager API turned on and Explorer access or higher to the Google Ads API. Use a service account made only for Whop, with no roles in its project. Whop never returns it.
+**access_token:** `str` — A credential that can send events to the pixel on the ad platform. For `meta`, a Conversions API access token. For `tiktok`, an Events API access token. For `thrad`, an API key with `events:write` for the tag. For `google`, the JSON key of a Google Cloud service account. Give the service account Standard access to the Google Ads account. In its project, turn on the Google Ads API and the Data Manager API. The project also needs Explorer access or higher to the Google Ads API. Use a service account made only for Whop, with no roles in its project. Whop never returns it.
     
 </dd>
 </dl>
