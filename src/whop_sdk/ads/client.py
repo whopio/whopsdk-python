@@ -23,7 +23,6 @@ from .types.list_ads_request_status import ListAdsRequestStatus
 from .types.list_ads_response import ListAdsResponse
 from .types.report_issues_ads_request_issues_item import ReportIssuesAdsRequestIssuesItem
 from .types.report_issues_ads_response import ReportIssuesAdsResponse
-from .types.report_stats_ads_request_clicks import ReportStatsAdsRequestClicks
 from .types.report_stats_ads_request_impressions import ReportStatsAdsRequestImpressions
 from .types.report_stats_ads_request_spend import ReportStatsAdsRequestSpend
 from .types.retrieve_ads_request_attribution_model import RetrieveAdsRequestAttributionModel
@@ -88,7 +87,7 @@ class AdsClient:
         from whop_sdk.ads import ReportIssuesAdsRequestIssuesItem
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -111,7 +110,6 @@ class AdsClient:
         ad_id: str,
         hour_started_at: dt.datetime,
         spend: ReportStatsAdsRequestSpend,
-        clicks: typing.Optional[ReportStatsAdsRequestClicks] = OMIT,
         impressions: typing.Optional[ReportStatsAdsRequestImpressions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdStat:
@@ -128,9 +126,6 @@ class AdsClient:
 
         spend : ReportStatsAdsRequestSpend
             The USD to be paid for the ad's hour so far, to the cent: what the ad spent plus any markup, such as 105.00 for 100.00 spent with a 5% markup.
-
-        clicks : typing.Optional[ReportStatsAdsRequestClicks]
-            Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
 
         impressions : typing.Optional[ReportStatsAdsRequestImpressions]
             The ad's impressions in the hour so far. Zero when left out.
@@ -150,7 +145,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -166,7 +161,6 @@ class AdsClient:
             ad_id=ad_id,
             hour_started_at=hour_started_at,
             spend=spend,
-            clicks=clicks,
             impressions=impressions,
             request_options=request_options,
         )
@@ -271,7 +265,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -371,7 +365,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -435,7 +429,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -475,7 +469,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -545,7 +539,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -602,7 +596,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -637,7 +631,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -670,7 +664,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -735,7 +729,7 @@ class AsyncAdsClient:
         from whop_sdk.ads import ReportIssuesAdsRequestIssuesItem
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -764,7 +758,6 @@ class AsyncAdsClient:
         ad_id: str,
         hour_started_at: dt.datetime,
         spend: ReportStatsAdsRequestSpend,
-        clicks: typing.Optional[ReportStatsAdsRequestClicks] = OMIT,
         impressions: typing.Optional[ReportStatsAdsRequestImpressions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdStat:
@@ -781,9 +774,6 @@ class AsyncAdsClient:
 
         spend : ReportStatsAdsRequestSpend
             The USD to be paid for the ad's hour so far, to the cent: what the ad spent plus any markup, such as 105.00 for 100.00 spent with a 5% markup.
-
-        clicks : typing.Optional[ReportStatsAdsRequestClicks]
-            Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
 
         impressions : typing.Optional[ReportStatsAdsRequestImpressions]
             The ad's impressions in the hour so far. Zero when left out.
@@ -804,7 +794,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -826,7 +816,6 @@ class AsyncAdsClient:
             ad_id=ad_id,
             hour_started_at=hour_started_at,
             spend=spend,
-            clicks=clicks,
             impressions=impressions,
             request_options=request_options,
         )
@@ -933,7 +922,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1042,7 +1031,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1114,7 +1103,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1162,7 +1151,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1240,7 +1229,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1305,7 +1294,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1348,7 +1337,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1389,7 +1378,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

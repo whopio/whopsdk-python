@@ -75,7 +75,7 @@ class NotesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -125,7 +125,7 @@ class NotesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -202,7 +202,7 @@ class AsyncNotesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -261,7 +261,7 @@ class AsyncNotesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-07",
+            "2026-11-10",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

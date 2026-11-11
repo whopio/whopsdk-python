@@ -34,7 +34,6 @@ from .types.list_ads_request_status import ListAdsRequestStatus
 from .types.list_ads_response import ListAdsResponse
 from .types.report_issues_ads_request_issues_item import ReportIssuesAdsRequestIssuesItem
 from .types.report_issues_ads_response import ReportIssuesAdsResponse
-from .types.report_stats_ads_request_clicks import ReportStatsAdsRequestClicks
 from .types.report_stats_ads_request_impressions import ReportStatsAdsRequestImpressions
 from .types.report_stats_ads_request_spend import ReportStatsAdsRequestSpend
 from .types.retrieve_ads_request_attribution_model import RetrieveAdsRequestAttributionModel
@@ -180,7 +179,6 @@ class RawAdsClient:
         ad_id: str,
         hour_started_at: dt.datetime,
         spend: ReportStatsAdsRequestSpend,
-        clicks: typing.Optional[ReportStatsAdsRequestClicks] = OMIT,
         impressions: typing.Optional[ReportStatsAdsRequestImpressions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AdStat]:
@@ -197,9 +195,6 @@ class RawAdsClient:
 
         spend : ReportStatsAdsRequestSpend
             The USD to be paid for the ad's hour so far, to the cent: what the ad spent plus any markup, such as 105.00 for 100.00 spent with a 5% markup.
-
-        clicks : typing.Optional[ReportStatsAdsRequestClicks]
-            Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
 
         impressions : typing.Optional[ReportStatsAdsRequestImpressions]
             The ad's impressions in the hour so far. Zero when left out.
@@ -218,9 +213,6 @@ class RawAdsClient:
             method="POST",
             json={
                 "ad_id": ad_id,
-                "clicks": convert_and_respect_annotation_metadata(
-                    object_=clicks, annotation=ReportStatsAdsRequestClicks, direction="write"
-                ),
                 "hour_started_at": hour_started_at,
                 "impressions": convert_and_respect_annotation_metadata(
                     object_=impressions, annotation=ReportStatsAdsRequestImpressions, direction="write"
@@ -1206,7 +1198,6 @@ class AsyncRawAdsClient:
         ad_id: str,
         hour_started_at: dt.datetime,
         spend: ReportStatsAdsRequestSpend,
-        clicks: typing.Optional[ReportStatsAdsRequestClicks] = OMIT,
         impressions: typing.Optional[ReportStatsAdsRequestImpressions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AdStat]:
@@ -1223,9 +1214,6 @@ class AsyncRawAdsClient:
 
         spend : ReportStatsAdsRequestSpend
             The USD to be paid for the ad's hour so far, to the cent: what the ad spent plus any markup, such as 105.00 for 100.00 spent with a 5% markup.
-
-        clicks : typing.Optional[ReportStatsAdsRequestClicks]
-            Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
 
         impressions : typing.Optional[ReportStatsAdsRequestImpressions]
             The ad's impressions in the hour so far. Zero when left out.
@@ -1244,9 +1232,6 @@ class AsyncRawAdsClient:
             method="POST",
             json={
                 "ad_id": ad_id,
-                "clicks": convert_and_respect_annotation_metadata(
-                    object_=clicks, annotation=ReportStatsAdsRequestClicks, direction="write"
-                ),
                 "hour_started_at": hour_started_at,
                 "impressions": convert_and_respect_annotation_metadata(
                     object_=impressions, annotation=ReportStatsAdsRequestImpressions, direction="write"
