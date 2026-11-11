@@ -47728,7 +47728,7 @@ client.swaps.list()
 <dl>
 <dd>
 
-Swaps one token for another in an account or user's wallet, or converts between their fiat balances at the mid-market rate. Crypto swaps finish in the background — retrieve the swap to follow its status.
+Swaps one token for another in an account or user's wallet, or converts between their fiat balances. Crypto swaps finish in the background — retrieve the swap to follow its status.
 </dd>
 </dl>
 </dd>
@@ -47794,7 +47794,7 @@ client.swaps.create(
 <dl>
 <dd>
 
-**amount:** `typing.Optional[str]` — Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
+**amount:** `typing.Optional[str]` — Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert; omit (along with to_amount) to repay the full negative to_token balance instead.
     
 </dd>
 </dl>
@@ -47866,7 +47866,7 @@ client.swaps.create(
 <dl>
 <dd>
 
-Previews the price of a swap before you create it. Fiat pairs quote the mid-market rate — the same rate creating the swap fills at. No funds move, nothing is saved, and no authentication is required.
+Previews the price of a swap before you create it. A fiat pair quotes the same rate creating the swap fills at; name the account with `account_id` or `user_id` to quote the rate for that account. No funds move, nothing is saved, and no authentication is required unless you name an account.
 </dd>
 </dl>
 </dd>
@@ -47933,6 +47933,14 @@ client.swaps.create_quote(
 <dl>
 <dd>
 
+**account_id:** `typing.Optional[str]` — Fiat pairs only: business account to quote the swap for, prefixed `biz_`. Requires a credential with `payout:transfer_funds` on that account. Provide this, `user_id`, or neither for a public quote.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **from_address:** `typing.Optional[str]` — Source wallet address used for the quote.
     
 </dd>
@@ -47974,6 +47982,14 @@ client.swaps.create_quote(
 <dd>
 
 **to_chain:** `typing.Optional[CreateQuoteSwapsRequestToChain]` — Destination chain name or chain ID. Defaults to the destination token's chain when omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — Fiat pairs only: the caller's own user ID, prefixed `user_`, to quote the swap for their personal account. Provide this or `account_id`.
     
 </dd>
 </dl>
