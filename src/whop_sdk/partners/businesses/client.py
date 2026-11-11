@@ -68,6 +68,7 @@ class BusinessesClient:
         referred_username: typing.Optional[str] = None,
         tier: typing.Optional[ListBusinessesRequestTier] = None,
         business_prefix_query: typing.Optional[str] = None,
+        earning_partner_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ListBusinessesResponseDataItem, ListBusinessesResponse]:
         """
@@ -132,6 +133,9 @@ class BusinessesClient:
         business_prefix_query : typing.Optional[str]
             Case-insensitive business-name prefix, or an exact `biz_` account ID. Surrounding whitespace is ignored; blank values apply no filter.
 
+        earning_partner_id : typing.Optional[str]
+            Only the referrals this team member made, plus the ones they were added to as a deal participant. User ID, prefixed `user_`. Requires `referring_account_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -176,6 +180,7 @@ class BusinessesClient:
             referred_username=referred_username,
             tier=tier,
             business_prefix_query=business_prefix_query,
+            earning_partner_id=earning_partner_id,
             request_options=request_options,
         )
 
@@ -421,6 +426,7 @@ class AsyncBusinessesClient:
         referred_username: typing.Optional[str] = None,
         tier: typing.Optional[ListBusinessesRequestTier] = None,
         business_prefix_query: typing.Optional[str] = None,
+        earning_partner_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ListBusinessesResponseDataItem, ListBusinessesResponse]:
         """
@@ -485,6 +491,9 @@ class AsyncBusinessesClient:
         business_prefix_query : typing.Optional[str]
             Case-insensitive business-name prefix, or an exact `biz_` account ID. Surrounding whitespace is ignored; blank values apply no filter.
 
+        earning_partner_id : typing.Optional[str]
+            Only the referrals this team member made, plus the ones they were added to as a deal participant. User ID, prefixed `user_`. Requires `referring_account_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -538,6 +547,7 @@ class AsyncBusinessesClient:
             referred_username=referred_username,
             tier=tier,
             business_prefix_query=business_prefix_query,
+            earning_partner_id=earning_partner_id,
             request_options=request_options,
         )
 
