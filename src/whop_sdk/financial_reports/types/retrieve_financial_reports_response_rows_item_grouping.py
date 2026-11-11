@@ -9,6 +9,7 @@ RetrieveFinancialReportsResponseRowsItemGrouping = typing.Union[
         "airdrops",
         "bad_debt",
         "balance",
+        "capital",
         "clawbacks",
         "crypto",
         "disputes",
