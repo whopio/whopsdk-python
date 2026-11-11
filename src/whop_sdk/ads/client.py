@@ -130,7 +130,7 @@ class AdsClient:
             The USD to be paid for the ad's hour so far, to the cent: what the ad spent plus any markup, such as 105.00 for 100.00 spent with a 5% markup.
 
         clicks : typing.Optional[ReportStatsAdsRequestClicks]
-            The ad's clicks in the hour so far, at most `impressions`. Zero when left out.
+            Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
 
         impressions : typing.Optional[ReportStatsAdsRequestImpressions]
             The ad's impressions in the hour so far. Zero when left out.
@@ -783,7 +783,7 @@ class AsyncAdsClient:
             The USD to be paid for the ad's hour so far, to the cent: what the ad spent plus any markup, such as 105.00 for 100.00 spent with a 5% markup.
 
         clicks : typing.Optional[ReportStatsAdsRequestClicks]
-            The ad's clicks in the hour so far, at most `impressions`. Zero when left out.
+            Ignored. An ad's clicks are its Whop pixel page views, which Whop counts when it shows the ad's stats.
 
         impressions : typing.Optional[ReportStatsAdsRequestImpressions]
             The ad's impressions in the hour so far. Zero when left out.
