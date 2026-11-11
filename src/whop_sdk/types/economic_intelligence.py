@@ -90,7 +90,7 @@ class EconomicIntelligence(UniversalBaseModel):
 
     status: EconomicIntelligenceStatus = pydantic.Field()
     """
-    `queued` when awaiting generation; `pending` while generating; `ready` when available to run; `running` while Whop AI or the recommendation's API calls carry it out; `executed` when carried out; `incomplete` when the run ended without carrying it out; `superseded` when rejected or replaced.
+    `queued` when awaiting generation; `pending` while generating or preparing its work; `ready` when available to run; `running` while Whop AI or the recommendation's API calls carry it out; `executed` when carried out; `incomplete` when the run ended without carrying it out; `superseded` when rejected or replaced.
     """
 
     superseded_at: typing.Optional[str] = pydantic.Field(default=None)
