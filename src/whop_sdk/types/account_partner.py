@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_summary import AccountSummary
 from .user_profile_picture import UserProfilePicture
 
 
@@ -26,6 +27,11 @@ class AccountPartner(UniversalBaseModel):
     profile_picture: UserProfilePicture = pydantic.Field()
     """
     Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
+    """
+
+    referring_account: typing.Optional[AccountSummary] = pydantic.Field(default=None)
+    """
+    Business the partner referred this account on behalf of, when the referral belongs to their team. `null` for a personal referral.
     """
 
     username: str = pydantic.Field()
