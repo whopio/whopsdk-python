@@ -17,12 +17,12 @@ class AccountFees(UniversalBaseModel):
 
     ach_dispute: AccountFee = pydantic.Field()
     """
-    Charged when the account holder disputes an ACH payment.
+    A flat fee in US dollars (USD), charged when the account holder disputes an ACH payment. Replaces the `dispute` fee for that payment.
     """
 
     ach_return: AccountFee = pydantic.Field()
     """
-    Charged when an ACH payment is returned by the buyer's bank.
+    A flat fee in US dollars (USD), charged when the buyer's bank returns an ACH payment unpaid.
     """
 
     bank_deposit: AccountFee = pydantic.Field()
@@ -157,12 +157,12 @@ class AccountFees(UniversalBaseModel):
 
     sepa_dispute: AccountFee = pydantic.Field()
     """
-    Charged when the account holder disputes a SEPA Direct Debit payment.
+    A flat fee in euros (EUR), charged when the account holder disputes a SEPA Direct Debit payment. Replaces the `dispute` fee for that payment.
     """
 
     sepa_return: AccountFee = pydantic.Field()
     """
-    Charged when a SEPA Direct Debit payment is returned by the buyer's bank.
+    A flat fee in euros (EUR), charged when the buyer's bank returns a SEPA Direct Debit payment unpaid.
     """
 
     tax_calculation: AccountFee = pydantic.Field()
