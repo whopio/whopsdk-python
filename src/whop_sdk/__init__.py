@@ -2093,6 +2093,7 @@ if typing.TYPE_CHECKING:
         UpdateChannelMembersRequestNotificationPreference,
     )
     from .channels import (
+        CreateChannelsRequestIcon,
         CreateChannelsRequestKind,
         ListChannelsRequestDirection,
         ListChannelsRequestKindItem,
@@ -4013,6 +4014,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateCardsResponseSecrets": ".cards",
     "CreateCardsResponseStatus": ".cards",
     "CreateCardsResponseType": ".cards",
+    "CreateChannelsRequestIcon": ".channels",
     "CreateChannelsRequestKind": ".channels",
     "CreateCheckoutConfigurationsRequestMode": ".checkout_configurations",
     "CreateCheckoutConfigurationsRequestPaymentMethodConfiguration": ".checkout_configurations",
@@ -7360,6 +7362,7 @@ __all__ = [
     "CreateCardsResponseSecrets",
     "CreateCardsResponseStatus",
     "CreateCardsResponseType",
+    "CreateChannelsRequestIcon",
     "CreateChannelsRequestKind",
     "CreateCheckoutConfigurationsRequestMode",
     "CreateCheckoutConfigurationsRequestPaymentMethodConfiguration",

@@ -21,6 +21,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.channel import Channel
 from ..types.channel_list_item import ChannelListItem
 from ..types.channel_member import ChannelMember
+from .types.create_channels_request_icon import CreateChannelsRequestIcon
 from .types.create_channels_request_kind import CreateChannelsRequestKind
 from .types.list_channels_request_direction import ListChannelsRequestDirection
 from .types.list_channels_request_kind_item import ListChannelsRequestKindItem
@@ -239,6 +240,7 @@ class RawChannelsClient:
         kind: CreateChannelsRequestKind,
         account_id: typing.Optional[str] = OMIT,
         customer_user_id: typing.Optional[str] = OMIT,
+        icon: typing.Optional[CreateChannelsRequestIcon] = OMIT,
         name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
         participant_user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -259,6 +261,9 @@ class RawChannelsClient:
 
         customer_user_id : typing.Optional[str]
             Customer ID, prefixed `user_`. Support channels only; requires support management permission. Omit to open your own support conversation.
+
+        icon : typing.Optional[CreateChannelsRequestIcon]
+            Channel icon as a file reference, for community channels and private channels with two or more participant IDs. Image files only. Group icons can be up to 5 MB. For community channels it sets the experience logo. Used only when a channel is created.
 
         name : typing.Optional[str]
             Channel display name, accepted for all channel kinds. Used only when a channel is created. For community channels, names the new Chat experience; defaults to the Chat app's name.
@@ -290,6 +295,9 @@ class RawChannelsClient:
             json={
                 "account_id": account_id,
                 "customer_user_id": customer_user_id,
+                "icon": convert_and_respect_annotation_metadata(
+                    object_=icon, annotation=CreateChannelsRequestIcon, direction="write"
+                ),
                 "kind": kind,
                 "name": name,
                 "notifications_enabled": notifications_enabled,
@@ -497,7 +505,7 @@ class RawChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Channel]:
         """
-        Update a channel. Community icon changes update the experience logo and require `experience:update`. Support rename and notification changes require `support_chat:create`. Private and support writes require a user identity with channel management permission; account API keys can update community channels only.
+        Update a channel. Community icon changes update the experience logo and require `experience:update`. Group private channel icon changes set the channel's own icon and require a group member. One-to-one private and support channels reject icon changes. Support rename and notification changes require `support_chat:create`. Private and support writes require a user identity with channel management permission. Account API keys can update community channels only.
 
         Parameters
         ----------
@@ -505,7 +513,7 @@ class RawChannelsClient:
             Public resource ID.
 
         icon : typing.Optional[UpdateChannelsRequestIcon]
-            Community channels only. File reference for the experience logo; `null` clears it and restores the app icon fallback. Omit to preserve the current logo.
+            Channel icon as a file reference, for community channels and group private channels. Image files only. Group icons can be up to 5 MB. For community channels it sets the experience logo, and `null` restores the app icon. For group private channels it sets the channel's own icon, and `null` clears it. Omit to keep the current icon.
 
         moderation : typing.Optional[UpdateChannelsRequestModeration]
             Moderation settings, accepted only for community channels. Requires chat moderation permission. Omitted settings are preserved.
@@ -1427,6 +1435,7 @@ class AsyncRawChannelsClient:
         kind: CreateChannelsRequestKind,
         account_id: typing.Optional[str] = OMIT,
         customer_user_id: typing.Optional[str] = OMIT,
+        icon: typing.Optional[CreateChannelsRequestIcon] = OMIT,
         name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
         participant_user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -1447,6 +1456,9 @@ class AsyncRawChannelsClient:
 
         customer_user_id : typing.Optional[str]
             Customer ID, prefixed `user_`. Support channels only; requires support management permission. Omit to open your own support conversation.
+
+        icon : typing.Optional[CreateChannelsRequestIcon]
+            Channel icon as a file reference, for community channels and private channels with two or more participant IDs. Image files only. Group icons can be up to 5 MB. For community channels it sets the experience logo. Used only when a channel is created.
 
         name : typing.Optional[str]
             Channel display name, accepted for all channel kinds. Used only when a channel is created. For community channels, names the new Chat experience; defaults to the Chat app's name.
@@ -1478,6 +1490,9 @@ class AsyncRawChannelsClient:
             json={
                 "account_id": account_id,
                 "customer_user_id": customer_user_id,
+                "icon": convert_and_respect_annotation_metadata(
+                    object_=icon, annotation=CreateChannelsRequestIcon, direction="write"
+                ),
                 "kind": kind,
                 "name": name,
                 "notifications_enabled": notifications_enabled,
@@ -1689,7 +1704,7 @@ class AsyncRawChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Channel]:
         """
-        Update a channel. Community icon changes update the experience logo and require `experience:update`. Support rename and notification changes require `support_chat:create`. Private and support writes require a user identity with channel management permission; account API keys can update community channels only.
+        Update a channel. Community icon changes update the experience logo and require `experience:update`. Group private channel icon changes set the channel's own icon and require a group member. One-to-one private and support channels reject icon changes. Support rename and notification changes require `support_chat:create`. Private and support writes require a user identity with channel management permission. Account API keys can update community channels only.
 
         Parameters
         ----------
@@ -1697,7 +1712,7 @@ class AsyncRawChannelsClient:
             Public resource ID.
 
         icon : typing.Optional[UpdateChannelsRequestIcon]
-            Community channels only. File reference for the experience logo; `null` clears it and restores the app icon fallback. Omit to preserve the current logo.
+            Channel icon as a file reference, for community channels and group private channels. Image files only. Group icons can be up to 5 MB. For community channels it sets the experience logo, and `null` restores the app icon. For group private channels it sets the channel's own icon, and `null` clears it. Omit to keep the current icon.
 
         moderation : typing.Optional[UpdateChannelsRequestModeration]
             Moderation settings, accepted only for community channels. Requires chat moderation permission. Omitted settings are preserved.

@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreateChannelsRequestIcon,
         CreateChannelsRequestKind,
         ListChannelsRequestDirection,
         ListChannelsRequestKindItem,
@@ -21,6 +22,7 @@ if typing.TYPE_CHECKING:
         UpdateChannelsRequestModerationWhoCanReact,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateChannelsRequestIcon": ".types",
     "CreateChannelsRequestKind": ".types",
     "ListChannelsRequestDirection": ".types",
     "ListChannelsRequestKindItem": ".types",
@@ -58,6 +60,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreateChannelsRequestIcon",
     "CreateChannelsRequestKind",
     "ListChannelsRequestDirection",
     "ListChannelsRequestKindItem",
