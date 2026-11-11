@@ -32,7 +32,6 @@ if typing.TYPE_CHECKING:
     from .report_issues_ads_request_issues_item_policy import ReportIssuesAdsRequestIssuesItemPolicy
     from .report_issues_ads_request_issues_item_reason import ReportIssuesAdsRequestIssuesItemReason
     from .report_issues_ads_response import ReportIssuesAdsResponse
-    from .report_stats_ads_request_clicks import ReportStatsAdsRequestClicks
     from .report_stats_ads_request_impressions import ReportStatsAdsRequestImpressions
     from .report_stats_ads_request_spend import ReportStatsAdsRequestSpend
     from .retrieve_ads_request_attribution_model import RetrieveAdsRequestAttributionModel
@@ -70,7 +69,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReportIssuesAdsRequestIssuesItemPolicy": ".report_issues_ads_request_issues_item_policy",
     "ReportIssuesAdsRequestIssuesItemReason": ".report_issues_ads_request_issues_item_reason",
     "ReportIssuesAdsResponse": ".report_issues_ads_response",
-    "ReportStatsAdsRequestClicks": ".report_stats_ads_request_clicks",
     "ReportStatsAdsRequestImpressions": ".report_stats_ads_request_impressions",
     "ReportStatsAdsRequestSpend": ".report_stats_ads_request_spend",
     "RetrieveAdsRequestAttributionModel": ".retrieve_ads_request_attribution_model",
@@ -132,7 +130,6 @@ __all__ = [
     "ReportIssuesAdsRequestIssuesItemPolicy",
     "ReportIssuesAdsRequestIssuesItemReason",
     "ReportIssuesAdsResponse",
-    "ReportStatsAdsRequestClicks",
     "ReportStatsAdsRequestImpressions",
     "ReportStatsAdsRequestSpend",
     "RetrieveAdsRequestAttributionModel",
