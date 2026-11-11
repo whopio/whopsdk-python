@@ -3,5 +3,5 @@
 import typing
 
 RetrievePreferencesResponseEconomicIntelligenceOffersItemKey = typing.Union[
-    typing.Literal["weekly", "7_days", "1_day", "1_hour"], typing.Any
+    typing.Literal["3_days", "weekly", "7_days", "1_day", "1_hour"], typing.Any
 ]
