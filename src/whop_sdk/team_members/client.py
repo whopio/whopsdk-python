@@ -64,7 +64,7 @@ class TeamMembersClient:
         Parameters
         ----------
         account_id : str
-            Account ID, prefixed `biz_`. A global admin query passes `global` to list the joined members of every partner account, in `created_at` order; of the reporting line filters, only `team_lead_id` and `has_referred_businesses` apply.
+            Account ID, prefixed `biz_`.
 
         status : typing.Optional[ListTeamMembersRequestStatus]
             Only return members with this status: `joined` (accepted members) or `pending` (pending invites). Both are returned by default.
@@ -372,7 +372,7 @@ class AsyncTeamMembersClient:
         Parameters
         ----------
         account_id : str
-            Account ID, prefixed `biz_`. A global admin query passes `global` to list the joined members of every partner account, in `created_at` order; of the reporting line filters, only `team_lead_id` and `has_referred_businesses` apply.
+            Account ID, prefixed `biz_`.
 
         status : typing.Optional[ListTeamMembersRequestStatus]
             Only return members with this status: `joined` (accepted members) or `pending` (pending invites). Both are returned by default.

@@ -113,7 +113,7 @@ class PostPayoutUpdatedPayloadData(UniversalBaseModel):
 
     source: typing.Optional[PostPayoutUpdatedPayloadDataSource] = pydantic.Field(default=None)
     """
-    How the payout was created. `automatic` means a scheduled auto-payout; `null` on payouts created before source tracking or through internal tooling.
+    How the payout was created. `automatic` means a scheduled auto-payout. `null` when the payout has no recorded source.
     """
 
     speed: PostPayoutUpdatedPayloadDataSpeed = pydantic.Field()

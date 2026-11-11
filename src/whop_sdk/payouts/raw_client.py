@@ -73,7 +73,7 @@ class RawPayoutsClient:
             Filter to payouts whose `status` reads this word, matching exactly what this version displays — `reversed` finds settled payouts the bank later returned. Requires Api-Version-Date 2026-08-21 or later.
 
         source : typing.Optional[ListPayoutsRequestSource]
-            Filter by how the payout was created. Payouts created before source tracking or through internal tooling carry no source and never match.
+            Filter by how the payout was created. A payout with no recorded source never matches.
 
         payout_method_id : typing.Optional[str]
             Filter to payouts sent to one saved payout method (a pytk_ identifier). An unknown id matches nothing.
@@ -744,7 +744,7 @@ class AsyncRawPayoutsClient:
             Filter to payouts whose `status` reads this word, matching exactly what this version displays — `reversed` finds settled payouts the bank later returned. Requires Api-Version-Date 2026-08-21 or later.
 
         source : typing.Optional[ListPayoutsRequestSource]
-            Filter by how the payout was created. Payouts created before source tracking or through internal tooling carry no source and never match.
+            Filter by how the payout was created. A payout with no recorded source never matches.
 
         payout_method_id : typing.Optional[str]
             Filter to payouts sent to one saved payout method (a pytk_ identifier). An unknown id matches nothing.
