@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...types.money import Money
+from .create_quote_payouts_response_conversion import CreateQuotePayoutsResponseConversion
 from .create_quote_payouts_response_object import CreateQuotePayoutsResponseObject
 from .create_quote_payouts_response_recommended_method import CreateQuotePayoutsResponseRecommendedMethod
 
@@ -14,6 +15,11 @@ class CreateQuotePayoutsResponse(UniversalBaseModel):
     amount: Money = pydantic.Field()
     """
     Gross payout amount.
+    """
+
+    conversion: typing.Optional[CreateQuotePayoutsResponseConversion] = pydantic.Field(default=None)
+    """
+    How a USD balance pays a bank in another currency: it converts into the payout method's currency, and the payout leaves from the balance in that currency. Null when the payout is paid from the requested balance directly.
     """
 
     destination_amount: Money = pydantic.Field()
