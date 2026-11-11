@@ -25,7 +25,7 @@ class LeaderboardPartnersResponseMe(UniversalBaseModel):
 
     total_earnings_usd: str = pydantic.Field()
     """
-    The referrer's pending + completed earnings across all referred businesses, in USD.
+    The referrer's pending + completed earnings across all referred businesses, in USD, without commission advances. Whop Sales commission counts only the share that reaches its people.
     """
 
     total_volume_usd: str = pydantic.Field()
