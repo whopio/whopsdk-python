@@ -9,7 +9,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class UpdateFeesRequestThreeDsRegionsValue(UniversalBaseModel):
     fixed: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The new amount per event in US dollars. `null` clears the custom amount.
+    The new amount per event, in US dollars (USD). `null` clears the custom amount.
     """
 
     percentage: typing.Optional[float] = pydantic.Field(default=None)
