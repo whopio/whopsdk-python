@@ -65,6 +65,8 @@ class AppsClient:
         recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
         product_category: typing.Optional[str] = None,
+        business_type: typing.Optional[str] = None,
+        industry_type: typing.Optional[str] = None,
         marketplace_category_route: typing.Optional[str] = None,
         order: typing.Optional[ListAppsRequestOrder] = None,
         direction: typing.Optional[ListAppsRequestDirection] = None,
@@ -102,6 +104,12 @@ class AppsClient:
 
         product_category : typing.Optional[str]
             Only return apps whose `product_category` is this product category, such as `pressure_washing`. An unknown product category is rejected.
+
+        business_type : typing.Optional[str]
+            Only return apps whose `product_category` sits under this business type in Whop's business taxonomy, such as `services`. An unknown business type is rejected.
+
+        industry_type : typing.Optional[str]
+            Only return apps whose `product_category` sits under this industry type of `business_type`, such as `exterior_cleaning`. Requires `business_type`. An industry type outside it is rejected.
 
         marketplace_category_route : typing.Optional[str]
             Only return apps in this app store category. Use a `route` from `GET /apps/categories`, such as `business-productivity`. An unknown route is rejected.
@@ -157,6 +165,8 @@ class AppsClient:
             recommended=recommended,
             query=query,
             product_category=product_category,
+            business_type=business_type,
+            industry_type=industry_type,
             marketplace_category_route=marketplace_category_route,
             order=order,
             direction=direction,
@@ -687,6 +697,8 @@ class AsyncAppsClient:
         recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
         product_category: typing.Optional[str] = None,
+        business_type: typing.Optional[str] = None,
+        industry_type: typing.Optional[str] = None,
         marketplace_category_route: typing.Optional[str] = None,
         order: typing.Optional[ListAppsRequestOrder] = None,
         direction: typing.Optional[ListAppsRequestDirection] = None,
@@ -724,6 +736,12 @@ class AsyncAppsClient:
 
         product_category : typing.Optional[str]
             Only return apps whose `product_category` is this product category, such as `pressure_washing`. An unknown product category is rejected.
+
+        business_type : typing.Optional[str]
+            Only return apps whose `product_category` sits under this business type in Whop's business taxonomy, such as `services`. An unknown business type is rejected.
+
+        industry_type : typing.Optional[str]
+            Only return apps whose `product_category` sits under this industry type of `business_type`, such as `exterior_cleaning`. Requires `business_type`. An industry type outside it is rejected.
 
         marketplace_category_route : typing.Optional[str]
             Only return apps in this app store category. Use a `route` from `GET /apps/categories`, such as `business-productivity`. An unknown route is rejected.
@@ -788,6 +806,8 @@ class AsyncAppsClient:
             recommended=recommended,
             query=query,
             product_category=product_category,
+            business_type=business_type,
+            industry_type=industry_type,
             marketplace_category_route=marketplace_category_route,
             order=order,
             direction=direction,

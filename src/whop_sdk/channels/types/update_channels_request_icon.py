@@ -8,10 +8,13 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdateChannelsRequestIcon(UniversalBaseModel):
     """
-    Community channels only. File reference for the experience logo; `null` clears it and restores the app icon fallback. Omit to preserve the current logo.
+    Channel icon as a file reference, for community channels and group private channels. Image files only. Group icons can be up to 5 MB. For community channels it sets the experience logo, and `null` restores the app icon. For group private channels it sets the channel's own icon, and `null` clears it. Omit to keep the current icon.
     """
 
-    id: str
+    id: str = pydantic.Field()
+    """
+    File ID, prefixed `file_`.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

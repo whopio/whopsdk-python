@@ -21,7 +21,7 @@ class Channel(UniversalBaseModel):
     experience_id: typing.Optional[str] = None
     icon: typing.Optional[File] = pydantic.Field(default=None)
     """
-    Experience logo, falling back to the app icon for community channels. Null for other channel kinds or when neither image exists.
+    The channel icon. Community channels show the experience logo, falling back to the app icon. Support channels show the account logo. Group private channels show their own icon. Null for one-to-one private channels or when no image is set.
     """
 
     id: str = pydantic.Field()
