@@ -20,6 +20,7 @@ if typing.TYPE_CHECKING:
     from .post_member_updated_payload import PostMemberUpdatedPayload
     from .post_member_updated_payload_api_version import PostMemberUpdatedPayloadApiVersion
     from .post_member_updated_payload_type import PostMemberUpdatedPayloadType
+    from .update_members_request_unsubscribe_status import UpdateMembersRequestUnsubscribeStatus
 _dynamic_imports: typing.Dict[str, str] = {
     "ListMembersRequestAccessLevel": ".list_members_request_access_level",
     "ListMembersRequestDirection": ".list_members_request_direction",
@@ -35,6 +36,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostMemberUpdatedPayload": ".post_member_updated_payload",
     "PostMemberUpdatedPayloadApiVersion": ".post_member_updated_payload_api_version",
     "PostMemberUpdatedPayloadType": ".post_member_updated_payload_type",
+    "UpdateMembersRequestUnsubscribeStatus": ".update_members_request_unsubscribe_status",
 }
 
 
@@ -74,4 +76,5 @@ __all__ = [
     "PostMemberUpdatedPayload",
     "PostMemberUpdatedPayloadApiVersion",
     "PostMemberUpdatedPayloadType",
+    "UpdateMembersRequestUnsubscribeStatus",
 ]
