@@ -16,7 +16,7 @@ class AccountEconomicIntelligenceOffer(UniversalBaseModel):
 
     duration: int = pydantic.Field()
     """
-    What period of time Economic Intelligence stays on. For an auto-renew offer, the length of each period it renews for.
+    The length of each period Economic Intelligence renews for, in `duration_unit`, such as `3` for 3 days.
     """
 
     duration_unit: AccountEconomicIntelligenceOfferDurationUnit = pydantic.Field()
@@ -26,12 +26,12 @@ class AccountEconomicIntelligenceOffer(UniversalBaseModel):
 
     fee_percentage: float = pydantic.Field()
     """
-    Percentage of volume charged while Economic Intelligence is on, such as `1.5` for 1.5%.
+    Percentage of payment volume charged while Economic Intelligence is on, such as `3` for 3%.
     """
 
     key: AccountEconomicIntelligenceOfferKey = pydantic.Field()
     """
-    The unique identifier for this offer. Pass this value as `economic_intelligence_duration_key` to turn it on.
+    The unique identifier for this offer. Pass this value as `economic_intelligence_duration_key` to turn it on. Only `3_days`, the auto-renew offer, is offered. The other keys identify periods bought before it became the only plan.
     """
 
     recommended: bool = pydantic.Field()

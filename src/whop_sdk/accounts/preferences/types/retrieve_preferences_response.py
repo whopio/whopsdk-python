@@ -83,29 +83,29 @@ class RetrievePreferencesResponse(UniversalBaseModel):
 
     economic_intelligence_auto_renew: bool = pydantic.Field()
     """
-    Whether Economic Intelligence renews itself every week, with no end date. Turn it on with the `weekly` offer. Set it to `false` to stop renewing, which keeps Economic Intelligence on until the end of the current week, shown in `economic_intelligence_ends_at`; stopping before the first renewal charges the rest of that week at the `7_days` offer's fee. Set it back to `true` before then to keep renewing at the weekly fee.
+    Whether Economic Intelligence renews itself every period, with no end date. Turn it on by setting this to `true`, or by passing the `3_days` offer's key as `economic_intelligence_duration_key`. Set it to `false` to stop renewing: Economic Intelligence stays on until the end of the current period, shown in `economic_intelligence_ends_at`, and the fee is charged until then. Set it back to `true` before then to keep renewing.
     """
 
     economic_intelligence_ends_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the account's committed Economic Intelligence period ends, as an ISO 8601 timestamp. Economic Intelligence can't be turned off before then. `null` when Economic Intelligence is off or renews automatically.
+    When Economic Intelligence turns off, as an ISO 8601 timestamp: the end of the current period once auto-renew is turned off. `null` when Economic Intelligence is off or renews automatically.
     """
 
     economic_intelligence_fee_percentage: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Percentage of volume charged while Economic Intelligence is on, such as `1.5` for 1.5%. `null` when Economic Intelligence is off.
+    Percentage of payment volume charged while Economic Intelligence is on, such as `3` for 3%. `null` when Economic Intelligence is off.
     """
 
     economic_intelligence_first_renewal_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When auto-renew first renews, as an ISO 8601 timestamp. Turning auto-renew off before then charges the rest of that week at the `7_days` offer's fee. `null` when auto-renew is off.
+    When auto-renew first renews, as an ISO 8601 timestamp: one period after it was turned on. `null` when auto-renew is off.
     """
 
     economic_intelligence_offers: typing.List[RetrievePreferencesResponseEconomicIntelligenceOffersItem] = (
         pydantic.Field()
     )
     """
-    What the account can choose now to turn on Economic Intelligence, each with its fee. Every offer while Economic Intelligence is off; only the `weekly` auto-renew offer while a committed period is running, as an upgrade; empty while it renews automatically.
+    What the account can choose now to turn on Economic Intelligence. Auto-renew is the only plan: one offer, with its fee and the length of each period, while auto-renew is off, and empty while Economic Intelligence renews automatically.
     """
 
     economic_intelligence_previous_period: typing.Optional[

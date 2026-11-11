@@ -124,7 +124,7 @@ class Account(UniversalBaseModel):
 
     economic_intelligence: bool = pydantic.Field()
     """
-    Whether Economic Intelligence is on for the account. It turns off automatically when its committed period ends.
+    Whether Economic Intelligence is on for the account. It turns off automatically when its committed period ends. While it is off, the account can't activate an experiment or run a recommendation.
     """
 
     email: typing.Optional[str] = pydantic.Field(default=None)
