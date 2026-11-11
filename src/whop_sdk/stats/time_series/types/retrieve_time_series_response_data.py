@@ -9,6 +9,11 @@ from .retrieve_time_series_response_data_totals_item import RetrieveTimeSeriesRe
 
 
 class RetrieveTimeSeriesResponseData(UniversalBaseModel):
+    complete: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Present for webhook_deliveries. False while older deliveries are still being counted in the background: the points cover what is counted so far. Responses are cached for up to a minute, so wait a minute before requesting the same range again.
+    """
+
     currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     ISO currency the values are denominated in. Present for currency-unit metrics: the convert_to currency, or usd.

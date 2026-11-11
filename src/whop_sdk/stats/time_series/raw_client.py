@@ -124,6 +124,7 @@ class RawTimeSeriesClient:
         product_category: typing.Optional[str] = None,
         account_country: typing.Optional[str] = None,
         issuer: typing.Optional[str] = None,
+        webhook_id: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
         steps: typing.Optional[RetrieveTimeSeriesRequestSteps] = None,
@@ -287,6 +288,9 @@ class RawTimeSeriesClient:
         issuer : typing.Optional[str]
             Filter to one card-issuing bank, named as the processor reports it, for example JPMORGAN CHASE BANK N A, or unknown for payments with no reported bank. Available on metrics that list issuer.
 
+        webhook_id : typing.Optional[str]
+            The webhook to count deliveries for, for example hook_AbC123. Required by webhook_deliveries, and must belong to account_id or one of its apps.
+
         conversion_window : typing.Optional[str]
             Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
 
@@ -447,6 +451,7 @@ class RawTimeSeriesClient:
                 "product_category": product_category,
                 "account_country": account_country,
                 "issuer": issuer,
+                "webhook_id": webhook_id,
                 "conversion_window": conversion_window,
                 "mature_only": mature_only,
                 "steps": convert_and_respect_annotation_metadata(
@@ -651,6 +656,7 @@ class AsyncRawTimeSeriesClient:
         product_category: typing.Optional[str] = None,
         account_country: typing.Optional[str] = None,
         issuer: typing.Optional[str] = None,
+        webhook_id: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
         steps: typing.Optional[RetrieveTimeSeriesRequestSteps] = None,
@@ -814,6 +820,9 @@ class AsyncRawTimeSeriesClient:
         issuer : typing.Optional[str]
             Filter to one card-issuing bank, named as the processor reports it, for example JPMORGAN CHASE BANK N A, or unknown for payments with no reported bank. Available on metrics that list issuer.
 
+        webhook_id : typing.Optional[str]
+            The webhook to count deliveries for, for example hook_AbC123. Required by webhook_deliveries, and must belong to account_id or one of its apps.
+
         conversion_window : typing.Optional[str]
             Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
 
@@ -974,6 +983,7 @@ class AsyncRawTimeSeriesClient:
                 "product_category": product_category,
                 "account_country": account_country,
                 "issuer": issuer,
+                "webhook_id": webhook_id,
                 "conversion_window": conversion_window,
                 "mature_only": mature_only,
                 "steps": convert_and_respect_annotation_metadata(
