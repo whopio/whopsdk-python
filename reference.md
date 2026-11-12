@@ -28655,7 +28655,7 @@ client.invoices.create(
 <dl>
 <dd>
 
-**items:** `typing.List[CreateInvoicesRequestItemsItem]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription collected by the `collection_method` the invoice was sent or issued with. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+**items:** `typing.List[CreateInvoicesRequestItemsItem]` — The variants being invoiced, all in the same currency. Each variant may appear once. Use quantity for multiple units. A recurring variant must belong to a product. Its first invoice charges `initial_price` plus `renewal_price`. Later invoices charge only `renewal_price`. Paying the first invoice starts a paid billing period immediately, without the variant's trial. The subscription uses the `collection_method` the invoice was sent or issued with. A finite payment count includes the first paid invoice. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
     
 </dd>
 </dl>
@@ -29002,7 +29002,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**items:** `typing.Optional[typing.List[UpdateInvoicesRequestItemsItem]]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription collected by the `collection_method` the invoice was sent or issued with. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+**items:** `typing.Optional[typing.List[UpdateInvoicesRequestItemsItem]]` — The variants being invoiced, all in the same currency. Each variant may appear once. Use quantity for multiple units. A recurring variant must belong to a product. Its first invoice charges `initial_price` plus `renewal_price`. Later invoices charge only `renewal_price`. Paying the first invoice starts a paid billing period immediately, without the variant's trial. The subscription uses the `collection_method` the invoice was sent or issued with. A finite payment count includes the first paid invoice. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
     
 </dd>
 </dl>
