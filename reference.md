@@ -28727,6 +28727,14 @@ client.invoices.create(
 <dl>
 <dd>
 
+**payment_method_configuration:** `typing.Optional[CreateInvoicesRequestPaymentMethodConfiguration]` — The payment methods the customer can choose from when paying through the invoice's checkout link, in the shape a variant or checkout configuration takes. It takes precedence over the invoice's variants and the account, and changes neither. Send both lists. `null` uses its variants' payment methods. Can be updated on drafts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
     
 </dd>
@@ -28946,6 +28954,14 @@ client.invoices.update(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, str]]` — Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method_configuration:** `typing.Optional[UpdateInvoicesRequestPaymentMethodConfiguration]` — The payment methods the customer can choose from when paying through the invoice's checkout link, in the shape a variant or checkout configuration takes. It takes precedence over the invoice's variants and the account, and changes neither. Send both lists. `null` uses its variants' payment methods. Can be updated on drafts.
     
 </dd>
 </dl>

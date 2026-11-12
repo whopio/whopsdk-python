@@ -13,6 +13,7 @@ from ..types.invoice_pdf import InvoicePdf
 from .raw_client import AsyncRawInvoicesClient, RawInvoicesClient
 from .types.create_invoices_request_billing_address import CreateInvoicesRequestBillingAddress
 from .types.create_invoices_request_items_item import CreateInvoicesRequestItemsItem
+from .types.create_invoices_request_payment_method_configuration import CreateInvoicesRequestPaymentMethodConfiguration
 from .types.issue_invoices_request_collection_method import IssueInvoicesRequestCollectionMethod
 from .types.list_invoices_request_direction import ListInvoicesRequestDirection
 from .types.list_invoices_request_order import ListInvoicesRequestOrder
@@ -21,6 +22,7 @@ from .types.list_invoices_response import ListInvoicesResponse
 from .types.send_invoices_request_collection_method import SendInvoicesRequestCollectionMethod
 from .types.update_invoices_request_billing_address import UpdateInvoicesRequestBillingAddress
 from .types.update_invoices_request_items_item import UpdateInvoicesRequestItemsItem
+from .types.update_invoices_request_payment_method_configuration import UpdateInvoicesRequestPaymentMethodConfiguration
 
 if typing.TYPE_CHECKING:
     from .sends.client import AsyncSendsClient, SendsClient
@@ -158,6 +160,7 @@ class InvoicesClient:
         member_id: typing.Optional[str] = OMIT,
         memo: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        payment_method_configuration: typing.Optional[CreateInvoicesRequestPaymentMethodConfiguration] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -200,6 +203,9 @@ class InvoicesClient:
         metadata : typing.Optional[typing.Dict[str, str]]
             Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
 
+        payment_method_configuration : typing.Optional[CreateInvoicesRequestPaymentMethodConfiguration]
+            The payment methods the customer can choose from when paying through the invoice's checkout link, in the shape a variant or checkout configuration takes. It takes precedence over the invoice's variants and the account, and changes neither. Send both lists. `null` uses its variants' payment methods. Can be updated on drafts.
+
         payment_method_id : typing.Optional[str]
             A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
 
@@ -240,6 +246,7 @@ class InvoicesClient:
             member_id=member_id,
             memo=memo,
             metadata=metadata,
+            payment_method_configuration=payment_method_configuration,
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
             request_options=request_options,
@@ -291,6 +298,7 @@ class InvoicesClient:
         member_id: typing.Optional[str] = OMIT,
         memo: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        payment_method_configuration: typing.Optional[UpdateInvoicesRequestPaymentMethodConfiguration] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -326,6 +334,9 @@ class InvoicesClient:
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
+
+        payment_method_configuration : typing.Optional[UpdateInvoicesRequestPaymentMethodConfiguration]
+            The payment methods the customer can choose from when paying through the invoice's checkout link, in the shape a variant or checkout configuration takes. It takes precedence over the invoice's variants and the account, and changes neither. Send both lists. `null` uses its variants' payment methods. Can be updated on drafts.
 
         payment_method_id : typing.Optional[str]
             A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
@@ -364,6 +375,7 @@ class InvoicesClient:
             member_id=member_id,
             memo=memo,
             metadata=metadata,
+            payment_method_configuration=payment_method_configuration,
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
             request_options=request_options,
@@ -807,6 +819,7 @@ class AsyncInvoicesClient:
         member_id: typing.Optional[str] = OMIT,
         memo: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        payment_method_configuration: typing.Optional[CreateInvoicesRequestPaymentMethodConfiguration] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -848,6 +861,9 @@ class AsyncInvoicesClient:
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
+
+        payment_method_configuration : typing.Optional[CreateInvoicesRequestPaymentMethodConfiguration]
+            The payment methods the customer can choose from when paying through the invoice's checkout link, in the shape a variant or checkout configuration takes. It takes precedence over the invoice's variants and the account, and changes neither. Send both lists. `null` uses its variants' payment methods. Can be updated on drafts.
 
         payment_method_id : typing.Optional[str]
             A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
@@ -897,6 +913,7 @@ class AsyncInvoicesClient:
             member_id=member_id,
             memo=memo,
             metadata=metadata,
+            payment_method_configuration=payment_method_configuration,
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
             request_options=request_options,
@@ -956,6 +973,7 @@ class AsyncInvoicesClient:
         member_id: typing.Optional[str] = OMIT,
         memo: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        payment_method_configuration: typing.Optional[UpdateInvoicesRequestPaymentMethodConfiguration] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -991,6 +1009,9 @@ class AsyncInvoicesClient:
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
+
+        payment_method_configuration : typing.Optional[UpdateInvoicesRequestPaymentMethodConfiguration]
+            The payment methods the customer can choose from when paying through the invoice's checkout link, in the shape a variant or checkout configuration takes. It takes precedence over the invoice's variants and the account, and changes neither. Send both lists. `null` uses its variants' payment methods. Can be updated on drafts.
 
         payment_method_id : typing.Optional[str]
             A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
@@ -1037,6 +1058,7 @@ class AsyncInvoicesClient:
             member_id=member_id,
             memo=memo,
             metadata=metadata,
+            payment_method_configuration=payment_method_configuration,
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
             request_options=request_options,

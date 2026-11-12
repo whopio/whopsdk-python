@@ -2529,6 +2529,7 @@ if typing.TYPE_CHECKING:
         CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus,
         CreateInvoicesRequestItemsItemVariantProductVisibility,
         CreateInvoicesRequestItemsItemVariantVisibility,
+        CreateInvoicesRequestPaymentMethodConfiguration,
         IssueInvoicesRequestCollectionMethod,
         ListInvoicesRequestDirection,
         ListInvoicesRequestOrder,
@@ -2561,6 +2562,7 @@ if typing.TYPE_CHECKING:
         UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus,
         UpdateInvoicesRequestItemsItemVariantProductVisibility,
         UpdateInvoicesRequestItemsItemVariantVisibility,
+        UpdateInvoicesRequestPaymentMethodConfiguration,
     )
     from .leads import ListLeadsResponse
     from .ledger_accounts import (
@@ -4112,6 +4114,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".invoices",
     "CreateInvoicesRequestItemsItemVariantProductVisibility": ".invoices",
     "CreateInvoicesRequestItemsItemVariantVisibility": ".invoices",
+    "CreateInvoicesRequestPaymentMethodConfiguration": ".invoices",
     "CreateMessagesRequestAttachmentsItem": ".messages",
     "CreateMessagesRequestGifsItem": ".messages",
     "CreateMessagesRequestLinkPreviewsItem": ".messages",
@@ -6586,6 +6589,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".invoices",
     "UpdateInvoicesRequestItemsItemVariantProductVisibility": ".invoices",
     "UpdateInvoicesRequestItemsItemVariantVisibility": ".invoices",
+    "UpdateInvoicesRequestPaymentMethodConfiguration": ".invoices",
     "UpdateMeUsersRequestBanner": ".users",
     "UpdateMeUsersRequestProfilePicture": ".users",
     "UpdateMembersRequestUnsubscribeStatus": ".members",
@@ -7465,6 +7469,7 @@ __all__ = [
     "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
     "CreateInvoicesRequestItemsItemVariantProductVisibility",
     "CreateInvoicesRequestItemsItemVariantVisibility",
+    "CreateInvoicesRequestPaymentMethodConfiguration",
     "CreateMessagesRequestAttachmentsItem",
     "CreateMessagesRequestGifsItem",
     "CreateMessagesRequestLinkPreviewsItem",
@@ -9939,6 +9944,7 @@ __all__ = [
     "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
     "UpdateInvoicesRequestItemsItemVariantProductVisibility",
     "UpdateInvoicesRequestItemsItemVariantVisibility",
+    "UpdateInvoicesRequestPaymentMethodConfiguration",
     "UpdateMeUsersRequestBanner",
     "UpdateMeUsersRequestProfilePicture",
     "UpdateMembersRequestUnsubscribeStatus",
