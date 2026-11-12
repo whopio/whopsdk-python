@@ -74,6 +74,11 @@ class Invoice(UniversalBaseModel):
     """
 
     scheduled_send_at: typing.Optional[str] = None
+    sends_on_due_date: bool = pydantic.Field()
+    """
+    Whether this draft is issued automatically when its `due_at` arrives. Issuing it charges its `payment_method_id`, or emails its payment link to its `recipient_emails`. `false` for an invoice that is not a draft and for a draft with a scheduled send. `false` while sending the draft would fail for missing recipients or an unavailable payment link. `false` for a draft that had no future `due_at` when it was last saved. `false` for a draft created before 2026-11-12T22:00:00Z.
+    """
+
     status: InvoiceStatus
     subtotal: Money
     tax_amount: typing.Optional[Money] = None
