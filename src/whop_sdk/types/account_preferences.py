@@ -38,6 +38,11 @@ class AccountPreferences(UniversalBaseModel):
     The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel, and tags ad click-through URLs with `tw_source`/`tw_adid` so Triple Whale's pixel attributes conversions back to the right ad. `status` is `connected`, `not_connected`, or `requires_shop_domain` (Triple Whale keys records by shop, so spend only flows once `shop_domain` is set). `masked_api_key` shows the leading characters of the stored key; the full key is never returned. `shop_domain` is the shop spend is reported for.
     """
 
+    cancellation_emails: bool = pydantic.Field()
+    """
+    Whether Whop emails members when their membership is canceled or terminated. `true` by default. Set it to `false` to stop these emails while keeping the account's other customer emails. They also stop while the account's `send_customer_emails` is `false`.
+    """
+
     cards_auto_top_up: bool = pydantic.Field()
     """
     Whether incoming funds are automatically moved to the account's cards balance. `false` when the account has no cards balance.
@@ -96,6 +101,11 @@ class AccountPreferences(UniversalBaseModel):
     The account's last Economic Intelligence period, once it has ended. `null` while Economic Intelligence is on, or when it has never been on.
     """
 
+    failed_payment_emails: bool = pydantic.Field()
+    """
+    Whether Whop emails members when a renewal payment fails or needs them to verify it. `true` by default. Set it to `false` to stop these emails while keeping the account's other customer emails. Subscriptions billed by invoice still get the invoice and its past-due reminders, since that is how the member pays. These emails also stop while the account's `send_customer_emails` is `false`.
+    """
+
     feedback_options: typing.List[FeedbackOption]
     preferred_settlement_currency: typing.Optional[AccountPreferencesPreferredSettlementCurrency] = pydantic.Field(
         default=None
@@ -107,6 +117,11 @@ class AccountPreferences(UniversalBaseModel):
     preferred_settlement_currency_changeable_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When `preferred_settlement_currency` may next be changed or turned off, as an ISO 8601 timestamp. It can change at most once a day. `null` when it may change now.
+    """
+
+    renewal_reminder_emails: bool = pydantic.Field()
+    """
+    Whether Whop emails members the day before their membership renews or their free trial converts. `true` by default. Set it to `false` to stop that reminder. Members still get the reminders card networks require. They go out 7 days before a trial over 7 days converts, and 30 days before a 6-month or longer plan renews. All stop while `send_customer_emails` is `false`.
     """
 
     review_request_emails: bool = pydantic.Field()
