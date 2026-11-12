@@ -44,6 +44,11 @@ class App(UniversalBaseModel):
     The type of end-user the app is built for.
     """
 
+    average_review_rating: float = pydantic.Field()
+    """
+    Average star rating across published reviews for this app, from `1.0` to `5.0`. Returns `0.0` when no published-review rating is available.
+    """
+
     banner_image: typing.Optional[AppBannerImage] = pydantic.Field(default=None)
     """
     Banner image from the app's product listing, or `null` when none is uploaded.
@@ -133,6 +138,16 @@ class App(UniversalBaseModel):
     The address of the existing website this app was imported from, such as `https://shop.example.com`. `null` if the app was not imported from another site, or if the caller lacks the `developer:basic:read` permission on the app's account.
     """
 
+    is_app_store_listed: bool = pydantic.Field()
+    """
+    Whether the app is published, approved, and visible in the public app store.
+    """
+
+    is_whop_app: bool = pydantic.Field()
+    """
+    Whether Whop publishes this app.
+    """
+
     marketplace_status: typing.Optional[AppMarketplaceStatus] = pydantic.Field(default=None)
     """
     Approval status of the app's product listing on the Whop app store, or `null` when the app has no associated product.
@@ -191,6 +206,11 @@ class App(UniversalBaseModel):
     production_web_build: typing.Optional[AppProductionBuild] = pydantic.Field(default=None)
     """
     The approved build currently served on web, or `null` when none is deployed.
+    """
+
+    published_reviews_count: int = pydantic.Field()
+    """
+    Published customer reviews for this app.
     """
 
     redirect_uris: typing.List[str]
