@@ -54089,7 +54089,7 @@ The required scope depends on which preferences you update.
 - `ad_campaign:create`: `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`.
 - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`.
 - `payment:dispute`: `dispute_fighter_enabled`.
-- `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `subaccount_notifications`.
+- `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
 - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
 
 To update keys under more than one scope, the API key needs all of those scopes.
@@ -54254,6 +54254,14 @@ client.accounts.preferences.update(
 <dd>
 
 **subaccount_notifications:** `typing.Optional[bool]` — Whether Whop emails and notifies the teams of this account's subaccounts. Set it to `false` to stop Whop's emails, push, and in-app notifications to them. These include payout, verification, dispute, and card alerts about their accounts. Only accounts with subaccounts can set it. Requires the `company:update` scope on your API key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subaccount_team_view_only:** `typing.Optional[bool]` — Whether this account's subaccounts are view-only for their own team members. Set it to `true` to refuse every change a subaccount's team tries to make while still letting them see what their role allows. Only accounts with subaccounts can set it. Requires the `company:update` scope on your API key.
     
 </dd>
 </dl>
