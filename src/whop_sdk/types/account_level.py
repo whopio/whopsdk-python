@@ -38,12 +38,12 @@ class AccountLevel(UniversalBaseModel):
 
     monthly_qualifying_spend: Money = pydantic.Field()
     """
-    Qualifying spend this calendar month across every account the owner owns, plus the owner's partner points, in USD: `points` divided by 10.
+    Qualifying spend this calendar month across every account the owner owns, plus the owner's personal trading and partner points, in USD: `points` divided by 10.
     """
 
     monthly_trading_volume: Money = pydantic.Field()
     """
-    Perpetual trading volume filled through Whop this calendar month across every account the owner owns, in USD. An account whose month nets to zero or below is left out.
+    Perpetual trading volume filled through Whop this calendar month across every account the owner owns and their personal wallet, in USD. An account whose month nets to zero or below is left out.
     """
 
     points: int = pydantic.Field()
