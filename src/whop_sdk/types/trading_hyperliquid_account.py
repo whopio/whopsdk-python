@@ -4,6 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .trading_margin_summary import TradingMarginSummary
+from .trading_position import TradingPosition
 from .trading_websocket_subscription import TradingWebsocketSubscription
 
 
@@ -18,6 +20,12 @@ class TradingHyperliquidAccount(UniversalBaseModel):
     USDT0 in the Whop wallet on Plasma that a `deposit` trade can move into this account, as a decimal string. `null` when the chain could not be read.
     """
 
+    margin_summary: typing.Optional[TradingMarginSummary] = pydantic.Field(default=None)
+    """
+    Account value and margin across the main exchange and the `xyz` markets, read from Hyperliquid at most once a second. `null` when Hyperliquid could not be read. Use `websocket_subscriptions` for live updates.
+    """
+
+    positions: typing.Optional[typing.List[TradingPosition]] = None
     websocket_subscriptions: typing.List[TradingWebsocketSubscription]
     websocket_url: str = pydantic.Field()
     """

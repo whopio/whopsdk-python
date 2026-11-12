@@ -23,11 +23,6 @@ class TradingMarginSummary(UniversalBaseModel):
     Combined notional value of open positions, in USD.
     """
 
-    total_raw_usd: Money = pydantic.Field()
-    """
-    Raw USD balance as Hyperliquid reports it, excluding position value.
-    """
-
     withdrawable: Money = pydantic.Field()
     """
     USD that can be withdrawn now without closing positions.

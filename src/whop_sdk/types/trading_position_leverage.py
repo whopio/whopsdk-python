@@ -10,7 +10,7 @@ from .trading_position_leverage_type import TradingPositionLeverageType
 class TradingPositionLeverage(UniversalBaseModel):
     type: TradingPositionLeverageType = pydantic.Field()
     """
-    `cross` shares margin across positions; `isolated` limits margin to this position.
+    `cross` shares margin across positions. `isolated` limits margin to this position.
     """
 
     value: int = pydantic.Field()
