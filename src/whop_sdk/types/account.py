@@ -324,7 +324,7 @@ class Account(UniversalBaseModel):
     tax_identifiers: typing.List[AccountTaxIdentifier]
     tax_remitted_by: typing.Optional[AccountTaxRemittedBy] = pydantic.Field(default=None)
     """
-    Who calculates and remits tax for the account: `whop` (Whop calculates and remits), `self` (Whop calculates; the account collects and remits), or `none` (neither; the account is responsible). `null` until the account enrolls in the Whop tax service.
+    Who calculates and remits tax for the account. `whop` means Whop calculates and remits. `self` means Whop calculates, and the account collects and remits. `none` means neither, and the account is responsible. New businesses start on `whop`, and new connected accounts start on `none`. `null` means the account has no setting yet.
     """
 
     tax_type: typing.Optional[AccountTaxType] = pydantic.Field(default=None)
