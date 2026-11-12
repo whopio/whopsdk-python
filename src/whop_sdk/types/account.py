@@ -137,6 +137,11 @@ class Account(UniversalBaseModel):
     The account's end-user license agreement document, or `null` if they have not published one.
     """
 
+    external_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The parent platform's own identifier for this subaccount, unique among the platform's subaccounts. `null` when unset.
+    """
+
     financing: typing.Optional[AccountFinancing] = pydantic.Field(default=None)
     """
     The account's most recent financing application. Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise, or when the account has never applied for financing.
