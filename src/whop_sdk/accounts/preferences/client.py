@@ -85,6 +85,7 @@ class PreferencesClient:
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
+        cancellation_emails: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         covers_subaccount_negative_balances: typing.Optional[bool] = OMIT,
@@ -94,8 +95,10 @@ class PreferencesClient:
         economic_intelligence_duration_key: typing.Optional[
             UpdatePreferencesRequestEconomicIntelligenceDurationKey
         ] = OMIT,
+        failed_payment_emails: typing.Optional[bool] = OMIT,
         feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
+        renewal_reminder_emails: typing.Optional[bool] = OMIT,
         review_request_emails: typing.Optional[bool] = OMIT,
         subaccount_notifications: typing.Optional[bool] = OMIT,
         subaccount_team_view_only: typing.Optional[bool] = OMIT,
@@ -110,7 +113,7 @@ class PreferencesClient:
         - `ad_campaign:create`: `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`.
         - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`.
         - `payment:dispute`: `dispute_fighter_enabled`.
-        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
+        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
 
         To update keys under more than one scope, the API key needs all of those scopes.
@@ -131,6 +134,9 @@ class PreferencesClient:
 
         ads_triple_whale_integration : typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration]
             Connects or disconnects the Triple Whale integration, or changes the shop it reports to. Requires the `ad_campaign:create` scope on your API key. Connecting requires a `shop_domain` to report spend against.
+
+        cancellation_emails : typing.Optional[bool]
+            Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds are automatically moved to the account's cards balance. Requires a cards balance on the account and the `payout:account:update` scope on your API key.
@@ -153,11 +159,17 @@ class PreferencesClient:
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
             Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. Only `3_days`, the auto-renew offer, is accepted; any other key is rejected. Requires the `company:update` scope on your API key.
 
+        failed_payment_emails : typing.Optional[bool]
+            Whether Whop emails members when a renewal payment fails or needs them to verify it. Set it to `false` to stop these emails while keeping the account's other customer emails. Subscriptions billed by invoice still get their invoice emails. Requires the `company:update` scope on your API key.
+
         feedback_options : typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]]
             Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
+
+        renewal_reminder_emails : typing.Optional[bool]
+            Whether Whop emails members the day before their membership renews or their free trial converts. Set it to `false` to stop that reminder. Members still get the reminders card networks require. Requires the `company:update` scope on your API key.
 
         review_request_emails : typing.Optional[bool]
             Whether Whop emails customers after a purchase asking them to leave a review. Set it to `false` to stop these emails, including ones already scheduled. Requires the `company:update` scope on your API key.
@@ -198,6 +210,7 @@ class PreferencesClient:
             ads_reporting_currency=ads_reporting_currency,
             ads_scheduling_timezone=ads_scheduling_timezone,
             ads_triple_whale_integration=ads_triple_whale_integration,
+            cancellation_emails=cancellation_emails,
             cards_auto_top_up=cards_auto_top_up,
             cards_notifications=cards_notifications,
             covers_subaccount_negative_balances=covers_subaccount_negative_balances,
@@ -205,8 +218,10 @@ class PreferencesClient:
             dispute_fighter_enabled=dispute_fighter_enabled,
             economic_intelligence_auto_renew=economic_intelligence_auto_renew,
             economic_intelligence_duration_key=economic_intelligence_duration_key,
+            failed_payment_emails=failed_payment_emails,
             feedback_options=feedback_options,
             preferred_settlement_currency=preferred_settlement_currency,
+            renewal_reminder_emails=renewal_reminder_emails,
             review_request_emails=review_request_emails,
             subaccount_notifications=subaccount_notifications,
             subaccount_team_view_only=subaccount_team_view_only,
@@ -282,6 +297,7 @@ class AsyncPreferencesClient:
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
+        cancellation_emails: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         covers_subaccount_negative_balances: typing.Optional[bool] = OMIT,
@@ -291,8 +307,10 @@ class AsyncPreferencesClient:
         economic_intelligence_duration_key: typing.Optional[
             UpdatePreferencesRequestEconomicIntelligenceDurationKey
         ] = OMIT,
+        failed_payment_emails: typing.Optional[bool] = OMIT,
         feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
+        renewal_reminder_emails: typing.Optional[bool] = OMIT,
         review_request_emails: typing.Optional[bool] = OMIT,
         subaccount_notifications: typing.Optional[bool] = OMIT,
         subaccount_team_view_only: typing.Optional[bool] = OMIT,
@@ -307,7 +325,7 @@ class AsyncPreferencesClient:
         - `ad_campaign:create`: `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`.
         - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`.
         - `payment:dispute`: `dispute_fighter_enabled`.
-        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
+        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
 
         To update keys under more than one scope, the API key needs all of those scopes.
@@ -328,6 +346,9 @@ class AsyncPreferencesClient:
 
         ads_triple_whale_integration : typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration]
             Connects or disconnects the Triple Whale integration, or changes the shop it reports to. Requires the `ad_campaign:create` scope on your API key. Connecting requires a `shop_domain` to report spend against.
+
+        cancellation_emails : typing.Optional[bool]
+            Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds are automatically moved to the account's cards balance. Requires a cards balance on the account and the `payout:account:update` scope on your API key.
@@ -350,11 +371,17 @@ class AsyncPreferencesClient:
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
             Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. Only `3_days`, the auto-renew offer, is accepted; any other key is rejected. Requires the `company:update` scope on your API key.
 
+        failed_payment_emails : typing.Optional[bool]
+            Whether Whop emails members when a renewal payment fails or needs them to verify it. Set it to `false` to stop these emails while keeping the account's other customer emails. Subscriptions billed by invoice still get their invoice emails. Requires the `company:update` scope on your API key.
+
         feedback_options : typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]]
             Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
+
+        renewal_reminder_emails : typing.Optional[bool]
+            Whether Whop emails members the day before their membership renews or their free trial converts. Set it to `false` to stop that reminder. Members still get the reminders card networks require. Requires the `company:update` scope on your API key.
 
         review_request_emails : typing.Optional[bool]
             Whether Whop emails customers after a purchase asking them to leave a review. Set it to `false` to stop these emails, including ones already scheduled. Requires the `company:update` scope on your API key.
@@ -403,6 +430,7 @@ class AsyncPreferencesClient:
             ads_reporting_currency=ads_reporting_currency,
             ads_scheduling_timezone=ads_scheduling_timezone,
             ads_triple_whale_integration=ads_triple_whale_integration,
+            cancellation_emails=cancellation_emails,
             cards_auto_top_up=cards_auto_top_up,
             cards_notifications=cards_notifications,
             covers_subaccount_negative_balances=covers_subaccount_negative_balances,
@@ -410,8 +438,10 @@ class AsyncPreferencesClient:
             dispute_fighter_enabled=dispute_fighter_enabled,
             economic_intelligence_auto_renew=economic_intelligence_auto_renew,
             economic_intelligence_duration_key=economic_intelligence_duration_key,
+            failed_payment_emails=failed_payment_emails,
             feedback_options=feedback_options,
             preferred_settlement_currency=preferred_settlement_currency,
+            renewal_reminder_emails=renewal_reminder_emails,
             review_request_emails=review_request_emails,
             subaccount_notifications=subaccount_notifications,
             subaccount_team_view_only=subaccount_team_view_only,
