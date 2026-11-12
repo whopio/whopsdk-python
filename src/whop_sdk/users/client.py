@@ -136,7 +136,7 @@ class UsersClient:
         Parameters
         ----------
         include_trading : typing.Optional[bool]
-            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
+            Also return the trading account under `trading`: its address, a snapshot of its margin and open positions, and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
 
         account_id : typing.Optional[str]
             When set, returns your account-specific profile overrides for this account.
@@ -278,7 +278,7 @@ class UsersClient:
             User ID (prefixed `user_`), username, or `me` for the authenticated user.
 
         include_trading : typing.Optional[bool]
-            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
+            Also return the trading account under `trading`: its address, a snapshot of its margin and open positions, and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
 
         account_id : typing.Optional[str]
             When set, returns the user's account-specific profile overrides for this account.
@@ -630,7 +630,7 @@ class AsyncUsersClient:
         Parameters
         ----------
         include_trading : typing.Optional[bool]
-            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
+            Also return the trading account under `trading`: its address, a snapshot of its margin and open positions, and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
 
         account_id : typing.Optional[str]
             When set, returns your account-specific profile overrides for this account.
@@ -788,7 +788,7 @@ class AsyncUsersClient:
             User ID (prefixed `user_`), username, or `me` for the authenticated user.
 
         include_trading : typing.Optional[bool]
-            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
+            Also return the trading account under `trading`: its address, a snapshot of its margin and open positions, and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
 
         account_id : typing.Optional[str]
             When set, returns the user's account-specific profile overrides for this account.

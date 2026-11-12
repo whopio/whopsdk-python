@@ -106,7 +106,7 @@ class User(UniversalBaseModel):
 
     trading: typing.Optional[TradingAccount] = pydantic.Field(default=None)
     """
-    The trading account address and its WebSocket subscriptions. Opt in with `include_trading=true` when retrieving `me`. `null` otherwise, without trading permission, or without an Ethereum wallet.
+    The trading account address, a snapshot of its margin and open positions, and its WebSocket subscriptions. Opt in with `include_trading=true` when retrieving `me`. `null` otherwise, without trading permission, or without an Ethereum wallet.
     """
 
     username: str = pydantic.Field()
