@@ -50,6 +50,8 @@ if typing.TYPE_CHECKING:
         UpdateInvoicesRequestItemsItemVariantProductVisibility,
         UpdateInvoicesRequestItemsItemVariantVisibility,
     )
+    from . import sends
+    from .sends import ListSendsResponse, ListSendsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestBillingAddress": ".types",
     "CreateInvoicesRequestItemsItem": ".types",
@@ -67,6 +69,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListInvoicesRequestStatus": ".types",
     "ListInvoicesResponse": ".types",
     "ListInvoicesResponsePageInfo": ".types",
+    "ListSendsResponse": ".sends",
+    "ListSendsResponsePageInfo": ".sends",
     "PostInvoiceCreatedPayload": ".types",
     "PostInvoiceCreatedPayloadApiVersion": ".types",
     "PostInvoiceCreatedPayloadType": ".types",
@@ -93,6 +97,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".types",
     "UpdateInvoicesRequestItemsItemVariantProductVisibility": ".types",
     "UpdateInvoicesRequestItemsItemVariantVisibility": ".types",
+    "sends": ".sends",
 }
 
 
@@ -134,6 +139,8 @@ __all__ = [
     "ListInvoicesRequestStatus",
     "ListInvoicesResponse",
     "ListInvoicesResponsePageInfo",
+    "ListSendsResponse",
+    "ListSendsResponsePageInfo",
     "PostInvoiceCreatedPayload",
     "PostInvoiceCreatedPayloadApiVersion",
     "PostInvoiceCreatedPayloadType",
@@ -160,4 +167,5 @@ __all__ = [
     "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
     "UpdateInvoicesRequestItemsItemVariantProductVisibility",
     "UpdateInvoicesRequestItemsItemVariantVisibility",
+    "sends",
 ]
