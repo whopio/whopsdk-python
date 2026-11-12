@@ -27,6 +27,11 @@ class Invoice(UniversalBaseModel):
 
     created_at: str
     customer_name: typing.Optional[str] = None
+    deletable: bool = pydantic.Field()
+    """
+    True when `DELETE /invoices/{id}` can delete this invoice. A draft qualifies unless it is scheduled or bills a subscription. A void invoice qualifies unless it collected money or still awaits a bank wire.
+    """
+
     due_at: typing.Optional[str] = None
     email_address: typing.Optional[str] = None
     id: str
