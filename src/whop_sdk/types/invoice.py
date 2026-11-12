@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
 from .invoice_line_item import InvoiceLineItem
 from .invoice_object import InvoiceObject
 from .invoice_scheduled_collection_method import InvoiceScheduledCollectionMethod
@@ -48,6 +49,13 @@ class Invoice(UniversalBaseModel):
     object: InvoiceObject
     overdue: bool
     paid_at: typing.Optional[str] = None
+    payment_method_configuration: typing.Optional[CheckoutSessionPaymentMethodConfiguration] = pydantic.Field(
+        default=None
+    )
+    """
+    The payment methods the customer can choose from when paying through the invoice's checkout link. It takes precedence over the invoice's variants and the account. `null` when the invoice uses its variants' payment methods.
+    """
+
     payment_method_id: typing.Optional[str] = None
     recipient_emails: typing.List[str]
     scheduled_charge_at: typing.Optional[str] = pydantic.Field(default=None)

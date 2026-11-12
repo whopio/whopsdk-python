@@ -17,6 +17,7 @@ if typing.TYPE_CHECKING:
         CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus,
         CreateInvoicesRequestItemsItemVariantProductVisibility,
         CreateInvoicesRequestItemsItemVariantVisibility,
+        CreateInvoicesRequestPaymentMethodConfiguration,
         IssueInvoicesRequestCollectionMethod,
         ListInvoicesRequestDirection,
         ListInvoicesRequestOrder,
@@ -49,6 +50,7 @@ if typing.TYPE_CHECKING:
         UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus,
         UpdateInvoicesRequestItemsItemVariantProductVisibility,
         UpdateInvoicesRequestItemsItemVariantVisibility,
+        UpdateInvoicesRequestPaymentMethodConfiguration,
     )
     from . import sends
     from .sends import ListSendsResponse, ListSendsResponsePageInfo
@@ -63,6 +65,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".types",
     "CreateInvoicesRequestItemsItemVariantProductVisibility": ".types",
     "CreateInvoicesRequestItemsItemVariantVisibility": ".types",
+    "CreateInvoicesRequestPaymentMethodConfiguration": ".types",
     "IssueInvoicesRequestCollectionMethod": ".types",
     "ListInvoicesRequestDirection": ".types",
     "ListInvoicesRequestOrder": ".types",
@@ -97,6 +100,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".types",
     "UpdateInvoicesRequestItemsItemVariantProductVisibility": ".types",
     "UpdateInvoicesRequestItemsItemVariantVisibility": ".types",
+    "UpdateInvoicesRequestPaymentMethodConfiguration": ".types",
     "sends": ".sends",
 }
 
@@ -133,6 +137,7 @@ __all__ = [
     "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
     "CreateInvoicesRequestItemsItemVariantProductVisibility",
     "CreateInvoicesRequestItemsItemVariantVisibility",
+    "CreateInvoicesRequestPaymentMethodConfiguration",
     "IssueInvoicesRequestCollectionMethod",
     "ListInvoicesRequestDirection",
     "ListInvoicesRequestOrder",
@@ -167,5 +172,6 @@ __all__ = [
     "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
     "UpdateInvoicesRequestItemsItemVariantProductVisibility",
     "UpdateInvoicesRequestItemsItemVariantVisibility",
+    "UpdateInvoicesRequestPaymentMethodConfiguration",
     "sends",
 ]

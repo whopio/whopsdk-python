@@ -24,6 +24,7 @@ if typing.TYPE_CHECKING:
         CreateInvoicesRequestItemsItemVariantProductVisibility,
     )
     from .create_invoices_request_items_item_variant_visibility import CreateInvoicesRequestItemsItemVariantVisibility
+    from .create_invoices_request_payment_method_configuration import CreateInvoicesRequestPaymentMethodConfiguration
     from .issue_invoices_request_collection_method import IssueInvoicesRequestCollectionMethod
     from .list_invoices_request_direction import ListInvoicesRequestDirection
     from .list_invoices_request_order import ListInvoicesRequestOrder
@@ -64,6 +65,7 @@ if typing.TYPE_CHECKING:
         UpdateInvoicesRequestItemsItemVariantProductVisibility,
     )
     from .update_invoices_request_items_item_variant_visibility import UpdateInvoicesRequestItemsItemVariantVisibility
+    from .update_invoices_request_payment_method_configuration import UpdateInvoicesRequestPaymentMethodConfiguration
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestBillingAddress": ".create_invoices_request_billing_address",
     "CreateInvoicesRequestItemsItem": ".create_invoices_request_items_item",
@@ -75,6 +77,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".create_invoices_request_items_item_variant_product_global_affiliate_status",
     "CreateInvoicesRequestItemsItemVariantProductVisibility": ".create_invoices_request_items_item_variant_product_visibility",
     "CreateInvoicesRequestItemsItemVariantVisibility": ".create_invoices_request_items_item_variant_visibility",
+    "CreateInvoicesRequestPaymentMethodConfiguration": ".create_invoices_request_payment_method_configuration",
     "IssueInvoicesRequestCollectionMethod": ".issue_invoices_request_collection_method",
     "ListInvoicesRequestDirection": ".list_invoices_request_direction",
     "ListInvoicesRequestOrder": ".list_invoices_request_order",
@@ -107,6 +110,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".update_invoices_request_items_item_variant_product_global_affiliate_status",
     "UpdateInvoicesRequestItemsItemVariantProductVisibility": ".update_invoices_request_items_item_variant_product_visibility",
     "UpdateInvoicesRequestItemsItemVariantVisibility": ".update_invoices_request_items_item_variant_visibility",
+    "UpdateInvoicesRequestPaymentMethodConfiguration": ".update_invoices_request_payment_method_configuration",
 }
 
 
@@ -142,6 +146,7 @@ __all__ = [
     "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
     "CreateInvoicesRequestItemsItemVariantProductVisibility",
     "CreateInvoicesRequestItemsItemVariantVisibility",
+    "CreateInvoicesRequestPaymentMethodConfiguration",
     "IssueInvoicesRequestCollectionMethod",
     "ListInvoicesRequestDirection",
     "ListInvoicesRequestOrder",
@@ -174,4 +179,5 @@ __all__ = [
     "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
     "UpdateInvoicesRequestItemsItemVariantProductVisibility",
     "UpdateInvoicesRequestItemsItemVariantVisibility",
+    "UpdateInvoicesRequestPaymentMethodConfiguration",
 ]
