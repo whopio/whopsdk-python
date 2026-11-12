@@ -58566,6 +58566,144 @@ client.stats.time_series.retrieve(
 </dl>
 </details>
 
+## Trades Candles
+<details><summary><code>client.trades.candles.<a href="src/whop_sdk/trades/candles/client.py">list</a>(...) -> ListCandlesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns price candles for a tokenized stock, oldest first.
+
+- **Intervals:** `1h`, `2h`, `4h`, `6h` and `12h` candles cover the last 30 days. `1d` and `1w` candles cover the full history.
+- **Weeks** start on Monday at 00:00 UTC.
+
+This endpoint is public: no API key is needed, and each IP address can make up to 60 requests a minute.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+import datetime
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.trades.candles.list(
+    market="market",
+    interval="1h",
+    from_=datetime.datetime.fromisoformat("2024-01-15T09:30:00+00:00"),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**market:** `str` — The tokenized stock's ticker, such as `NVDA`. This is the `id` of a spot market from List Markets.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**interval:** `ListCandlesRequestInterval` — How much time each candle covers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `datetime.datetime` — Return candles that start at or after this time, as an ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**to:** `typing.Optional[datetime.datetime]` — Return candles that start before this time, as an ISO 8601 timestamp. Defaults to now.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Trades Markets
 <details><summary><code>client.trades.markets.<a href="src/whop_sdk/trades/markets/client.py">list</a>(...) -> ListMarketsResponse</code></summary>
 <dl>
