@@ -25,6 +25,7 @@ if typing.TYPE_CHECKING:
     )
     from .create_invoices_request_items_item_variant_visibility import CreateInvoicesRequestItemsItemVariantVisibility
     from .create_invoices_request_payment_method_configuration import CreateInvoicesRequestPaymentMethodConfiguration
+    from .delete_invoices_response import DeleteInvoicesResponse
     from .issue_invoices_request_collection_method import IssueInvoicesRequestCollectionMethod
     from .list_invoices_request_direction import ListInvoicesRequestDirection
     from .list_invoices_request_order import ListInvoicesRequestOrder
@@ -78,6 +79,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestItemsItemVariantProductVisibility": ".create_invoices_request_items_item_variant_product_visibility",
     "CreateInvoicesRequestItemsItemVariantVisibility": ".create_invoices_request_items_item_variant_visibility",
     "CreateInvoicesRequestPaymentMethodConfiguration": ".create_invoices_request_payment_method_configuration",
+    "DeleteInvoicesResponse": ".delete_invoices_response",
     "IssueInvoicesRequestCollectionMethod": ".issue_invoices_request_collection_method",
     "ListInvoicesRequestDirection": ".list_invoices_request_direction",
     "ListInvoicesRequestOrder": ".list_invoices_request_order",
@@ -147,6 +149,7 @@ __all__ = [
     "CreateInvoicesRequestItemsItemVariantProductVisibility",
     "CreateInvoicesRequestItemsItemVariantVisibility",
     "CreateInvoicesRequestPaymentMethodConfiguration",
+    "DeleteInvoicesResponse",
     "IssueInvoicesRequestCollectionMethod",
     "ListInvoicesRequestDirection",
     "ListInvoicesRequestOrder",

@@ -14,6 +14,7 @@ from .raw_client import AsyncRawInvoicesClient, RawInvoicesClient
 from .types.create_invoices_request_billing_address import CreateInvoicesRequestBillingAddress
 from .types.create_invoices_request_items_item import CreateInvoicesRequestItemsItem
 from .types.create_invoices_request_payment_method_configuration import CreateInvoicesRequestPaymentMethodConfiguration
+from .types.delete_invoices_response import DeleteInvoicesResponse
 from .types.issue_invoices_request_collection_method import IssueInvoicesRequestCollectionMethod
 from .types.list_invoices_request_direction import ListInvoicesRequestDirection
 from .types.list_invoices_request_order import ListInvoicesRequestOrder
@@ -284,6 +285,39 @@ class InvoicesClient:
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeleteInvoicesResponse:
+        """
+        Deletes a draft or void invoice. A deleted invoice no longer appears in invoice or payment lists, and its ID returns a `404`. Deleting can't be undone. Void an open invoice before you delete it. A draft with a scheduled send or charge must be unscheduled first. A draft renewal invoice can't be deleted, and neither can a void invoice that collected money or still awaits a bank wire. The invoice's `deletable` field is `true` when this call can delete it.
+
+        Parameters
+        ----------
+        id : str
+            The invoice's pay_ ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteInvoicesResponse
+            invoice deleted
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-10-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.invoices.delete(
+            id="id",
+        )
+        """
+        _response = self._raw_client.delete(id, request_options=request_options)
         return _response.data
 
     def update(
@@ -959,6 +993,49 @@ class AsyncInvoicesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def delete(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteInvoicesResponse:
+        """
+        Deletes a draft or void invoice. A deleted invoice no longer appears in invoice or payment lists, and its ID returns a `404`. Deleting can't be undone. Void an open invoice before you delete it. A draft with a scheduled send or charge must be unscheduled first. A draft renewal invoice can't be deleted, and neither can a void invoice that collected money or still awaits a bank wire. The invoice's `deletable` field is `true` when this call can delete it.
+
+        Parameters
+        ----------
+        id : str
+            The invoice's pay_ ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteInvoicesResponse
+            invoice deleted
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-10-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.invoices.delete(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete(id, request_options=request_options)
         return _response.data
 
     async def update(
