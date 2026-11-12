@@ -1569,6 +1569,8 @@ if typing.TYPE_CHECKING:
     from .trading_position_leverage_type import TradingPositionLeverageType
     from .trading_position_object import TradingPositionObject
     from .trading_position_side import TradingPositionSide
+    from .trading_spot_account import TradingSpotAccount
+    from .trading_spot_holding import TradingSpotHolding
     from .trading_websocket_subscription import TradingWebsocketSubscription
     from .trading_websocket_subscription_channel import TradingWebsocketSubscriptionChannel
     from .unauthorized_error_body import UnauthorizedErrorBody
@@ -3060,6 +3062,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TradingPositionLeverageType": ".trading_position_leverage_type",
     "TradingPositionObject": ".trading_position_object",
     "TradingPositionSide": ".trading_position_side",
+    "TradingSpotAccount": ".trading_spot_account",
+    "TradingSpotHolding": ".trading_spot_holding",
     "TradingWebsocketSubscription": ".trading_websocket_subscription",
     "TradingWebsocketSubscriptionChannel": ".trading_websocket_subscription_channel",
     "UnauthorizedErrorBody": ".unauthorized_error_body",
@@ -4575,6 +4579,8 @@ __all__ = [
     "TradingPositionLeverageType",
     "TradingPositionObject",
     "TradingPositionSide",
+    "TradingSpotAccount",
+    "TradingSpotHolding",
     "TradingWebsocketSubscription",
     "TradingWebsocketSubscriptionChannel",
     "UnauthorizedErrorBody",

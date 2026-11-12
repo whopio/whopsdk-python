@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .trading_account_object import TradingAccountObject
 from .trading_account_provider import TradingAccountProvider
 from .trading_hyperliquid_account import TradingHyperliquidAccount
+from .trading_spot_account import TradingSpotAccount
 
 
 class TradingAccount(UniversalBaseModel):
@@ -29,6 +30,11 @@ class TradingAccount(UniversalBaseModel):
     provider: TradingAccountProvider = pydantic.Field()
     """
     Trading venue that holds the positions and orders.
+    """
+
+    spot: typing.Optional[TradingSpotAccount] = pydantic.Field(default=None)
+    """
+    Spot holdings in the Whop wallet with their entry price and profit and loss. `null` when it could not be read.
     """
 
     user_id: typing.Optional[str] = pydantic.Field(default=None)
