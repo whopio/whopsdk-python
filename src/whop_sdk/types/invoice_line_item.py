@@ -25,7 +25,7 @@ class InvoiceLineItem(UniversalBaseModel):
 
     label: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The item's name as shown at checkout — the product title, else the variant title.
+    The item's name as shown at checkout (the product title, else the variant title).
     """
 
     product_id: typing.Optional[str] = pydantic.Field(default=None)
