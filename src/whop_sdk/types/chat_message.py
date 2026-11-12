@@ -27,7 +27,7 @@ class ChatMessage(UniversalBaseModel):
     channel_id: str
     content: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Markdown content; null for a deleted message.
+    Markdown content. `null` for a deleted message.
     """
 
     created_at: str = pydantic.Field()
@@ -73,7 +73,7 @@ class ChatMessage(UniversalBaseModel):
 
     view_count: typing.Optional[int] = pydantic.Field(default=None)
     """
-    Experience view count; null for DM-backed channels.
+    Experience view count. `null` for DM-backed channels.
     """
 
     if IS_PYDANTIC_V2:

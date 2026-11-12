@@ -10385,7 +10385,7 @@ client.automation_steps.create(
 <dl>
 <dd>
 
-**source_code:** `typing.Optional[str]` — An `email` or `message` step's code: a TSX module whose default export gets the member and returns `message.send()`, `message.skip()` or `message.exit()` from `whop:message`. An `email` step sends its `subject`, its `react` element as the body and its `text` as the plain-text part; a `message` step sends its `text`. The code can import `react` and `@react-email/components`, and reads the account through the `whop` client from `whop:message`, which can only read: it holds every account-level `:read` permission that both the admin role and Whop AI hold except `payout:account:read`, as listed for previewing a step. Setting it, or previewing the step, needs every one of those permissions. Up to 64,000 characters. `null` on a `wait`, and until it is written.
+**source_code:** `typing.Optional[str]` — An `email` or `message` step's code: a TSX module whose default export gets the member and returns `message.send()`, `message.skip()` or `message.exit()` from `whop:message`. An `email` step sends its `subject`, its `react` element as the body and its `text` as the plain-text part. A `message` step sends its `text`. The code can import `react` and `@react-email/components`. It reads the account through the `whop` client from `whop:message`, which can only read. That client holds every account-level `:read` permission that both the admin role and Whop AI hold, except `payout:account:read`, as listed for previewing a step. Setting it, or previewing the step, needs every one of those permissions. Up to 64,000 characters. `null` on a `wait`, and until it is written.
     
 </dd>
 </dl>
@@ -10628,7 +10628,7 @@ client.automation_steps.update(
 <dl>
 <dd>
 
-**source_code:** `typing.Optional[str]` — An `email` or `message` step's code: a TSX module whose default export gets the member and returns `message.send()`, `message.skip()` or `message.exit()` from `whop:message`. An `email` step sends its `subject`, its `react` element as the body and its `text` as the plain-text part; a `message` step sends its `text`. The code can import `react` and `@react-email/components`, and reads the account through the `whop` client from `whop:message`, which can only read: it holds every account-level `:read` permission that both the admin role and Whop AI hold except `payout:account:read`, as listed for previewing a step. Setting it, or previewing the step, needs every one of those permissions. Up to 64,000 characters. `null` on a `wait`, and until it is written.
+**source_code:** `typing.Optional[str]` — An `email` or `message` step's code: a TSX module whose default export gets the member and returns `message.send()`, `message.skip()` or `message.exit()` from `whop:message`. An `email` step sends its `subject`, its `react` element as the body and its `text` as the plain-text part. A `message` step sends its `text`. The code can import `react` and `@react-email/components`. It reads the account through the `whop` client from `whop:message`, which can only read. That client holds every account-level `:read` permission that both the admin role and Whop AI hold, except `payout:account:read`, as listed for previewing a step. Setting it, or previewing the step, needs every one of those permissions. Up to 64,000 characters. `null` on a `wait`, and until it is written.
     
 </dd>
 </dl>

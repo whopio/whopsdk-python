@@ -30,7 +30,7 @@ class MemberUser(UniversalBaseModel):
 
     profile_picture: UserProfilePicture = pydantic.Field()
     """
-    Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
+    Avatar wrapper. Its `url` is always present, and is a generated placeholder when the user set no picture.
     """
 
     state: typing.Optional[str] = pydantic.Field(default=None)

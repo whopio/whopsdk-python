@@ -70,7 +70,7 @@ class DisputeEvidenceDocument(UniversalBaseModel):
 
     removed_by_moderation: bool = pydantic.Field()
     """
-    Whether moderation removed the file. When true, `url` serves a replacement image; filename, size, and content type still describe the original file.
+    Whether moderation removed the file. When `true`, `url` serves a replacement image. `filename`, `size` and `content_type` still describe the original file.
     """
 
     size: typing.Optional[int] = pydantic.Field(default=None)
@@ -95,12 +95,12 @@ class DisputeEvidenceDocument(UniversalBaseModel):
 
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A URL to download the file: a permanent CDN URL for public files, a signed expiring URL for private ones. Null until the upload has finished; a replacement image URL when removed by moderation.
+    A URL to download the file. Public files get a permanent CDN URL, and private files get a signed URL that expires. `null` until the upload has finished. When moderation removes the file, a replacement image URL.
     """
 
     visibility: DisputeEvidenceDocumentVisibility = pydantic.Field()
     """
-    `public` files are served via an unsigned CDN URL; `private` files via a signed, expiring URL.
+    `public` files are served from an unsigned CDN URL. `private` files are served from a signed URL that expires.
     """
 
     waveform_url: typing.Optional[str] = pydantic.Field(default=None)

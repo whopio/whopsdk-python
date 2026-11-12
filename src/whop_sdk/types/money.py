@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class Money(UniversalBaseModel):
     amount: str = pydantic.Field()
     """
-    The amount in major units, as an exact decimal string — `"10.00"` is ten dollars. A string so no float rounds it in transit.
+    The amount in major units, as an exact decimal string. For example, `"10.00"` is ten dollars. It is a string so that no float rounds it in transit.
     """
 
     currency: str = pydantic.Field()
@@ -19,7 +19,7 @@ class Money(UniversalBaseModel):
 
     decimals: int = pydantic.Field()
     """
-    How many decimal places the amount CARRIES — the precision the charge itself runs at.
+    How many decimal places the amount carries. This is the precision the charge itself runs at.
     """
 
     display_decimals: int = pydantic.Field()

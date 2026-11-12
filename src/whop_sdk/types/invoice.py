@@ -22,7 +22,7 @@ class Invoice(UniversalBaseModel):
     buyer_fee_percentage: float
     checkout_link: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A signed link that opens this invoice in a checkout session so the buyer can pay it: pass it as `link` to `POST /checkout_sessions`. Present while the invoice is open; null in any other status, for an invoice billed to a business buyer or whose membership was canceled, and unless you have `payment:charge`, or `invoice:create` or `invoice:update` on an invoice with no `payment_method_id`.
+    A signed link that opens this invoice in a checkout session so the buyer can pay it. Pass it as `link` to `POST /checkout_sessions`. Present while the invoice is open. `null` in any other status, for an invoice billed to a business buyer, and for an invoice whose membership was canceled. Also `null` unless you have `payment:charge`, or `invoice:create` or `invoice:update` on an invoice with no `payment_method_id`.
     """
 
     created_at: str
@@ -41,7 +41,7 @@ class Invoice(UniversalBaseModel):
     member_id: typing.Optional[str] = None
     membership_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The membership this invoice bills, prefixed `mem_`: the subscription a renewal invoice renews, or the one created when an invoice with a recurring item is issued. Null for one-off invoices, for a draft not yet issued, and without the member:basic:read permission.
+    The membership this invoice bills, prefixed `mem_`. For a renewal invoice, it is the subscription that renews. For an invoice with a recurring item, it is the membership created when the invoice is issued. Null for one-off invoices, for a draft not yet issued, and without the member:basic:read permission.
     """
 
     memo: typing.Optional[str] = pydantic.Field(default=None)
@@ -65,7 +65,7 @@ class Invoice(UniversalBaseModel):
     recipient_emails: typing.List[str]
     scheduled_charge_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the invoice's saved payment method will be charged, as an ISO 8601 timestamp: the `charge_at` it was sent or issued with, or `due_at` when an invoice with a `payment_method_id` is sent or issued before it is due without one. On a draft, the `charge_at` of its scheduled send. `null` otherwise, once the charge starts, and once the invoice is paid, void, or uncollectible.
+    When the invoice's saved payment method will be charged, as an ISO 8601 timestamp. It is the `charge_at` the invoice was sent or issued with. Without one, it is `due_at` when an invoice with a `payment_method_id` is sent or issued before it is due. On a draft, it is the `charge_at` of its scheduled send. `null` otherwise, once the charge starts, and once the invoice is paid, void, or uncollectible.
     """
 
     scheduled_collection_method: typing.Optional[InvoiceScheduledCollectionMethod] = pydantic.Field(default=None)

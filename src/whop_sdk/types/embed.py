@@ -13,7 +13,11 @@ class Embed(UniversalBaseModel):
     color: typing.Optional[int] = None
     description: typing.Optional[str] = None
     fields: typing.List[EmbedField]
-    footer: typing.Optional[EmbedFooter] = None
+    footer: typing.Optional[EmbedFooter] = pydantic.Field(default=None)
+    """
+    Footer shown at the bottom of the embed. Null when the embed has no footer.
+    """
+
     image: typing.Optional[EmbedImage] = None
     thumbnail: typing.Optional[EmbedImage] = None
     timestamp_at: typing.Optional[str] = pydantic.Field(default=None)
