@@ -16,6 +16,11 @@ class CreateExperimentsRequestTargetingRulesItem(UniversalBaseModel):
     Conditions within this rule. Must be non-empty. All conditions must be satisfied for the rule to match (AND logic). Rules are OR-ed together.
     """
 
+    pass_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Percentage of matching subjects that this rule lets in, from 0 to 100. Omit it to let in every matching subject. Only `include` rules accept it. Raising it keeps every subject that the rule already lets in.
+    """
+
     type: typing.Optional[CreateExperimentsRequestTargetingRulesItemType] = pydantic.Field(default=None)
     """
     `include` — users matching this rule qualify; `exclude` — users matching this rule are always excluded, overriding any include rule. Defaults to `include`.
