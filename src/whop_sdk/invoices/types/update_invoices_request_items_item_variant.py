@@ -30,7 +30,7 @@ class UpdateInvoicesRequestItemsItemVariant(UniversalBaseModel):
 
     billing_period: typing.Optional[int] = pydantic.Field(default=None)
     """
-    Recurring billing interval in days.
+    A recurring variant's billing period in days, from 2 to 365, such as `45`.
     """
 
     billing_type: typing.Optional[UpdateInvoicesRequestItemsItemVariantBillingType] = pydantic.Field(default=None)
