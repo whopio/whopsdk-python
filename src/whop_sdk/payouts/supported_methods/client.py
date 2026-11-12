@@ -37,6 +37,7 @@ class SupportedMethodsClient:
         supported_payout_method_id: typing.Optional[str] = None,
         destination_currency: typing.Optional[str] = None,
         party_type: typing.Optional[ListSupportedMethodsRequestPartyType] = None,
+        include_individual_banks: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -71,6 +72,9 @@ class SupportedMethodsClient:
 
         party_type : typing.Optional[ListSupportedMethodsRequestPartyType]
             Who will own the payout method. `first_party` is the account itself. `third_party` is a recipient the account pays, saved with `recipient` on `POST /payouts/methods`, which needs no identity fields. Only meaningful with supported_payout_method_id.
+
+        include_individual_banks : typing.Optional[bool]
+            Whether to list each bank as its own payout method in countries where people choose a bank by name. Each bank has `parent_id` set to the bank deposit method that lists it. When `false`, these countries list one bank deposit method instead.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -117,6 +121,7 @@ class SupportedMethodsClient:
             supported_payout_method_id=supported_payout_method_id,
             destination_currency=destination_currency,
             party_type=party_type,
+            include_individual_banks=include_individual_banks,
             first=first,
             after=after,
             last=last,
@@ -151,6 +156,7 @@ class AsyncSupportedMethodsClient:
         supported_payout_method_id: typing.Optional[str] = None,
         destination_currency: typing.Optional[str] = None,
         party_type: typing.Optional[ListSupportedMethodsRequestPartyType] = None,
+        include_individual_banks: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -185,6 +191,9 @@ class AsyncSupportedMethodsClient:
 
         party_type : typing.Optional[ListSupportedMethodsRequestPartyType]
             Who will own the payout method. `first_party` is the account itself. `third_party` is a recipient the account pays, saved with `recipient` on `POST /payouts/methods`, which needs no identity fields. Only meaningful with supported_payout_method_id.
+
+        include_individual_banks : typing.Optional[bool]
+            Whether to list each bank as its own payout method in countries where people choose a bank by name. Each bank has `parent_id` set to the bank deposit method that lists it. When `false`, these countries list one bank deposit method instead.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -240,6 +249,7 @@ class AsyncSupportedMethodsClient:
             supported_payout_method_id=supported_payout_method_id,
             destination_currency=destination_currency,
             party_type=party_type,
+            include_individual_banks=include_individual_banks,
             first=first,
             after=after,
             last=last,

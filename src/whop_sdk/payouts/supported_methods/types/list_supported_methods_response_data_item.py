@@ -40,6 +40,11 @@ class ListSupportedMethodsResponseDataItem(UniversalBaseModel):
     """
 
     object: ListSupportedMethodsResponseDataItemObject
+    parent_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The ID of the supported payout method that lists this one, such as the bank deposit method that lists a named bank. Show this method as a choice inside that method, not as a separate method. Null for every other method.
+    """
+
     quotes: typing.Optional[typing.List[ListSupportedMethodsResponseDataItemQuotesItem]] = pydantic.Field(default=None)
     """
     Fee and delivery estimates for the requested amount, one per destination currency. Null unless an amount was provided.
