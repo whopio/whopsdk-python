@@ -70,10 +70,11 @@ class RawAppsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AppListItem, ListAppsResponse]:
         """
-        Lists apps on the Whop platform: the app store's live apps, or — with `account_id` and developer access to that account — every app the account owns. Requires authentication except for Whop's public app and website discovery lists. Public website discovery includes built official blueprints (verified apps with a product) and built, live community blueprints that Whop recommends.
+        Lists published apps approved for the app store without authentication. With `account_id` and developer access, also includes unpublished apps that the account owns. Public website discovery includes built official blueprints and built, live community blueprints that Whop recommends.
 
         Parameters
         ----------
@@ -128,6 +129,9 @@ class RawAppsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -158,6 +162,7 @@ class RawAppsClient:
                 "after": after,
                 "last": last,
                 "before": before,
+                "include_total_count": include_total_count,
             },
             request_options=request_options,
         )
@@ -194,6 +199,7 @@ class RawAppsClient:
                         after=_parsed_next,
                         last=last,
                         before=before,
+                        include_total_count=include_total_count,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -1075,10 +1081,11 @@ class AsyncRawAppsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AppListItem, ListAppsResponse]:
         """
-        Lists apps on the Whop platform: the app store's live apps, or — with `account_id` and developer access to that account — every app the account owns. Requires authentication except for Whop's public app and website discovery lists. Public website discovery includes built official blueprints (verified apps with a product) and built, live community blueprints that Whop recommends.
+        Lists published apps approved for the app store without authentication. With `account_id` and developer access, also includes unpublished apps that the account owns. Public website discovery includes built official blueprints and built, live community blueprints that Whop recommends.
 
         Parameters
         ----------
@@ -1133,6 +1140,9 @@ class AsyncRawAppsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1163,6 +1173,7 @@ class AsyncRawAppsClient:
                 "after": after,
                 "last": last,
                 "before": before,
+                "include_total_count": include_total_count,
             },
             request_options=request_options,
         )
@@ -1201,6 +1212,7 @@ class AsyncRawAppsClient:
                             after=_parsed_next,
                             last=last,
                             before=before,
+                            include_total_count=include_total_count,
                             request_options=request_options,
                         )
 

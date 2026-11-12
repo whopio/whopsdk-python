@@ -25,6 +25,11 @@ class AppListItem(UniversalBaseModel):
     The type of end-user the app is built for.
     """
 
+    average_review_rating: float = pydantic.Field()
+    """
+    Average star rating across published reviews for this app, from `1.0` to `5.0`. Returns `0.0` when no published-review rating is available.
+    """
+
     banner_image: typing.Optional[AppBannerImage] = pydantic.Field(default=None)
     """
     Banner image from the app's product listing, or `null` when none is uploaded.
@@ -98,6 +103,11 @@ class AppListItem(UniversalBaseModel):
     App ID, prefixed `app_`.
     """
 
+    is_whop_app: bool = pydantic.Field()
+    """
+    Whether Whop publishes this app.
+    """
+
     name: str = pydantic.Field()
     """
     Display name shown on the app store and in experience navigation.
@@ -116,6 +126,11 @@ class AppListItem(UniversalBaseModel):
     product_category: typing.Optional[str] = pydantic.Field(default=None)
     """
     Product category a business built from this app as a template sells, such as `pressure_washing`, or `null` when none has been set.
+    """
+
+    published_reviews_count: int = pydantic.Field()
+    """
+    Published customer reviews for this app.
     """
 
     route: typing.Optional[str] = pydantic.Field(default=None)
