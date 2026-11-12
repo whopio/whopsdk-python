@@ -14,6 +14,11 @@ class ExperimentTargetingRulesItem(UniversalBaseModel):
     Conditions within this rule, all of which must match.
     """
 
+    pass_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Percentage of matching subjects that this rule lets in, from 0 to 100. Absent when the rule lets in every matching subject. Raising it keeps every subject that the rule already lets in.
+    """
+
     type: typing.Optional[ExperimentTargetingRulesItemType] = pydantic.Field(default=None)
     """
     `include` — users matching this rule qualify; `exclude` — users matching this rule are always excluded, overriding any include rule.
