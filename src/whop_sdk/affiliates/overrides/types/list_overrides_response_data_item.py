@@ -53,7 +53,7 @@ class ListOverridesResponseDataItem(UniversalBaseModel):
 
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The plan ID (for standard overrides).
+    The plan ID (for standard overrides). Null for a product-wide override, which sets the terms for plans added to the product later.
     """
 
     product_direct_link: typing.Optional[str] = pydantic.Field(default=None)
@@ -63,7 +63,7 @@ class ListOverridesResponseDataItem(UniversalBaseModel):
 
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The product ID (for rev-share overrides).
+    The product ID (for rev-share overrides, and for product-wide overrides that set the terms for plans added to the product later).
     """
 
     revenue_basis: typing.Optional[AffiliateRevenueBases] = pydantic.Field(default=None)
