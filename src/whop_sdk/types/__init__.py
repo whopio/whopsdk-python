@@ -319,6 +319,7 @@ if typing.TYPE_CHECKING:
     from .business_goal_types import BusinessGoalTypes
     from .cancel_options import CancelOptions
     from .cancelation_status import CancelationStatus
+    from .candle import Candle
     from .capture_spec import CaptureSpec
     from .capture_spec_imu import CaptureSpecImu
     from .capture_spec_video import CaptureSpecVideo
@@ -1950,6 +1951,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BusinessGoalTypes": ".business_goal_types",
     "CancelOptions": ".cancel_options",
     "CancelationStatus": ".cancelation_status",
+    "Candle": ".candle",
     "CaptureSpec": ".capture_spec",
     "CaptureSpecImu": ".capture_spec_imu",
     "CaptureSpecVideo": ".capture_spec_video",
@@ -3467,6 +3469,7 @@ __all__ = [
     "BusinessGoalTypes",
     "CancelOptions",
     "CancelationStatus",
+    "Candle",
     "CaptureSpec",
     "CaptureSpecImu",
     "CaptureSpecVideo",

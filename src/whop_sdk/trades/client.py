@@ -23,6 +23,7 @@ from .types.list_trades_request_type import ListTradesRequestType
 from .types.list_trades_response import ListTradesResponse
 
 if typing.TYPE_CHECKING:
+    from .candles.client import AsyncCandlesClient, CandlesClient
     from .markets.client import AsyncMarketsClient, MarketsClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -32,6 +33,7 @@ class TradesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawTradesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._candles: typing.Optional[CandlesClient] = None
         self._markets: typing.Optional[MarketsClient] = None
 
     @property
@@ -327,6 +329,14 @@ class TradesClient:
         return _response.data
 
     @property
+    def candles(self):
+        if self._candles is None:
+            from .candles.client import CandlesClient  # noqa: E402
+
+            self._candles = CandlesClient(client_wrapper=self._client_wrapper)
+        return self._candles
+
+    @property
     def markets(self):
         if self._markets is None:
             from .markets.client import MarketsClient  # noqa: E402
@@ -339,6 +349,7 @@ class AsyncTradesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawTradesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._candles: typing.Optional[AsyncCandlesClient] = None
         self._markets: typing.Optional[AsyncMarketsClient] = None
 
     @property
@@ -665,6 +676,14 @@ class AsyncTradesClient:
         """
         _response = await self._raw_client.cancel(id, request_options=request_options)
         return _response.data
+
+    @property
+    def candles(self):
+        if self._candles is None:
+            from .candles.client import AsyncCandlesClient  # noqa: E402
+
+            self._candles = AsyncCandlesClient(client_wrapper=self._client_wrapper)
+        return self._candles
 
     @property
     def markets(self):

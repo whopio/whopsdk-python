@@ -21,7 +21,8 @@ if typing.TYPE_CHECKING:
         ListTradesResponse,
         ListTradesResponsePageInfo,
     )
-    from . import markets
+    from . import candles, markets
+    from .candles import ListCandlesRequestInterval, ListCandlesResponse, ListCandlesResponsePageInfo
     from .markets import ListMarketsRequestInstrumentType, ListMarketsResponse, ListMarketsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateTradesRequestInstrumentType": ".types",
@@ -31,6 +32,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateTradesRequestTakeProfit": ".types",
     "CreateTradesRequestTimeInForce": ".types",
     "CreateTradesRequestType": ".types",
+    "ListCandlesRequestInterval": ".candles",
+    "ListCandlesResponse": ".candles",
+    "ListCandlesResponsePageInfo": ".candles",
     "ListMarketsRequestInstrumentType": ".markets",
     "ListMarketsResponse": ".markets",
     "ListMarketsResponsePageInfo": ".markets",
@@ -40,6 +44,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListTradesRequestType": ".types",
     "ListTradesResponse": ".types",
     "ListTradesResponsePageInfo": ".types",
+    "candles": ".candles",
     "markets": ".markets",
 }
 
@@ -73,6 +78,9 @@ __all__ = [
     "CreateTradesRequestTakeProfit",
     "CreateTradesRequestTimeInForce",
     "CreateTradesRequestType",
+    "ListCandlesRequestInterval",
+    "ListCandlesResponse",
+    "ListCandlesResponsePageInfo",
     "ListMarketsRequestInstrumentType",
     "ListMarketsResponse",
     "ListMarketsResponsePageInfo",
@@ -82,5 +90,6 @@ __all__ = [
     "ListTradesRequestType",
     "ListTradesResponse",
     "ListTradesResponsePageInfo",
+    "candles",
     "markets",
 ]
