@@ -8,7 +8,11 @@ from .embed_image import EmbedImage
 
 
 class EmbedFooter(UniversalBaseModel):
-    icon: typing.Optional[EmbedImage] = None
+    icon: typing.Optional[EmbedImage] = pydantic.Field(default=None)
+    """
+    Small image shown beside the footer text. Null when the footer has no icon.
+    """
+
     text: str
 
     if IS_PYDANTIC_V2:

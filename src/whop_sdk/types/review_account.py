@@ -14,7 +14,7 @@ class ReviewAccount(UniversalBaseModel):
 
     route: str = pydantic.Field()
     """
-    URL slug for the account's store page, e.g. `pickaxe` in whop.com/pickaxe.
+    URL slug for the account's store page. For example, `pickaxe` in whop.com/pickaxe.
     """
 
     title: str = pydantic.Field()

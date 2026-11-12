@@ -32,7 +32,7 @@ class AutomationStep(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    Automation step ID, prefixed `atos_`. A step gets a new ID in every version; `key` stays the same.
+    Automation step ID, prefixed `atos_`. A step gets a new ID in every version. Its `key` stays the same.
     """
 
     issues: typing.List[str]
@@ -53,7 +53,7 @@ class AutomationStep(UniversalBaseModel):
 
     source_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    An `email` or `message` step's code: a TSX module whose default export gets the member and returns `message.send()`, `message.skip()` or `message.exit()` from `whop:message`. An `email` step sends its `subject`, its `react` element as the body and its `text` as the plain-text part; a `message` step sends its `text`. The code can import `react` and `@react-email/components`, and reads the account through the `whop` client from `whop:message`, which can only read: it holds every account-level `:read` permission that both the admin role and Whop AI hold except `payout:account:read`, as listed for previewing a step. Setting it, or previewing the step, needs every one of those permissions. Up to 64,000 characters. `null` on a `wait`, and until it is written.
+    An `email` or `message` step's code: a TSX module whose default export gets the member and returns `message.send()`, `message.skip()` or `message.exit()` from `whop:message`. An `email` step sends its `subject`, its `react` element as the body and its `text` as the plain-text part. A `message` step sends its `text`. The code can import `react` and `@react-email/components`. It reads the account through the `whop` client from `whop:message`, which can only read. That client holds every account-level `:read` permission that both the admin role and Whop AI hold, except `payout:account:read`, as listed for previewing a step. Setting it, or previewing the step, needs every one of those permissions. Up to 64,000 characters. `null` on a `wait`, and until it is written.
     """
 
     updated_at: str = pydantic.Field()

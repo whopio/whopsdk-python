@@ -56,7 +56,7 @@ class AutomationEnrollment(UniversalBaseModel):
 
     status: AutomationEnrollmentStatus = pydantic.Field()
     """
-    `active` while the member moves through the automation, `completed` after its last step, `canceled` when the account canceled the enrollment or stopped or deleted the automation.
+    `active` while the member moves through the automation. `completed` after its last step. `canceled` when the account canceled the enrollment, or stopped or deleted the automation.
     """
 
     trigger_event: typing.Optional[AutomationEnrollmentTriggerEvent] = pydantic.Field(default=None)

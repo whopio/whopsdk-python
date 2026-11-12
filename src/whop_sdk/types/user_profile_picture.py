@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class UserProfilePicture(UniversalBaseModel):
     url: str = pydantic.Field()
     """
-    Avatar image URL. Always present — a generated placeholder when the user set no picture.
+    Avatar image URL. Always present. It is a generated placeholder when the user set no picture.
     """
 
     if IS_PYDANTIC_V2:

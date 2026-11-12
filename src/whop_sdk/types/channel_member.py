@@ -23,7 +23,7 @@ class ChannelMember(UniversalBaseModel):
 
     inbox_status: typing.Optional[ChannelMemberInboxStatus] = pydantic.Field(default=None)
     """
-    Your private-channel inbox state; null for other users or channel kinds.
+    Your inbox state for a private channel. `null` for other users and other channel kinds.
     """
 
     last_viewed_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -35,7 +35,7 @@ class ChannelMember(UniversalBaseModel):
     pinned_position: typing.Optional[int] = None
     unread: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Personal unread state; null for other users.
+    Your unread state for the channel. `null` for other users.
     """
 
     updated_at: typing.Optional[str] = pydantic.Field(default=None)
