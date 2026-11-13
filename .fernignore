@@ -28,8 +28,6 @@
 # Declaring what a helper imports does: pyproject.toml is generated, so the declaration
 # comes from `extra_dependencies` in the python config in whop-monorepo's
 # sdks/fern/generators.yml, not from here. standardwebhooks is declared there.
-# pyjwt is not — the [user-tokens] extra did not survive the cutover, so importing
-# verify_user_token from a clean install still raises ImportError.
 #
 # tests/custom holds the generated placeholder test plus the helpers' tests. Fern owns
 # tests/, so without this entry a regeneration would prune them and a helper would go
