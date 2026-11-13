@@ -65,7 +65,7 @@ class ListEarningsResponseDataItem(UniversalBaseModel):
 
     resource: typing.Optional[ListEarningsResponseDataItemResource] = pydantic.Field(default=None)
     """
-    The resource that generated the earning: the customer payment receipt for sales and ad spend earnings, the balance transfer for transfer earnings, the withdrawal for withdrawal earnings, the card transaction for card interchange earnings, or the qualifying reward for fixed reward earnings.
+    The resource that generated the earning. For sales and ad spend earnings, it is the customer payment receipt. For transfer earnings, it is the balance transfer. For withdrawal earnings, it is the withdrawal. For card interchange earnings, it is the card transaction. For fixed reward earnings, it is the qualifying reward. For business referral earnings, it is the referred partner business's own commission.
     """
 
     second_tier: bool = pydantic.Field()
