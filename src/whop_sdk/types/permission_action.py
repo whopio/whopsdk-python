@@ -255,6 +255,7 @@ PermissionAction = typing.Union[
         "user:abuse_report:read",
         "user:balance:read",
         "user:email:read",
+        "user:mailing_addresses:read",
         "user:notifications:read",
         "user:notifications:update",
         "user:payment:charge",
