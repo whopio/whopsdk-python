@@ -237,7 +237,7 @@ class RawPartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
         """
-        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers.
+        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Deprecated: this list is retired and no longer appears in the API reference. It keeps responding for existing integrations and has no replacement.
 
         Parameters
         ----------
@@ -686,7 +686,7 @@ class AsyncRawPartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
         """
-        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers.
+        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Deprecated: this list is retired and no longer appears in the API reference. It keeps responding for existing integrations and has no replacement.
 
         Parameters
         ----------

@@ -111,7 +111,7 @@ class FinancialReportsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-11",
+            "2026-11-12",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -241,7 +241,7 @@ class AsyncFinancialReportsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-11",
+            "2026-11-12",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
