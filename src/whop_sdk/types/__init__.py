@@ -693,14 +693,6 @@ if typing.TYPE_CHECKING:
     from .invoice_totals_status import InvoiceTotalsStatus
     from .invoices_sortable_columns import InvoicesSortableColumns
     from .languages import Languages
-    from .lead import Lead
-    from .lead_list_item import LeadListItem
-    from .lead_list_item_member import LeadListItemMember
-    from .lead_list_item_product import LeadListItemProduct
-    from .lead_list_item_user import LeadListItemUser
-    from .lead_member import LeadMember
-    from .lead_product import LeadProduct
-    from .lead_user import LeadUser
     from .ledger_account import LedgerAccount
     from .ledger_account_balances_item import LedgerAccountBalancesItem
     from .ledger_account_owner import LedgerAccountOwner, LedgerAccountOwner_Company, LedgerAccountOwner_User
@@ -2312,14 +2304,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InvoiceTotalsStatus": ".invoice_totals_status",
     "InvoicesSortableColumns": ".invoices_sortable_columns",
     "Languages": ".languages",
-    "Lead": ".lead",
-    "LeadListItem": ".lead_list_item",
-    "LeadListItemMember": ".lead_list_item_member",
-    "LeadListItemProduct": ".lead_list_item_product",
-    "LeadListItemUser": ".lead_list_item_user",
-    "LeadMember": ".lead_member",
-    "LeadProduct": ".lead_product",
-    "LeadUser": ".lead_user",
     "LedgerAccount": ".ledger_account",
     "LedgerAccountBalancesItem": ".ledger_account_balances_item",
     "LedgerAccountOwner": ".ledger_account_owner",
@@ -3831,14 +3815,6 @@ __all__ = [
     "InvoiceTotalsStatus",
     "InvoicesSortableColumns",
     "Languages",
-    "Lead",
-    "LeadListItem",
-    "LeadListItemMember",
-    "LeadListItemProduct",
-    "LeadListItemUser",
-    "LeadMember",
-    "LeadProduct",
-    "LeadUser",
     "LedgerAccount",
     "LedgerAccountBalancesItem",
     "LedgerAccountOwner",
