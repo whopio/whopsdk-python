@@ -1,11 +1,12 @@
+import importlib
 import time
 
 import pytest
 
 jwt = pytest.importorskip("jwt")
 
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import ec
+serialization = importlib.import_module("cryptography.hazmat.primitives.serialization")
+ec = importlib.import_module("cryptography.hazmat.primitives.asymmetric.ec")
 
 from whop_sdk.lib.verify_user_token import verify_user_token
 
