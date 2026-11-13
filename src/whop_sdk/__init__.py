@@ -2594,6 +2594,7 @@ if typing.TYPE_CHECKING:
         PostMemberUpdatedPayload,
         PostMemberUpdatedPayloadApiVersion,
         PostMemberUpdatedPayloadType,
+        UpdateMembersRequestMetadataValue,
         UpdateMembersRequestUnsubscribeStatus,
     )
     from .memberships import (
@@ -6598,6 +6599,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateInvoicesRequestPaymentMethodConfiguration": ".invoices",
     "UpdateMeUsersRequestBanner": ".users",
     "UpdateMeUsersRequestProfilePicture": ".users",
+    "UpdateMembersRequestMetadataValue": ".members",
     "UpdateMembersRequestUnsubscribeStatus": ".members",
     "UpdateMessagesRequestAttachmentsItem": ".messages",
     "UpdateMessagesRequestGifsItem": ".messages",
@@ -9956,6 +9958,7 @@ __all__ = [
     "UpdateInvoicesRequestPaymentMethodConfiguration",
     "UpdateMeUsersRequestBanner",
     "UpdateMeUsersRequestProfilePicture",
+    "UpdateMembersRequestMetadataValue",
     "UpdateMembersRequestUnsubscribeStatus",
     "UpdateMessagesRequestAttachmentsItem",
     "UpdateMessagesRequestGifsItem",
