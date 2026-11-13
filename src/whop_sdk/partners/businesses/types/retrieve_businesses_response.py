@@ -34,6 +34,11 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
     The partner whose blueprint the business deployed. Null unless this is a blueprint referral.
     """
 
+    can_edit_fees: bool = pydantic.Field()
+    """
+    Whether the caller can change the fees of this business. `true` for the Whop Verified Partner who referred it. Also `true` for a verified partner in the same team who manages that partner or can update every reporting line. Read and change the fees with the account fees endpoints.
+    """
+
     commission_advance: typing.Optional[PartnerAdvance] = pydantic.Field(default=None)
     """
     CPA terms for the referring partner. Read with referring_account_id, the business's owner sees every rep's terms and a manager sees those of the reps below them, read-only. Omitted for other callers. An offer token is only for the referring partner and requires partner:commission_advance:accept permission.
