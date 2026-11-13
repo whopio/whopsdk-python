@@ -14,6 +14,7 @@ if typing.TYPE_CHECKING:
     from .create_transfers_request_body_balance import CreateTransfersRequestBodyBalance
     from .create_transfers_request_body_balance_feed_type import CreateTransfersRequestBodyBalanceFeedType
     from .create_transfers_request_body_claim_link import CreateTransfersRequestBodyClaimLink
+    from .create_transfers_request_body_claim_link_currency import CreateTransfersRequestBodyClaimLinkCurrency
     from .create_transfers_response import (
         CreateTransfersResponse,
         CreateTransfersResponse_ClaimLink,
@@ -99,6 +100,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateTransfersRequestBodyBalance": ".create_transfers_request_body_balance",
     "CreateTransfersRequestBodyBalanceFeedType": ".create_transfers_request_body_balance_feed_type",
     "CreateTransfersRequestBodyClaimLink": ".create_transfers_request_body_claim_link",
+    "CreateTransfersRequestBodyClaimLinkCurrency": ".create_transfers_request_body_claim_link_currency",
     "CreateTransfersRequestBody_Balance": ".create_transfers_request_body",
     "CreateTransfersRequestBody_ClaimLink": ".create_transfers_request_body",
     "CreateTransfersResponse": ".create_transfers_response",
@@ -202,6 +204,7 @@ __all__ = [
     "CreateTransfersRequestBodyBalance",
     "CreateTransfersRequestBodyBalanceFeedType",
     "CreateTransfersRequestBodyClaimLink",
+    "CreateTransfersRequestBodyClaimLinkCurrency",
     "CreateTransfersRequestBody_Balance",
     "CreateTransfersRequestBody_ClaimLink",
     "CreateTransfersResponse",
