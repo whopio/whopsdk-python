@@ -8,6 +8,11 @@ from .money import Money
 
 
 class PaymentBankTransfer(UniversalBaseModel):
+    accepts_split_transfers: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the buyer can complete this payment with more than one transfer. When false, only one transfer for the full amount completes it.
+    """
+
     account_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account to send to, in the local scheme's format — `account_number_label` says what to call it.
