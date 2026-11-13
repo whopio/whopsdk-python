@@ -185,6 +185,54 @@ class MembersClient:
             request_options=request_options,
         )
 
+    def create(
+        self,
+        *,
+        email: str,
+        account_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Member:
+        """
+        Adds a person to an account as a member. If the person is already a member of the account, that member is returned unchanged.
+
+        Parameters
+        ----------
+        email : str
+            The email address of the person to add. If no Whop user has it, one is created.
+
+        account_id : typing.Optional[str]
+            The account to add the member to (`biz_` tag). Defaults to the account the credential acts as.
+
+        name : typing.Optional[str]
+            The name of the person to add. Ignored when a user on Whop already exists for this email address.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Member
+            member created for an email with no Whop user
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-12",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.members.create(
+            email="jane@example.com",
+        )
+        """
+        _response = self._raw_client.create(
+            email=email, account_id=account_id, name=name, request_options=request_options
+        )
+        return _response.data
+
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Member:
         """
         Retrieves a member by ID. Accessible to the account and to the member's own user.
@@ -487,6 +535,62 @@ class AsyncMembersClient:
             include_total_count=include_total_count,
             request_options=request_options,
         )
+
+    async def create(
+        self,
+        *,
+        email: str,
+        account_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Member:
+        """
+        Adds a person to an account as a member. If the person is already a member of the account, that member is returned unchanged.
+
+        Parameters
+        ----------
+        email : str
+            The email address of the person to add. If no Whop user has it, one is created.
+
+        account_id : typing.Optional[str]
+            The account to add the member to (`biz_` tag). Defaults to the account the credential acts as.
+
+        name : typing.Optional[str]
+            The name of the person to add. Ignored when a user on Whop already exists for this email address.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Member
+            member created for an email with no Whop user
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-12",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.members.create(
+                email="jane@example.com",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create(
+            email=email, account_id=account_id, name=name, request_options=request_options
+        )
+        return _response.data
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Member:
         """
