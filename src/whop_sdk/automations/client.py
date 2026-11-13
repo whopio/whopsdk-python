@@ -95,7 +95,7 @@ class AutomationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -154,7 +154,7 @@ class AutomationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -189,7 +189,7 @@ class AutomationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -222,7 +222,7 @@ class AutomationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -276,7 +276,7 @@ class AutomationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -311,7 +311,7 @@ class AutomationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -353,7 +353,7 @@ class AutomationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -442,7 +442,7 @@ class AsyncAutomationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -510,7 +510,7 @@ class AsyncAutomationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -553,7 +553,7 @@ class AsyncAutomationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -594,7 +594,7 @@ class AsyncAutomationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -656,7 +656,7 @@ class AsyncAutomationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -699,7 +699,7 @@ class AsyncAutomationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -749,7 +749,7 @@ class AsyncAutomationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

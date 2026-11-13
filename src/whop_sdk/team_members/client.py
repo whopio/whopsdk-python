@@ -38,7 +38,7 @@ class TeamMembersClient:
     def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         status: typing.Optional[ListTeamMembersRequestStatus] = None,
         user_id: typing.Optional[str] = None,
         user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -49,6 +49,7 @@ class TeamMembersClient:
         direct_reports_max: typing.Optional[int] = None,
         team_lead_id: typing.Optional[str] = None,
         has_referred_businesses: typing.Optional[bool] = None,
+        is_partner: typing.Optional[bool] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListTeamMembersRequestOrder] = None,
@@ -60,18 +61,18 @@ class TeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[TeamMember, ListTeamMembersResponse]:
         """
-        Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope. A signed-in Partner, or a member others report to, without `company:authorized_user:read` lists only their own joined membership and the members who report up to them, never pending invites. Members with the view-only Partner role are listed after all other members.
+        Lists team members, including pending invites. Pass `account_id` to list one account's team. Without it, a signed-in user can pass `user_id=me` to list their own joined memberships across accounts. The list has one for each account they can read. An API key without `account_id` lists the team of its own account. With `company:basic:read`, a user can list their own joined membership on one account. To do this, pass `status=joined` and their own `user_id` with the account ID. The `bounty:create` scope also allows listing `role=workforce` members. A signed-in Partner without `company:authorized_user:read` lists only their own joined membership and the members who report up to them. A member others report to gets the same list. Neither of them sees pending invites. Members with the view-only Partner role are listed after all other members.
 
         Parameters
         ----------
-        account_id : str
-            Account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            Only return the team of this account, prefixed `biz_`. A signed-in user can omit it only with `user_id=me` or their own user ID. An API key that omits it gets its own account. `reports_to_id`, `direct_reports_min` and `direct_reports_max` need it.
 
         status : typing.Optional[ListTeamMembersRequestStatus]
             Only return members with this status: `joined` (accepted members) or `pending` (pending invites). Both are returned by default.
 
         user_id : typing.Optional[str]
-            Only return the membership for this user ID, prefixed `user_`.
+            Only return the memberships of this user ID, prefixed `user_`. Pass `me` for the signed-in user.
 
         user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return the memberships of these users, prefixed `user_`, at most 100. IDs that match no user are ignored. With `account_id=global`, a user can have one in each partner account. Can't be combined with `user_id`.
@@ -96,6 +97,9 @@ class TeamMembersClient:
 
         has_referred_businesses : typing.Optional[bool]
             When true, only members who referred at least one business for their account; when false, only members who referred none. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+
+        is_partner : typing.Optional[bool]
+            When true, only members and invites with the view-only Partner role. When false, only the ones without it.
 
         created_before : typing.Optional[str]
             Only return members added before this ISO 8601 timestamp.
@@ -134,13 +138,11 @@ class TeamMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.team_members.list(
-            account_id="account_id",
-        )
+        response = client.team_members.list()
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -159,6 +161,7 @@ class TeamMembersClient:
             direct_reports_max=direct_reports_max,
             team_lead_id=team_lead_id,
             has_referred_businesses=has_referred_businesses,
+            is_partner=is_partner,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -209,7 +212,7 @@ class TeamMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -246,7 +249,7 @@ class TeamMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -279,7 +282,7 @@ class TeamMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -321,7 +324,7 @@ class TeamMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -351,7 +354,7 @@ class AsyncTeamMembersClient:
     async def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         status: typing.Optional[ListTeamMembersRequestStatus] = None,
         user_id: typing.Optional[str] = None,
         user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -362,6 +365,7 @@ class AsyncTeamMembersClient:
         direct_reports_max: typing.Optional[int] = None,
         team_lead_id: typing.Optional[str] = None,
         has_referred_businesses: typing.Optional[bool] = None,
+        is_partner: typing.Optional[bool] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListTeamMembersRequestOrder] = None,
@@ -373,18 +377,18 @@ class AsyncTeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[TeamMember, ListTeamMembersResponse]:
         """
-        Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope. A signed-in Partner, or a member others report to, without `company:authorized_user:read` lists only their own joined membership and the members who report up to them, never pending invites. Members with the view-only Partner role are listed after all other members.
+        Lists team members, including pending invites. Pass `account_id` to list one account's team. Without it, a signed-in user can pass `user_id=me` to list their own joined memberships across accounts. The list has one for each account they can read. An API key without `account_id` lists the team of its own account. With `company:basic:read`, a user can list their own joined membership on one account. To do this, pass `status=joined` and their own `user_id` with the account ID. The `bounty:create` scope also allows listing `role=workforce` members. A signed-in Partner without `company:authorized_user:read` lists only their own joined membership and the members who report up to them. A member others report to gets the same list. Neither of them sees pending invites. Members with the view-only Partner role are listed after all other members.
 
         Parameters
         ----------
-        account_id : str
-            Account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            Only return the team of this account, prefixed `biz_`. A signed-in user can omit it only with `user_id=me` or their own user ID. An API key that omits it gets its own account. `reports_to_id`, `direct_reports_min` and `direct_reports_max` need it.
 
         status : typing.Optional[ListTeamMembersRequestStatus]
             Only return members with this status: `joined` (accepted members) or `pending` (pending invites). Both are returned by default.
 
         user_id : typing.Optional[str]
-            Only return the membership for this user ID, prefixed `user_`.
+            Only return the memberships of this user ID, prefixed `user_`. Pass `me` for the signed-in user.
 
         user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return the memberships of these users, prefixed `user_`, at most 100. IDs that match no user are ignored. With `account_id=global`, a user can have one in each partner account. Can't be combined with `user_id`.
@@ -409,6 +413,9 @@ class AsyncTeamMembersClient:
 
         has_referred_businesses : typing.Optional[bool]
             When true, only members who referred at least one business for their account; when false, only members who referred none. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+
+        is_partner : typing.Optional[bool]
+            When true, only members and invites with the view-only Partner role. When false, only the ones without it.
 
         created_before : typing.Optional[str]
             Only return members added before this ISO 8601 timestamp.
@@ -449,16 +456,14 @@ class AsyncTeamMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
 
 
         async def main() -> None:
-            response = await client.team_members.list(
-                account_id="account_id",
-            )
+            response = await client.team_members.list()
             async for item in response:
                 yield item
 
@@ -481,6 +486,7 @@ class AsyncTeamMembersClient:
             direct_reports_max=direct_reports_max,
             team_lead_id=team_lead_id,
             has_referred_businesses=has_referred_businesses,
+            is_partner=is_partner,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -533,7 +539,7 @@ class AsyncTeamMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -578,7 +584,7 @@ class AsyncTeamMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -621,7 +627,7 @@ class AsyncTeamMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -671,7 +677,7 @@ class AsyncTeamMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-13",
+            "2026-11-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
