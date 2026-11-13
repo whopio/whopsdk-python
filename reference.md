@@ -24990,7 +24990,7 @@ client.exports.create(
 <dl>
 <dd>
 
-**filters:** `typing.Optional[typing.Dict[str, typing.Any]]` — Resource-specific filters. For native REST resources (`payouts`, `transfers`, `products`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
+**filters:** `typing.Optional[typing.Dict[str, typing.Any]]` — Resource-specific filters. For a native REST resource, such as `payouts`, `transfers` or `products`, these are the query params of its list endpoint. For a dashboard table, they are the table's filters.
     
 </dd>
 </dl>
@@ -47919,7 +47919,7 @@ client.swaps.retrieve(
 <dl>
 <dd>
 
-Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope. A signed-in Partner, or a member others report to, without `company:authorized_user:read` lists only their own joined membership and the members who report up to them, never pending invites. Members with the view-only Partner role are listed after all other members.
+Lists team members, including pending invites. Pass `account_id` to list one account's team. Without it, a signed-in user can pass `user_id=me` to list their own joined memberships across accounts. The list has one for each account they can read. An API key without `account_id` lists the team of its own account. With `company:basic:read`, a user can list their own joined membership on one account. To do this, pass `status=joined` and their own `user_id` with the account ID. The `bounty:create` scope also allows listing `role=workforce` members. A signed-in Partner without `company:authorized_user:read` lists only their own joined membership and the members who report up to them. A member others report to gets the same list. Neither of them sees pending invites. Members with the view-only Partner role are listed after all other members.
 </dd>
 </dl>
 </dd>
@@ -47942,9 +47942,7 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.team_members.list(
-    account_id="account_id",
-)
+client.team_members.list()
 
 ```
 </dd>
@@ -47960,7 +47958,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**account_id:** `str` — Account ID, prefixed `biz_`.
+**account_id:** `typing.Optional[str]` — Only return the team of this account, prefixed `biz_`. A signed-in user can omit it only with `user_id=me` or their own user ID. An API key that omits it gets its own account. `reports_to_id`, `direct_reports_min` and `direct_reports_max` need it.
     
 </dd>
 </dl>
@@ -47976,7 +47974,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Only return the membership for this user ID, prefixed `user_`.
+**user_id:** `typing.Optional[str]` — Only return the memberships of this user ID, prefixed `user_`. Pass `me` for the signed-in user.
     
 </dd>
 </dl>
@@ -48041,6 +48039,14 @@ client.team_members.list(
 <dd>
 
 **has_referred_businesses:** `typing.Optional[bool]` — When true, only members who referred at least one business for their account; when false, only members who referred none. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_partner:** `typing.Optional[bool]` — When true, only members and invites with the view-only Partner role. When false, only the ones without it.
     
 </dd>
 </dl>

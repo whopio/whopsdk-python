@@ -170,7 +170,7 @@ class RawExportsClient:
             Column keys to include. Empty means all columns for the resource.
 
         filters : typing.Optional[typing.Dict[str, typing.Any]]
-            Resource-specific filters. For native REST resources (`payouts`, `transfers`, `products`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
+            Resource-specific filters. For a native REST resource, such as `payouts`, `transfers` or `products`, these are the query params of its list endpoint. For a dashboard table, they are the table's filters.
 
         timezone : typing.Optional[str]
             IANA timezone for date columns, e.g. `America/New_York`. Defaults to `UTC`.
@@ -481,7 +481,7 @@ class AsyncRawExportsClient:
             Column keys to include. Empty means all columns for the resource.
 
         filters : typing.Optional[typing.Dict[str, typing.Any]]
-            Resource-specific filters. For native REST resources (`payouts`, `transfers`, `products`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
+            Resource-specific filters. For a native REST resource, such as `payouts`, `transfers` or `products`, these are the query params of its list endpoint. For a dashboard table, they are the table's filters.
 
         timezone : typing.Optional[str]
             IANA timezone for date columns, e.g. `America/New_York`. Defaults to `UTC`.
