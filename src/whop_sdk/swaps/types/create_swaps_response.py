@@ -23,12 +23,12 @@ class CreateSwapsResponse(UniversalBaseModel):
 
     amount_in: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Fiat pairs only: amount of the source currency converted. Null while a stablecoin repayment is processing.
+    Fiat pairs only: amount of the source currency converted. Null while the conversion is settling.
     """
 
     amount_out: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Fiat pairs only: amount credited in the destination currency. Null while a stablecoin repayment is processing.
+    Fiat pairs only: amount credited in the destination currency. Null while the conversion is settling.
     """
 
     amount_out_expected: typing.Optional[str] = pydantic.Field(default=None)
@@ -59,7 +59,7 @@ class CreateSwapsResponse(UniversalBaseModel):
 
     status: CreateSwapsResponseStatus = pydantic.Field()
     """
-    Swap status. Crypto swaps start `queued`; fiat conversions return `complete`, or `working` while a stablecoin repayment settles.
+    Swap status. Crypto swaps start `queued`. Fiat conversions return `complete`, or `working` while the conversion settles.
     """
 
     to_chain: typing.Optional[str] = pydantic.Field(default=None)
