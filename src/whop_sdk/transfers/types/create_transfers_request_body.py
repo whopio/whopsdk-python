@@ -9,6 +9,7 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .create_transfers_request_body_balance_feed_type import CreateTransfersRequestBodyBalanceFeedType
+from .create_transfers_request_body_claim_link_currency import CreateTransfersRequestBodyClaimLinkCurrency
 
 
 class CreateTransfersRequestBody_Balance(UniversalBaseModel):
@@ -36,6 +37,7 @@ class CreateTransfersRequestBody_Balance(UniversalBaseModel):
 class CreateTransfersRequestBody_ClaimLink(UniversalBaseModel):
     type: typing.Literal["claim_link"] = "claim_link"
     amount: float
+    currency: typing.Optional[CreateTransfersRequestBodyClaimLinkCurrency] = None
     expires_at: typing.Optional[dt.datetime] = None
     origin_id: str
     redeemable_count: typing.Optional[int] = None

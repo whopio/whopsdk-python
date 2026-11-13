@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .create_transfers_request_body_claim_link_currency import CreateTransfersRequestBodyClaimLinkCurrency
 
 
 class CreateTransfersRequestBodyClaimLink(UniversalBaseModel):
@@ -14,7 +15,12 @@ class CreateTransfersRequestBodyClaimLink(UniversalBaseModel):
 
     amount: float = pydantic.Field()
     """
-    The amount to move, in the transfer currency. For example 25.00.
+    The amount each claim pays, in the link currency. For example 25.00. Use at most two decimal places. Use a whole number for a currency without decimal places, such as `jpy`.
+    """
+
+    currency: typing.Optional[CreateTransfersRequestBodyClaimLinkCurrency] = pydantic.Field(default=None)
+    """
+    Currency of `amount`, as a lowercase ISO 4217 code. Defaults to `usd`. The origin balance must hold `amount` times `redeemable_count` in this currency.
     """
 
     expires_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
