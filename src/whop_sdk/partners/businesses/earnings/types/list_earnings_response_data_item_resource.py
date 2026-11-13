@@ -5,6 +5,7 @@ import typing
 from .list_earnings_response_data_item_resource_alternative_payment_method import (
     ListEarningsResponseDataItemResourceAlternativePaymentMethod,
 )
+from .list_earnings_response_data_item_resource_created_at import ListEarningsResponseDataItemResourceCreatedAt
 from .list_earnings_response_data_item_resource_five import ListEarningsResponseDataItemResourceFive
 from .list_earnings_response_data_item_resource_merchant_name import ListEarningsResponseDataItemResourceMerchantName
 from .list_earnings_response_data_item_resource_one import ListEarningsResponseDataItemResourceOne
@@ -18,4 +19,5 @@ ListEarningsResponseDataItemResource = typing.Union[
     ListEarningsResponseDataItemResourceMerchantName,
     ListEarningsResponseDataItemResourceSlug,
     ListEarningsResponseDataItemResourceFive,
+    ListEarningsResponseDataItemResourceCreatedAt,
 ]

@@ -9,6 +9,7 @@ ListEarningsResponseDataItemIncomeSource = typing.Union[
         "transfer",
         "card_interchange",
         "withdrawal",
+        "business_referral",
         "onboarding_reward",
         "partner_reward",
         "verified_partner_referral_payback",
