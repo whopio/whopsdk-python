@@ -30907,6 +30907,95 @@ client.members.list(
 </dl>
 </details>
 
+<details><summary><code>client.members.<a href="src/whop_sdk/members/client.py">create</a>(...) -> Member</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds a person to an account as a member. If the person is already a member of the account, that member is returned unchanged.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.members.create(
+    email="jane@example.com",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**email:** `str` — The email address of the person to add. If no Whop user has it, one is created.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The account to add the member to (`biz_` tag). Defaults to the account the credential acts as.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — The name of the person to add. Ignored when a user on Whop already exists for this email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.members.<a href="src/whop_sdk/members/client.py">retrieve</a>(...) -> Member</code></summary>
 <dl>
 <dd>

@@ -240,6 +240,114 @@ class RawMembersClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def create(
+        self,
+        *,
+        email: str,
+        account_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[Member]:
+        """
+        Adds a person to an account as a member. If the person is already a member of the account, that member is returned unchanged.
+
+        Parameters
+        ----------
+        email : str
+            The email address of the person to add. If no Whop user has it, one is created.
+
+        account_id : typing.Optional[str]
+            The account to add the member to (`biz_` tag). Defaults to the account the credential acts as.
+
+        name : typing.Optional[str]
+            The name of the person to add. Ignored when a user on Whop already exists for this email address.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[Member]
+            member created for an email with no Whop user
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "members",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "account_id": account_id,
+                "email": email,
+                "name": name,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    Member,
+                    parse_obj_as(
+                        type_=Member,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Member]:
         """
         Retrieves a member by ID. Accessible to the account and to the member's own user.
@@ -670,6 +778,114 @@ class AsyncRawMembersClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def create(
+        self,
+        *,
+        email: str,
+        account_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[Member]:
+        """
+        Adds a person to an account as a member. If the person is already a member of the account, that member is returned unchanged.
+
+        Parameters
+        ----------
+        email : str
+            The email address of the person to add. If no Whop user has it, one is created.
+
+        account_id : typing.Optional[str]
+            The account to add the member to (`biz_` tag). Defaults to the account the credential acts as.
+
+        name : typing.Optional[str]
+            The name of the person to add. Ignored when a user on Whop already exists for this email address.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[Member]
+            member created for an email with no Whop user
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "members",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "account_id": account_id,
+                "email": email,
+                "name": name,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    Member,
+                    parse_obj_as(
+                        type_=Member,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
