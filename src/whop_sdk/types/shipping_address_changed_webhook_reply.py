@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .money import Money
 from .shipping_address_changed_webhook_reply_line_item import ShippingAddressChangedWebhookReplyLineItem
+from .shipping_address_changed_webhook_reply_shipping_option import ShippingAddressChangedWebhookReplyShippingOption
 
 
 class ShippingAddressChangedWebhookReply(UniversalBaseModel):
     line_items: typing.List[ShippingAddressChangedWebhookReplyLineItem]
+    shipping_options: typing.Optional[typing.List[ShippingAddressChangedWebhookReplyShippingOption]] = None
+    tax: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The tax you charge at this address, in the currency of `data.amount`. PayPal shows it on its own Tax line, and the buyer pays it on top of the line totals. Leave it out to keep tax inside the line totals.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

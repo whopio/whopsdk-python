@@ -1502,6 +1502,7 @@ if typing.TYPE_CHECKING:
     from .shipping_address_changed_webhook_line_item import ShippingAddressChangedWebhookLineItem
     from .shipping_address_changed_webhook_reply import ShippingAddressChangedWebhookReply
     from .shipping_address_changed_webhook_reply_line_item import ShippingAddressChangedWebhookReplyLineItem
+    from .shipping_address_changed_webhook_reply_shipping_option import ShippingAddressChangedWebhookReplyShippingOption
     from .social_account import SocialAccount
     from .social_account_parent import SocialAccountParent
     from .social_account_parent_platform import SocialAccountParentPlatform
@@ -3000,6 +3001,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ShippingAddressChangedWebhookLineItem": ".shipping_address_changed_webhook_line_item",
     "ShippingAddressChangedWebhookReply": ".shipping_address_changed_webhook_reply",
     "ShippingAddressChangedWebhookReplyLineItem": ".shipping_address_changed_webhook_reply_line_item",
+    "ShippingAddressChangedWebhookReplyShippingOption": ".shipping_address_changed_webhook_reply_shipping_option",
     "SocialAccount": ".social_account",
     "SocialAccountParent": ".social_account_parent",
     "SocialAccountParentPlatform": ".social_account_parent_platform",
@@ -4518,6 +4520,7 @@ __all__ = [
     "ShippingAddressChangedWebhookLineItem",
     "ShippingAddressChangedWebhookReply",
     "ShippingAddressChangedWebhookReplyLineItem",
+    "ShippingAddressChangedWebhookReplyShippingOption",
     "SocialAccount",
     "SocialAccountParent",
     "SocialAccountParentPlatform",
