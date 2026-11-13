@@ -70,6 +70,11 @@ class Member(UniversalBaseModel):
     When the member and the account last interacted, as an ISO 8601 timestamp. For example, a message in the member's support chat.
     """
 
+    metadata: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    """
+    Your own key-value data stored on this member. `null` when none is set.
+    """
+
     most_recent_action: typing.Optional[MemberMostRecentAction] = pydantic.Field(default=None)
     """
     The member's latest lifecycle state on the account, derived from their memberships, such as `paid_subscriber`, `canceling`, or `churned`. `null` until it is first computed.

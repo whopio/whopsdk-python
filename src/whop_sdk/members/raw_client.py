@@ -11,6 +11,7 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
@@ -24,6 +25,7 @@ from .types.list_members_request_most_recent_actions_item import ListMembersRequ
 from .types.list_members_request_order import ListMembersRequestOrder
 from .types.list_members_request_status import ListMembersRequestStatus
 from .types.list_members_response import ListMembersResponse
+from .types.update_members_request_metadata_value import UpdateMembersRequestMetadataValue
 from .types.update_members_request_unsubscribe_status import UpdateMembersRequestUnsubscribeStatus
 from pydantic import ValidationError
 
@@ -416,23 +418,27 @@ class RawMembersClient:
         self,
         id: str,
         *,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[UpdateMembersRequestMetadataValue]]] = OMIT,
         name: typing.Optional[str] = OMIT,
         unsubscribe_status: typing.Optional[UpdateMembersRequestUnsubscribeStatus] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Member]:
         """
-        Updates a member. The account can update `name`, the customer name its invoices show for this member; it doesn't change the user's Whop profile. The member can update `unsubscribe_status`, with a credential for their own user that holds `user:notifications:update`, to unsubscribe from the account's marketing communications or resubscribe. Each sends only its own field.
+        Updates a member.
 
         Parameters
         ----------
         id : str
             Member ID (`mber_` tag).
 
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[UpdateMembersRequestMetadataValue]]]
+            Your own key-value data on this member. Up to 50 keys of at most 100 characters. Values are strings of at most 500 characters, numbers, `true`, `false`, or `null`. At most 200 KB. Replaces existing metadata, and `null` clears it. Requires `member:manage`.
+
         name : typing.Optional[str]
-            The customer name to show on this member's invoices, at most 255 bytes. Leading and trailing spaces are trimmed. `null` or a blank string clears it, so invoices show the user's own name again.
+            The name invoices show for this member, in place of the user's own. `null` clears it. Requires `member:manage`.
 
         unsubscribe_status : typing.Optional[UpdateMembersRequestUnsubscribeStatus]
-            `unsubscribed` to stop the account's marketing communications, or `null` to resubscribe. Only the member can set it.
+            `unsubscribed` to opt out of the account's marketing, `null` to opt back in. Only the member can set it, with `user:notifications:update`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -447,6 +453,11 @@ class RawMembersClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "metadata": convert_and_respect_annotation_metadata(
+                    object_=metadata,
+                    annotation=typing.Optional[typing.Dict[str, typing.Optional[UpdateMembersRequestMetadataValue]]],
+                    direction="write",
+                ),
                 "name": name,
                 "unsubscribe_status": unsubscribe_status,
             },
@@ -974,23 +985,27 @@ class AsyncRawMembersClient:
         self,
         id: str,
         *,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[UpdateMembersRequestMetadataValue]]] = OMIT,
         name: typing.Optional[str] = OMIT,
         unsubscribe_status: typing.Optional[UpdateMembersRequestUnsubscribeStatus] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Member]:
         """
-        Updates a member. The account can update `name`, the customer name its invoices show for this member; it doesn't change the user's Whop profile. The member can update `unsubscribe_status`, with a credential for their own user that holds `user:notifications:update`, to unsubscribe from the account's marketing communications or resubscribe. Each sends only its own field.
+        Updates a member.
 
         Parameters
         ----------
         id : str
             Member ID (`mber_` tag).
 
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[UpdateMembersRequestMetadataValue]]]
+            Your own key-value data on this member. Up to 50 keys of at most 100 characters. Values are strings of at most 500 characters, numbers, `true`, `false`, or `null`. At most 200 KB. Replaces existing metadata, and `null` clears it. Requires `member:manage`.
+
         name : typing.Optional[str]
-            The customer name to show on this member's invoices, at most 255 bytes. Leading and trailing spaces are trimmed. `null` or a blank string clears it, so invoices show the user's own name again.
+            The name invoices show for this member, in place of the user's own. `null` clears it. Requires `member:manage`.
 
         unsubscribe_status : typing.Optional[UpdateMembersRequestUnsubscribeStatus]
-            `unsubscribed` to stop the account's marketing communications, or `null` to resubscribe. Only the member can set it.
+            `unsubscribed` to opt out of the account's marketing, `null` to opt back in. Only the member can set it, with `user:notifications:update`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1005,6 +1020,11 @@ class AsyncRawMembersClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "metadata": convert_and_respect_annotation_metadata(
+                    object_=metadata,
+                    annotation=typing.Optional[typing.Dict[str, typing.Optional[UpdateMembersRequestMetadataValue]]],
+                    direction="write",
+                ),
                 "name": name,
                 "unsubscribe_status": unsubscribe_status,
             },
