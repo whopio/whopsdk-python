@@ -69,7 +69,6 @@ if typing.TYPE_CHECKING:
     from .forums.client import AsyncForumsClient, ForumsClient
     from .identity_profiles.client import AsyncIdentityProfilesClient, IdentityProfilesClient
     from .invoices.client import AsyncInvoicesClient, InvoicesClient
-    from .leads.client import AsyncLeadsClient, LeadsClient
     from .ledger_accounts.client import AsyncLedgerAccountsClient, LedgerAccountsClient
     from .livestreams.client import AsyncLivestreamsClient, LivestreamsClient
     from .media.client import AsyncMediaClient, MediaClient
@@ -162,7 +161,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-11-12",
+        "2026-11-13",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -172,7 +171,7 @@ class Whop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-11-12",
+        api_version_date: typing.Optional[str] = "2026-11-13",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -262,7 +261,6 @@ class Whop:
         self._forums: typing.Optional[ForumsClient] = None
         self._identity_profiles: typing.Optional[IdentityProfilesClient] = None
         self._invoices: typing.Optional[InvoicesClient] = None
-        self._leads: typing.Optional[LeadsClient] = None
         self._ledger_accounts: typing.Optional[LedgerAccountsClient] = None
         self._livestreams: typing.Optional[LivestreamsClient] = None
         self._media: typing.Optional[MediaClient] = None
@@ -780,14 +778,6 @@ class Whop:
         return self._invoices
 
     @property
-    def leads(self):
-        if self._leads is None:
-            from .leads.client import LeadsClient  # noqa: E402
-
-            self._leads = LeadsClient(client_wrapper=self._client_wrapper)
-        return self._leads
-
-    @property
     def ledger_accounts(self):
         if self._ledger_accounts is None:
             from .ledger_accounts.client import LedgerAccountsClient  # noqa: E402
@@ -1200,7 +1190,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-11-12",
+        "2026-11-13",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -1210,7 +1200,7 @@ class AsyncWhop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-11-12",
+        api_version_date: typing.Optional[str] = "2026-11-13",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1300,7 +1290,6 @@ class AsyncWhop:
         self._forums: typing.Optional[AsyncForumsClient] = None
         self._identity_profiles: typing.Optional[AsyncIdentityProfilesClient] = None
         self._invoices: typing.Optional[AsyncInvoicesClient] = None
-        self._leads: typing.Optional[AsyncLeadsClient] = None
         self._ledger_accounts: typing.Optional[AsyncLedgerAccountsClient] = None
         self._livestreams: typing.Optional[AsyncLivestreamsClient] = None
         self._media: typing.Optional[AsyncMediaClient] = None
@@ -1816,14 +1805,6 @@ class AsyncWhop:
 
             self._invoices = AsyncInvoicesClient(client_wrapper=self._client_wrapper)
         return self._invoices
-
-    @property
-    def leads(self):
-        if self._leads is None:
-            from .leads.client import AsyncLeadsClient  # noqa: E402
-
-            self._leads = AsyncLeadsClient(client_wrapper=self._client_wrapper)
-        return self._leads
 
     @property
     def ledger_accounts(self):
