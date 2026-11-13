@@ -14,7 +14,7 @@ class CreateQuotePayoutsResponseConversion(UniversalBaseModel):
 
     converted_amount: Money = pydantic.Field()
     """
-    What the requested amount converts into, in the payout method's currency. When the account holds its USD in a stablecoin, this is an estimate: the payout is for what the conversion produces once that USD arrives, and `POST /payouts` answers with the payout request until that payout exists.
+    What the requested amount converts into, in the payout method's currency. This is an estimate when the account's USD has to settle before payout. The payout is then for what the conversion produces. `POST /payouts` answers with the payout request until that payout exists.
     """
 
     estimated_savings: typing.Optional[Money] = pydantic.Field(default=None)
