@@ -23,9 +23,14 @@ class AccountFeeMarkups(UniversalBaseModel):
     Markups on deposits into the account's balance, keyed by rail: `bank` and `crypto`.
     """
 
+    payment_methods: typing.Dict[str, AccountFeeMarkup] = pydantic.Field()
+    """
+    Markups on payments, keyed by payment method: `card` (including Apple Pay and Google Pay), `ach` (US bank account and US bank transfer), and `wire`. A payment method without its own markup uses `payments`.
+    """
+
     payments: AccountFeeMarkup = pydantic.Field()
     """
-    The markup on payments the subaccount collects without a checkout application fee.
+    The markup on payments the subaccount collects without a checkout application fee, for every payment method without its own markup under `payment_methods`.
     """
 
     payouts: typing.Dict[str, AccountFeeMarkup] = pydantic.Field()

@@ -22,6 +22,9 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_child_markups_card_spend import UpdateFeesRequestChildMarkupsCardSpend
     from .update_fees_request_child_markups_crypto_swaps import UpdateFeesRequestChildMarkupsCryptoSwaps
     from .update_fees_request_child_markups_deposits_value import UpdateFeesRequestChildMarkupsDepositsValue
+    from .update_fees_request_child_markups_payment_methods_value import (
+        UpdateFeesRequestChildMarkupsPaymentMethodsValue,
+    )
     from .update_fees_request_child_markups_payments import UpdateFeesRequestChildMarkupsPayments
     from .update_fees_request_child_markups_payouts_value import UpdateFeesRequestChildMarkupsPayoutsValue
     from .update_fees_request_child_markups_transfers import UpdateFeesRequestChildMarkupsTransfers
@@ -54,6 +57,7 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_markups_card_spend import UpdateFeesRequestMarkupsCardSpend
     from .update_fees_request_markups_crypto_swaps import UpdateFeesRequestMarkupsCryptoSwaps
     from .update_fees_request_markups_deposits_value import UpdateFeesRequestMarkupsDepositsValue
+    from .update_fees_request_markups_payment_methods_value import UpdateFeesRequestMarkupsPaymentMethodsValue
     from .update_fees_request_markups_payments import UpdateFeesRequestMarkupsPayments
     from .update_fees_request_markups_payouts_value import UpdateFeesRequestMarkupsPayoutsValue
     from .update_fees_request_markups_transfers import UpdateFeesRequestMarkupsTransfers
@@ -102,6 +106,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestChildMarkupsCardSpend": ".update_fees_request_child_markups_card_spend",
     "UpdateFeesRequestChildMarkupsCryptoSwaps": ".update_fees_request_child_markups_crypto_swaps",
     "UpdateFeesRequestChildMarkupsDepositsValue": ".update_fees_request_child_markups_deposits_value",
+    "UpdateFeesRequestChildMarkupsPaymentMethodsValue": ".update_fees_request_child_markups_payment_methods_value",
     "UpdateFeesRequestChildMarkupsPayments": ".update_fees_request_child_markups_payments",
     "UpdateFeesRequestChildMarkupsPayoutsValue": ".update_fees_request_child_markups_payouts_value",
     "UpdateFeesRequestChildMarkupsTransfers": ".update_fees_request_child_markups_transfers",
@@ -132,6 +137,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestMarkupsCardSpend": ".update_fees_request_markups_card_spend",
     "UpdateFeesRequestMarkupsCryptoSwaps": ".update_fees_request_markups_crypto_swaps",
     "UpdateFeesRequestMarkupsDepositsValue": ".update_fees_request_markups_deposits_value",
+    "UpdateFeesRequestMarkupsPaymentMethodsValue": ".update_fees_request_markups_payment_methods_value",
     "UpdateFeesRequestMarkupsPayments": ".update_fees_request_markups_payments",
     "UpdateFeesRequestMarkupsPayoutsValue": ".update_fees_request_markups_payouts_value",
     "UpdateFeesRequestMarkupsTransfers": ".update_fees_request_markups_transfers",
@@ -202,6 +208,7 @@ __all__ = [
     "UpdateFeesRequestChildMarkupsCardSpend",
     "UpdateFeesRequestChildMarkupsCryptoSwaps",
     "UpdateFeesRequestChildMarkupsDepositsValue",
+    "UpdateFeesRequestChildMarkupsPaymentMethodsValue",
     "UpdateFeesRequestChildMarkupsPayments",
     "UpdateFeesRequestChildMarkupsPayoutsValue",
     "UpdateFeesRequestChildMarkupsTransfers",
@@ -232,6 +239,7 @@ __all__ = [
     "UpdateFeesRequestMarkupsCardSpend",
     "UpdateFeesRequestMarkupsCryptoSwaps",
     "UpdateFeesRequestMarkupsDepositsValue",
+    "UpdateFeesRequestMarkupsPaymentMethodsValue",
     "UpdateFeesRequestMarkupsPayments",
     "UpdateFeesRequestMarkupsPayoutsValue",
     "UpdateFeesRequestMarkupsTransfers",
