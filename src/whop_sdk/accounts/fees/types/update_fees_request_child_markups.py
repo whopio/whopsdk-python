@@ -7,6 +7,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .update_fees_request_child_markups_card_spend import UpdateFeesRequestChildMarkupsCardSpend
 from .update_fees_request_child_markups_crypto_swaps import UpdateFeesRequestChildMarkupsCryptoSwaps
 from .update_fees_request_child_markups_deposits_value import UpdateFeesRequestChildMarkupsDepositsValue
+from .update_fees_request_child_markups_payment_methods_value import UpdateFeesRequestChildMarkupsPaymentMethodsValue
 from .update_fees_request_child_markups_payments import UpdateFeesRequestChildMarkupsPayments
 from .update_fees_request_child_markups_payouts_value import UpdateFeesRequestChildMarkupsPayoutsValue
 from .update_fees_request_child_markups_transfers import UpdateFeesRequestChildMarkupsTransfers
@@ -24,7 +25,7 @@ class UpdateFeesRequestChildMarkups(UniversalBaseModel):
 
     crypto_swaps: typing.Optional[UpdateFeesRequestChildMarkupsCryptoSwaps] = pydantic.Field(default=None)
     """
-    The new markup. Fields left out keep their current value; `null` clears the row so the markup returns to its default.
+    The new markup. Fields left out keep their current value. `null` clears the row so the markup returns to its default.
     """
 
     deposits: typing.Optional[typing.Dict[str, typing.Optional[UpdateFeesRequestChildMarkupsDepositsValue]]] = (
@@ -34,9 +35,16 @@ class UpdateFeesRequestChildMarkups(UniversalBaseModel):
     Markups on deposits, keyed by rail: `bank` or `crypto`.
     """
 
+    payment_methods: typing.Optional[
+        typing.Dict[str, typing.Optional[UpdateFeesRequestChildMarkupsPaymentMethodsValue]]
+    ] = pydantic.Field(default=None)
+    """
+    Markups on payments, keyed by payment method: `card`, `ach`, or `wire`. `null` clears a method's markup so it uses `payments`.
+    """
+
     payments: typing.Optional[UpdateFeesRequestChildMarkupsPayments] = pydantic.Field(default=None)
     """
-    The new markup. Fields left out keep their current value; `null` clears the row so the markup returns to its default.
+    The new markup. Fields left out keep their current value. `null` clears the row so the markup returns to its default.
     """
 
     payouts: typing.Optional[typing.Dict[str, typing.Optional[UpdateFeesRequestChildMarkupsPayoutsValue]]] = (
@@ -48,7 +56,7 @@ class UpdateFeesRequestChildMarkups(UniversalBaseModel):
 
     transfers: typing.Optional[UpdateFeesRequestChildMarkupsTransfers] = pydantic.Field(default=None)
     """
-    The new markup. Fields left out keep their current value; `null` clears the row so the markup returns to its default.
+    The new markup. Fields left out keep their current value. `null` clears the row so the markup returns to its default.
     """
 
     if IS_PYDANTIC_V2:
