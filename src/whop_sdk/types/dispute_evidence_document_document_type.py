@@ -16,6 +16,7 @@ DisputeEvidenceDocumentDocumentType = typing.Union[
         "digital_fulfillment",
         "subscription",
         "customer_communication",
+        "complete_evidence",
     ],
     typing.Any,
 ]
