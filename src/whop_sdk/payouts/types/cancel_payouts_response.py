@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .cancel_payouts_response_conversion import CancelPayoutsResponseConversion
 from .cancel_payouts_response_failure import CancelPayoutsResponseFailure
 from .cancel_payouts_response_fee_paid_by import CancelPayoutsResponseFeePaidBy
 from .cancel_payouts_response_object import CancelPayoutsResponseObject
@@ -23,6 +24,11 @@ class CancelPayoutsResponse(UniversalBaseModel):
     cancelable: bool = pydantic.Field()
     """
     Whether `POST /payouts/{id}/cancel` would act on this payout right now: `true` while it is `in_review`, while it is `processing` with nothing yet submitted to the payout provider, or while a submitted payout can still be asked to cancel at the provider. `false` once the money has arrived or the payout has already ended.
+    """
+
+    conversion: typing.Optional[CancelPayoutsResponseConversion] = pydantic.Field(default=None)
+    """
+    How the balance was converted into the payout currency before the payout was sent. `null` when the payout was sent from a balance in its own currency.
     """
 
     created_at: dt.datetime = pydantic.Field()
