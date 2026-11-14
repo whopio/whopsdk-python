@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .cancel_payouts_response import CancelPayoutsResponse
+    from .cancel_payouts_response_conversion import CancelPayoutsResponseConversion
     from .cancel_payouts_response_failure import CancelPayoutsResponseFailure
     from .cancel_payouts_response_fee_paid_by import CancelPayoutsResponseFeePaidBy
     from .cancel_payouts_response_object import CancelPayoutsResponseObject
@@ -23,6 +24,7 @@ if typing.TYPE_CHECKING:
     from .cancel_payouts_response_status import CancelPayoutsResponseStatus
     from .create_payouts_request_speed import CreatePayoutsRequestSpeed
     from .create_payouts_response import CreatePayoutsResponse
+    from .create_payouts_response_conversion import CreatePayoutsResponseConversion
     from .create_payouts_response_failure import CreatePayoutsResponseFailure
     from .create_payouts_response_fee_paid_by import CreatePayoutsResponseFeePaidBy
     from .create_payouts_response_object import CreatePayoutsResponseObject
@@ -46,6 +48,7 @@ if typing.TYPE_CHECKING:
     from .list_payouts_request_status import ListPayoutsRequestStatus
     from .list_payouts_response import ListPayoutsResponse
     from .list_payouts_response_data_item import ListPayoutsResponseDataItem
+    from .list_payouts_response_data_item_conversion import ListPayoutsResponseDataItemConversion
     from .list_payouts_response_data_item_failure import ListPayoutsResponseDataItemFailure
     from .list_payouts_response_data_item_fee_paid_by import ListPayoutsResponseDataItemFeePaidBy
     from .list_payouts_response_data_item_object import ListPayoutsResponseDataItemObject
@@ -64,6 +67,7 @@ if typing.TYPE_CHECKING:
     from .post_payout_created_payload import PostPayoutCreatedPayload
     from .post_payout_created_payload_api_version import PostPayoutCreatedPayloadApiVersion
     from .post_payout_created_payload_data import PostPayoutCreatedPayloadData
+    from .post_payout_created_payload_data_conversion import PostPayoutCreatedPayloadDataConversion
     from .post_payout_created_payload_data_failure import PostPayoutCreatedPayloadDataFailure
     from .post_payout_created_payload_data_fee_paid_by import PostPayoutCreatedPayloadDataFeePaidBy
     from .post_payout_created_payload_data_object import PostPayoutCreatedPayloadDataObject
@@ -112,6 +116,7 @@ if typing.TYPE_CHECKING:
     from .post_payout_reversed_payload import PostPayoutReversedPayload
     from .post_payout_reversed_payload_api_version import PostPayoutReversedPayloadApiVersion
     from .post_payout_reversed_payload_data import PostPayoutReversedPayloadData
+    from .post_payout_reversed_payload_data_conversion import PostPayoutReversedPayloadDataConversion
     from .post_payout_reversed_payload_data_failure import PostPayoutReversedPayloadDataFailure
     from .post_payout_reversed_payload_data_fee_paid_by import PostPayoutReversedPayloadDataFeePaidBy
     from .post_payout_reversed_payload_data_object import PostPayoutReversedPayloadDataObject
@@ -130,6 +135,7 @@ if typing.TYPE_CHECKING:
     from .post_payout_updated_payload import PostPayoutUpdatedPayload
     from .post_payout_updated_payload_api_version import PostPayoutUpdatedPayloadApiVersion
     from .post_payout_updated_payload_data import PostPayoutUpdatedPayloadData
+    from .post_payout_updated_payload_data_conversion import PostPayoutUpdatedPayloadDataConversion
     from .post_payout_updated_payload_data_failure import PostPayoutUpdatedPayloadDataFailure
     from .post_payout_updated_payload_data_fee_paid_by import PostPayoutUpdatedPayloadDataFeePaidBy
     from .post_payout_updated_payload_data_object import PostPayoutUpdatedPayloadDataObject
@@ -146,6 +152,7 @@ if typing.TYPE_CHECKING:
     from .post_payout_updated_payload_data_status import PostPayoutUpdatedPayloadDataStatus
     from .post_payout_updated_payload_type import PostPayoutUpdatedPayloadType
     from .retrieve_payouts_response import RetrievePayoutsResponse
+    from .retrieve_payouts_response_conversion import RetrievePayoutsResponseConversion
     from .retrieve_payouts_response_failure import RetrievePayoutsResponseFailure
     from .retrieve_payouts_response_fee_paid_by import RetrievePayoutsResponseFeePaidBy
     from .retrieve_payouts_response_object import RetrievePayoutsResponseObject
@@ -164,6 +171,7 @@ if typing.TYPE_CHECKING:
     from .retrieve_payouts_response_timeline_item_status import RetrievePayoutsResponseTimelineItemStatus
 _dynamic_imports: typing.Dict[str, str] = {
     "CancelPayoutsResponse": ".cancel_payouts_response",
+    "CancelPayoutsResponseConversion": ".cancel_payouts_response_conversion",
     "CancelPayoutsResponseFailure": ".cancel_payouts_response_failure",
     "CancelPayoutsResponseFeePaidBy": ".cancel_payouts_response_fee_paid_by",
     "CancelPayoutsResponseObject": ".cancel_payouts_response_object",
@@ -176,6 +184,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CancelPayoutsResponseStatus": ".cancel_payouts_response_status",
     "CreatePayoutsRequestSpeed": ".create_payouts_request_speed",
     "CreatePayoutsResponse": ".create_payouts_response",
+    "CreatePayoutsResponseConversion": ".create_payouts_response_conversion",
     "CreatePayoutsResponseFailure": ".create_payouts_response_failure",
     "CreatePayoutsResponseFeePaidBy": ".create_payouts_response_fee_paid_by",
     "CreatePayoutsResponseObject": ".create_payouts_response_object",
@@ -195,6 +204,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPayoutsRequestStatus": ".list_payouts_request_status",
     "ListPayoutsResponse": ".list_payouts_response",
     "ListPayoutsResponseDataItem": ".list_payouts_response_data_item",
+    "ListPayoutsResponseDataItemConversion": ".list_payouts_response_data_item_conversion",
     "ListPayoutsResponseDataItemFailure": ".list_payouts_response_data_item_failure",
     "ListPayoutsResponseDataItemFeePaidBy": ".list_payouts_response_data_item_fee_paid_by",
     "ListPayoutsResponseDataItemObject": ".list_payouts_response_data_item_object",
@@ -209,6 +219,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPayoutCreatedPayload": ".post_payout_created_payload",
     "PostPayoutCreatedPayloadApiVersion": ".post_payout_created_payload_api_version",
     "PostPayoutCreatedPayloadData": ".post_payout_created_payload_data",
+    "PostPayoutCreatedPayloadDataConversion": ".post_payout_created_payload_data_conversion",
     "PostPayoutCreatedPayloadDataFailure": ".post_payout_created_payload_data_failure",
     "PostPayoutCreatedPayloadDataFeePaidBy": ".post_payout_created_payload_data_fee_paid_by",
     "PostPayoutCreatedPayloadDataObject": ".post_payout_created_payload_data_object",
@@ -241,6 +252,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPayoutReversedPayload": ".post_payout_reversed_payload",
     "PostPayoutReversedPayloadApiVersion": ".post_payout_reversed_payload_api_version",
     "PostPayoutReversedPayloadData": ".post_payout_reversed_payload_data",
+    "PostPayoutReversedPayloadDataConversion": ".post_payout_reversed_payload_data_conversion",
     "PostPayoutReversedPayloadDataFailure": ".post_payout_reversed_payload_data_failure",
     "PostPayoutReversedPayloadDataFeePaidBy": ".post_payout_reversed_payload_data_fee_paid_by",
     "PostPayoutReversedPayloadDataObject": ".post_payout_reversed_payload_data_object",
@@ -255,6 +267,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPayoutUpdatedPayload": ".post_payout_updated_payload",
     "PostPayoutUpdatedPayloadApiVersion": ".post_payout_updated_payload_api_version",
     "PostPayoutUpdatedPayloadData": ".post_payout_updated_payload_data",
+    "PostPayoutUpdatedPayloadDataConversion": ".post_payout_updated_payload_data_conversion",
     "PostPayoutUpdatedPayloadDataFailure": ".post_payout_updated_payload_data_failure",
     "PostPayoutUpdatedPayloadDataFeePaidBy": ".post_payout_updated_payload_data_fee_paid_by",
     "PostPayoutUpdatedPayloadDataObject": ".post_payout_updated_payload_data_object",
@@ -267,6 +280,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPayoutUpdatedPayloadDataStatus": ".post_payout_updated_payload_data_status",
     "PostPayoutUpdatedPayloadType": ".post_payout_updated_payload_type",
     "RetrievePayoutsResponse": ".retrieve_payouts_response",
+    "RetrievePayoutsResponseConversion": ".retrieve_payouts_response_conversion",
     "RetrievePayoutsResponseFailure": ".retrieve_payouts_response_failure",
     "RetrievePayoutsResponseFeePaidBy": ".retrieve_payouts_response_fee_paid_by",
     "RetrievePayoutsResponseObject": ".retrieve_payouts_response_object",
@@ -305,6 +319,7 @@ def __dir__():
 
 __all__ = [
     "CancelPayoutsResponse",
+    "CancelPayoutsResponseConversion",
     "CancelPayoutsResponseFailure",
     "CancelPayoutsResponseFeePaidBy",
     "CancelPayoutsResponseObject",
@@ -317,6 +332,7 @@ __all__ = [
     "CancelPayoutsResponseStatus",
     "CreatePayoutsRequestSpeed",
     "CreatePayoutsResponse",
+    "CreatePayoutsResponseConversion",
     "CreatePayoutsResponseFailure",
     "CreatePayoutsResponseFeePaidBy",
     "CreatePayoutsResponseObject",
@@ -336,6 +352,7 @@ __all__ = [
     "ListPayoutsRequestStatus",
     "ListPayoutsResponse",
     "ListPayoutsResponseDataItem",
+    "ListPayoutsResponseDataItemConversion",
     "ListPayoutsResponseDataItemFailure",
     "ListPayoutsResponseDataItemFeePaidBy",
     "ListPayoutsResponseDataItemObject",
@@ -350,6 +367,7 @@ __all__ = [
     "PostPayoutCreatedPayload",
     "PostPayoutCreatedPayloadApiVersion",
     "PostPayoutCreatedPayloadData",
+    "PostPayoutCreatedPayloadDataConversion",
     "PostPayoutCreatedPayloadDataFailure",
     "PostPayoutCreatedPayloadDataFeePaidBy",
     "PostPayoutCreatedPayloadDataObject",
@@ -382,6 +400,7 @@ __all__ = [
     "PostPayoutReversedPayload",
     "PostPayoutReversedPayloadApiVersion",
     "PostPayoutReversedPayloadData",
+    "PostPayoutReversedPayloadDataConversion",
     "PostPayoutReversedPayloadDataFailure",
     "PostPayoutReversedPayloadDataFeePaidBy",
     "PostPayoutReversedPayloadDataObject",
@@ -396,6 +415,7 @@ __all__ = [
     "PostPayoutUpdatedPayload",
     "PostPayoutUpdatedPayloadApiVersion",
     "PostPayoutUpdatedPayloadData",
+    "PostPayoutUpdatedPayloadDataConversion",
     "PostPayoutUpdatedPayloadDataFailure",
     "PostPayoutUpdatedPayloadDataFeePaidBy",
     "PostPayoutUpdatedPayloadDataObject",
@@ -408,6 +428,7 @@ __all__ = [
     "PostPayoutUpdatedPayloadDataStatus",
     "PostPayoutUpdatedPayloadType",
     "RetrievePayoutsResponse",
+    "RetrievePayoutsResponseConversion",
     "RetrievePayoutsResponseFailure",
     "RetrievePayoutsResponseFeePaidBy",
     "RetrievePayoutsResponseObject",
