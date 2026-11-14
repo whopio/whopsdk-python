@@ -228,11 +228,10 @@ for page in pager.iter_pages():
 ## Verifying user tokens
 
 `verify_user_token` checks the `x-whop-user-token` JWT that Whop sends to an embedded
-app. It is hand-written rather than generated, and it is the only part of this package
-that needs a dependency the package does not declare — install `pyjwt` yourself:
+app. Install the optional dependency group to enable signature verification:
 
 ```sh
-pip install pyjwt
+pip install 'whop-sdk[user-tokens]'
 ```
 
 ```python
@@ -245,9 +244,6 @@ print(payload.user_id)
 It accepts either the raw token or a headers mapping, and takes optional `public_key`,
 `jwks_url`, and `header_name` overrides. By default it fetches Whop's public signing
 keys from `https://api.whop.com/.well-known/jwks.json` and caches them in-process.
-
-> The module docstring suggests `pip install 'whop-sdk[user-tokens]'`. That extra does
-> not exist on the published distribution; `aiohttp` is the only one.
 
 ## Advanced
 
