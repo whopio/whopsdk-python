@@ -151,7 +151,7 @@ class Membership(UniversalBaseModel):
 
     renewal_price: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    What the next renewal charges, after any promo code that still applies. `null` for non-renewing memberships.
+    The variant's renewal price, in the variant's currency, after any promo code that still applies. A membership billed in the buyer's local currency is charged this price converted at the exchange rate on each billing date. `null` for non-renewing memberships.
     """
 
     split_pay_current_payments: typing.Optional[int] = pydantic.Field(default=None)
