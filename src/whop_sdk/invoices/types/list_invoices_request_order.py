@@ -2,4 +2,4 @@
 
 import typing
 
-ListInvoicesRequestOrder = typing.Union[typing.Literal["created_at", "due_at"], typing.Any]
+ListInvoicesRequestOrder = typing.Union[typing.Literal["created_at", "due_at", "status"], typing.Any]
