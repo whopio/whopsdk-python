@@ -50,6 +50,7 @@ class RawInvoicesClient:
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListInvoicesRequestStatus] = None,
         overdue: typing.Optional[bool] = None,
+        scheduled: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
@@ -74,6 +75,9 @@ class RawInvoicesClient:
 
         overdue : typing.Optional[bool]
 
+        scheduled : typing.Optional[bool]
+            Set to `true` for drafts with a scheduled send, which are the invoices with a `scheduled_send_at`. Set to `false` for every other invoice. Only a `draft` can be scheduled. An `open` invoice is not scheduled, even with a `scheduled_charge_at`. A draft that sends on its due date (`sends_on_due_date`) is not scheduled. Omit to include both.
+
         member_id : typing.Optional[str]
 
         product_id : typing.Optional[str]
@@ -83,6 +87,7 @@ class RawInvoicesClient:
         created_before : typing.Optional[dt.datetime]
 
         order : typing.Optional[ListInvoicesRequestOrder]
+            Field to sort by. Sorting by `due_at` or `scheduled_send_at` puts invoices without that date last in both directions.
 
         direction : typing.Optional[ListInvoicesRequestDirection]
 
@@ -117,6 +122,7 @@ class RawInvoicesClient:
                 "account_id": account_id,
                 "status": status,
                 "overdue": overdue,
+                "scheduled": scheduled,
                 "member_id": member_id,
                 "product_id": product_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -150,6 +156,7 @@ class RawInvoicesClient:
                         account_id=account_id,
                         status=status,
                         overdue=overdue,
+                        scheduled=scheduled,
                         member_id=member_id,
                         product_id=product_id,
                         created_after=created_after,
@@ -1387,6 +1394,7 @@ class AsyncRawInvoicesClient:
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListInvoicesRequestStatus] = None,
         overdue: typing.Optional[bool] = None,
+        scheduled: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
@@ -1411,6 +1419,9 @@ class AsyncRawInvoicesClient:
 
         overdue : typing.Optional[bool]
 
+        scheduled : typing.Optional[bool]
+            Set to `true` for drafts with a scheduled send, which are the invoices with a `scheduled_send_at`. Set to `false` for every other invoice. Only a `draft` can be scheduled. An `open` invoice is not scheduled, even with a `scheduled_charge_at`. A draft that sends on its due date (`sends_on_due_date`) is not scheduled. Omit to include both.
+
         member_id : typing.Optional[str]
 
         product_id : typing.Optional[str]
@@ -1420,6 +1431,7 @@ class AsyncRawInvoicesClient:
         created_before : typing.Optional[dt.datetime]
 
         order : typing.Optional[ListInvoicesRequestOrder]
+            Field to sort by. Sorting by `due_at` or `scheduled_send_at` puts invoices without that date last in both directions.
 
         direction : typing.Optional[ListInvoicesRequestDirection]
 
@@ -1454,6 +1466,7 @@ class AsyncRawInvoicesClient:
                 "account_id": account_id,
                 "status": status,
                 "overdue": overdue,
+                "scheduled": scheduled,
                 "member_id": member_id,
                 "product_id": product_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -1489,6 +1502,7 @@ class AsyncRawInvoicesClient:
                             account_id=account_id,
                             status=status,
                             overdue=overdue,
+                            scheduled=scheduled,
                             member_id=member_id,
                             product_id=product_id,
                             created_after=created_after,

@@ -54,6 +54,7 @@ class InvoicesClient:
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListInvoicesRequestStatus] = None,
         overdue: typing.Optional[bool] = None,
+        scheduled: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
@@ -78,6 +79,9 @@ class InvoicesClient:
 
         overdue : typing.Optional[bool]
 
+        scheduled : typing.Optional[bool]
+            Set to `true` for drafts with a scheduled send, which are the invoices with a `scheduled_send_at`. Set to `false` for every other invoice. Only a `draft` can be scheduled. An `open` invoice is not scheduled, even with a `scheduled_charge_at`. A draft that sends on its due date (`sends_on_due_date`) is not scheduled. Omit to include both.
+
         member_id : typing.Optional[str]
 
         product_id : typing.Optional[str]
@@ -87,6 +91,7 @@ class InvoicesClient:
         created_before : typing.Optional[dt.datetime]
 
         order : typing.Optional[ListInvoicesRequestOrder]
+            Field to sort by. Sorting by `due_at` or `scheduled_send_at` puts invoices without that date last in both directions.
 
         direction : typing.Optional[ListInvoicesRequestDirection]
 
@@ -133,6 +138,7 @@ class InvoicesClient:
             account_id=account_id,
             status=status,
             overdue=overdue,
+            scheduled=scheduled,
             member_id=member_id,
             product_id=product_id,
             created_after=created_after,
@@ -737,6 +743,7 @@ class AsyncInvoicesClient:
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListInvoicesRequestStatus] = None,
         overdue: typing.Optional[bool] = None,
+        scheduled: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
@@ -761,6 +768,9 @@ class AsyncInvoicesClient:
 
         overdue : typing.Optional[bool]
 
+        scheduled : typing.Optional[bool]
+            Set to `true` for drafts with a scheduled send, which are the invoices with a `scheduled_send_at`. Set to `false` for every other invoice. Only a `draft` can be scheduled. An `open` invoice is not scheduled, even with a `scheduled_charge_at`. A draft that sends on its due date (`sends_on_due_date`) is not scheduled. Omit to include both.
+
         member_id : typing.Optional[str]
 
         product_id : typing.Optional[str]
@@ -770,6 +780,7 @@ class AsyncInvoicesClient:
         created_before : typing.Optional[dt.datetime]
 
         order : typing.Optional[ListInvoicesRequestOrder]
+            Field to sort by. Sorting by `due_at` or `scheduled_send_at` puts invoices without that date last in both directions.
 
         direction : typing.Optional[ListInvoicesRequestDirection]
 
@@ -825,6 +836,7 @@ class AsyncInvoicesClient:
             account_id=account_id,
             status=status,
             overdue=overdue,
+            scheduled=scheduled,
             member_id=member_id,
             product_id=product_id,
             created_after=created_after,
