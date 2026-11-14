@@ -28,9 +28,14 @@ class Payment(UniversalBaseModel):
     The account that received the payment, prefixed `biz_`.
     """
 
-    amount_after_fees: Money = pydantic.Field()
+    amount_after_fees: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    What the account keeps: the total less Whop's fees.
+    What the account keeps: the total less Whop's fees. Null when you read the payment as its buyer.
+    """
+
+    amount_charged: Money = pydantic.Field()
+    """
+    What the buyer is charged for this payment: the total plus any buyer fees, in the currency the buyer pays in. Refunds do not reduce it; `presentment_refunded_amount` states them in the same currency.
     """
 
     auto_capture_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -75,7 +80,7 @@ class Payment(UniversalBaseModel):
 
     client_secret: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The credential a buyer's surface presents to poll this payment, set its return URL and resume it when the bank asked the customer to authenticate. Only on payments created from a confirmation token or waiting on that authentication, and always null in list responses — retrieve the payment for it.
+    The credential a buyer's surface presents to poll this payment, set its return URL and resume it when the bank asked the customer to authenticate. Only on payments created from a confirmation token or waiting on that authentication, null when you read the payment as its buyer, and always null in list responses — retrieve the payment for it.
     """
 
     created_at: str = pydantic.Field()
@@ -131,7 +136,7 @@ class Payment(UniversalBaseModel):
 
     ip_address: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The buyer's IP address at checkout: the one Whop's fraud screening identified, otherwise the one Whop captured from the buyer's browser at checkout. Null when the buyer was not present at checkout, such as a subscription renewal or a charge made without the buyer present.
+    The buyer's IP address at checkout: the one Whop's fraud screening identified, otherwise the one Whop captured from the buyer's browser at checkout. Null when the buyer was not present at checkout, such as a subscription renewal or a charge made without the buyer present, or when you read the payment as its buyer.
     """
 
     last_payment_attempt_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -142,17 +147,17 @@ class Payment(UniversalBaseModel):
     line_items: typing.List[ReceiptLineItem]
     member_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The buyer's member record on the account, prefixed `mber_`. Null without the member:basic:read permission.
+    The buyer's member record on the account, prefixed `mber_`. Null without the member:basic:read permission, unless you are the buyer.
     """
 
     membership_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The membership this payment is billed against, prefixed `mem_`. Null for one-off purchases or without the member:basic:read permission.
+    The membership this payment is billed against, prefixed `mem_`. Null for one-off purchases, or without the member:basic:read permission unless you are the buyer.
     """
 
     metadata: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    Your own key-value data attached when the payment was created.
+    Your own key-value data attached when the payment was created. Null when you read the payment as its buyer.
     """
 
     missing_tracking: typing.Optional[bool] = pydantic.Field(default=None)
@@ -177,7 +182,7 @@ class Payment(UniversalBaseModel):
 
     payment_instrument: typing.Optional[PaymentInstrument] = pydantic.Field(default=None)
     """
-    The instrument shaped for display: a buyer-facing name, the standard icon set, and when it was a card, the card's brand, last four, issuer identification number, and the network transaction id the account uses for the card.
+    The instrument shaped for display: a buyer-facing name, the standard icon set, and when it was a card, the card's brand, last four, issuer identification number, and the network transaction id the account uses for the card. The network transaction id is null when you read the payment as its buyer.
     """
 
     payment_method_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -258,7 +263,7 @@ class Payment(UniversalBaseModel):
 
     risk_score: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Whop's published risk index from 0 (lowest) to 100 (highest), including enforced decision floors. This is not a fraud probability. Null when no score is available.
+    Whop's published risk index from 0 (lowest) to 100 (highest), including enforced decision floors. This is not a fraud probability. Null when no score is available or you read the payment as its buyer.
     """
 
     risk_signals: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
@@ -269,7 +274,7 @@ class Payment(UniversalBaseModel):
 
     settlement_time_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the portion not listed in `holds` posts to the account's available balance, at midnight UTC. The `financial_activity.funds_available` webhook's `posted_at` carries the same value when the settlement that clears it posts. Null until the payment is paid, and always null in list responses — retrieve the payment for it.
+    When the portion not listed in `holds` posts to the account's available balance, at midnight UTC. The `financial_activity.funds_available` webhook's `posted_at` carries the same value when the settlement that clears it posts. Null until the payment is paid or when you read the payment as its buyer, and always null in list responses — retrieve the payment for it.
     """
 
     shipment_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -319,7 +324,7 @@ class Payment(UniversalBaseModel):
 
     total: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The account-facing total: the price after discounts, plus any tax added on top. Excludes buyer fees, which the buyer pays above this amount — so this is not necessarily what the buyer's statement shows.
+    The account-facing total: the price after discounts, plus any tax added on top. Excludes buyer fees, which the buyer pays above this amount — so this is not necessarily what the buyer's statement shows; `amount_charged` is what the buyer is charged.
     """
 
     updated_at: str = pydantic.Field()
@@ -329,7 +334,7 @@ class Payment(UniversalBaseModel):
 
     usd_total: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The total converted to USD at the time of the charge, for reporting across currencies. Excludes the adaptive pricing FX markup, which the account does not keep.
+    The total converted to USD at the time of the charge, for reporting across currencies. Excludes the adaptive pricing FX markup, which the account does not keep. Null when you read the payment as its buyer.
     """
 
     user: typing.Optional[UserSummary] = pydantic.Field(default=None)
@@ -349,7 +354,7 @@ class Payment(UniversalBaseModel):
 
     verification_checks: typing.Optional[PaymentVerificationChecks] = pydantic.Field(default=None)
     """
-    The Address Verification Service (AVS), cardholder name, and Card Verification Value (CVV/CVC) results, or null when the processor returned none.
+    The Address Verification Service (AVS), cardholder name, and Card Verification Value (CVV/CVC) results, or null when the processor returned none or you read the payment as its buyer.
     """
 
     voidable: bool = pydantic.Field()
