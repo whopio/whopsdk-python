@@ -53,6 +53,18 @@ class Market(UniversalBaseModel):
     The most decimals an order's `size` can have on this market.
     """
 
+    volume24h: typing_extensions.Annotated[
+        typing.Optional[Money],
+        FieldMetadata(alias="volume_24h"),
+        pydantic.Field(
+            alias="volume_24h",
+            description="The value of the asset traded on all exchanges in the last 24 hours, in USD. For a tokenized stock, this counts trades of the token. `null` for a perpetual. `null` when the volume is not available.",
+        ),
+    ] = None
+    """
+    The value of the asset traded on all exchanges in the last 24 hours, in USD. For a tokenized stock, this counts trades of the token. `null` for a perpetual. `null` when the volume is not available.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
