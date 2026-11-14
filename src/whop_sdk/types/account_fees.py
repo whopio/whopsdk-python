@@ -167,7 +167,7 @@ class AccountFees(UniversalBaseModel):
 
     tax_calculation: AccountFee = pydantic.Field()
     """
-    Charged when tax is calculated on a payment.
+    Charged when Whop calculates tax on a payment and the account remits the tax itself. An account whose `tax_remitted_by` is `null` pays it on every taxed payment.
     """
 
     tax_service: AccountFee = pydantic.Field()
