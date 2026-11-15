@@ -493,7 +493,7 @@ class VariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
-        Updates a variant's pricing, billing interval, visibility, stock, and other settings.
+        Updates a variant's pricing, billing interval, visibility, stock, and other settings. While `unpaid_invoice_count` is above `0`, a change to the prices, billing period, trial, number of payments, currency or billing type returns a `400`.
 
         Parameters
         ----------
@@ -1205,7 +1205,7 @@ class AsyncVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
-        Updates a variant's pricing, billing interval, visibility, stock, and other settings.
+        Updates a variant's pricing, billing interval, visibility, stock, and other settings. While `unpaid_invoice_count` is above `0`, a change to the prices, billing period, trial, number of payments, currency or billing type returns a `400`.
 
         Parameters
         ----------

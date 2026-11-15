@@ -30,6 +30,7 @@ if typing.TYPE_CHECKING:
     from .list_invoices_request_direction import ListInvoicesRequestDirection
     from .list_invoices_request_order import ListInvoicesRequestOrder
     from .list_invoices_request_status import ListInvoicesRequestStatus
+    from .list_invoices_request_statuses_item import ListInvoicesRequestStatusesItem
     from .list_invoices_response import ListInvoicesResponse
     from .list_invoices_response_page_info import ListInvoicesResponsePageInfo
     from .post_invoice_created_payload import PostInvoiceCreatedPayload
@@ -84,6 +85,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListInvoicesRequestDirection": ".list_invoices_request_direction",
     "ListInvoicesRequestOrder": ".list_invoices_request_order",
     "ListInvoicesRequestStatus": ".list_invoices_request_status",
+    "ListInvoicesRequestStatusesItem": ".list_invoices_request_statuses_item",
     "ListInvoicesResponse": ".list_invoices_response",
     "ListInvoicesResponsePageInfo": ".list_invoices_response_page_info",
     "PostInvoiceCreatedPayload": ".post_invoice_created_payload",
@@ -154,6 +156,7 @@ __all__ = [
     "ListInvoicesRequestDirection",
     "ListInvoicesRequestOrder",
     "ListInvoicesRequestStatus",
+    "ListInvoicesRequestStatusesItem",
     "ListInvoicesResponse",
     "ListInvoicesResponsePageInfo",
     "PostInvoiceCreatedPayload",
