@@ -89,6 +89,11 @@ class CreatePaymentsRequestLineItemsItemVariant(UniversalBaseModel):
     Existing product ID belonging to the account, prefixed `prod_`. Mutually exclusive with `product`.
     """
 
+    redirect_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Where the customer is sent after paying for this variant. Must be a valid URL that is not another Whop checkout link.
+    """
+
     renewal_price: typing.Optional[float] = pydantic.Field(default=None)
     """
     Recurring price in the variant currency.

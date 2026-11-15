@@ -164,6 +164,11 @@ class Variant(UniversalBaseModel):
     URL where customers can purchase this variant directly.
     """
 
+    redirect_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Where the customer is sent after paying for this variant. `null` when none is set, or unless the actor has the `plan:basic:read` scope on the variant's account.
+    """
+
     release_method: VariantReleaseMethod = pydantic.Field()
     """
     Sales method for this variant.
