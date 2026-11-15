@@ -23,6 +23,11 @@ class InvoiceLineItem(UniversalBaseModel):
     Line item ID, prefixed `li_`. Null when the payment predates item snapshots and the item is read from the payment's variant.
     """
 
+    initial_price: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The part of `unit_amount` that is a recurring variant's one-time upfront fee, the variant's `initial_price`, charged on this invoice only. The rest of `unit_amount` is the first billing period. Null for one-time items, renewal invoices, items with no upfront fee, and items whose variant prices changed after the invoice was priced.
+    """
+
     label: typing.Optional[str] = pydantic.Field(default=None)
     """
     The item's name as shown at checkout (the product title, else the variant title).
