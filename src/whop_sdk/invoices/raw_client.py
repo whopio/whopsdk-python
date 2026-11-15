@@ -29,6 +29,7 @@ from .types.issue_invoices_request_collection_method import IssueInvoicesRequest
 from .types.list_invoices_request_direction import ListInvoicesRequestDirection
 from .types.list_invoices_request_order import ListInvoicesRequestOrder
 from .types.list_invoices_request_status import ListInvoicesRequestStatus
+from .types.list_invoices_request_statuses_item import ListInvoicesRequestStatusesItem
 from .types.list_invoices_response import ListInvoicesResponse
 from .types.send_invoices_request_collection_method import SendInvoicesRequestCollectionMethod
 from .types.update_invoices_request_billing_address import UpdateInvoicesRequestBillingAddress
@@ -49,10 +50,14 @@ class RawInvoicesClient:
         *,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListInvoicesRequestStatus] = None,
+        statuses: typing.Optional[
+            typing.Union[ListInvoicesRequestStatusesItem, typing.Sequence[ListInvoicesRequestStatusesItem]]
+        ] = None,
         overdue: typing.Optional[bool] = None,
         scheduled: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListInvoicesRequestOrder] = None,
@@ -73,6 +78,9 @@ class RawInvoicesClient:
 
         status : typing.Optional[ListInvoicesRequestStatus]
 
+        statuses : typing.Optional[typing.Union[ListInvoicesRequestStatusesItem, typing.Sequence[ListInvoicesRequestStatusesItem]]]
+            Only invoices in any of these statuses. Repeat the parameter to pass several. Combined with `status` when both are sent.
+
         overdue : typing.Optional[bool]
 
         scheduled : typing.Optional[bool]
@@ -81,6 +89,9 @@ class RawInvoicesClient:
         member_id : typing.Optional[str]
 
         product_id : typing.Optional[str]
+
+        variant_id : typing.Optional[str]
+            Only invoices that bill this variant, prefixed `plan_`. An invoice matches when the variant is any of its items.
 
         created_after : typing.Optional[dt.datetime]
 
@@ -121,10 +132,12 @@ class RawInvoicesClient:
             params={
                 "account_id": account_id,
                 "status": status,
+                "statuses": statuses,
                 "overdue": overdue,
                 "scheduled": scheduled,
                 "member_id": member_id,
                 "product_id": product_id,
+                "variant_id": variant_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "order": order,
@@ -155,10 +168,12 @@ class RawInvoicesClient:
                     _get_next = lambda: self.list(
                         account_id=account_id,
                         status=status,
+                        statuses=statuses,
                         overdue=overdue,
                         scheduled=scheduled,
                         member_id=member_id,
                         product_id=product_id,
+                        variant_id=variant_id,
                         created_after=created_after,
                         created_before=created_before,
                         order=order,
@@ -1393,10 +1408,14 @@ class AsyncRawInvoicesClient:
         *,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListInvoicesRequestStatus] = None,
+        statuses: typing.Optional[
+            typing.Union[ListInvoicesRequestStatusesItem, typing.Sequence[ListInvoicesRequestStatusesItem]]
+        ] = None,
         overdue: typing.Optional[bool] = None,
         scheduled: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListInvoicesRequestOrder] = None,
@@ -1417,6 +1436,9 @@ class AsyncRawInvoicesClient:
 
         status : typing.Optional[ListInvoicesRequestStatus]
 
+        statuses : typing.Optional[typing.Union[ListInvoicesRequestStatusesItem, typing.Sequence[ListInvoicesRequestStatusesItem]]]
+            Only invoices in any of these statuses. Repeat the parameter to pass several. Combined with `status` when both are sent.
+
         overdue : typing.Optional[bool]
 
         scheduled : typing.Optional[bool]
@@ -1425,6 +1447,9 @@ class AsyncRawInvoicesClient:
         member_id : typing.Optional[str]
 
         product_id : typing.Optional[str]
+
+        variant_id : typing.Optional[str]
+            Only invoices that bill this variant, prefixed `plan_`. An invoice matches when the variant is any of its items.
 
         created_after : typing.Optional[dt.datetime]
 
@@ -1465,10 +1490,12 @@ class AsyncRawInvoicesClient:
             params={
                 "account_id": account_id,
                 "status": status,
+                "statuses": statuses,
                 "overdue": overdue,
                 "scheduled": scheduled,
                 "member_id": member_id,
                 "product_id": product_id,
+                "variant_id": variant_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "order": order,
@@ -1501,10 +1528,12 @@ class AsyncRawInvoicesClient:
                         return await self.list(
                             account_id=account_id,
                             status=status,
+                            statuses=statuses,
                             overdue=overdue,
                             scheduled=scheduled,
                             member_id=member_id,
                             product_id=product_id,
+                            variant_id=variant_id,
                             created_after=created_after,
                             created_before=created_before,
                             order=order,

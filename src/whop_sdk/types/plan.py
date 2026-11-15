@@ -230,6 +230,11 @@ class Plan(UniversalBaseModel):
     Whether the variant has unlimited stock. When `true`, the `stock` field is ignored; waitlist variants always report `true`.
     """
 
+    unpaid_invoice_count: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Number of issued invoices for this variant that are not paid or void. While it is above `0`, you can't change the variant's prices, billing period, trial, number of payments, currency or billing type. `null` unless the actor has the `plan:basic:read` scope on the variant's account.
+    """
+
     updated_at: str = pydantic.Field()
     """
     When the variant was last updated, as an ISO 8601 timestamp.
