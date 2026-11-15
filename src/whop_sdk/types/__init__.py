@@ -584,13 +584,6 @@ if typing.TYPE_CHECKING:
     from .experiment_resource_reference import ExperimentResourceReference
     from .experiment_resource_reference_object import ExperimentResourceReferenceObject
     from .experiment_status import ExperimentStatus
-    from .experiment_targeting_rules_item import ExperimentTargetingRulesItem
-    from .experiment_targeting_rules_item_conditions_item import ExperimentTargetingRulesItemConditionsItem
-    from .experiment_targeting_rules_item_conditions_item_operator import (
-        ExperimentTargetingRulesItemConditionsItemOperator,
-    )
-    from .experiment_targeting_rules_item_conditions_item_type import ExperimentTargetingRulesItemConditionsItemType
-    from .experiment_targeting_rules_item_type import ExperimentTargetingRulesItemType
     from .experiment_variants_item import ExperimentVariantsItem
     from .export import Export
     from .export_resource import ExportResource
@@ -2197,11 +2190,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExperimentResourceReference": ".experiment_resource_reference",
     "ExperimentResourceReferenceObject": ".experiment_resource_reference_object",
     "ExperimentStatus": ".experiment_status",
-    "ExperimentTargetingRulesItem": ".experiment_targeting_rules_item",
-    "ExperimentTargetingRulesItemConditionsItem": ".experiment_targeting_rules_item_conditions_item",
-    "ExperimentTargetingRulesItemConditionsItemOperator": ".experiment_targeting_rules_item_conditions_item_operator",
-    "ExperimentTargetingRulesItemConditionsItemType": ".experiment_targeting_rules_item_conditions_item_type",
-    "ExperimentTargetingRulesItemType": ".experiment_targeting_rules_item_type",
     "ExperimentVariantsItem": ".experiment_variants_item",
     "Export": ".export",
     "ExportResource": ".export_resource",
@@ -3708,11 +3696,6 @@ __all__ = [
     "ExperimentResourceReference",
     "ExperimentResourceReferenceObject",
     "ExperimentStatus",
-    "ExperimentTargetingRulesItem",
-    "ExperimentTargetingRulesItemConditionsItem",
-    "ExperimentTargetingRulesItemConditionsItemOperator",
-    "ExperimentTargetingRulesItemConditionsItemType",
-    "ExperimentTargetingRulesItemType",
     "ExperimentVariantsItem",
     "Export",
     "ExportResource",

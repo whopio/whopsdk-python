@@ -8,17 +8,6 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .create_experiments_request_bucket_by import CreateExperimentsRequestBucketBy
     from .create_experiments_request_control import CreateExperimentsRequestControl
-    from .create_experiments_request_targeting_rules_item import CreateExperimentsRequestTargetingRulesItem
-    from .create_experiments_request_targeting_rules_item_conditions_item import (
-        CreateExperimentsRequestTargetingRulesItemConditionsItem,
-    )
-    from .create_experiments_request_targeting_rules_item_conditions_item_operator import (
-        CreateExperimentsRequestTargetingRulesItemConditionsItemOperator,
-    )
-    from .create_experiments_request_targeting_rules_item_conditions_item_type import (
-        CreateExperimentsRequestTargetingRulesItemConditionsItemType,
-    )
-    from .create_experiments_request_targeting_rules_item_type import CreateExperimentsRequestTargetingRulesItemType
     from .create_experiments_request_variants_item import CreateExperimentsRequestVariantsItem
     from .exposures_experiments_response import ExposuresExperimentsResponse
     from .list_experiments_request_direction import ListExperimentsRequestDirection
@@ -27,26 +16,10 @@ if typing.TYPE_CHECKING:
     from .list_experiments_response import ListExperimentsResponse
     from .list_experiments_response_page_info import ListExperimentsResponsePageInfo
     from .update_experiments_request_control import UpdateExperimentsRequestControl
-    from .update_experiments_request_targeting_rules_item import UpdateExperimentsRequestTargetingRulesItem
-    from .update_experiments_request_targeting_rules_item_conditions_item import (
-        UpdateExperimentsRequestTargetingRulesItemConditionsItem,
-    )
-    from .update_experiments_request_targeting_rules_item_conditions_item_operator import (
-        UpdateExperimentsRequestTargetingRulesItemConditionsItemOperator,
-    )
-    from .update_experiments_request_targeting_rules_item_conditions_item_type import (
-        UpdateExperimentsRequestTargetingRulesItemConditionsItemType,
-    )
-    from .update_experiments_request_targeting_rules_item_type import UpdateExperimentsRequestTargetingRulesItemType
     from .update_experiments_request_variants_item import UpdateExperimentsRequestVariantsItem
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateExperimentsRequestBucketBy": ".create_experiments_request_bucket_by",
     "CreateExperimentsRequestControl": ".create_experiments_request_control",
-    "CreateExperimentsRequestTargetingRulesItem": ".create_experiments_request_targeting_rules_item",
-    "CreateExperimentsRequestTargetingRulesItemConditionsItem": ".create_experiments_request_targeting_rules_item_conditions_item",
-    "CreateExperimentsRequestTargetingRulesItemConditionsItemOperator": ".create_experiments_request_targeting_rules_item_conditions_item_operator",
-    "CreateExperimentsRequestTargetingRulesItemConditionsItemType": ".create_experiments_request_targeting_rules_item_conditions_item_type",
-    "CreateExperimentsRequestTargetingRulesItemType": ".create_experiments_request_targeting_rules_item_type",
     "CreateExperimentsRequestVariantsItem": ".create_experiments_request_variants_item",
     "ExposuresExperimentsResponse": ".exposures_experiments_response",
     "ListExperimentsRequestDirection": ".list_experiments_request_direction",
@@ -55,11 +28,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListExperimentsResponse": ".list_experiments_response",
     "ListExperimentsResponsePageInfo": ".list_experiments_response_page_info",
     "UpdateExperimentsRequestControl": ".update_experiments_request_control",
-    "UpdateExperimentsRequestTargetingRulesItem": ".update_experiments_request_targeting_rules_item",
-    "UpdateExperimentsRequestTargetingRulesItemConditionsItem": ".update_experiments_request_targeting_rules_item_conditions_item",
-    "UpdateExperimentsRequestTargetingRulesItemConditionsItemOperator": ".update_experiments_request_targeting_rules_item_conditions_item_operator",
-    "UpdateExperimentsRequestTargetingRulesItemConditionsItemType": ".update_experiments_request_targeting_rules_item_conditions_item_type",
-    "UpdateExperimentsRequestTargetingRulesItemType": ".update_experiments_request_targeting_rules_item_type",
     "UpdateExperimentsRequestVariantsItem": ".update_experiments_request_variants_item",
 }
 
@@ -88,11 +56,6 @@ def __dir__():
 __all__ = [
     "CreateExperimentsRequestBucketBy",
     "CreateExperimentsRequestControl",
-    "CreateExperimentsRequestTargetingRulesItem",
-    "CreateExperimentsRequestTargetingRulesItemConditionsItem",
-    "CreateExperimentsRequestTargetingRulesItemConditionsItemOperator",
-    "CreateExperimentsRequestTargetingRulesItemConditionsItemType",
-    "CreateExperimentsRequestTargetingRulesItemType",
     "CreateExperimentsRequestVariantsItem",
     "ExposuresExperimentsResponse",
     "ListExperimentsRequestDirection",
@@ -101,10 +64,5 @@ __all__ = [
     "ListExperimentsResponse",
     "ListExperimentsResponsePageInfo",
     "UpdateExperimentsRequestControl",
-    "UpdateExperimentsRequestTargetingRulesItem",
-    "UpdateExperimentsRequestTargetingRulesItemConditionsItem",
-    "UpdateExperimentsRequestTargetingRulesItemConditionsItemOperator",
-    "UpdateExperimentsRequestTargetingRulesItemConditionsItemType",
-    "UpdateExperimentsRequestTargetingRulesItemType",
     "UpdateExperimentsRequestVariantsItem",
 ]

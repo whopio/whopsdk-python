@@ -11,7 +11,6 @@ from ..types.exposures_experiments_request_subject import ExposuresExperimentsRe
 from .raw_client import AsyncRawExperimentsClient, RawExperimentsClient
 from .types.create_experiments_request_bucket_by import CreateExperimentsRequestBucketBy
 from .types.create_experiments_request_control import CreateExperimentsRequestControl
-from .types.create_experiments_request_targeting_rules_item import CreateExperimentsRequestTargetingRulesItem
 from .types.create_experiments_request_variants_item import CreateExperimentsRequestVariantsItem
 from .types.exposures_experiments_response import ExposuresExperimentsResponse
 from .types.list_experiments_request_direction import ListExperimentsRequestDirection
@@ -19,7 +18,6 @@ from .types.list_experiments_request_order import ListExperimentsRequestOrder
 from .types.list_experiments_request_status import ListExperimentsRequestStatus
 from .types.list_experiments_response import ListExperimentsResponse
 from .types.update_experiments_request_control import UpdateExperimentsRequestControl
-from .types.update_experiments_request_targeting_rules_item import UpdateExperimentsRequestTargetingRulesItem
 from .types.update_experiments_request_variants_item import UpdateExperimentsRequestVariantsItem
 
 # this is used as the default value for optional parameters
@@ -131,12 +129,10 @@ class ExperimentsClient:
         flag_key: str,
         bucket_by: typing.Optional[CreateExperimentsRequestBucketBy] = OMIT,
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
-        feature_flag_only: typing.Optional[bool] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
-        targeting_rules: typing.Optional[typing.Sequence[CreateExperimentsRequestTargetingRulesItem]] = OMIT,
         variants: typing.Optional[typing.Sequence[CreateExperimentsRequestVariantsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
@@ -156,9 +152,6 @@ class ExperimentsClient:
 
         control : typing.Optional[CreateExperimentsRequestControl]
 
-        feature_flag_only : typing.Optional[bool]
-            When `true`, creates a binary feature flag rather than a full experiment. Feature flags expose the same evaluation API but do not collect metric results. Defaults to `false`.
-
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
 
@@ -170,9 +163,6 @@ class ExperimentsClient:
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
-
-        targeting_rules : typing.Optional[typing.Sequence[CreateExperimentsRequestTargetingRulesItem]]
-            Rules that determine which subjects qualify for the experiment.
 
         variants : typing.Optional[typing.Sequence[CreateExperimentsRequestVariantsItem]]
             Treatment arms to create. Users outside every arm form the implicit `control` group. Required unless `feature_flag_only` is `true`.
@@ -204,12 +194,10 @@ class ExperimentsClient:
             flag_key=flag_key,
             bucket_by=bucket_by,
             control=control,
-            feature_flag_only=feature_flag_only,
             hypothesis=hypothesis,
             metadata=metadata,
             name=name,
             related_resource=related_resource,
-            targeting_rules=targeting_rules,
             variants=variants,
             request_options=request_options,
         )
@@ -329,7 +317,6 @@ class ExperimentsClient:
         control: typing.Optional[UpdateExperimentsRequestControl] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
-        targeting_rules: typing.Optional[typing.Sequence[UpdateExperimentsRequestTargetingRulesItem]] = OMIT,
         variants: typing.Optional[typing.Sequence[UpdateExperimentsRequestVariantsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
@@ -351,9 +338,6 @@ class ExperimentsClient:
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
-
-        targeting_rules : typing.Optional[typing.Sequence[UpdateExperimentsRequestTargetingRulesItem]]
-            Replace the targeting rules with this set. Omit to leave unchanged.
 
         variants : typing.Optional[typing.Sequence[UpdateExperimentsRequestVariantsItem]]
             Grow treatment allocation. Pass every existing treatment with an equal-or-higher weight; append new names to add arms. Weights never decrease and arms are never removed. Omit to leave unchanged.
@@ -385,7 +369,6 @@ class ExperimentsClient:
             control=control,
             hypothesis=hypothesis,
             related_resource=related_resource,
-            targeting_rules=targeting_rules,
             variants=variants,
             request_options=request_options,
         )
@@ -396,7 +379,6 @@ class ExperimentsClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
-        duration_days: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
         """
@@ -409,9 +391,6 @@ class ExperimentsClient:
 
         account_id : typing.Optional[str]
             Owning account ID. Required when id is a flag key; optional for an expt_ ID.
-
-        duration_days : typing.Optional[int]
-            Reporting window length in days. Omit to use the default. This does not automatically end the experiment.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -434,9 +413,7 @@ class ExperimentsClient:
             id="id",
         )
         """
-        _response = self._raw_client.activate(
-            id, account_id=account_id, duration_days=duration_days, request_options=request_options
-        )
+        _response = self._raw_client.activate(id, account_id=account_id, request_options=request_options)
         return _response.data
 
     def end(
@@ -649,12 +626,10 @@ class AsyncExperimentsClient:
         flag_key: str,
         bucket_by: typing.Optional[CreateExperimentsRequestBucketBy] = OMIT,
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
-        feature_flag_only: typing.Optional[bool] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
-        targeting_rules: typing.Optional[typing.Sequence[CreateExperimentsRequestTargetingRulesItem]] = OMIT,
         variants: typing.Optional[typing.Sequence[CreateExperimentsRequestVariantsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
@@ -674,9 +649,6 @@ class AsyncExperimentsClient:
 
         control : typing.Optional[CreateExperimentsRequestControl]
 
-        feature_flag_only : typing.Optional[bool]
-            When `true`, creates a binary feature flag rather than a full experiment. Feature flags expose the same evaluation API but do not collect metric results. Defaults to `false`.
-
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
 
@@ -688,9 +660,6 @@ class AsyncExperimentsClient:
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
-
-        targeting_rules : typing.Optional[typing.Sequence[CreateExperimentsRequestTargetingRulesItem]]
-            Rules that determine which subjects qualify for the experiment.
 
         variants : typing.Optional[typing.Sequence[CreateExperimentsRequestVariantsItem]]
             Treatment arms to create. Users outside every arm form the implicit `control` group. Required unless `feature_flag_only` is `true`.
@@ -730,12 +699,10 @@ class AsyncExperimentsClient:
             flag_key=flag_key,
             bucket_by=bucket_by,
             control=control,
-            feature_flag_only=feature_flag_only,
             hypothesis=hypothesis,
             metadata=metadata,
             name=name,
             related_resource=related_resource,
-            targeting_rules=targeting_rules,
             variants=variants,
             request_options=request_options,
         )
@@ -871,7 +838,6 @@ class AsyncExperimentsClient:
         control: typing.Optional[UpdateExperimentsRequestControl] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
-        targeting_rules: typing.Optional[typing.Sequence[UpdateExperimentsRequestTargetingRulesItem]] = OMIT,
         variants: typing.Optional[typing.Sequence[UpdateExperimentsRequestVariantsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
@@ -893,9 +859,6 @@ class AsyncExperimentsClient:
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
-
-        targeting_rules : typing.Optional[typing.Sequence[UpdateExperimentsRequestTargetingRulesItem]]
-            Replace the targeting rules with this set. Omit to leave unchanged.
 
         variants : typing.Optional[typing.Sequence[UpdateExperimentsRequestVariantsItem]]
             Grow treatment allocation. Pass every existing treatment with an equal-or-higher weight; append new names to add arms. Weights never decrease and arms are never removed. Omit to leave unchanged.
@@ -935,7 +898,6 @@ class AsyncExperimentsClient:
             control=control,
             hypothesis=hypothesis,
             related_resource=related_resource,
-            targeting_rules=targeting_rules,
             variants=variants,
             request_options=request_options,
         )
@@ -946,7 +908,6 @@ class AsyncExperimentsClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
-        duration_days: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
         """
@@ -959,9 +920,6 @@ class AsyncExperimentsClient:
 
         account_id : typing.Optional[str]
             Owning account ID. Required when id is a flag key; optional for an expt_ ID.
-
-        duration_days : typing.Optional[int]
-            Reporting window length in days. Omit to use the default. This does not automatically end the experiment.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -992,9 +950,7 @@ class AsyncExperimentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.activate(
-            id, account_id=account_id, duration_days=duration_days, request_options=request_options
-        )
+        _response = await self._raw_client.activate(id, account_id=account_id, request_options=request_options)
         return _response.data
 
     async def end(
