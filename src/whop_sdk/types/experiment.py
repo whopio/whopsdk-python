@@ -8,7 +8,6 @@ from .experiment_bucket_by import ExperimentBucketBy
 from .experiment_control import ExperimentControl
 from .experiment_resource_reference import ExperimentResourceReference
 from .experiment_status import ExperimentStatus
-from .experiment_targeting_rules_item import ExperimentTargetingRulesItem
 from .experiment_variants_item import ExperimentVariantsItem
 
 
@@ -47,11 +46,6 @@ class Experiment(UniversalBaseModel):
     ended_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the experiment stopped collecting data, as an ISO 8601 timestamp. `null` while still running.
-    """
-
-    feature_flag_only: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    `true` when this was created as a feature flag rather than a full experiment. Feature flags share the same evaluation API but do not collect metric results.
     """
 
     findings: typing.Optional[str] = pydantic.Field(default=None)
@@ -97,11 +91,6 @@ class Experiment(UniversalBaseModel):
     status: ExperimentStatus = pydantic.Field()
     """
     Lifecycle state. `draft` — not yet live; `active` — currently running; `paused` — traffic paused; `ended` — concluded.
-    """
-
-    targeting_rules: typing.List[ExperimentTargetingRulesItem] = pydantic.Field()
-    """
-    Rules gating who is in the experiment at all. Conditions within a rule are AND-ed, rules are OR-ed, and `exclude` rules always win. Empty means everyone qualifies.
     """
 
     updated_at: typing.Optional[str] = None

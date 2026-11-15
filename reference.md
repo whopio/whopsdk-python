@@ -24144,14 +24144,6 @@ client.experiments.create(
 <dl>
 <dd>
 
-**feature_flag_only:** `typing.Optional[bool]` — When `true`, creates a binary feature flag rather than a full experiment. Feature flags expose the same evaluation API but do not collect metric results. Defaults to `false`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **hypothesis:** `typing.Optional[str]` — Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
     
 </dd>
@@ -24177,14 +24169,6 @@ client.experiments.create(
 <dd>
 
 **related_resource:** `typing.Optional[ExperimentResourceReference]` — Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**targeting_rules:** `typing.Optional[typing.List[CreateExperimentsRequestTargetingRulesItem]]` — Rules that determine which subjects qualify for the experiment.
     
 </dd>
 </dl>
@@ -24497,14 +24481,6 @@ client.experiments.update(
 <dl>
 <dd>
 
-**targeting_rules:** `typing.Optional[typing.List[UpdateExperimentsRequestTargetingRulesItem]]` — Replace the targeting rules with this set. Omit to leave unchanged.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **variants:** `typing.Optional[typing.List[UpdateExperimentsRequestVariantsItem]]` — Grow treatment allocation. Pass every existing treatment with an equal-or-higher weight; append new names to add arms. Weights never decrease and arms are never removed. Omit to leave unchanged.
     
 </dd>
@@ -24587,14 +24563,6 @@ client.experiments.activate(
 <dd>
 
 **account_id:** `typing.Optional[str]` — Owning account ID. Required when id is a flag key; optional for an expt_ ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**duration_days:** `typing.Optional[int]` — Reporting window length in days. Omit to use the default. This does not automatically end the experiment.
     
 </dd>
 </dl>
