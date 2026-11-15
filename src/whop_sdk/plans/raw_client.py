@@ -50,6 +50,7 @@ class RawPlansClient:
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        sku: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -76,6 +77,8 @@ class RawPlansClient:
         billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+
+        sku : typing.Optional[str]
 
         created_before : typing.Optional[str]
 
@@ -113,6 +116,7 @@ class RawPlansClient:
                 "visibilities": visibilities,
                 "billing_types": billing_types,
                 "product_ids": product_ids,
+                "sku": sku,
                 "created_before": created_before,
                 "created_after": created_after,
                 "first": first,
@@ -145,6 +149,7 @@ class RawPlansClient:
                         visibilities=visibilities,
                         billing_types=billing_types,
                         product_ids=product_ids,
+                        sku=sku,
                         created_before=created_before,
                         created_after=created_after,
                         first=first,
@@ -723,6 +728,7 @@ class AsyncRawPlansClient:
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        sku: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -749,6 +755,8 @@ class AsyncRawPlansClient:
         billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+
+        sku : typing.Optional[str]
 
         created_before : typing.Optional[str]
 
@@ -786,6 +794,7 @@ class AsyncRawPlansClient:
                 "visibilities": visibilities,
                 "billing_types": billing_types,
                 "product_ids": product_ids,
+                "sku": sku,
                 "created_before": created_before,
                 "created_after": created_after,
                 "first": first,
@@ -820,6 +829,7 @@ class AsyncRawPlansClient:
                             visibilities=visibilities,
                             billing_types=billing_types,
                             product_ids=product_ids,
+                            sku=sku,
                             created_before=created_before,
                             created_after=created_after,
                             first=first,
