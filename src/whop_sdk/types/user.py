@@ -73,6 +73,11 @@ class User(UniversalBaseModel):
     The user's email address. Populated only on the self view (retrieved with the reserved id `me`) for callers with email-read scope; `null` otherwise, or while the account has no confirmed email yet.
     """
 
+    followers_count: int = pydantic.Field()
+    """
+    The number of users who follow this user.
+    """
+
     id: str = pydantic.Field()
     """
     User ID, prefixed `user_`.
@@ -117,6 +122,11 @@ class User(UniversalBaseModel):
     verification: typing.Dict[str, typing.Any] = pydantic.Field()
     """
     Identity verification status for the user's `individual` (KYC) and `business` (KYB) profiles. Each is `null` until created, otherwise a `status` of `not_started`, `pending`, `approved`, or `rejected`.
+    """
+
+    verified_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the user received a verified badge, as an ISO 8601 timestamp. `null` when the user is not verified.
     """
 
     whop_partner_enabled_at: typing.Optional[str] = pydantic.Field(default=None)
