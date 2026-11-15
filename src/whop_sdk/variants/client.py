@@ -53,6 +53,7 @@ class VariantsClient:
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        sku: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         presentment_currency: typing.Optional[str] = None,
@@ -89,6 +90,9 @@ class VariantsClient:
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice variants are returned.
+
+        sku : typing.Optional[str]
+            Filter to only variants with this stock keeping unit. The match is on the full value and is not case-sensitive.
 
         created_before : typing.Optional[str]
             Only return variants created before this timestamp.
@@ -139,6 +143,7 @@ class VariantsClient:
             visibilities=["visible"],
             billing_types=["renewal"],
             product_ids=["prod_xxxxxxxxxxxxxx"],
+            sku="TEE-LARGE-BLUE",
             presentment_currency="auto",
             ip_address="203.0.113.7",
             presentment_country="JP",
@@ -157,6 +162,7 @@ class VariantsClient:
             visibilities=visibilities,
             billing_types=billing_types,
             product_ids=product_ids,
+            sku=sku,
             created_before=created_before,
             created_after=created_after,
             presentment_currency=presentment_currency,
@@ -724,6 +730,7 @@ class AsyncVariantsClient:
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        sku: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         presentment_currency: typing.Optional[str] = None,
@@ -760,6 +767,9 @@ class AsyncVariantsClient:
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice variants are returned.
+
+        sku : typing.Optional[str]
+            Filter to only variants with this stock keeping unit. The match is on the full value and is not case-sensitive.
 
         created_before : typing.Optional[str]
             Only return variants created before this timestamp.
@@ -815,6 +825,7 @@ class AsyncVariantsClient:
                 visibilities=["visible"],
                 billing_types=["renewal"],
                 product_ids=["prod_xxxxxxxxxxxxxx"],
+                sku="TEE-LARGE-BLUE",
                 presentment_currency="auto",
                 ip_address="203.0.113.7",
                 presentment_country="JP",
@@ -837,6 +848,7 @@ class AsyncVariantsClient:
             visibilities=visibilities,
             billing_types=billing_types,
             product_ids=product_ids,
+            sku=sku,
             created_before=created_before,
             created_after=created_after,
             presentment_currency=presentment_currency,

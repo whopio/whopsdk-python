@@ -39924,6 +39924,14 @@ client.plans.list()
 <dl>
 <dd>
 
+**sku:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **created_before:** `typing.Optional[str]` 
     
 </dd>
@@ -50193,6 +50201,7 @@ client.variants.list(
     product_ids=[
         "prod_xxxxxxxxxxxxxx"
     ],
+    sku="TEE-LARGE-BLUE",
     presentment_currency="auto",
     ip_address="203.0.113.7",
     presentment_country="JP",
@@ -50261,6 +50270,14 @@ client.variants.list(
 <dd>
 
 **product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice variants are returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sku:** `typing.Optional[str]` — Filter to only variants with this stock keeping unit. The match is on the full value and is not case-sensitive.
     
 </dd>
 </dl>
