@@ -6,12 +6,12 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_balance_token import AccountBalanceToken
 from .account_cards import AccountCards
-from .owner_level import OwnerLevel
 from .trading_account import TradingAccount
 from .user_balance import UserBalance
 from .user_balance_history import UserBalanceHistory
 from .user_banner import UserBanner
 from .user_earnings import UserEarnings
+from .user_level import UserLevel
 from .user_profile_picture import UserProfilePicture
 from .user_social_link import UserSocialLink
 
@@ -78,9 +78,9 @@ class User(UniversalBaseModel):
     User ID, prefixed `user_`.
     """
 
-    level: typing.Optional[OwnerLevel] = pydantic.Field(default=None)
+    level: typing.Optional[UserLevel] = pydantic.Field(default=None)
     """
-    The user's Whop Levels progress, counted across every account they own. Populated only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, and when none of their accounts are in Whop Levels.
+    The user's Whop Level, counted across every account they own. `applied_level` is public. The points and spend fields are populated only when you retrieve yourself with the reserved id `me` and have balance-read scope. `null` on lists, and when none of their accounts are in Whop Levels.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)
