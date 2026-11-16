@@ -32,7 +32,8 @@ class Partner(UniversalBaseModel):
 
     referring_partner: typing.Optional[UserSummary] = pydantic.Field(default=None)
     """
-    The user currently attributed as this user's primary referrer. Null when there is no active primary referral.
+    The user who referred this user. Deprecated: no longer populated. Always `null`.
+    DEPRECATED: No longer populated. Always null.
     """
 
     user: UserSummary = pydantic.Field()
