@@ -765,6 +765,8 @@ if typing.TYPE_CHECKING:
     from .list_app_builds_request_created_before import ListAppBuildsRequestCreatedBefore
     from .livestream import Livestream
     from .livestream_recording_status import LivestreamRecordingStatus
+    from .livestream_viewers_point import LivestreamViewersPoint
+    from .livestream_viewership import LivestreamViewership
     from .market import Market
     from .market_instrument_type import MarketInstrumentType
     from .marketplace_statuses import MarketplaceStatuses
@@ -2368,6 +2370,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAppBuildsRequestCreatedBefore": ".list_app_builds_request_created_before",
     "Livestream": ".livestream",
     "LivestreamRecordingStatus": ".livestream_recording_status",
+    "LivestreamViewersPoint": ".livestream_viewers_point",
+    "LivestreamViewership": ".livestream_viewership",
     "Market": ".market",
     "MarketInstrumentType": ".market_instrument_type",
     "MarketplaceStatuses": ".marketplace_statuses",
@@ -3875,6 +3879,8 @@ __all__ = [
     "ListAppBuildsRequestCreatedBefore",
     "Livestream",
     "LivestreamRecordingStatus",
+    "LivestreamViewersPoint",
+    "LivestreamViewership",
     "Market",
     "MarketInstrumentType",
     "MarketplaceStatuses",

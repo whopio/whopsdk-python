@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.livestream import Livestream
+from ..types.livestream_viewership import LivestreamViewership
 from .raw_client import AsyncRawLivestreamsClient, RawLivestreamsClient
 from .types.list_livestreams_response import ListLivestreamsResponse
 
@@ -215,6 +216,41 @@ class LivestreamsClient:
         )
         """
         _response = self._raw_client.unpin(id, request_options=request_options)
+        return _response.data
+
+    def retrieve_viewership(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LivestreamViewership:
+        """
+        Retrieves a livestream's viewership: peak, average, and unique viewers, total watch time, viewers for each minute, and how many members joined the account during it. Counts update while the livestream is live and settle about five minutes after it ends.
+
+        Parameters
+        ----------
+        id : str
+            Livestream ID, prefixed `lfeed_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LivestreamViewership
+            livestream viewership retrieved
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-14-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.livestreams.retrieve_viewership(
+            id="id",
+        )
+        """
+        _response = self._raw_client.retrieve_viewership(id, request_options=request_options)
         return _response.data
 
 
@@ -453,4 +489,47 @@ class AsyncLivestreamsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.unpin(id, request_options=request_options)
+        return _response.data
+
+    async def retrieve_viewership(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LivestreamViewership:
+        """
+        Retrieves a livestream's viewership: peak, average, and unique viewers, total watch time, viewers for each minute, and how many members joined the account during it. Counts update while the livestream is live and settle about five minutes after it ends.
+
+        Parameters
+        ----------
+        id : str
+            Livestream ID, prefixed `lfeed_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LivestreamViewership
+            livestream viewership retrieved
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-14-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.livestreams.retrieve_viewership(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.retrieve_viewership(id, request_options=request_options)
         return _response.data
