@@ -29777,7 +29777,7 @@ client.livestreams.list(
 <dl>
 <dd>
 
-**pinned:** `typing.Optional[bool]` — When `true`, only pinned livestreams, most recently pinned first. When `false`, only livestreams that are not pinned.
+**pinned:** `typing.Optional[bool]` — When `true`, only pinned livestreams, newest `pinned_at` first. When `false`, only livestreams that are not pinned.
     
 </dd>
 </dl>
@@ -29922,7 +29922,7 @@ client.livestreams.retrieve(
 <dl>
 <dd>
 
-Pins an ended livestream's recording so everyone in the experience sees it featured. Pinning it again keeps the original `pinned_at`.
+Pins an ended livestream's recording so everyone in the experience sees it featured, up to 3 per experience. Without `position`, a new pin goes first and an existing pin keeps its place. With `position`, the pin moves there and every pinned livestream in that experience gets a new `pinned_at` in the new order.
 </dd>
 </dl>
 </dd>
@@ -29964,6 +29964,22 @@ client.livestreams.pin(
 <dd>
 
 **id:** `str` — Livestream ID, prefixed `lfeed_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**experience_id:** `typing.Optional[str]` — ID of the livestreams experience that `position` counts in, prefixed `exp_`. Required with `position` when the livestream is in more than one experience.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**position:** `typing.Optional[int]` — Zero-based index in the experience's pinned livestreams after the change. Omit it to put a new pin first or keep an existing pin in place.
     
 </dd>
 </dl>
