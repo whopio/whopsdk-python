@@ -160,7 +160,7 @@ class RawLivestreamsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Livestream]:
         """
-        Retrieves a livestream by ID.
+        Retrieves a livestream by ID. Callers with the `livestream:moderate` permission also get its `recap`: the top moments AI picked from chat, and chat activity.
 
         Parameters
         ----------
@@ -655,7 +655,7 @@ class AsyncRawLivestreamsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Livestream]:
         """
-        Retrieves a livestream by ID.
+        Retrieves a livestream by ID. Callers with the `livestream:moderate` permission also get its `recap`: the top moments AI picked from chat, and chat activity.
 
         Parameters
         ----------
