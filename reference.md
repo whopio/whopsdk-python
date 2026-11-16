@@ -8268,7 +8268,7 @@ client.apps.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+**id:** `str` — App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
     
 </dd>
 </dl>
@@ -8341,7 +8341,7 @@ client.apps.delete(
 <dl>
 <dd>
 
-**id:** `str` — App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+**id:** `str` — App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
     
 </dd>
 </dl>
@@ -8414,7 +8414,7 @@ client.apps.update(
 <dl>
 <dd>
 
-**id:** `str` — App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+**id:** `str` — App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
     
 </dd>
 </dl>

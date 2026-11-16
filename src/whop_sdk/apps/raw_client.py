@@ -392,7 +392,7 @@ class RawAppsClient:
         Parameters
         ----------
         id : str
-            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -447,7 +447,7 @@ class RawAppsClient:
         Parameters
         ----------
         id : str
-            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -551,7 +551,7 @@ class RawAppsClient:
         Parameters
         ----------
         id : str
-            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
 
         app_store_description : typing.Optional[str]
             The detailed description shown on the app store's in-depth app view page.
@@ -1408,7 +1408,7 @@ class AsyncRawAppsClient:
         Parameters
         ----------
         id : str
-            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1463,7 +1463,7 @@ class AsyncRawAppsClient:
         Parameters
         ----------
         id : str
-            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1567,7 +1567,7 @@ class AsyncRawAppsClient:
         Parameters
         ----------
         id : str
-            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id; a custom hostname returns `404` when its assignment is inactive, the owning account is suspended, or the app is deleted.
+            App ID (prefixed `app_`). Retrieval also accepts the app's claimed route, an active verified custom hostname, or its proxy domain id. A custom hostname returns `404` when its assignment is inactive or the app or its owning account is deleted.
 
         app_store_description : typing.Optional[str]
             The detailed description shown on the app store's in-depth app view page.
