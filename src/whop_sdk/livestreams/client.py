@@ -9,6 +9,9 @@ from ..types.livestream import Livestream
 from .raw_client import AsyncRawLivestreamsClient, RawLivestreamsClient
 from .types.list_livestreams_response import ListLivestreamsResponse
 
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
+
 
 class LivestreamsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
@@ -46,7 +49,7 @@ class LivestreamsClient:
             ID of a livestreams experience, prefixed `exp_`.
 
         pinned : typing.Optional[bool]
-            When `true`, only pinned livestreams, most recently pinned first. When `false`, only livestreams that are not pinned.
+            When `true`, only pinned livestreams, newest `pinned_at` first. When `false`, only livestreams that are not pinned.
 
         recorded : typing.Optional[bool]
             When `true`, only ended livestreams that were recorded, including recordings still processing. `false` or omitted lists every livestream.
@@ -133,14 +136,27 @@ class LivestreamsClient:
         _response = self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
-    def pin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Livestream:
+    def pin(
+        self,
+        id: str,
+        *,
+        experience_id: typing.Optional[str] = OMIT,
+        position: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Livestream:
         """
-        Pins an ended livestream's recording so everyone in the experience sees it featured. Pinning it again keeps the original `pinned_at`.
+        Pins an ended livestream's recording so everyone in the experience sees it featured, up to 3 per experience. Without `position`, a new pin goes first and an existing pin keeps its place. With `position`, the pin moves there and every pinned livestream in that experience gets a new `pinned_at` in the new order.
 
         Parameters
         ----------
         id : str
             Livestream ID, prefixed `lfeed_`.
+
+        experience_id : typing.Optional[str]
+            ID of the livestreams experience that `position` counts in, prefixed `exp_`. Required with `position` when the livestream is in more than one experience.
+
+        position : typing.Optional[int]
+            Zero-based index in the experience's pinned livestreams after the change. Omit it to put a new pin first or keep an existing pin in place.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -163,7 +179,9 @@ class LivestreamsClient:
             id="id",
         )
         """
-        _response = self._raw_client.pin(id, request_options=request_options)
+        _response = self._raw_client.pin(
+            id, experience_id=experience_id, position=position, request_options=request_options
+        )
         return _response.data
 
     def unpin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Livestream:
@@ -236,7 +254,7 @@ class AsyncLivestreamsClient:
             ID of a livestreams experience, prefixed `exp_`.
 
         pinned : typing.Optional[bool]
-            When `true`, only pinned livestreams, most recently pinned first. When `false`, only livestreams that are not pinned.
+            When `true`, only pinned livestreams, newest `pinned_at` first. When `false`, only livestreams that are not pinned.
 
         recorded : typing.Optional[bool]
             When `true`, only ended livestreams that were recorded, including recordings still processing. `false` or omitted lists every livestream.
@@ -340,14 +358,27 @@ class AsyncLivestreamsClient:
         _response = await self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
-    async def pin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Livestream:
+    async def pin(
+        self,
+        id: str,
+        *,
+        experience_id: typing.Optional[str] = OMIT,
+        position: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Livestream:
         """
-        Pins an ended livestream's recording so everyone in the experience sees it featured. Pinning it again keeps the original `pinned_at`.
+        Pins an ended livestream's recording so everyone in the experience sees it featured, up to 3 per experience. Without `position`, a new pin goes first and an existing pin keeps its place. With `position`, the pin moves there and every pinned livestream in that experience gets a new `pinned_at` in the new order.
 
         Parameters
         ----------
         id : str
             Livestream ID, prefixed `lfeed_`.
+
+        experience_id : typing.Optional[str]
+            ID of the livestreams experience that `position` counts in, prefixed `exp_`. Required with `position` when the livestream is in more than one experience.
+
+        position : typing.Optional[int]
+            Zero-based index in the experience's pinned livestreams after the change. Omit it to put a new pin first or keep an existing pin in place.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -378,7 +409,9 @@ class AsyncLivestreamsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.pin(id, request_options=request_options)
+        _response = await self._raw_client.pin(
+            id, experience_id=experience_id, position=position, request_options=request_options
+        )
         return _response.data
 
     async def unpin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Livestream:
