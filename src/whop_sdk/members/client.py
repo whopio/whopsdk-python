@@ -114,7 +114,7 @@ class MembersClient:
             Only members who joined before this ISO 8601 timestamp.
 
         order : typing.Optional[ListMembersRequestOrder]
-            Sort field. `most_recent_action_at` and `last_activity_at` place members without one first when ascending and last when descending.
+            Sort field. `most_recent_action_at` and `last_activity_at` place members without one first when ascending and last when descending. `needs_reply` lists customers awaiting a support reply first, ordered by their latest qualifying message. Other members follow in last-activity order. Direction applies within each group. Requires `support_chat:read`.
 
         direction : typing.Optional[ListMembersRequestDirection]
             Sort direction.
@@ -460,7 +460,7 @@ class AsyncMembersClient:
             Only members who joined before this ISO 8601 timestamp.
 
         order : typing.Optional[ListMembersRequestOrder]
-            Sort field. `most_recent_action_at` and `last_activity_at` place members without one first when ascending and last when descending.
+            Sort field. `most_recent_action_at` and `last_activity_at` place members without one first when ascending and last when descending. `needs_reply` lists customers awaiting a support reply first, ordered by their latest qualifying message. Other members follow in last-activity order. Direction applies within each group. Requires `support_chat:read`.
 
         direction : typing.Optional[ListMembersRequestDirection]
             Sort direction.

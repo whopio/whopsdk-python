@@ -4,7 +4,13 @@ import typing
 
 ListMembersRequestOrder = typing.Union[
     typing.Literal[
-        "created_at", "joined_at", "last_accessed_at", "last_activity_at", "most_recent_action_at", "usd_total_spent"
+        "created_at",
+        "joined_at",
+        "last_accessed_at",
+        "last_activity_at",
+        "most_recent_action_at",
+        "usd_total_spent",
+        "needs_reply",
     ],
     typing.Any,
 ]
