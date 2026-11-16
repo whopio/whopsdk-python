@@ -36,7 +36,6 @@ if typing.TYPE_CHECKING:
     from .cashback_rules.client import AsyncCashbackRulesClient, CashbackRulesClient
     from .channel_members.client import AsyncChannelMembersClient, ChannelMembersClient
     from .channels.client import AsyncChannelsClient, ChannelsClient
-    from .chat_channels.client import AsyncChatChannelsClient, ChatChannelsClient
     from .checkout_configurations.client import AsyncCheckoutConfigurationsClient, CheckoutConfigurationsClient
     from .claim_links.client import AsyncClaimLinksClient, ClaimLinksClient
     from .company_token_transactions.client import AsyncCompanyTokenTransactionsClient, CompanyTokenTransactionsClient
@@ -49,8 +48,6 @@ if typing.TYPE_CHECKING:
     from .deposits.client import AsyncDepositsClient, DepositsClient
     from .dispute_alerts.client import AsyncDisputeAlertsClient, DisputeAlertsClient
     from .disputes.client import AsyncDisputesClient, DisputesClient
-    from .dm_channels.client import AsyncDmChannelsClient, DmChannelsClient
-    from .dm_members.client import AsyncDmMembersClient, DmMembersClient
     from .domains.client import AsyncDomainsClient, DomainsClient
     from .economic_intelligence.client import AsyncEconomicIntelligenceClient, EconomicIntelligenceClient
     from .email_addresses.client import AsyncEmailAddressesClient, EmailAddressesClient
@@ -102,7 +99,6 @@ if typing.TYPE_CHECKING:
     from .shipments.client import AsyncShipmentsClient, ShipmentsClient
     from .social_accounts.client import AsyncSocialAccountsClient, SocialAccountsClient
     from .stats.client import AsyncStatsClient, StatsClient
-    from .support_channels.client import AsyncSupportChannelsClient, SupportChannelsClient
     from .swaps.client import AsyncSwapsClient, SwapsClient
     from .team_members.client import AsyncTeamMembersClient, TeamMembersClient
     from .trades.client import AsyncTradesClient, TradesClient
@@ -228,7 +224,6 @@ class Whop:
         self._cashback_rules: typing.Optional[CashbackRulesClient] = None
         self._channel_members: typing.Optional[ChannelMembersClient] = None
         self._channels: typing.Optional[ChannelsClient] = None
-        self._chat_channels: typing.Optional[ChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[CheckoutConfigurationsClient] = None
         self._claim_links: typing.Optional[ClaimLinksClient] = None
         self._company_token_transactions: typing.Optional[CompanyTokenTransactionsClient] = None
@@ -241,8 +236,6 @@ class Whop:
         self._deposits: typing.Optional[DepositsClient] = None
         self._dispute_alerts: typing.Optional[DisputeAlertsClient] = None
         self._disputes: typing.Optional[DisputesClient] = None
-        self._dm_channels: typing.Optional[DmChannelsClient] = None
-        self._dm_members: typing.Optional[DmMembersClient] = None
         self._domains: typing.Optional[DomainsClient] = None
         self._economic_intelligence: typing.Optional[EconomicIntelligenceClient] = None
         self._email_addresses: typing.Optional[EmailAddressesClient] = None
@@ -294,7 +287,6 @@ class Whop:
         self._shipments: typing.Optional[ShipmentsClient] = None
         self._social_accounts: typing.Optional[SocialAccountsClient] = None
         self._stats: typing.Optional[StatsClient] = None
-        self._support_channels: typing.Optional[SupportChannelsClient] = None
         self._swaps: typing.Optional[SwapsClient] = None
         self._team_members: typing.Optional[TeamMembersClient] = None
         self._trades: typing.Optional[TradesClient] = None
@@ -514,14 +506,6 @@ class Whop:
         return self._channels
 
     @property
-    def chat_channels(self):
-        if self._chat_channels is None:
-            from .chat_channels.client import ChatChannelsClient  # noqa: E402
-
-            self._chat_channels = ChatChannelsClient(client_wrapper=self._client_wrapper)
-        return self._chat_channels
-
-    @property
     def checkout_configurations(self):
         if self._checkout_configurations is None:
             from .checkout_configurations.client import CheckoutConfigurationsClient  # noqa: E402
@@ -616,22 +600,6 @@ class Whop:
 
             self._disputes = DisputesClient(client_wrapper=self._client_wrapper)
         return self._disputes
-
-    @property
-    def dm_channels(self):
-        if self._dm_channels is None:
-            from .dm_channels.client import DmChannelsClient  # noqa: E402
-
-            self._dm_channels = DmChannelsClient(client_wrapper=self._client_wrapper)
-        return self._dm_channels
-
-    @property
-    def dm_members(self):
-        if self._dm_members is None:
-            from .dm_members.client import DmMembersClient  # noqa: E402
-
-            self._dm_members = DmMembersClient(client_wrapper=self._client_wrapper)
-        return self._dm_members
 
     @property
     def domains(self):
@@ -1042,14 +1010,6 @@ class Whop:
         return self._stats
 
     @property
-    def support_channels(self):
-        if self._support_channels is None:
-            from .support_channels.client import SupportChannelsClient  # noqa: E402
-
-            self._support_channels = SupportChannelsClient(client_wrapper=self._client_wrapper)
-        return self._support_channels
-
-    @property
     def swaps(self):
         if self._swaps is None:
             from .swaps.client import SwapsClient  # noqa: E402
@@ -1257,7 +1217,6 @@ class AsyncWhop:
         self._cashback_rules: typing.Optional[AsyncCashbackRulesClient] = None
         self._channel_members: typing.Optional[AsyncChannelMembersClient] = None
         self._channels: typing.Optional[AsyncChannelsClient] = None
-        self._chat_channels: typing.Optional[AsyncChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[AsyncCheckoutConfigurationsClient] = None
         self._claim_links: typing.Optional[AsyncClaimLinksClient] = None
         self._company_token_transactions: typing.Optional[AsyncCompanyTokenTransactionsClient] = None
@@ -1270,8 +1229,6 @@ class AsyncWhop:
         self._deposits: typing.Optional[AsyncDepositsClient] = None
         self._dispute_alerts: typing.Optional[AsyncDisputeAlertsClient] = None
         self._disputes: typing.Optional[AsyncDisputesClient] = None
-        self._dm_channels: typing.Optional[AsyncDmChannelsClient] = None
-        self._dm_members: typing.Optional[AsyncDmMembersClient] = None
         self._domains: typing.Optional[AsyncDomainsClient] = None
         self._economic_intelligence: typing.Optional[AsyncEconomicIntelligenceClient] = None
         self._email_addresses: typing.Optional[AsyncEmailAddressesClient] = None
@@ -1323,7 +1280,6 @@ class AsyncWhop:
         self._shipments: typing.Optional[AsyncShipmentsClient] = None
         self._social_accounts: typing.Optional[AsyncSocialAccountsClient] = None
         self._stats: typing.Optional[AsyncStatsClient] = None
-        self._support_channels: typing.Optional[AsyncSupportChannelsClient] = None
         self._swaps: typing.Optional[AsyncSwapsClient] = None
         self._team_members: typing.Optional[AsyncTeamMembersClient] = None
         self._trades: typing.Optional[AsyncTradesClient] = None
@@ -1543,14 +1499,6 @@ class AsyncWhop:
         return self._channels
 
     @property
-    def chat_channels(self):
-        if self._chat_channels is None:
-            from .chat_channels.client import AsyncChatChannelsClient  # noqa: E402
-
-            self._chat_channels = AsyncChatChannelsClient(client_wrapper=self._client_wrapper)
-        return self._chat_channels
-
-    @property
     def checkout_configurations(self):
         if self._checkout_configurations is None:
             from .checkout_configurations.client import AsyncCheckoutConfigurationsClient  # noqa: E402
@@ -1645,22 +1593,6 @@ class AsyncWhop:
 
             self._disputes = AsyncDisputesClient(client_wrapper=self._client_wrapper)
         return self._disputes
-
-    @property
-    def dm_channels(self):
-        if self._dm_channels is None:
-            from .dm_channels.client import AsyncDmChannelsClient  # noqa: E402
-
-            self._dm_channels = AsyncDmChannelsClient(client_wrapper=self._client_wrapper)
-        return self._dm_channels
-
-    @property
-    def dm_members(self):
-        if self._dm_members is None:
-            from .dm_members.client import AsyncDmMembersClient  # noqa: E402
-
-            self._dm_members = AsyncDmMembersClient(client_wrapper=self._client_wrapper)
-        return self._dm_members
 
     @property
     def domains(self):
@@ -2069,14 +2001,6 @@ class AsyncWhop:
 
             self._stats = AsyncStatsClient(client_wrapper=self._client_wrapper)
         return self._stats
-
-    @property
-    def support_channels(self):
-        if self._support_channels is None:
-            from .support_channels.client import AsyncSupportChannelsClient  # noqa: E402
-
-            self._support_channels = AsyncSupportChannelsClient(client_wrapper=self._client_wrapper)
-        return self._support_channels
 
     @property
     def swaps(self):
