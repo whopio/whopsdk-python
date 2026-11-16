@@ -82,6 +82,11 @@ class Invoice(UniversalBaseModel):
     status: InvoiceStatus
     subtotal: Money
     tax_amount: typing.Optional[Money] = None
+    time_zone: str = pydantic.Field()
+    """
+    The IANA time zone for the dates on the invoice's email and PDF, such as `America/New_York`. `UTC` unless one was set.
+    """
+
     total: Money
     totals_status: InvoiceTotalsStatus
     updated_at: str
