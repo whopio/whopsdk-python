@@ -80,6 +80,11 @@ class Invoice(UniversalBaseModel):
     """
 
     status: InvoiceStatus
+    subscription_starts_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp. Renewals count from this moment. `null` starts the period when the invoice is paid, and so does a time that has passed by then. An invoice with a start date skips its variants' free trial.
+    """
+
     subtotal: Money
     tax_amount: typing.Optional[Money] = None
     time_zone: str = pydantic.Field()

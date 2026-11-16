@@ -183,6 +183,7 @@ class InvoicesClient:
         payment_method_configuration: typing.Optional[CreateInvoicesRequestPaymentMethodConfiguration] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscription_starts_at: typing.Optional[dt.datetime] = OMIT,
         time_zone: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
@@ -233,6 +234,9 @@ class InvoicesClient:
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
+        subscription_starts_at : typing.Optional[dt.datetime]
+            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+
         time_zone : typing.Optional[str]
             The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
 
@@ -273,6 +277,7 @@ class InvoicesClient:
             payment_method_configuration=payment_method_configuration,
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
+            subscription_starts_at=subscription_starts_at,
             time_zone=time_zone,
             request_options=request_options,
         )
@@ -359,6 +364,7 @@ class InvoicesClient:
         payment_method_configuration: typing.Optional[UpdateInvoicesRequestPaymentMethodConfiguration] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscription_starts_at: typing.Optional[dt.datetime] = OMIT,
         time_zone: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
@@ -403,6 +409,9 @@ class InvoicesClient:
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
+        subscription_starts_at : typing.Optional[dt.datetime]
+            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+
         time_zone : typing.Optional[str]
             The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
 
@@ -440,6 +449,7 @@ class InvoicesClient:
             payment_method_configuration=payment_method_configuration,
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
+            subscription_starts_at=subscription_starts_at,
             time_zone=time_zone,
             request_options=request_options,
         )
@@ -903,6 +913,7 @@ class AsyncInvoicesClient:
         payment_method_configuration: typing.Optional[CreateInvoicesRequestPaymentMethodConfiguration] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscription_starts_at: typing.Optional[dt.datetime] = OMIT,
         time_zone: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
@@ -953,6 +964,9 @@ class AsyncInvoicesClient:
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
+        subscription_starts_at : typing.Optional[dt.datetime]
+            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+
         time_zone : typing.Optional[str]
             The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
 
@@ -1001,6 +1015,7 @@ class AsyncInvoicesClient:
             payment_method_configuration=payment_method_configuration,
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
+            subscription_starts_at=subscription_starts_at,
             time_zone=time_zone,
             request_options=request_options,
         )
@@ -1105,6 +1120,7 @@ class AsyncInvoicesClient:
         payment_method_configuration: typing.Optional[UpdateInvoicesRequestPaymentMethodConfiguration] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
+        subscription_starts_at: typing.Optional[dt.datetime] = OMIT,
         time_zone: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
@@ -1148,6 +1164,9 @@ class AsyncInvoicesClient:
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
+
+        subscription_starts_at : typing.Optional[dt.datetime]
+            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
 
         time_zone : typing.Optional[str]
             The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
@@ -1194,6 +1213,7 @@ class AsyncInvoicesClient:
             payment_method_configuration=payment_method_configuration,
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
+            subscription_starts_at=subscription_starts_at,
             time_zone=time_zone,
             request_options=request_options,
         )

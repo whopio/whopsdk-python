@@ -27534,6 +27534,14 @@ client.invoices.create(
 <dl>
 <dd>
 
+**subscription_starts_at:** `typing.Optional[datetime.datetime]` — When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **time_zone:** `typing.Optional[str]` — The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
     
 </dd>
@@ -27842,6 +27850,14 @@ client.invoices.update(
 <dd>
 
 **recipient_emails:** `typing.Optional[typing.List[str]]` — Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subscription_starts_at:** `typing.Optional[datetime.datetime]` — When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
     
 </dd>
 </dl>
