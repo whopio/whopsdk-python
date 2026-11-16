@@ -43,7 +43,7 @@ class UpdateVerificationsRequestBodyBusinessAddress(UniversalBaseModel):
 
     business_tax_identification_number: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The business ID number of the company, as appropriate for the company's country. Examples are an Employer Identification Number (EIN) in the US, a Business Number in Canada, or a Company Number in the UK.
+    The business ID number, as appropriate for the business's country. Examples are an Employer Identification Number (EIN) in the US, a Business Number in Canada, or a Company Number in the UK.
     """
 
     country: typing.Optional[str] = pydantic.Field(default=None)
@@ -80,7 +80,7 @@ class UpdateVerificationsRequestBodyBusinessAddress(UniversalBaseModel):
         default=None
     )
     """
-    Owners of the business, up to 10 per request. Once the company details, the company documents, and the owners are in and every new owner's documents were sent, Create Verification sends the business for review: in the request that completes it, as soon as the last owner's documents finish sending in the background, or when called again after Update Verification. Owners can still be added, changed, or removed while the review waits on them.
+    Owners of the business, up to 10 per request. Create Verification sends the business for review when the business details, business documents, and owners are in, and every new owner's documents are sent. It does this in the request that completes the set. It also does this when the last owner's documents finish sending in the background, or when you call it again after Update Verification. Owners can still be added, changed, or removed while the review waits on them.
     """
 
     place_of_incorporation: typing.Optional[str] = pydantic.Field(default=None)

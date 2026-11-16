@@ -9,7 +9,7 @@ from .create_methods_request_recipient_address import CreateMethodsRequestRecipi
 
 class CreateMethodsRequestRecipient(UniversalBaseModel):
     """
-    Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+    Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, Whop account, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
     """
 
     address: typing.Optional[CreateMethodsRequestRecipientAddress] = pydantic.Field(default=None)

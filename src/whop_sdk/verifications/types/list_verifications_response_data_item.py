@@ -94,7 +94,7 @@ class ListVerificationsResponseDataItem(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    What Whop still needs before review can continue — one requirement per entry. Answer with Update Verification; nothing from the response is echoed back. Keys that don't apply are omitted. For a business verification created with `documents` or `owners`, this includes the company details and documents still missing before it can be sent for review; each owner's documents are listed under that owner.
+    What Whop still needs before review can continue, with one requirement per entry. Answer with Update Verification. Nothing from the response is echoed back. Keys that don't apply are omitted. For a business verification created with `documents` or `owners`, this includes the business details and documents still missing before it can be sent for review. Each owner's documents are listed under that owner.
     """
 
     required_documents: typing.Optional[typing.List[ListVerificationsResponseDataItemRequiredDocumentsItem]] = (

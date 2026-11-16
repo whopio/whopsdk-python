@@ -95,7 +95,7 @@ class SetupIntent(UniversalBaseModel):
 
     user: typing.Optional[UserSummary] = pydantic.Field(default=None)
     """
-    The user saving the payment method. Null when the buyer is a company rather than a user.
+    The user saving the payment method. Null when the buyer is an account rather than a user.
     """
 
     if IS_PYDANTIC_V2:

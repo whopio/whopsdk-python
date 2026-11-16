@@ -34,7 +34,7 @@ class LedgerActivitySource(UniversalBaseModel):
 
     claim_url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The airdrop's claim URL. Null unless the caller can manage claim links on the funding company or withdraw from the funding personal balance.
+    The airdrop's claim URL. Null unless the caller can manage claim links on the funding account or withdraw from the funding personal balance.
     """
 
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)

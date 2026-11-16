@@ -481,7 +481,7 @@ class RawAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AccountSearchResult, SearchAccountsResponse]:
         """
-        Finds accounts by name among the accounts the credential can list. Support searches cover every company and return only the 50 best matches.
+        Finds accounts by name among the accounts the credential can list. Support searches cover every account and return only the 50 best matches.
 
         Parameters
         ----------
@@ -2023,7 +2023,7 @@ class AsyncRawAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AccountSearchResult, SearchAccountsResponse]:
         """
-        Finds accounts by name among the accounts the credential can list. Support searches cover every company and return only the 50 best matches.
+        Finds accounts by name among the accounts the credential can list. Support searches cover every account and return only the 50 best matches.
 
         Parameters
         ----------

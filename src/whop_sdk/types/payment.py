@@ -258,7 +258,7 @@ class Payment(UniversalBaseModel):
 
     retryable: bool = pydantic.Field()
     """
-    True when the payment is `open` and can be retried by hand with `POST /payments/{id}/retry`: its membership is `active`, `trialing`, or `past_due` (or it is a failed first payment on a `drafted` membership), it is not paid through an invoice payment link, and its one manual retry is not used up. A retry can still be refused when the company cannot currently accept payments.
+    True when the payment can be retried by hand with `POST /payments/{id}/retry`. The payment must be `open` and not paid through an invoice payment link. Its membership must be `active`, `trialing`, or `past_due`, or the payment must be a failed first payment on a `drafted` membership. Its one manual retry must not be used up. A retry can still be refused when the account cannot currently accept payments.
     """
 
     risk_score: typing.Optional[float] = pydantic.Field(default=None)
@@ -339,7 +339,7 @@ class Payment(UniversalBaseModel):
 
     user: typing.Optional[UserSummary] = pydantic.Field(default=None)
     """
-    The buyer. Null when the payment belongs to a company buyer rather than a user.
+    The buyer. Null when the buyer is an account rather than a user.
     """
 
     user_agent: typing.Optional[str] = pydantic.Field(default=None)
