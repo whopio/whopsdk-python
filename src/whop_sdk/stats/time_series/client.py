@@ -257,7 +257,7 @@ class TimeSeriesClient:
             Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
 
         product_category : typing.Optional[str]
-            Filter to one product category, for example `algo_trading_course`. Pair with `breakdown_by=product_category` to split by product category. Available on metrics that list `product_category`.
+            Filter to one product category, for example `algo_trading_program`. Pair with `breakdown_by=product_category` to split by product category. Available on metrics that list `product_category`.
 
         account_country : typing.Optional[str]
             Filter to accounts located in one country, as an ISO 3166-1 alpha-2 code such as `US`. Pair with `breakdown_by=account_country` to split by account country. Available on metrics that list `account_country`.
@@ -735,7 +735,7 @@ class AsyncTimeSeriesClient:
             Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
 
         product_category : typing.Optional[str]
-            Filter to one product category, for example `algo_trading_course`. Pair with `breakdown_by=product_category` to split by product category. Available on metrics that list `product_category`.
+            Filter to one product category, for example `algo_trading_program`. Pair with `breakdown_by=product_category` to split by product category. Available on metrics that list `product_category`.
 
         account_country : typing.Optional[str]
             Filter to accounts located in one country, as an ISO 3166-1 alpha-2 code such as `US`. Pair with `breakdown_by=account_country` to split by account country. Available on metrics that list `account_country`.

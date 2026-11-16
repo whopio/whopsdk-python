@@ -108,7 +108,7 @@ class ReportsClient:
             Only counts payments to businesses in these comma-separated industry types, such as `options_trading`.
 
         product_category : typing.Optional[str]
-            Only counts payments for products in these comma-separated product categories, such as `algo_trading_course`.
+            Only counts payments for products in these comma-separated product categories, such as `algo_trading_program`.
 
         account_country : typing.Optional[str]
             Only counts payments to accounts located in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
@@ -269,7 +269,7 @@ class AsyncReportsClient:
             Only counts payments to businesses in these comma-separated industry types, such as `options_trading`.
 
         product_category : typing.Optional[str]
-            Only counts payments for products in these comma-separated product categories, such as `algo_trading_course`.
+            Only counts payments for products in these comma-separated product categories, such as `algo_trading_program`.
 
         account_country : typing.Optional[str]
             Only counts payments to accounts located in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
