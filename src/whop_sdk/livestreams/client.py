@@ -106,7 +106,7 @@ class LivestreamsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Livestream:
         """
-        Retrieves a livestream by ID.
+        Retrieves a livestream by ID. Callers with the `livestream:moderate` permission also get its `recap`: the top moments AI picked from chat, and chat activity.
 
         Parameters
         ----------
@@ -355,7 +355,7 @@ class AsyncLivestreamsClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Livestream:
         """
-        Retrieves a livestream by ID.
+        Retrieves a livestream by ID. Callers with the `livestream:moderate` permission also get its `recap`: the top moments AI picked from chat, and chat activity.
 
         Parameters
         ----------

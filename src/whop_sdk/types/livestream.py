@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .livestream_recap import LivestreamRecap
 from .livestream_recording_status import LivestreamRecordingStatus
 
 
@@ -26,6 +27,11 @@ class Livestream(UniversalBaseModel):
     pinned_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the recording was pinned or last moved, as an ISO 8601 timestamp. Pinned livestreams are ordered by it, newest first. `null` when not pinned.
+    """
+
+    recap: typing.Optional[LivestreamRecap] = pydantic.Field(default=None)
+    """
+    Top moments AI picked from chat, and chat activity. Only `retrieve` returns it, and only to callers with the `livestream:moderate` permission.
     """
 
     recording_started_at: typing.Optional[str] = pydantic.Field(default=None)

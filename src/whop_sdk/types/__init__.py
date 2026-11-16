@@ -764,6 +764,11 @@ if typing.TYPE_CHECKING:
     from .list_app_builds_request_created_after import ListAppBuildsRequestCreatedAfter
     from .list_app_builds_request_created_before import ListAppBuildsRequestCreatedBefore
     from .livestream import Livestream
+    from .livestream_recap import LivestreamRecap
+    from .livestream_recap_chat import LivestreamRecapChat
+    from .livestream_recap_message import LivestreamRecapMessage
+    from .livestream_recap_moment import LivestreamRecapMoment
+    from .livestream_recap_status import LivestreamRecapStatus
     from .livestream_recording_status import LivestreamRecordingStatus
     from .livestream_viewers_point import LivestreamViewersPoint
     from .livestream_viewership import LivestreamViewership
@@ -2369,6 +2374,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAppBuildsRequestCreatedAfter": ".list_app_builds_request_created_after",
     "ListAppBuildsRequestCreatedBefore": ".list_app_builds_request_created_before",
     "Livestream": ".livestream",
+    "LivestreamRecap": ".livestream_recap",
+    "LivestreamRecapChat": ".livestream_recap_chat",
+    "LivestreamRecapMessage": ".livestream_recap_message",
+    "LivestreamRecapMoment": ".livestream_recap_moment",
+    "LivestreamRecapStatus": ".livestream_recap_status",
     "LivestreamRecordingStatus": ".livestream_recording_status",
     "LivestreamViewersPoint": ".livestream_viewers_point",
     "LivestreamViewership": ".livestream_viewership",
@@ -3878,6 +3888,11 @@ __all__ = [
     "ListAppBuildsRequestCreatedAfter",
     "ListAppBuildsRequestCreatedBefore",
     "Livestream",
+    "LivestreamRecap",
+    "LivestreamRecapChat",
+    "LivestreamRecapMessage",
+    "LivestreamRecapMoment",
+    "LivestreamRecapStatus",
     "LivestreamRecordingStatus",
     "LivestreamViewersPoint",
     "LivestreamViewership",
