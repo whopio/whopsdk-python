@@ -94,6 +94,7 @@ CheckoutConfigurationCurrency = typing.Union[
         "awg",
         "whop_usd",
         "xau",
+        "hnl",
     ],
     typing.Any,
 ]

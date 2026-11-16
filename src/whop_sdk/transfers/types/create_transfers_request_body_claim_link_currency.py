@@ -88,6 +88,7 @@ CreateTransfersRequestBodyClaimLinkCurrency = typing.Union[
         "cny",
         "kzt",
         "awg",
+        "hnl",
     ],
     typing.Any,
 ]
