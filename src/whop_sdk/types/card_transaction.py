@@ -51,7 +51,7 @@ class CardTransaction(UniversalBaseModel):
 
     levels_points: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Whop Levels points this transaction earned for the business. Negative for a refund that takes them back. Null when it earns none: a transaction that hasn't settled or was declined.
+    Whop Levels points this transaction earned for the business. Negative for a refund that takes them back. For a pending transaction, the points it will earn once it settles. Null when it earns none, such as a declined transaction.
     """
 
     local_amount: typing.Optional[float] = pydantic.Field(default=None)
