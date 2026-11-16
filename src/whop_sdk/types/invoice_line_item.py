@@ -25,7 +25,7 @@ class InvoiceLineItem(UniversalBaseModel):
 
     initial_price: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The part of `unit_amount` that is a recurring variant's one-time upfront fee, the variant's `initial_price`, charged on this invoice only. The rest of `unit_amount` is the first billing period. Null for one-time items, renewal invoices, items with no upfront fee, and items whose variant prices changed after the invoice was priced.
+    The part of `unit_amount` that is a recurring variant's one-time upfront fee, the variant's `initial_price`, charged on this invoice only. The rest of `unit_amount` is the first billing period. A trial has no first-period charge. Null for one-time items, renewal invoices, items with no upfront fee, and items whose variant prices changed after the invoice was priced.
     """
 
     label: typing.Optional[str] = pydantic.Field(default=None)
@@ -53,9 +53,14 @@ class InvoiceLineItem(UniversalBaseModel):
     The tax collected on this item, in the payment's `currency`. Null when no tax was recorded.
     """
 
+    trial_period_days: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Free trial days before this recurring item's first renewal charge, from the variant's `trial_period_days`. The invoice then bills only the variant's `initial_price` for the item. `null` for one-time items and renewal invoices, and when the customer already had a subscription to the variant.
+    """
+
     unit_amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The saved price of one unit before discounts, in the payment's `currency`. Creating or replacing recurring items includes the upfront fee and first billing period. Renewal invoices exclude the upfront fee. Other edits preserve saved prices. Null when the payment recorded no price.
+    The saved price of one unit before discounts, in the payment's `currency`. Creating or replacing recurring items includes the upfront fee, plus the first billing period unless the item starts with a trial. Renewal invoices exclude the upfront fee. Other edits preserve saved prices. Null when the payment recorded no price.
     """
 
     variant_id: typing.Optional[str] = pydantic.Field(default=None)
