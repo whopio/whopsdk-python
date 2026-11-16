@@ -12,6 +12,7 @@ CreateDepositsResponseMethodsCryptoItemSupportedCurrenciesItemName = typing.Unio
         "HYPE",
         "PYUSD",
         "SOL",
+        "TRX",
         "USD1",
         "USDC",
         "USDC.e",

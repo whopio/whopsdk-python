@@ -7,6 +7,7 @@ CreateDepositsResponseMethodsCryptoItemName = typing.Union[
         "Ethereum",
         "Solana",
         "Bitcoin",
+        "Tron",
         "Base",
         "BNB Smart Chain",
         "Hyperliquid",
