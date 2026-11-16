@@ -622,7 +622,7 @@ client.accounts.me()
 <dl>
 <dd>
 
-Finds accounts by name among the accounts the credential can list. Support searches cover every company and return only the 50 best matches.
+Finds accounts by name among the accounts the credential can list. Support searches cover every account and return only the 50 best matches.
 </dd>
 </dl>
 </dd>
@@ -12923,7 +12923,7 @@ client.cards.create()
 <dl>
 <dd>
 
-**assigned_user_id:** `typing.Optional[str]` — The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts. When this call files the card application, the member applies with their identity; a company API key that sends neither this nor kind is refused.
+**assigned_user_id:** `typing.Optional[str]` — The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts. When this call files the card application, the member applies with their identity. An account API key that sends neither this nor kind is refused.
     
 </dd>
 </dl>
@@ -12931,7 +12931,7 @@ client.cards.create()
 <dl>
 <dd>
 
-**billing:** `typing.Optional[CreateCardsRequestBilling]` — The card's initial billing address. On a company card it also registers the assigned member as a cardholder if they are not one yet. For an individual card, region is also required.
+**billing:** `typing.Optional[CreateCardsRequestBilling]` — The card's initial billing address. On a business card it also registers the assigned member as a cardholder if they are not one yet. For an individual card, region is also required.
     
 </dd>
 </dl>
@@ -12939,7 +12939,7 @@ client.cards.create()
 <dl>
 <dd>
 
-**cardholder:** `typing.Optional[CreateCardsRequestCardholder]` — Details for a company card's assigned member when they are not registered as a cardholder yet. Send with billing to register them and start provisioning in one call instead of sending them an onboarding invitation. The legal name comes from the member's approved identity verification when they have one, and from these fields when they do not.
+**cardholder:** `typing.Optional[CreateCardsRequestCardholder]` — Details for a business card's assigned member when they are not registered as a cardholder yet. Send with billing to register them and start provisioning in one call instead of sending them an onboarding invitation. The legal name comes from the member's approved identity verification when they have one, and from these fields when they do not.
     
 </dd>
 </dl>
@@ -49345,7 +49345,7 @@ client.transfers.list_recipients(
 <dl>
 <dd>
 
-**origin_id:** `str` — The account sending the money: a company account ID (`biz_`), or a user ID (`user_`) for that user's own personal balance.
+**origin_id:** `str` — The account sending the money: an account ID (`biz_`), or a user ID (`user_`) for that user's own personal balance.
     
 </dd>
 </dl>
@@ -49353,7 +49353,7 @@ client.transfers.list_recipients(
 <dl>
 <dd>
 
-**query:** `typing.Optional[str]` — Search anyone on Whop by name or username, plus your own accounts by name or ID. An exact business ID (`biz_`), user ID (`user_`), or username returns that recipient first; an ID or an `@username` returns only that recipient. Omit it to get the team around the balance, the people you follow, and your own accounts. The list is the same whether the balance belongs to a company or to you. Searching from a `biz_` origin additionally requires the member:basic:read scope. A credential scoped to a single company is the exception to the search itself: it only ever sees that company's own people. Complete email addresses return no matches. Search results are limited to 20 recipients.
+**query:** `typing.Optional[str]` — Search anyone on Whop by name or username, plus your own accounts by name or ID. An exact account ID (`biz_`), user ID (`user_`), or username returns that recipient first. An ID or an `@username` returns only that recipient. Omit it to get the team around the balance, the people you follow, and your own accounts. The list is the same whether the balance belongs to an account or to you. Searching from a `biz_` origin additionally requires the member:basic:read scope. A credential scoped to a single account is the exception to the search itself: it only ever sees that account's own people. Complete email addresses return no matches. Search results are limited to 20 recipients.
     
 </dd>
 </dl>
@@ -51668,7 +51668,7 @@ client.verifications.retrieve(
 <dl>
 <dd>
 
-Updates editable profile details or submits answers for items returned in `requested_information`. On a business verification still collecting details, company details, `documents`, and `owners` also go to the verification provider; call Create Verification again to send the business for review once everything is in. Under review, `registration_number`, `incorporation_date`, `place_of_incorporation`, and `documents` are refused. While the review waits on owners, owners can still be added, changed, or removed with `remove`; otherwise only an owner's missing documents can still be sent. Once a verification is `approved` its profile details are locked and can no longer be edited.
+Updates editable profile details or submits answers for items returned in `requested_information`. On a business verification still collecting details, business details, `documents`, and `owners` also go to the verification provider. Call Create Verification again to send the business for review once everything is in. Under review, `registration_number`, `incorporation_date`, `place_of_incorporation`, and `documents` are refused. While the review waits on owners, owners can still be added, changed, or removed with `remove`. Otherwise, only an owner's missing documents can still be sent. Once a verification is `approved`, its profile details are locked and can no longer be edited.
 </dd>
 </dl>
 </dd>
@@ -57091,7 +57091,7 @@ client.payouts.methods.create(
 <dl>
 <dd>
 
-**recipient:** `typing.Optional[CreateMethodsRequestRecipient]` — Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+**recipient:** `typing.Optional[CreateMethodsRequestRecipient]` — Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, Whop account, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
     
 </dd>
 </dl>

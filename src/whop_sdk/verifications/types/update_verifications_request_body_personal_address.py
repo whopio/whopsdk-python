@@ -29,7 +29,7 @@ class UpdateVerificationsRequestBodyPersonalAddress(UniversalBaseModel):
 
     business_tax_identification_number: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The business ID number of the company, as appropriate for the company's country. Examples are an Employer Identification Number (EIN) in the US, a Business Number in Canada, or a Company Number in the UK.
+    The business ID number, as appropriate for the business's country. Examples are an Employer Identification Number (EIN) in the US, a Business Number in Canada, or a Company Number in the UK.
     """
 
     country: typing.Optional[str] = pydantic.Field(default=None)

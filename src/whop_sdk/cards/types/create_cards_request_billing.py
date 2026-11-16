@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class CreateCardsRequestBilling(UniversalBaseModel):
     """
-    The card's initial billing address. On a company card it also registers the assigned member as a cardholder if they are not one yet. For an individual card, region is also required.
+    The card's initial billing address. On a business card it also registers the assigned member as a cardholder if they are not one yet. For an individual card, region is also required.
     """
 
     city: str = pydantic.Field()
