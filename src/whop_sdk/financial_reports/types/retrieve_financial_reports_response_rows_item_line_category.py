@@ -123,6 +123,7 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "legacy_crypto_payment",
         "legacy_payment",
         "legacy_payment_refund",
+        "levels_points_action",
         "levels_points_ads",
         "levels_points_burned",
         "levels_points_card",
