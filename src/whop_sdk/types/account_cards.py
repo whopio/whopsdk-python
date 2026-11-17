@@ -12,7 +12,7 @@ from .account_cards_status import AccountCardsStatus
 class AccountCards(UniversalBaseModel):
     decline_reason: typing.Optional[AccountCardsDeclineReason] = pydantic.Field(default=None)
     """
-    Reason the card issuer declined the application. `compliance` covers sanctions, politically exposed person, and adverse media checks. `other` covers reasons that are not in this list. `null` when `status` is not `denied`, or when the issuer did not decline the application.
+    Reason the card issuer declined the application. `unsupported_state` replaces `unsupported_region` for a verified person or business in the United States. `compliance` covers sanctions, politically exposed person, and adverse media checks. `other` covers reasons that are not in this list. `null` when `status` is not `denied`, or when the issuer did not decline the application.
     """
 
     kind: typing.Optional[AccountCardsKind] = pydantic.Field(default=None)
