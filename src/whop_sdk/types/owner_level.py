@@ -4,8 +4,6 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .account_processing_offer_level import AccountProcessingOfferLevel
-from .money import Money
 from .owner_level_points import OwnerLevelPoints
 
 
@@ -13,27 +11,6 @@ class OwnerLevel(UniversalBaseModel):
     current: int = pydantic.Field()
     """
     The level that applies: the highest the owner reached this month or in the 5 months before, from `0` up to `10`.
-    """
-
-    levels: typing.List[AccountProcessingOfferLevel]
-    monthly_ads_spend: Money = pydantic.Field()
-    """
-    Whop Ads charges paid this calendar month across every account the owner owns, net of refunds, in USD, so it can be negative. An account whose month nets to zero or below is left out.
-    """
-
-    monthly_card_spend: Money = pydantic.Field()
-    """
-    Captured Whop Card spend this calendar month across every account the owner owns, net of refunds, in USD, so it can be negative. An account whose month nets to zero or below is left out.
-    """
-
-    monthly_qualifying_spend: Money = pydantic.Field()
-    """
-    Qualifying spend this calendar month across every account the owner owns, plus the owner's personal trading and partner points, in USD: `points` divided by 10.
-    """
-
-    monthly_trading_volume: Money = pydantic.Field()
-    """
-    Perpetual trading volume filled through Whop this calendar month across every account the owner owns and their personal wallet, in USD. An account whose month nets to zero or below is left out.
     """
 
     points: int = pydantic.Field()
@@ -44,11 +21,6 @@ class OwnerLevel(UniversalBaseModel):
     points_by_source: OwnerLevelPoints = pydantic.Field()
     """
     This month's points, split by where they were earned. Each source is net of its refunds, so one can be negative.
-    """
-
-    points_to_next: typing.Optional[int] = pydantic.Field(default=None)
-    """
-    Points still needed this month to reach the next level, or `null` at level `10`.
     """
 
     resets_at: str = pydantic.Field()

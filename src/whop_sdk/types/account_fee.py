@@ -71,7 +71,7 @@ class AccountFee(UniversalBaseModel):
 
     source: typing.Optional[AccountFeeSource] = pydantic.Field(default=None)
     """
-    Where the rate in effect comes from: `default` is the platform rate, `custom` a rate negotiated for this account, and `inherited` a rate negotiated by the platform this account is connected to. `null` when a subaccount's fees are read without access to its parent account.
+    Where the rate in effect comes from. `default` is the platform rate, `custom` a rate negotiated for this account, and `inherited` a rate negotiated by this account's platform. `null` when a subaccount's fees are read without access to its parent account.
     """
 
     unadjustable_reason: typing.Optional[AccountFeeUnadjustableReason] = pydantic.Field(default=None)

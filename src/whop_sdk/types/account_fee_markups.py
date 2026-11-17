@@ -8,6 +8,11 @@ from .account_fee_markup import AccountFeeMarkup
 
 
 class AccountFeeMarkups(UniversalBaseModel):
+    card_regions: typing.Dict[str, AccountFeeMarkup] = pydantic.Field()
+    """
+    Markups on card payments, keyed by acquiring region (`usa`, `eu`, `uk`, `ca`, or `au`). A region without its own markup uses `payment_methods.card`.
+    """
+
     card_spend: AccountFeeMarkup = pydantic.Field()
     """
     The markup on card purchases settled by the subaccount.
