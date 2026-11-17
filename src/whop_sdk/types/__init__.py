@@ -961,6 +961,8 @@ if typing.TYPE_CHECKING:
     from .payment_legacy_user import PaymentLegacyUser
     from .payment_legacy_verification_checks import PaymentLegacyVerificationChecks
     from .payment_levels_rebate import PaymentLevelsRebate
+    from .payment_levels_rebate_estimate import PaymentLevelsRebateEstimate
+    from .payment_levels_rebate_estimate_region import PaymentLevelsRebateEstimateRegion
     from .payment_levels_rebate_ineligible_reason import PaymentLevelsRebateIneligibleReason
     from .payment_levels_rebate_region import PaymentLevelsRebateRegion
     from .payment_levels_rebate_status import PaymentLevelsRebateStatus
@@ -2538,6 +2540,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentLegacyUser": ".payment_legacy_user",
     "PaymentLegacyVerificationChecks": ".payment_legacy_verification_checks",
     "PaymentLevelsRebate": ".payment_levels_rebate",
+    "PaymentLevelsRebateEstimate": ".payment_levels_rebate_estimate",
+    "PaymentLevelsRebateEstimateRegion": ".payment_levels_rebate_estimate_region",
     "PaymentLevelsRebateIneligibleReason": ".payment_levels_rebate_ineligible_reason",
     "PaymentLevelsRebateRegion": ".payment_levels_rebate_region",
     "PaymentLevelsRebateStatus": ".payment_levels_rebate_status",
@@ -4025,6 +4029,8 @@ __all__ = [
     "PaymentLegacyUser",
     "PaymentLegacyVerificationChecks",
     "PaymentLevelsRebate",
+    "PaymentLevelsRebateEstimate",
+    "PaymentLevelsRebateEstimateRegion",
     "PaymentLevelsRebateIneligibleReason",
     "PaymentLevelsRebateRegion",
     "PaymentLevelsRebateStatus",
