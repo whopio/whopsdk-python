@@ -46,6 +46,7 @@ class MessagesClient:
         replying_to_message_id: typing.Optional[str] = None,
         pinned: typing.Optional[bool] = None,
         include_deleted: typing.Optional[bool] = None,
+        include_replying_to_message: typing.Optional[bool] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         updated_after: typing.Optional[str] = None,
@@ -77,6 +78,9 @@ class MessagesClient:
 
         include_deleted : typing.Optional[bool]
             Include redacted deletion entries for cache synchronization.
+
+        include_replying_to_message : typing.Optional[bool]
+            Include the full replied-to message. Nested replies are not included.
 
         created_after : typing.Optional[str]
             Return messages created strictly after this ISO 8601 timestamp.
@@ -148,6 +152,7 @@ class MessagesClient:
             replying_to_message_id=replying_to_message_id,
             pinned=pinned,
             include_deleted=include_deleted,
+            include_replying_to_message=include_replying_to_message,
             created_after=created_after,
             created_before=created_before,
             updated_after=updated_after,
@@ -250,7 +255,13 @@ class MessagesClient:
         )
         return _response.data
 
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
+    def retrieve(
+        self,
+        id: str,
+        *,
+        include_replying_to_message: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ChatMessage:
         """
         Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
 
@@ -258,6 +269,9 @@ class MessagesClient:
         ----------
         id : str
             Existing public message ID.
+
+        include_replying_to_message : typing.Optional[bool]
+            Include the full replied-to message. Nested replies are not included.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -280,7 +294,9 @@ class MessagesClient:
             id="id",
         )
         """
-        _response = self._raw_client.retrieve(id, request_options=request_options)
+        _response = self._raw_client.retrieve(
+            id, include_replying_to_message=include_replying_to_message, request_options=request_options
+        )
         return _response.data
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
@@ -642,6 +658,7 @@ class AsyncMessagesClient:
         replying_to_message_id: typing.Optional[str] = None,
         pinned: typing.Optional[bool] = None,
         include_deleted: typing.Optional[bool] = None,
+        include_replying_to_message: typing.Optional[bool] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         updated_after: typing.Optional[str] = None,
@@ -673,6 +690,9 @@ class AsyncMessagesClient:
 
         include_deleted : typing.Optional[bool]
             Include redacted deletion entries for cache synchronization.
+
+        include_replying_to_message : typing.Optional[bool]
+            Include the full replied-to message. Nested replies are not included.
 
         created_after : typing.Optional[str]
             Return messages created strictly after this ISO 8601 timestamp.
@@ -753,6 +773,7 @@ class AsyncMessagesClient:
             replying_to_message_id=replying_to_message_id,
             pinned=pinned,
             include_deleted=include_deleted,
+            include_replying_to_message=include_replying_to_message,
             created_after=created_after,
             created_before=created_before,
             updated_after=updated_after,
@@ -863,7 +884,13 @@ class AsyncMessagesClient:
         )
         return _response.data
 
-    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChatMessage:
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        include_replying_to_message: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ChatMessage:
         """
         Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
 
@@ -871,6 +898,9 @@ class AsyncMessagesClient:
         ----------
         id : str
             Existing public message ID.
+
+        include_replying_to_message : typing.Optional[bool]
+            Include the full replied-to message. Nested replies are not included.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -901,7 +931,9 @@ class AsyncMessagesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.retrieve(id, request_options=request_options)
+        _response = await self._raw_client.retrieve(
+            id, include_replying_to_message=include_replying_to_message, request_options=request_options
+        )
         return _response.data
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:

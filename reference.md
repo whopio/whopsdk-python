@@ -31241,6 +31241,14 @@ client.messages.list(
 <dl>
 <dd>
 
+**include_replying_to_message:** `typing.Optional[bool]` — Include the full replied-to message. Nested replies are not included.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **created_after:** `typing.Optional[str]` — Return messages created strictly after this ISO 8601 timestamp.
     
 </dd>
@@ -31557,6 +31565,14 @@ client.messages.retrieve(
 <dd>
 
 **id:** `str` — Existing public message ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_replying_to_message:** `typing.Optional[bool]` — Include the full replied-to message. Nested replies are not included.
     
 </dd>
 </dl>
