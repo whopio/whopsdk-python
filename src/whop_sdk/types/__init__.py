@@ -28,6 +28,7 @@ if typing.TYPE_CHECKING:
     from .account_capabilities_standard_payout import AccountCapabilitiesStandardPayout
     from .account_capabilities_transfer import AccountCapabilitiesTransfer
     from .account_cards import AccountCards
+    from .account_cards_decline_reason import AccountCardsDeclineReason
     from .account_cards_kind import AccountCardsKind
     from .account_cards_status import AccountCardsStatus
     from .account_company_formation import AccountCompanyFormation
@@ -1628,6 +1629,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountCapabilitiesStandardPayout": ".account_capabilities_standard_payout",
     "AccountCapabilitiesTransfer": ".account_capabilities_transfer",
     "AccountCards": ".account_cards",
+    "AccountCardsDeclineReason": ".account_cards_decline_reason",
     "AccountCardsKind": ".account_cards_kind",
     "AccountCardsStatus": ".account_cards_status",
     "AccountCompanyFormation": ".account_company_formation",
@@ -3114,6 +3116,7 @@ __all__ = [
     "AccountCapabilitiesStandardPayout",
     "AccountCapabilitiesTransfer",
     "AccountCards",
+    "AccountCardsDeclineReason",
     "AccountCardsKind",
     "AccountCardsStatus",
     "AccountCompanyFormation",
