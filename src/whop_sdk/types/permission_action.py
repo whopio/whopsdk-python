@@ -271,6 +271,7 @@ PermissionAction = typing.Union[
         "webhook_receive:app_installations",
         "webhook_receive:app_memberships",
         "webhook_receive:app_payments",
+        "webhook_receive:capital",
         "webhook_receive:card_applications",
         "webhook_receive:card_transactions",
         "webhook_receive:cards",

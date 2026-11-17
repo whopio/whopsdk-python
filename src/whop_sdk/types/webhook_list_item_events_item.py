@@ -56,6 +56,8 @@ WebhookListItemEventsItem = typing.Union[
         "domain.created",
         "domain.updated",
         "domain.deleted",
+        "capital.created",
+        "capital.updated",
         "payout_method.created",
         "verification.succeeded",
         "identity_profile.approved",
