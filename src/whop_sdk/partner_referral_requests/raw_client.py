@@ -55,7 +55,7 @@ class RawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PartnerReferralRequest, ListPartnerReferralRequestsResponse]:
         """
-        Lists your referral links and attribution requests, including incoming requests for you or businesses you own, with filters for recipient, partner, type, and status.
+        Lists your referral links and attribution requests, including incoming requests for businesses you own, with filters for business, partner, type, and status.
 
         Parameters
         ----------
@@ -63,7 +63,7 @@ class RawPartnerReferralRequestsClient:
             Only requests for this business ID, prefixed `biz_`.
 
         target_user_id : typing.Optional[str]
-            Only requests received by this user ID, prefixed `user_`.
+            Deprecated: requests to a user have ended. Returns no requests.
 
         partner_id : typing.Optional[str]
             Only requests sent by this partner's user ID, prefixed `user_`.
@@ -218,7 +218,7 @@ class RawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PartnerReferralRequest]:
         """
-        Creates a referral link, or sends an attribution request to an existing business or user for approval. Links require an enrolled partner who is not suspended; attribution requests require an enrolled, verified partner. Recipients do not need to join the partner program.
+        Creates a referral link, or sends an attribution request to an existing business for approval. Links require an enrolled partner who is not suspended. Attribution requests require an enrolled, verified partner. Recipients do not need to join the partner program.
 
         Parameters
         ----------
@@ -683,7 +683,7 @@ class AsyncRawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PartnerReferralRequest, ListPartnerReferralRequestsResponse]:
         """
-        Lists your referral links and attribution requests, including incoming requests for you or businesses you own, with filters for recipient, partner, type, and status.
+        Lists your referral links and attribution requests, including incoming requests for businesses you own, with filters for business, partner, type, and status.
 
         Parameters
         ----------
@@ -691,7 +691,7 @@ class AsyncRawPartnerReferralRequestsClient:
             Only requests for this business ID, prefixed `biz_`.
 
         target_user_id : typing.Optional[str]
-            Only requests received by this user ID, prefixed `user_`.
+            Deprecated: requests to a user have ended. Returns no requests.
 
         partner_id : typing.Optional[str]
             Only requests sent by this partner's user ID, prefixed `user_`.
@@ -849,7 +849,7 @@ class AsyncRawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PartnerReferralRequest]:
         """
-        Creates a referral link, or sends an attribution request to an existing business or user for approval. Links require an enrolled partner who is not suspended; attribution requests require an enrolled, verified partner. Recipients do not need to join the partner program.
+        Creates a referral link, or sends an attribution request to an existing business for approval. Links require an enrolled partner who is not suspended. Attribution requests require an enrolled, verified partner. Recipients do not need to join the partner program.
 
         Parameters
         ----------

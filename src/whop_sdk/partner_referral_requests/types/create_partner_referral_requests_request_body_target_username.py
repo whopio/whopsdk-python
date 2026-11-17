@@ -19,7 +19,7 @@ class CreatePartnerReferralRequestsRequestBodyTargetUsername(UniversalBaseModel)
 
     target_username: str = pydantic.Field()
     """
-    Username of the user to request attribution for, with or without a leading @.
+    Deprecated: requests to a user have ended. The API rejects this field with a `400`.
     """
 
     if IS_PYDANTIC_V2:

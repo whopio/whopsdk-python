@@ -75,7 +75,8 @@ class PartnerReferralRequest(UniversalBaseModel):
 
     user: typing.Optional[UserSummary] = pydantic.Field(default=None)
     """
-    User receiving the attribution request, or null for a business request or referral link.
+    The user an attribution request was sent to. Deprecated: requests to a user have ended. Always `null`.
+    DEPRECATED: No longer populated. Always null.
     """
 
     if IS_PYDANTIC_V2:

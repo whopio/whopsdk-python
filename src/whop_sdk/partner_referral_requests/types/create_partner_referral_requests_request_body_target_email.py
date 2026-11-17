@@ -19,7 +19,7 @@ class CreatePartnerReferralRequestsRequestBodyTargetEmail(UniversalBaseModel):
 
     target_email: str = pydantic.Field()
     """
-    Email address on an existing user's account. Matching is case-insensitive. The user does not need to be enrolled in the partner program.
+    Deprecated: requests to a user have ended. The API rejects this field with a `400`.
     """
 
     if IS_PYDANTIC_V2:
