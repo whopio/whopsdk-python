@@ -11,6 +11,7 @@ PostAdCampaignUpdatedPayloadDataDeliveryStatus = typing.Union[
         "in_review",
         "learning",
         "processing",
+        "revise_content",
         "issues",
         "scheduled",
         "completed",
