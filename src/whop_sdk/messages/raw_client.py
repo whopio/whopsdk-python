@@ -47,6 +47,7 @@ class RawMessagesClient:
         replying_to_message_id: typing.Optional[str] = None,
         pinned: typing.Optional[bool] = None,
         include_deleted: typing.Optional[bool] = None,
+        include_replying_to_message: typing.Optional[bool] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         updated_after: typing.Optional[str] = None,
@@ -78,6 +79,9 @@ class RawMessagesClient:
 
         include_deleted : typing.Optional[bool]
             Include redacted deletion entries for cache synchronization.
+
+        include_replying_to_message : typing.Optional[bool]
+            Include the full replied-to message. Nested replies are not included.
 
         created_after : typing.Optional[str]
             Return messages created strictly after this ISO 8601 timestamp.
@@ -135,6 +139,7 @@ class RawMessagesClient:
                 "replying_to_message_id": replying_to_message_id,
                 "pinned": pinned,
                 "include_deleted": include_deleted,
+                "include_replying_to_message": include_replying_to_message,
                 "created_after": created_after,
                 "created_before": created_before,
                 "updated_after": updated_after,
@@ -171,6 +176,7 @@ class RawMessagesClient:
                         replying_to_message_id=replying_to_message_id,
                         pinned=pinned,
                         include_deleted=include_deleted,
+                        include_replying_to_message=include_replying_to_message,
                         created_after=created_after,
                         created_before=created_before,
                         updated_after=updated_after,
@@ -384,7 +390,11 @@ class RawMessagesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        include_replying_to_message: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ChatMessage]:
         """
         Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
@@ -393,6 +403,9 @@ class RawMessagesClient:
         ----------
         id : str
             Existing public message ID.
+
+        include_replying_to_message : typing.Optional[bool]
+            Include the full replied-to message. Nested replies are not included.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -406,6 +419,9 @@ class RawMessagesClient:
             f"messages/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "include_replying_to_message": include_replying_to_message,
+            },
             request_options=request_options,
         )
         try:
@@ -1067,6 +1083,7 @@ class AsyncRawMessagesClient:
         replying_to_message_id: typing.Optional[str] = None,
         pinned: typing.Optional[bool] = None,
         include_deleted: typing.Optional[bool] = None,
+        include_replying_to_message: typing.Optional[bool] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         updated_after: typing.Optional[str] = None,
@@ -1098,6 +1115,9 @@ class AsyncRawMessagesClient:
 
         include_deleted : typing.Optional[bool]
             Include redacted deletion entries for cache synchronization.
+
+        include_replying_to_message : typing.Optional[bool]
+            Include the full replied-to message. Nested replies are not included.
 
         created_after : typing.Optional[str]
             Return messages created strictly after this ISO 8601 timestamp.
@@ -1155,6 +1175,7 @@ class AsyncRawMessagesClient:
                 "replying_to_message_id": replying_to_message_id,
                 "pinned": pinned,
                 "include_deleted": include_deleted,
+                "include_replying_to_message": include_replying_to_message,
                 "created_after": created_after,
                 "created_before": created_before,
                 "updated_after": updated_after,
@@ -1193,6 +1214,7 @@ class AsyncRawMessagesClient:
                             replying_to_message_id=replying_to_message_id,
                             pinned=pinned,
                             include_deleted=include_deleted,
+                            include_replying_to_message=include_replying_to_message,
                             created_after=created_after,
                             created_before=created_before,
                             updated_after=updated_after,
@@ -1407,7 +1429,11 @@ class AsyncRawMessagesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        include_replying_to_message: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ChatMessage]:
         """
         Retrieves a live message from an accessible channel. Use list synchronization to retrieve deletion entries.
@@ -1416,6 +1442,9 @@ class AsyncRawMessagesClient:
         ----------
         id : str
             Existing public message ID.
+
+        include_replying_to_message : typing.Optional[bool]
+            Include the full replied-to message. Nested replies are not included.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1429,6 +1458,9 @@ class AsyncRawMessagesClient:
             f"messages/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "include_replying_to_message": include_replying_to_message,
+            },
             request_options=request_options,
         )
         try:
