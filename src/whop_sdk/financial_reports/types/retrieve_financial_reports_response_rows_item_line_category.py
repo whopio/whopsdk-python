@@ -302,6 +302,7 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "sales_tax_remittance",
         "sales_tax_remittance_reversal",
         "sales_tax_remitted",
+        "savings_revaluation",
         "settlement_rounding_variance",
         "settlement_shortfall_loss",
         "software_rental_revshare",
