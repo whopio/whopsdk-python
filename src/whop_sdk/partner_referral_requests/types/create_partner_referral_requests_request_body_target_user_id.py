@@ -19,7 +19,7 @@ class CreatePartnerReferralRequestsRequestBodyTargetUserId(UniversalBaseModel):
 
     target_user_id: str = pydantic.Field()
     """
-    User to request attribution for, prefixed `user_`.
+    Deprecated: requests to a user have ended. The API rejects this field with a `400`.
     """
 
     if IS_PYDANTIC_V2:
