@@ -4,11 +4,17 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_cards_decline_reason import AccountCardsDeclineReason
 from .account_cards_kind import AccountCardsKind
 from .account_cards_status import AccountCardsStatus
 
 
 class AccountCards(UniversalBaseModel):
+    decline_reason: typing.Optional[AccountCardsDeclineReason] = pydantic.Field(default=None)
+    """
+    Reason the card issuer declined the application. `compliance` covers sanctions, politically exposed person, and adverse media checks. `other` covers reasons that are not in this list. `null` when `status` is not `denied`, or when the issuer did not decline the application.
+    """
+
     kind: typing.Optional[AccountCardsKind] = pydantic.Field(default=None)
     """
     Whether the card application verifies a business (`business`, KYB) or a person (`individual`, consumer identity). `null` when the application is not yet linked to a verification.
