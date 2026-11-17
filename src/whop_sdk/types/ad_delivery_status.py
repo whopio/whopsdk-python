@@ -4,17 +4,14 @@ import typing
 
 AdDeliveryStatus = typing.Union[
     typing.Literal[
-        "in_appeal",
         "rejected",
         "in_review",
         "draft",
         "campaign_paused",
-        "ad_group_paused",
         "paused",
         "processing",
         "issues",
         "scheduled",
-        "learning_limited",
         "learning",
         "active",
     ],

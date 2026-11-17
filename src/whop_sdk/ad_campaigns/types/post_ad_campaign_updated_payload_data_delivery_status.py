@@ -5,12 +5,8 @@ import typing
 PostAdCampaignUpdatedPayloadDataDeliveryStatus = typing.Union[
     typing.Literal[
         "payment_failed",
-        "waiting_for_ein",
-        "in_appeal",
         "all_ads_rejected",
         "draft",
-        "no_ad_groups",
-        "no_ads",
         "paused",
         "in_review",
         "learning",
@@ -18,7 +14,6 @@ PostAdCampaignUpdatedPayloadDataDeliveryStatus = typing.Union[
         "issues",
         "scheduled",
         "completed",
-        "ad_groups_off",
         "active",
     ],
     typing.Any,
