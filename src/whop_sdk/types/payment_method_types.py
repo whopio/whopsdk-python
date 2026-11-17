@@ -103,6 +103,7 @@ PaymentMethodTypes = typing.Union[
         "payto_phone",
         "payto_bank_account",
         "pix",
+        "pix_automatico",
         "platform_balance",
         "promptpay",
         "qris",
