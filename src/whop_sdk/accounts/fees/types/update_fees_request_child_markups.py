@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .update_fees_request_child_markups_card_regions_value import UpdateFeesRequestChildMarkupsCardRegionsValue
 from .update_fees_request_child_markups_card_spend import UpdateFeesRequestChildMarkupsCardSpend
 from .update_fees_request_child_markups_crypto_swaps import UpdateFeesRequestChildMarkupsCryptoSwaps
 from .update_fees_request_child_markups_deposits_value import UpdateFeesRequestChildMarkupsDepositsValue
@@ -16,6 +17,13 @@ from .update_fees_request_child_markups_transfers import UpdateFeesRequestChildM
 class UpdateFeesRequestChildMarkups(UniversalBaseModel):
     """
     Default markups for subaccounts. Available on accounts without a parent, even before any accounts connect.
+    """
+
+    card_regions: typing.Optional[typing.Dict[str, typing.Optional[UpdateFeesRequestChildMarkupsCardRegionsValue]]] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Markups on card payments, keyed by acquiring region: `usa`, `eu`, `uk`, `ca`, or `au`. `null` clears a region's markup so it uses `payment_methods.card`.
     """
 
     card_spend: typing.Optional[UpdateFeesRequestChildMarkupsCardSpend] = pydantic.Field(default=None)
