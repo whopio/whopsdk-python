@@ -6,9 +6,15 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .ad_pixel_platform import AdPixelPlatform
 from .ad_pixel_status import AdPixelStatus
+from .storefront_account import StorefrontAccount
 
 
 class AdPixel(UniversalBaseModel):
+    account: StorefrontAccount = pydantic.Field()
+    """
+    The business whose claimed campaigns send conversions to this pixel, with its name and logo.
+    """
+
     account_id: str = pydantic.Field()
     """
     The business whose claimed campaigns send conversions to this pixel, prefixed `biz_`.
