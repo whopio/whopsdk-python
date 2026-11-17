@@ -11,6 +11,7 @@ PostAdGroupUpdatedPayloadDataDeliveryStatus = typing.Union[
         "paused",
         "in_review",
         "processing",
+        "revise_content",
         "issues",
         "scheduled",
         "completed",
