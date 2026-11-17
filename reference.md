@@ -28733,6 +28733,88 @@ client.livestreams.retrieve(
 </dl>
 </details>
 
+<details><summary><code>client.livestreams.<a href="src/whop_sdk/livestreams/client.py">add_co_host</a>(...) -> Livestream</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Makes someone in a live livestream a co-host until it ends. Co-hosts can change chat settings, manage the stage, and moderate chat, but can't end the livestream.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.livestreams.add_co_host(
+    id="id",
+    user_id="user_xxxxxxxxxxxxxx",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Livestream ID, prefixed `lfeed_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `str` — User ID, prefixed `user_`. The user needs access to the livestream.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.livestreams.<a href="src/whop_sdk/livestreams/client.py">pin</a>(...) -> Livestream</code></summary>
 <dl>
 <dd>
@@ -28803,6 +28885,88 @@ client.livestreams.pin(
 <dd>
 
 **position:** `typing.Optional[int]` — Zero-based index in the experience's pinned livestreams after the change. Omit it to put a new pin first or keep an existing pin in place.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.livestreams.<a href="src/whop_sdk/livestreams/client.py">remove_co_host</a>(...) -> Livestream</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes a co-host from a live livestream.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.livestreams.remove_co_host(
+    id="id",
+    user_id="user_xxxxxxxxxxxxxx",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Livestream ID, prefixed `lfeed_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `str` — User ID, prefixed `user_`.
     
 </dd>
 </dl>

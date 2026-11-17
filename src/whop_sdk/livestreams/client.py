@@ -137,6 +137,45 @@ class LivestreamsClient:
         _response = self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
+    def add_co_host(
+        self, id: str, *, user_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> Livestream:
+        """
+        Makes someone in a live livestream a co-host until it ends. Co-hosts can change chat settings, manage the stage, and moderate chat, but can't end the livestream.
+
+        Parameters
+        ----------
+        id : str
+            Livestream ID, prefixed `lfeed_`.
+
+        user_id : str
+            User ID, prefixed `user_`. The user needs access to the livestream.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Livestream
+            co-host added
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-16-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.livestreams.add_co_host(
+            id="id",
+            user_id="user_xxxxxxxxxxxxxx",
+        )
+        """
+        _response = self._raw_client.add_co_host(id, user_id=user_id, request_options=request_options)
+        return _response.data
+
     def pin(
         self,
         id: str,
@@ -183,6 +222,45 @@ class LivestreamsClient:
         _response = self._raw_client.pin(
             id, experience_id=experience_id, position=position, request_options=request_options
         )
+        return _response.data
+
+    def remove_co_host(
+        self, id: str, *, user_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> Livestream:
+        """
+        Removes a co-host from a live livestream.
+
+        Parameters
+        ----------
+        id : str
+            Livestream ID, prefixed `lfeed_`.
+
+        user_id : str
+            User ID, prefixed `user_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Livestream
+            co-host removed
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-16-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.livestreams.remove_co_host(
+            id="id",
+            user_id="user_xxxxxxxxxxxxxx",
+        )
+        """
+        _response = self._raw_client.remove_co_host(id, user_id=user_id, request_options=request_options)
         return _response.data
 
     def unpin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Livestream:
@@ -394,6 +472,53 @@ class AsyncLivestreamsClient:
         _response = await self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
+    async def add_co_host(
+        self, id: str, *, user_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> Livestream:
+        """
+        Makes someone in a live livestream a co-host until it ends. Co-hosts can change chat settings, manage the stage, and moderate chat, but can't end the livestream.
+
+        Parameters
+        ----------
+        id : str
+            Livestream ID, prefixed `lfeed_`.
+
+        user_id : str
+            User ID, prefixed `user_`. The user needs access to the livestream.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Livestream
+            co-host added
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-16-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.livestreams.add_co_host(
+                id="id",
+                user_id="user_xxxxxxxxxxxxxx",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.add_co_host(id, user_id=user_id, request_options=request_options)
+        return _response.data
+
     async def pin(
         self,
         id: str,
@@ -448,6 +573,53 @@ class AsyncLivestreamsClient:
         _response = await self._raw_client.pin(
             id, experience_id=experience_id, position=position, request_options=request_options
         )
+        return _response.data
+
+    async def remove_co_host(
+        self, id: str, *, user_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> Livestream:
+        """
+        Removes a co-host from a live livestream.
+
+        Parameters
+        ----------
+        id : str
+            Livestream ID, prefixed `lfeed_`.
+
+        user_id : str
+            User ID, prefixed `user_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Livestream
+            co-host removed
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-16-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.livestreams.remove_co_host(
+                id="id",
+                user_id="user_xxxxxxxxxxxxxx",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.remove_co_host(id, user_id=user_id, request_options=request_options)
         return _response.data
 
     async def unpin(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Livestream:

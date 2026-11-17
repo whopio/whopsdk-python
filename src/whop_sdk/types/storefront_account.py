@@ -19,7 +19,7 @@ class StorefrontAccount(UniversalBaseModel):
 
     route: str = pydantic.Field()
     """
-    Account public route identifier — the `whop.com/{route}` storefront path.
+    Account public route identifier, used in the `whop.com/{route}` storefront path.
     """
 
     title: str = pydantic.Field()
