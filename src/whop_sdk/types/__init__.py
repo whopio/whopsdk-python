@@ -78,6 +78,7 @@ if typing.TYPE_CHECKING:
     )
     from .account_payment_controls_undated_pending_reason import AccountPaymentControlsUndatedPendingReason
     from .account_preferences import AccountPreferences
+    from .account_preferences_merchant_of_record import AccountPreferencesMerchantOfRecord
     from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
     from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
     from .account_processing_offer_level import AccountProcessingOfferLevel
@@ -1679,6 +1680,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountPaymentControlsRestrictedPaymentMethodsItem": ".account_payment_controls_restricted_payment_methods_item",
     "AccountPaymentControlsUndatedPendingReason": ".account_payment_controls_undated_pending_reason",
     "AccountPreferences": ".account_preferences",
+    "AccountPreferencesMerchantOfRecord": ".account_preferences_merchant_of_record",
     "AccountPreferencesPreferredSettlementCurrency": ".account_preferences_preferred_settlement_currency",
     "AccountPreferencesSubscriptionFailureBehavior": ".account_preferences_subscription_failure_behavior",
     "AccountProcessingOfferLevel": ".account_processing_offer_level",
@@ -3168,6 +3170,7 @@ __all__ = [
     "AccountPaymentControlsRestrictedPaymentMethodsItem",
     "AccountPaymentControlsUndatedPendingReason",
     "AccountPreferences",
+    "AccountPreferencesMerchantOfRecord",
     "AccountPreferencesPreferredSettlementCurrency",
     "AccountPreferencesSubscriptionFailureBehavior",
     "AccountProcessingOfferLevel",

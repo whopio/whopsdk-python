@@ -52454,7 +52454,7 @@ Updates the account's preferences. Each top-level key in the body replaces its s
 The required scope depends on which preferences you update.
 
 - `ad_campaign:create`: `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`.
-- `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`.
+- `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
 - `payment:dispute`: `dispute_fighter_enabled`.
 - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
 - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
@@ -52613,6 +52613,14 @@ client.accounts.preferences.update(
 <dd>
 
 **feedback_options:** `typing.Optional[typing.List[UpdatePreferencesRequestFeedbackOptionsItem]]` — Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**merchant_of_record:** `typing.Optional[UpdatePreferencesRequestMerchantOfRecord]` — Set it to `account` to make the account the merchant of record. Only some business categories can switch. The business must be verified. The switch cannot be undone. The response shows `pending` until approval. Checkout takes no payments until then. After the switch, the account accepts only card, Apple Pay, Google Pay and crypto payments. PayPal, buy now pay later and local payment methods stop. Requires the `payout:account:update` scope on your API key.
     
 </dd>
 </dl>

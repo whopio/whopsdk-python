@@ -25,6 +25,7 @@ from .types.update_preferences_request_economic_intelligence_duration_key import
     UpdatePreferencesRequestEconomicIntelligenceDurationKey,
 )
 from .types.update_preferences_request_feedback_options_item import UpdatePreferencesRequestFeedbackOptionsItem
+from .types.update_preferences_request_merchant_of_record import UpdatePreferencesRequestMerchantOfRecord
 from .types.update_preferences_request_preferred_settlement_currency import (
     UpdatePreferencesRequestPreferredSettlementCurrency,
 )
@@ -128,6 +129,7 @@ class RawPreferencesClient:
         ] = OMIT,
         failed_payment_emails: typing.Optional[bool] = OMIT,
         feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
+        merchant_of_record: typing.Optional[UpdatePreferencesRequestMerchantOfRecord] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
         renewal_reminder_emails: typing.Optional[bool] = OMIT,
         review_request_emails: typing.Optional[bool] = OMIT,
@@ -142,7 +144,7 @@ class RawPreferencesClient:
         The required scope depends on which preferences you update.
 
         - `ad_campaign:create`: `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`.
-        - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`.
+        - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
         - `payment:dispute`: `dispute_fighter_enabled`.
         - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
@@ -195,6 +197,9 @@ class RawPreferencesClient:
 
         feedback_options : typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]]
             Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
+
+        merchant_of_record : typing.Optional[UpdatePreferencesRequestMerchantOfRecord]
+            Set it to `account` to make the account the merchant of record. Only some business categories can switch. The business must be verified. The switch cannot be undone. The response shows `pending` until approval. Checkout takes no payments until then. After the switch, the account accepts only card, Apple Pay, Google Pay and crypto payments. PayPal, buy now pay later and local payment methods stop. Requires the `payout:account:update` scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
@@ -255,6 +260,7 @@ class RawPreferencesClient:
                     annotation=typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem],
                     direction="write",
                 ),
+                "merchant_of_record": merchant_of_record,
                 "preferred_settlement_currency": preferred_settlement_currency,
                 "renewal_reminder_emails": renewal_reminder_emails,
                 "review_request_emails": review_request_emails,
@@ -422,6 +428,7 @@ class AsyncRawPreferencesClient:
         ] = OMIT,
         failed_payment_emails: typing.Optional[bool] = OMIT,
         feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
+        merchant_of_record: typing.Optional[UpdatePreferencesRequestMerchantOfRecord] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
         renewal_reminder_emails: typing.Optional[bool] = OMIT,
         review_request_emails: typing.Optional[bool] = OMIT,
@@ -436,7 +443,7 @@ class AsyncRawPreferencesClient:
         The required scope depends on which preferences you update.
 
         - `ad_campaign:create`: `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`.
-        - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`.
+        - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
         - `payment:dispute`: `dispute_fighter_enabled`.
         - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
@@ -489,6 +496,9 @@ class AsyncRawPreferencesClient:
 
         feedback_options : typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]]
             Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
+
+        merchant_of_record : typing.Optional[UpdatePreferencesRequestMerchantOfRecord]
+            Set it to `account` to make the account the merchant of record. Only some business categories can switch. The business must be verified. The switch cannot be undone. The response shows `pending` until approval. Checkout takes no payments until then. After the switch, the account accepts only card, Apple Pay, Google Pay and crypto payments. PayPal, buy now pay later and local payment methods stop. Requires the `payout:account:update` scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
@@ -549,6 +559,7 @@ class AsyncRawPreferencesClient:
                     annotation=typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem],
                     direction="write",
                 ),
+                "merchant_of_record": merchant_of_record,
                 "preferred_settlement_currency": preferred_settlement_currency,
                 "renewal_reminder_emails": renewal_reminder_emails,
                 "review_request_emails": review_request_emails,

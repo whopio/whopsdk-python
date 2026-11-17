@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
 from .account_economic_intelligence_previous_period import AccountEconomicIntelligencePreviousPeriod
+from .account_preferences_merchant_of_record import AccountPreferencesMerchantOfRecord
 from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
 from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
 from .customer_tracking_preferences import CustomerTrackingPreferences
@@ -107,6 +108,11 @@ class AccountPreferences(UniversalBaseModel):
     """
 
     feedback_options: typing.List[FeedbackOption]
+    merchant_of_record: typing.Optional[AccountPreferencesMerchantOfRecord] = pydantic.Field(default=None)
+    """
+    The merchant of record for the account's payments. `whop` means Whop is the merchant of record and the account can switch. `null` means Whop is the merchant of record and the account's business category cannot switch. `pending` means the account switched and waits for approval. Checkout takes no payments until then. `account` means the account is the merchant of record.
+    """
+
     preferred_settlement_currency: typing.Optional[AccountPreferencesPreferredSettlementCurrency] = pydantic.Field(
         default=None
     )
