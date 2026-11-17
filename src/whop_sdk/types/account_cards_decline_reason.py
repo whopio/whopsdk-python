@@ -4,7 +4,14 @@ import typing
 
 AccountCardsDeclineReason = typing.Union[
     typing.Literal[
-        "compromised_identity", "duplicate", "unsupported_region", "compliance", "fraud", "verification_failed", "other"
+        "compromised_identity",
+        "duplicate",
+        "unsupported_region",
+        "compliance",
+        "fraud",
+        "verification_failed",
+        "unsupported_state",
+        "other",
     ],
     typing.Any,
 ]
