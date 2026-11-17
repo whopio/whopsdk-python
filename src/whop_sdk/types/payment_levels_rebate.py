@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .money import Money
+from .payment_levels_rebate_estimate import PaymentLevelsRebateEstimate
 from .payment_levels_rebate_ineligible_reason import PaymentLevelsRebateIneligibleReason
 from .payment_levels_rebate_region import PaymentLevelsRebateRegion
 from .payment_levels_rebate_status import PaymentLevelsRebateStatus
@@ -24,6 +25,11 @@ class PaymentLevelsRebate(UniversalBaseModel):
     effective_rate_percentage: typing.Optional[float] = pydantic.Field(default=None)
     """
     Processing fee as a percentage of the amount it was charged on, before the rebate, where `2.7` means 2.7%. `null` unless `status` is `rebated`.
+    """
+
+    estimate: typing.Optional[PaymentLevelsRebateEstimate] = pydantic.Field(default=None)
+    """
+    Estimate of the payment's part of its account's monthly rebate, as if its month closed now. It uses the account's level so far and the share of the payment that its spend so far covers. Both can change until the month closes. `null` unless `status` is `pending` with the processing fee posted, and when estimates are unavailable.
     """
 
     ineligible_reason: typing.Optional[PaymentLevelsRebateIneligibleReason] = pydantic.Field(default=None)
