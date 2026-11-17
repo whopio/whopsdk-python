@@ -112,6 +112,7 @@ LedgerActivityLineType = typing.Union[
         "onchain_internal_transfer_incoming",
         "onchain_swap_source",
         "onchain_swap_target",
+        "savings_revaluation",
         "onchain_swap_offset",
         "whop_swap_fee_received",
         "swap_fee",

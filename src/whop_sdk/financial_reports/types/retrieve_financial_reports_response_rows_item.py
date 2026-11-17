@@ -25,7 +25,7 @@ class RetrieveFinancialReportsResponseRowsItem(UniversalBaseModel):
 
     line_category: RetrieveFinancialReportsResponseRowsItemLineCategory = pydantic.Field()
     """
-    The ledger line category the row aggregates. Balance summary rows carry the balance bucket instead.
+    The ledger line category the row aggregates. Balance summary rows carry the balance bucket instead. A `savings_revaluation` row is the change in the value of savings shares above one dollar each.
     """
 
     line_count: typing.Optional[int] = None
