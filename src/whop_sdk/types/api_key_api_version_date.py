@@ -109,6 +109,7 @@ ApiKeyApiVersionDate = typing.Union[
         "2026-11-14-1",
         "2026-11-16",
         "2026-11-16-1",
+        "2026-11-16-2",
     ],
     typing.Any,
 ]

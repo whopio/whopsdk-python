@@ -44,6 +44,7 @@ if typing.TYPE_CHECKING:
     from .retrieve_preferences_response_feedback_options_item_category import (
         RetrievePreferencesResponseFeedbackOptionsItemCategory,
     )
+    from .retrieve_preferences_response_merchant_of_record import RetrievePreferencesResponseMerchantOfRecord
     from .retrieve_preferences_response_preferred_settlement_currency import (
         RetrievePreferencesResponsePreferredSettlementCurrency,
     )
@@ -70,6 +71,7 @@ if typing.TYPE_CHECKING:
     from .update_preferences_request_feedback_options_item_category import (
         UpdatePreferencesRequestFeedbackOptionsItemCategory,
     )
+    from .update_preferences_request_merchant_of_record import UpdatePreferencesRequestMerchantOfRecord
     from .update_preferences_request_preferred_settlement_currency import (
         UpdatePreferencesRequestPreferredSettlementCurrency,
     )
@@ -112,6 +114,7 @@ if typing.TYPE_CHECKING:
     from .update_preferences_response_feedback_options_item_category import (
         UpdatePreferencesResponseFeedbackOptionsItemCategory,
     )
+    from .update_preferences_response_merchant_of_record import UpdatePreferencesResponseMerchantOfRecord
     from .update_preferences_response_preferred_settlement_currency import (
         UpdatePreferencesResponsePreferredSettlementCurrency,
     )
@@ -135,6 +138,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseEconomicIntelligencePreviousPeriod": ".retrieve_preferences_response_economic_intelligence_previous_period",
     "RetrievePreferencesResponseFeedbackOptionsItem": ".retrieve_preferences_response_feedback_options_item",
     "RetrievePreferencesResponseFeedbackOptionsItemCategory": ".retrieve_preferences_response_feedback_options_item_category",
+    "RetrievePreferencesResponseMerchantOfRecord": ".retrieve_preferences_response_merchant_of_record",
     "RetrievePreferencesResponsePreferredSettlementCurrency": ".retrieve_preferences_response_preferred_settlement_currency",
     "RetrievePreferencesResponseSubscriptionFailureBehavior": ".retrieve_preferences_response_subscription_failure_behavior",
     "UpdatePreferencesRequestAdsPaymentMethods": ".update_preferences_request_ads_payment_methods",
@@ -147,6 +151,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey": ".update_preferences_request_economic_intelligence_duration_key",
     "UpdatePreferencesRequestFeedbackOptionsItem": ".update_preferences_request_feedback_options_item",
     "UpdatePreferencesRequestFeedbackOptionsItemCategory": ".update_preferences_request_feedback_options_item_category",
+    "UpdatePreferencesRequestMerchantOfRecord": ".update_preferences_request_merchant_of_record",
     "UpdatePreferencesRequestPreferredSettlementCurrency": ".update_preferences_request_preferred_settlement_currency",
     "UpdatePreferencesRequestSubscriptionFailureBehavior": ".update_preferences_request_subscription_failure_behavior",
     "UpdatePreferencesResponse": ".update_preferences_response",
@@ -165,6 +170,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseEconomicIntelligencePreviousPeriod": ".update_preferences_response_economic_intelligence_previous_period",
     "UpdatePreferencesResponseFeedbackOptionsItem": ".update_preferences_response_feedback_options_item",
     "UpdatePreferencesResponseFeedbackOptionsItemCategory": ".update_preferences_response_feedback_options_item_category",
+    "UpdatePreferencesResponseMerchantOfRecord": ".update_preferences_response_merchant_of_record",
     "UpdatePreferencesResponsePreferredSettlementCurrency": ".update_preferences_response_preferred_settlement_currency",
     "UpdatePreferencesResponseSubscriptionFailureBehavior": ".update_preferences_response_subscription_failure_behavior",
 }
@@ -208,6 +214,7 @@ __all__ = [
     "RetrievePreferencesResponseEconomicIntelligencePreviousPeriod",
     "RetrievePreferencesResponseFeedbackOptionsItem",
     "RetrievePreferencesResponseFeedbackOptionsItemCategory",
+    "RetrievePreferencesResponseMerchantOfRecord",
     "RetrievePreferencesResponsePreferredSettlementCurrency",
     "RetrievePreferencesResponseSubscriptionFailureBehavior",
     "UpdatePreferencesRequestAdsPaymentMethods",
@@ -220,6 +227,7 @@ __all__ = [
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey",
     "UpdatePreferencesRequestFeedbackOptionsItem",
     "UpdatePreferencesRequestFeedbackOptionsItemCategory",
+    "UpdatePreferencesRequestMerchantOfRecord",
     "UpdatePreferencesRequestPreferredSettlementCurrency",
     "UpdatePreferencesRequestSubscriptionFailureBehavior",
     "UpdatePreferencesResponse",
@@ -238,6 +246,7 @@ __all__ = [
     "UpdatePreferencesResponseEconomicIntelligencePreviousPeriod",
     "UpdatePreferencesResponseFeedbackOptionsItem",
     "UpdatePreferencesResponseFeedbackOptionsItemCategory",
+    "UpdatePreferencesResponseMerchantOfRecord",
     "UpdatePreferencesResponsePreferredSettlementCurrency",
     "UpdatePreferencesResponseSubscriptionFailureBehavior",
 ]

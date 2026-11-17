@@ -17,6 +17,7 @@ from .retrieve_preferences_response_economic_intelligence_previous_period import
     RetrievePreferencesResponseEconomicIntelligencePreviousPeriod,
 )
 from .retrieve_preferences_response_feedback_options_item import RetrievePreferencesResponseFeedbackOptionsItem
+from .retrieve_preferences_response_merchant_of_record import RetrievePreferencesResponseMerchantOfRecord
 from .retrieve_preferences_response_preferred_settlement_currency import (
     RetrievePreferencesResponsePreferredSettlementCurrency,
 )
@@ -128,6 +129,11 @@ class RetrievePreferencesResponse(UniversalBaseModel):
     feedback_options: typing.List[RetrievePreferencesResponseFeedbackOptionsItem] = pydantic.Field()
     """
     The account's own cancel reasons, in the order members see them when they cancel. Each is filed under a standard category, saved as the membership's `cancel_option`, so reports keep grouping cancellations. Empty when the account uses Whop's default reasons.
+    """
+
+    merchant_of_record: typing.Optional[RetrievePreferencesResponseMerchantOfRecord] = pydantic.Field(default=None)
+    """
+    The merchant of record for the account's payments. `whop` means Whop is the merchant of record and the account can switch. `null` means Whop is the merchant of record and the account's business category cannot switch. `pending` means the account switched and waits for approval. Checkout takes no payments until then. `account` means the account is the merchant of record.
     """
 
     preferred_settlement_currency: typing.Optional[RetrievePreferencesResponsePreferredSettlementCurrency] = (

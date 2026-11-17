@@ -85,7 +85,7 @@ class User(UniversalBaseModel):
 
     level: typing.Optional[UserLevel] = pydantic.Field(default=None)
     """
-    The user's Whop Level, counted across every account they own. `applied_level` is public. The points and spend fields are populated only when you retrieve yourself with the reserved id `me` and have balance-read scope. `null` on lists, and when none of their accounts are in Whop Levels.
+    The user's Whop Level, counted across every account they own. `current` is public. The points and spend fields are populated only when you retrieve yourself with the reserved id `me` and have balance-read scope. `null` on lists, and when none of their accounts are in Whop Levels.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)

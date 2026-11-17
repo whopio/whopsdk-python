@@ -10,7 +10,7 @@ from .owner_level_points import OwnerLevelPoints
 
 
 class OwnerLevel(UniversalBaseModel):
-    applied_level: int = pydantic.Field()
+    current: int = pydantic.Field()
     """
     The level that applies: the highest the owner reached this month or in the 5 months before, from `0` up to `10`.
     """

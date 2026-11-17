@@ -12,17 +12,17 @@ from .owner_level_points import OwnerLevelPoints
 class AccountLevel(UniversalBaseModel):
     account_level: int = pydantic.Field()
     """
-    This account's own level from its points alone, from `0` up to `10`. `applied_level` is higher when the owner's other accounts lift it.
-    """
-
-    applied_level: int = pydantic.Field()
-    """
-    The level that applies: the highest the owner reached this month or in the 5 months before, from `0` up to `10`.
+    This account's own level from its points alone, from `0` up to `10`. `current` is higher when the owner's other accounts lift it.
     """
 
     boosted: bool = pydantic.Field()
     """
-    `true` when this account's own points this month fall short of `applied_level`, so the owner's other accounts lift it to that level.
+    `true` when this account's own points this month fall short of `current`, so the owner's other accounts lift it to that level.
+    """
+
+    current: int = pydantic.Field()
+    """
+    The level that applies: the highest the owner reached this month or in the 5 months before, from `0` up to `10`.
     """
 
     levels: typing.List[AccountProcessingOfferLevel]
