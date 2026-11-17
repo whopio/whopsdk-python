@@ -163,6 +163,7 @@ LedgerActivityLineType = typing.Union[
         "levels_points_ads",
         "levels_points_trading",
         "levels_points_partner",
+        "levels_points_action",
         "levels_points_burned",
         "levels_points_issued",
         "levels_rebate",
