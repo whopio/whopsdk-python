@@ -34,6 +34,7 @@ PaymentDeclineCodes = typing.Union[
         "closed_account",
         "issuer_unavailable",
         "invalid_zip",
+        "invalid_billing_address",
         "invalid_expiry_month",
         "invalid_expiry_year",
         "invalid_expiry",

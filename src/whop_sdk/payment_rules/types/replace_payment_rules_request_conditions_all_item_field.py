@@ -17,6 +17,9 @@ ReplacePaymentRulesRequestConditionsAllItemField = typing.Union[
         "email_domain",
         "ip_address",
         "ip_country",
+        "postal_code_check",
+        "address_line1_check",
+        "cvv_check",
     ],
     typing.Any,
 ]
