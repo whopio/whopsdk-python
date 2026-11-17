@@ -62,6 +62,7 @@ class InvoicesClient:
         member_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         variant_id: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListInvoicesRequestOrder] = None,
@@ -96,6 +97,9 @@ class InvoicesClient:
 
         variant_id : typing.Optional[str]
             Only invoices that bill this variant, prefixed `plan_`. An invoice matches when the variant is any of its items.
+
+        query : typing.Optional[str]
+            Text to find invoices by. It matches the invoice number, the invoice ID, and the customer's name, username, or email address. A number matches with or without its prefix and leading zeros. A name matches on any part. An email address matches from its start. The match ignores letter case. `%` and `_` match literally. Combined with the other filters. Name matches need `member:basic:read`. Email matches need `member:email:read`.
 
         created_after : typing.Optional[dt.datetime]
 
@@ -154,6 +158,7 @@ class InvoicesClient:
             member_id=member_id,
             product_id=product_id,
             variant_id=variant_id,
+            query=query,
             created_after=created_after,
             created_before=created_before,
             order=order,
@@ -783,6 +788,7 @@ class AsyncInvoicesClient:
         member_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         variant_id: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListInvoicesRequestOrder] = None,
@@ -817,6 +823,9 @@ class AsyncInvoicesClient:
 
         variant_id : typing.Optional[str]
             Only invoices that bill this variant, prefixed `plan_`. An invoice matches when the variant is any of its items.
+
+        query : typing.Optional[str]
+            Text to find invoices by. It matches the invoice number, the invoice ID, and the customer's name, username, or email address. A number matches with or without its prefix and leading zeros. A name matches on any part. An email address matches from its start. The match ignores letter case. `%` and `_` match literally. Combined with the other filters. Name matches need `member:basic:read`. Email matches need `member:email:read`.
 
         created_after : typing.Optional[dt.datetime]
 
@@ -884,6 +893,7 @@ class AsyncInvoicesClient:
             member_id=member_id,
             product_id=product_id,
             variant_id=variant_id,
+            query=query,
             created_after=created_after,
             created_before=created_before,
             order=order,
