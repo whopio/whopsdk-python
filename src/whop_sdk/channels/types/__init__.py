@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .create_channels_request_icon import CreateChannelsRequestIcon
     from .create_channels_request_kind import CreateChannelsRequestKind
     from .list_channels_request_direction import ListChannelsRequestDirection
+    from .list_channels_request_include_members import ListChannelsRequestIncludeMembers
     from .list_channels_request_kind_item import ListChannelsRequestKindItem
     from .list_channels_request_order import ListChannelsRequestOrder
     from .list_channels_request_status import ListChannelsRequestStatus
@@ -23,6 +24,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateChannelsRequestIcon": ".create_channels_request_icon",
     "CreateChannelsRequestKind": ".create_channels_request_kind",
     "ListChannelsRequestDirection": ".list_channels_request_direction",
+    "ListChannelsRequestIncludeMembers": ".list_channels_request_include_members",
     "ListChannelsRequestKindItem": ".list_channels_request_kind_item",
     "ListChannelsRequestOrder": ".list_channels_request_order",
     "ListChannelsRequestStatus": ".list_channels_request_status",
@@ -61,6 +63,7 @@ __all__ = [
     "CreateChannelsRequestIcon",
     "CreateChannelsRequestKind",
     "ListChannelsRequestDirection",
+    "ListChannelsRequestIncludeMembers",
     "ListChannelsRequestKindItem",
     "ListChannelsRequestOrder",
     "ListChannelsRequestStatus",

@@ -13705,7 +13705,7 @@ client.cashback_rules.update(
 <dl>
 <dd>
 
-List or search the people in a channel.
+List or search the current members of a channel. Set include_deleted to true to include former members with a deleted_at timestamp.
 </dd>
 </dl>
 </dd>
@@ -13787,6 +13787,14 @@ client.channel_members.list(
 <dd>
 
 **query:** `typing.Optional[str]` — Search by name or username.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted:** `typing.Optional[bool]` — Include former members with a deleted_at timestamp. Defaults to current members only.
     
 </dd>
 </dl>
@@ -14300,7 +14308,7 @@ client.channels.list(
 <dl>
 <dd>
 
-**include_members:** `typing.Optional[bool]` — Include the current members of private and support channels, including you, with their public profiles.
+**include_members:** `typing.Optional[ListChannelsRequestIncludeMembers]` — Members to include for private and support channels, with their public profiles. `current` includes current members. `current_and_deleted` also includes former members, marked with `deleted_at`. Omit or pass `null` to leave out members.
     
 </dd>
 </dl>
@@ -14768,7 +14776,7 @@ client.channels.update(
 <dl>
 <dd>
 
-Accept a direct-message request.
+Accept a direct-message request or restore a hidden conversation. Your membership must not have been removed.
 </dd>
 </dl>
 </dd>

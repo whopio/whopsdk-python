@@ -13,6 +13,7 @@ from .raw_client import AsyncRawChannelsClient, RawChannelsClient
 from .types.create_channels_request_icon import CreateChannelsRequestIcon
 from .types.create_channels_request_kind import CreateChannelsRequestKind
 from .types.list_channels_request_direction import ListChannelsRequestDirection
+from .types.list_channels_request_include_members import ListChannelsRequestIncludeMembers
 from .types.list_channels_request_kind_item import ListChannelsRequestKindItem
 from .types.list_channels_request_order import ListChannelsRequestOrder
 from .types.list_channels_request_status import ListChannelsRequestStatus
@@ -61,7 +62,7 @@ class ChannelsClient:
         viewed: typing.Optional[bool] = None,
         requested: typing.Optional[bool] = None,
         order: typing.Optional[ListChannelsRequestOrder] = None,
-        include_members: typing.Optional[bool] = None,
+        include_members: typing.Optional[ListChannelsRequestIncludeMembers] = None,
         include_last_message: typing.Optional[bool] = None,
         direction: typing.Optional[ListChannelsRequestDirection] = None,
         include_deleted: typing.Optional[bool] = None,
@@ -123,8 +124,8 @@ class ChannelsClient:
         order : typing.Optional[ListChannelsRequestOrder]
             The field to sort by. Defaults to `last_viewed_at` for community channels and `last_message_at` for private and support channels. Ties sort in a stable order. Cannot be supplied with updated_after.
 
-        include_members : typing.Optional[bool]
-            Include the current members of private and support channels, including you, with their public profiles.
+        include_members : typing.Optional[ListChannelsRequestIncludeMembers]
+            Members to include for private and support channels, with their public profiles. `current` includes current members. `current_and_deleted` also includes former members, marked with `deleted_at`. Omit or pass `null` to leave out members.
 
         include_last_message : typing.Optional[bool]
             Include the most recent message you can see, with its author.
@@ -157,7 +158,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -256,7 +257,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -300,7 +301,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -332,7 +333,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -386,7 +387,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -406,7 +407,7 @@ class ChannelsClient:
 
     def accept(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChannelMember:
         """
-        Accept a direct-message request.
+        Accept a direct-message request or restore a hidden conversation. Your membership must not have been removed.
 
         Parameters
         ----------
@@ -426,7 +427,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -459,7 +460,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -505,7 +506,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -540,7 +541,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -577,7 +578,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -610,7 +611,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -643,7 +644,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -675,7 +676,7 @@ class ChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -723,7 +724,7 @@ class AsyncChannelsClient:
         viewed: typing.Optional[bool] = None,
         requested: typing.Optional[bool] = None,
         order: typing.Optional[ListChannelsRequestOrder] = None,
-        include_members: typing.Optional[bool] = None,
+        include_members: typing.Optional[ListChannelsRequestIncludeMembers] = None,
         include_last_message: typing.Optional[bool] = None,
         direction: typing.Optional[ListChannelsRequestDirection] = None,
         include_deleted: typing.Optional[bool] = None,
@@ -785,8 +786,8 @@ class AsyncChannelsClient:
         order : typing.Optional[ListChannelsRequestOrder]
             The field to sort by. Defaults to `last_viewed_at` for community channels and `last_message_at` for private and support channels. Ties sort in a stable order. Cannot be supplied with updated_after.
 
-        include_members : typing.Optional[bool]
-            Include the current members of private and support channels, including you, with their public profiles.
+        include_members : typing.Optional[ListChannelsRequestIncludeMembers]
+            Members to include for private and support channels, with their public profiles. `current` includes current members. `current_and_deleted` also includes former members, marked with `deleted_at`. Omit or pass `null` to leave out members.
 
         include_last_message : typing.Optional[bool]
             Include the most recent message you can see, with its author.
@@ -821,7 +822,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -929,7 +930,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -981,7 +982,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1021,7 +1022,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1083,7 +1084,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1109,7 +1110,7 @@ class AsyncChannelsClient:
 
     async def accept(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ChannelMember:
         """
-        Accept a direct-message request.
+        Accept a direct-message request or restore a hidden conversation. Your membership must not have been removed.
 
         Parameters
         ----------
@@ -1131,7 +1132,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1172,7 +1173,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1226,7 +1227,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1269,7 +1270,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1314,7 +1315,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1355,7 +1356,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1396,7 +1397,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1436,7 +1437,7 @@ class AsyncChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

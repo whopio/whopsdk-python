@@ -38,10 +38,11 @@ class RawChannelMembersClient:
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
+        include_deleted: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ChannelMember, ListChannelMembersResponse]:
         """
-        List or search the people in a channel.
+        List or search the current members of a channel. Set include_deleted to true to include former members with a deleted_at timestamp.
 
         Parameters
         ----------
@@ -63,6 +64,9 @@ class RawChannelMembersClient:
         query : typing.Optional[str]
             Search by name or username.
 
+        include_deleted : typing.Optional[bool]
+            Include former members with a deleted_at timestamp. Defaults to current members only.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -82,6 +86,7 @@ class RawChannelMembersClient:
                 "before": before,
                 "channel_id": channel_id,
                 "query": query,
+                "include_deleted": include_deleted,
             },
             request_options=request_options,
         )
@@ -107,6 +112,7 @@ class RawChannelMembersClient:
                         last=last,
                         before=before,
                         query=query,
+                        include_deleted=include_deleted,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -400,10 +406,11 @@ class AsyncRawChannelMembersClient:
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
+        include_deleted: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ChannelMember, ListChannelMembersResponse]:
         """
-        List or search the people in a channel.
+        List or search the current members of a channel. Set include_deleted to true to include former members with a deleted_at timestamp.
 
         Parameters
         ----------
@@ -425,6 +432,9 @@ class AsyncRawChannelMembersClient:
         query : typing.Optional[str]
             Search by name or username.
 
+        include_deleted : typing.Optional[bool]
+            Include former members with a deleted_at timestamp. Defaults to current members only.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -444,6 +454,7 @@ class AsyncRawChannelMembersClient:
                 "before": before,
                 "channel_id": channel_id,
                 "query": query,
+                "include_deleted": include_deleted,
             },
             request_options=request_options,
         )
@@ -471,6 +482,7 @@ class AsyncRawChannelMembersClient:
                             last=last,
                             before=before,
                             query=query,
+                            include_deleted=include_deleted,
                             request_options=request_options,
                         )
 
