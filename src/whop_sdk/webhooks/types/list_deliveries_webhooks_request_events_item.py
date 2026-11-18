@@ -87,6 +87,7 @@ ListDeliveriesWebhooksRequestEventsItem = typing.Union[
         "ad_campaign.updated",
         "ad_campaign.events",
         "ad_campaign.deleted",
+        "ad_campaign.claim_ended",
         "ad_group.created",
         "ad_group.updated",
         "ad_group.deleted",
