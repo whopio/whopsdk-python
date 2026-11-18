@@ -5,7 +5,7 @@ import typing
 AdCampaignDeliveryStatus = typing.Union[
     typing.Literal[
         "payment_failed",
-        "all_ads_rejected",
+        "rejected",
         "draft",
         "paused",
         "in_review",

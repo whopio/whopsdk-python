@@ -7,7 +7,6 @@ AdDeliveryStatus = typing.Union[
         "rejected",
         "in_review",
         "draft",
-        "campaign_paused",
         "paused",
         "processing",
         "revise_content",
