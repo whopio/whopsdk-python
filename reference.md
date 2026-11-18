@@ -29377,6 +29377,10 @@ client.members.list(
     promo_code_ids=[
         "promo_xxxxxxxxxxxx"
     ],
+    affiliate_id="aff_xxxxxxxxxxxxxx",
+    buyer_account_ids=[
+        "biz_xxxxxxxxxxxxxx"
+    ],
 )
 
 ```
@@ -29458,6 +29462,22 @@ client.members.list(
 <dd>
 
 **promo_code_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return members holding a membership bought with one of these promo codes, prefixed `promo_`. Unknown IDs match nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**affiliate_id:** `typing.Optional[str]` — Only return members this affiliate referred, prefixed `aff_`. Requires `affiliate:basic:read` and sorts by `created_at` only. Unknown IDs match nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**buyer_account_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return members bought by these accounts, prefixed `biz_`. Unknown IDs match nothing.
     
 </dd>
 </dl>
@@ -50307,6 +50327,14 @@ client.waitlist_entries.list()
 <dl>
 <dd>
 
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **variant_id:** `typing.Optional[str]` — Only return signups for this variant, prefixed `plan_`.
     
 </dd>
@@ -54169,6 +54197,88 @@ client.members.notes.create(
 <dd>
 
 **content:** `str` — The note text.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.members.notes.<a href="src/whop_sdk/members/notes/client.py">delete</a>(...) -> DeleteNotesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a note from a member, whoever wrote it. A deleted note's ID returns a `404`. Deleting can't be undone.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.members.notes.delete(
+    member_id="member_id",
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**member_id:** `str` — The member the note is about, prefixed `mber_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the note to delete, prefixed `note_`.
     
 </dd>
 </dl>

@@ -7,6 +7,7 @@ from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from ...types.member_note import MemberNote
 from .raw_client import AsyncRawNotesClient, RawNotesClient
+from .types.delete_notes_response import DeleteNotesResponse
 from .types.list_notes_response import ListNotesResponse
 
 # this is used as the default value for optional parameters
@@ -135,6 +136,45 @@ class NotesClient:
         )
         """
         _response = self._raw_client.create(member_id, content=content, request_options=request_options)
+        return _response.data
+
+    def delete(
+        self, member_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteNotesResponse:
+        """
+        Deletes a note from a member, whoever wrote it. A deleted note's ID returns a `404`. Deleting can't be undone.
+
+        Parameters
+        ----------
+        member_id : str
+            The member the note is about, prefixed `mber_`.
+
+        id : str
+            The ID of the note to delete, prefixed `note_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteNotesResponse
+            member note deleted
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-17-3",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.members.notes.delete(
+            member_id="member_id",
+            id="id",
+        )
+        """
+        _response = self._raw_client.delete(member_id, id, request_options=request_options)
         return _response.data
 
 
@@ -277,4 +317,51 @@ class AsyncNotesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(member_id, content=content, request_options=request_options)
+        return _response.data
+
+    async def delete(
+        self, member_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteNotesResponse:
+        """
+        Deletes a note from a member, whoever wrote it. A deleted note's ID returns a `404`. Deleting can't be undone.
+
+        Parameters
+        ----------
+        member_id : str
+            The member the note is about, prefixed `mber_`.
+
+        id : str
+            The ID of the note to delete, prefixed `note_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteNotesResponse
+            member note deleted
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-17-3",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.members.notes.delete(
+                member_id="member_id",
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete(member_id, id, request_options=request_options)
         return _response.data

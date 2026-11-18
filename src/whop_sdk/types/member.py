@@ -25,6 +25,11 @@ class Member(UniversalBaseModel):
     The account this member belongs to, prefixed `biz_`.
     """
 
+    buyer_account_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The business that bought, prefixed `biz_`. `null` when the buyer is a person.
+    """
+
     created_at: str = pydantic.Field()
     """
     When the member record was created, as an ISO 8601 timestamp.
