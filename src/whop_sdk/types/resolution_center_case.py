@@ -32,6 +32,11 @@ class ResolutionCenterCase(UniversalBaseModel):
     The customer who opened the case.
     """
 
+    closed_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the case closed, as an ISO 8601 timestamp. `null` while the case is open, and on older closed cases that predate this being recorded.
+    """
+
     created_at: str = pydantic.Field()
     """
     When the case was opened, as an ISO 8601 timestamp.

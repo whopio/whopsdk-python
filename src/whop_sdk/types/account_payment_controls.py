@@ -65,7 +65,7 @@ class AccountPaymentControls(UniversalBaseModel):
 
     resolution_center_auto_refund: AccountResolutionCenterAutoRefundControl = pydantic.Field()
     """
-    Automatic refund settings for resolution center cases.
+    Settings for automatic refunds of Resolution Center cases. You can change them with `PATCH /accounts/{id}`.
     """
 
     restricted_payment_methods: typing.List[AccountPaymentControlsRestrictedPaymentMethodsItem]

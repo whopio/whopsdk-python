@@ -34,6 +34,9 @@ from .types.events_resolution_center_cases_response import EventsResolutionCente
 from .types.list_resolution_center_cases_request_direction import ListResolutionCenterCasesRequestDirection
 from .types.list_resolution_center_cases_request_order import ListResolutionCenterCasesRequestOrder
 from .types.list_resolution_center_cases_request_outcome_item import ListResolutionCenterCasesRequestOutcomeItem
+from .types.list_resolution_center_cases_request_payment_methods_item import (
+    ListResolutionCenterCasesRequestPaymentMethodsItem,
+)
 from .types.list_resolution_center_cases_request_reason_item import ListResolutionCenterCasesRequestReasonItem
 from .types.list_resolution_center_cases_request_status_item import ListResolutionCenterCasesRequestStatusItem
 from .types.list_resolution_center_cases_response import ListResolutionCenterCasesResponse
@@ -45,6 +48,9 @@ from .types.request_info_resolution_center_cases_request_attachments_item import
 )
 from .types.summary_resolution_center_cases_request_groups_item import SummaryResolutionCenterCasesRequestGroupsItem
 from .types.summary_resolution_center_cases_request_outcome_item import SummaryResolutionCenterCasesRequestOutcomeItem
+from .types.summary_resolution_center_cases_request_payment_methods_item import (
+    SummaryResolutionCenterCasesRequestPaymentMethodsItem,
+)
 from .types.summary_resolution_center_cases_request_reason_item import SummaryResolutionCenterCasesRequestReasonItem
 from .types.summary_resolution_center_cases_request_status_item import SummaryResolutionCenterCasesRequestStatusItem
 from .types.summary_resolution_center_cases_response import SummaryResolutionCenterCasesResponse
@@ -87,10 +93,19 @@ class RawResolutionCenterCasesClient:
         ] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_id: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[
+                ListResolutionCenterCasesRequestPaymentMethodsItem,
+                typing.Sequence[ListResolutionCenterCasesRequestPaymentMethodsItem],
+            ]
+        ] = None,
+        query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ResolutionCenterCase, ListResolutionCenterCasesResponse]:
         """
-        Lists resolution center cases. Without `account_id` you get every case you can read — the ones you opened as a buyer and every account you are a team member of; the filters narrow that list.
+        Lists resolution center cases. Without `account_id` you get every case you can read: cases you opened as a buyer, and cases on accounts where you are on the team. The filters narrow that list.
 
         Parameters
         ----------
@@ -98,7 +113,7 @@ class RawResolutionCenterCasesClient:
             Only cases filed against this account (`biz_` tag). With read access to the account this lists its whole queue; without, only the cases you opened against it.
 
         user_id : typing.Optional[str]
-            Only cases opened by this customer — a `user_` tag, or `me` for the calling user. It narrows what you can already read, so `me` lists the cases you opened without the ones on accounts you are a team member of.
+            Only cases opened by this customer: a `user_` tag, or `me` for the calling user. It narrows what you can already read, so `me` lists the cases you opened without the ones on accounts you are a team member of.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -119,7 +134,7 @@ class RawResolutionCenterCasesClient:
             Sort direction.
 
         status : typing.Optional[typing.Union[ListResolutionCenterCasesRequestStatusItem, typing.Sequence[ListResolutionCenterCasesRequestStatusItem]]]
-            Only cases in these statuses. Repeat the parameter to pass several — one paginated list covers all of them.
+            Only cases in these statuses. Repeat the parameter to pass several. One paginated list covers all of them.
 
         reason : typing.Optional[typing.Union[ListResolutionCenterCasesRequestReasonItem, typing.Sequence[ListResolutionCenterCasesRequestReasonItem]]]
             Only cases opened for these reasons. Repeat the parameter to pass several.
@@ -132,6 +147,18 @@ class RawResolutionCenterCasesClient:
 
         created_after : typing.Optional[str]
             Only cases created after this ISO 8601 timestamp.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only cases about a payment for these products, each prefixed `prod_`. A case matches when any item on its payment is one of them. Repeat the parameter to pass several.
+
+        payment_id : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only cases opened on these payments, each prefixed `pay_`. Repeat the parameter to pass several.
+
+        payment_methods : typing.Optional[typing.Union[ListResolutionCenterCasesRequestPaymentMethodsItem, typing.Sequence[ListResolutionCenterCasesRequestPaymentMethodsItem]]]
+            Only cases about a payment made with one of these methods. Takes card brands such as `amex`, wallets such as `apple_pay`, and types such as `paypal`. Repeat the parameter to pass several.
+
+        query : typing.Optional[str]
+            Search cases by case ID, payment ID, user ID, membership ID, user email, name, or username. Email search requires the member:email:read permission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -159,6 +186,10 @@ class RawResolutionCenterCasesClient:
                 "outcome": outcome,
                 "created_before": created_before,
                 "created_after": created_after,
+                "product_ids": product_ids,
+                "payment_id": payment_id,
+                "payment_methods": payment_methods,
+                "query": query,
             },
             request_options=request_options,
         )
@@ -191,6 +222,10 @@ class RawResolutionCenterCasesClient:
                         outcome=outcome,
                         created_before=created_before,
                         created_after=created_after,
+                        product_ids=product_ids,
+                        payment_id=payment_id,
+                        payment_methods=payment_methods,
+                        query=query,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -361,6 +396,15 @@ class RawResolutionCenterCasesClient:
         ] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_id: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[
+                SummaryResolutionCenterCasesRequestPaymentMethodsItem,
+                typing.Sequence[SummaryResolutionCenterCasesRequestPaymentMethodsItem],
+            ]
+        ] = None,
+        query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SummaryResolutionCenterCasesResponse]:
         """
@@ -375,7 +419,7 @@ class RawResolutionCenterCasesClient:
             The account to summarize cases for (`biz_` tag).
 
         user_id : typing.Optional[str]
-            Only cases opened by this customer — a `user_` tag, or `me` for the calling user.
+            Only cases opened by this customer: a `user_` tag, or `me` for the calling user.
 
         status : typing.Optional[typing.Union[SummaryResolutionCenterCasesRequestStatusItem, typing.Sequence[SummaryResolutionCenterCasesRequestStatusItem]]]
             Only cases in these statuses.
@@ -391,6 +435,18 @@ class RawResolutionCenterCasesClient:
 
         created_after : typing.Optional[str]
             Only count cases created after this ISO 8601 timestamp.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only count cases about a payment for these products, each prefixed `prod_`. Repeat the parameter to pass several.
+
+        payment_id : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only count cases opened on these payments, each prefixed `pay_`. Repeat the parameter to pass several.
+
+        payment_methods : typing.Optional[typing.Union[SummaryResolutionCenterCasesRequestPaymentMethodsItem, typing.Sequence[SummaryResolutionCenterCasesRequestPaymentMethodsItem]]]
+            Only count cases about a payment paid with any of these methods. Repeat the parameter to pass several.
+
+        query : typing.Optional[str]
+            Only count cases that match this search, as on the list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -413,6 +469,10 @@ class RawResolutionCenterCasesClient:
                 "outcome": outcome,
                 "created_before": created_before,
                 "created_after": created_after,
+                "product_ids": product_ids,
+                "payment_id": payment_id,
+                "payment_methods": payment_methods,
+                "query": query,
             },
             request_options=request_options,
         )
@@ -1090,7 +1150,7 @@ class RawResolutionCenterCasesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def withdraw(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, message: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ResolutionCenterCase]:
         """
         Withdraws (cancels) a case you opened, as the customer. Only possible while the case is still open.
@@ -1099,6 +1159,9 @@ class RawResolutionCenterCasesClient:
         ----------
         id : str
             The resolution center case ID (`reso_` tag).
+
+        message : typing.Optional[str]
+            Why you are withdrawing the case, recorded on the case timeline where the merchant can read it. Without one, the timeline says the customer withdrew.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1112,7 +1175,14 @@ class RawResolutionCenterCasesClient:
             f"resolution_center_cases/{encode_path_param(id)}/withdraw",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
+            json={
+                "message": message,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -1189,10 +1259,19 @@ class AsyncRawResolutionCenterCasesClient:
         ] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_id: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[
+                ListResolutionCenterCasesRequestPaymentMethodsItem,
+                typing.Sequence[ListResolutionCenterCasesRequestPaymentMethodsItem],
+            ]
+        ] = None,
+        query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ResolutionCenterCase, ListResolutionCenterCasesResponse]:
         """
-        Lists resolution center cases. Without `account_id` you get every case you can read — the ones you opened as a buyer and every account you are a team member of; the filters narrow that list.
+        Lists resolution center cases. Without `account_id` you get every case you can read: cases you opened as a buyer, and cases on accounts where you are on the team. The filters narrow that list.
 
         Parameters
         ----------
@@ -1200,7 +1279,7 @@ class AsyncRawResolutionCenterCasesClient:
             Only cases filed against this account (`biz_` tag). With read access to the account this lists its whole queue; without, only the cases you opened against it.
 
         user_id : typing.Optional[str]
-            Only cases opened by this customer — a `user_` tag, or `me` for the calling user. It narrows what you can already read, so `me` lists the cases you opened without the ones on accounts you are a team member of.
+            Only cases opened by this customer: a `user_` tag, or `me` for the calling user. It narrows what you can already read, so `me` lists the cases you opened without the ones on accounts you are a team member of.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -1221,7 +1300,7 @@ class AsyncRawResolutionCenterCasesClient:
             Sort direction.
 
         status : typing.Optional[typing.Union[ListResolutionCenterCasesRequestStatusItem, typing.Sequence[ListResolutionCenterCasesRequestStatusItem]]]
-            Only cases in these statuses. Repeat the parameter to pass several — one paginated list covers all of them.
+            Only cases in these statuses. Repeat the parameter to pass several. One paginated list covers all of them.
 
         reason : typing.Optional[typing.Union[ListResolutionCenterCasesRequestReasonItem, typing.Sequence[ListResolutionCenterCasesRequestReasonItem]]]
             Only cases opened for these reasons. Repeat the parameter to pass several.
@@ -1234,6 +1313,18 @@ class AsyncRawResolutionCenterCasesClient:
 
         created_after : typing.Optional[str]
             Only cases created after this ISO 8601 timestamp.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only cases about a payment for these products, each prefixed `prod_`. A case matches when any item on its payment is one of them. Repeat the parameter to pass several.
+
+        payment_id : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only cases opened on these payments, each prefixed `pay_`. Repeat the parameter to pass several.
+
+        payment_methods : typing.Optional[typing.Union[ListResolutionCenterCasesRequestPaymentMethodsItem, typing.Sequence[ListResolutionCenterCasesRequestPaymentMethodsItem]]]
+            Only cases about a payment made with one of these methods. Takes card brands such as `amex`, wallets such as `apple_pay`, and types such as `paypal`. Repeat the parameter to pass several.
+
+        query : typing.Optional[str]
+            Search cases by case ID, payment ID, user ID, membership ID, user email, name, or username. Email search requires the member:email:read permission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1261,6 +1352,10 @@ class AsyncRawResolutionCenterCasesClient:
                 "outcome": outcome,
                 "created_before": created_before,
                 "created_after": created_after,
+                "product_ids": product_ids,
+                "payment_id": payment_id,
+                "payment_methods": payment_methods,
+                "query": query,
             },
             request_options=request_options,
         )
@@ -1295,6 +1390,10 @@ class AsyncRawResolutionCenterCasesClient:
                             outcome=outcome,
                             created_before=created_before,
                             created_after=created_after,
+                            product_ids=product_ids,
+                            payment_id=payment_id,
+                            payment_methods=payment_methods,
+                            query=query,
                             request_options=request_options,
                         )
 
@@ -1466,6 +1565,15 @@ class AsyncRawResolutionCenterCasesClient:
         ] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_id: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[
+                SummaryResolutionCenterCasesRequestPaymentMethodsItem,
+                typing.Sequence[SummaryResolutionCenterCasesRequestPaymentMethodsItem],
+            ]
+        ] = None,
+        query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SummaryResolutionCenterCasesResponse]:
         """
@@ -1480,7 +1588,7 @@ class AsyncRawResolutionCenterCasesClient:
             The account to summarize cases for (`biz_` tag).
 
         user_id : typing.Optional[str]
-            Only cases opened by this customer — a `user_` tag, or `me` for the calling user.
+            Only cases opened by this customer: a `user_` tag, or `me` for the calling user.
 
         status : typing.Optional[typing.Union[SummaryResolutionCenterCasesRequestStatusItem, typing.Sequence[SummaryResolutionCenterCasesRequestStatusItem]]]
             Only cases in these statuses.
@@ -1496,6 +1604,18 @@ class AsyncRawResolutionCenterCasesClient:
 
         created_after : typing.Optional[str]
             Only count cases created after this ISO 8601 timestamp.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only count cases about a payment for these products, each prefixed `prod_`. Repeat the parameter to pass several.
+
+        payment_id : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only count cases opened on these payments, each prefixed `pay_`. Repeat the parameter to pass several.
+
+        payment_methods : typing.Optional[typing.Union[SummaryResolutionCenterCasesRequestPaymentMethodsItem, typing.Sequence[SummaryResolutionCenterCasesRequestPaymentMethodsItem]]]
+            Only count cases about a payment paid with any of these methods. Repeat the parameter to pass several.
+
+        query : typing.Optional[str]
+            Only count cases that match this search, as on the list.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1518,6 +1638,10 @@ class AsyncRawResolutionCenterCasesClient:
                 "outcome": outcome,
                 "created_before": created_before,
                 "created_after": created_after,
+                "product_ids": product_ids,
+                "payment_id": payment_id,
+                "payment_methods": payment_methods,
+                "query": query,
             },
             request_options=request_options,
         )
@@ -2198,7 +2322,7 @@ class AsyncRawResolutionCenterCasesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def withdraw(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, message: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ResolutionCenterCase]:
         """
         Withdraws (cancels) a case you opened, as the customer. Only possible while the case is still open.
@@ -2207,6 +2331,9 @@ class AsyncRawResolutionCenterCasesClient:
         ----------
         id : str
             The resolution center case ID (`reso_` tag).
+
+        message : typing.Optional[str]
+            Why you are withdrawing the case, recorded on the case timeline where the merchant can read it. Without one, the timeline says the customer withdrew.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2220,7 +2347,14 @@ class AsyncRawResolutionCenterCasesClient:
             f"resolution_center_cases/{encode_path_param(id)}/withdraw",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
+            json={
+                "message": message,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:

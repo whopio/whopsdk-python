@@ -1257,6 +1257,7 @@ if typing.TYPE_CHECKING:
     from .payment_required_error_body import PaymentRequiredErrorBody
     from .payment_required_error_body_error import PaymentRequiredErrorBodyError
     from .payment_required_error_body_error_type import PaymentRequiredErrorBodyErrorType
+    from .payment_resolution_center_ineligible_reason import PaymentResolutionCenterIneligibleReason
     from .payment_rule import PaymentRule
     from .payment_rule_action import PaymentRuleAction
     from .payment_rule_condition import PaymentRuleCondition
@@ -2724,6 +2725,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentRequiredErrorBody": ".payment_required_error_body",
     "PaymentRequiredErrorBodyError": ".payment_required_error_body_error",
     "PaymentRequiredErrorBodyErrorType": ".payment_required_error_body_error_type",
+    "PaymentResolutionCenterIneligibleReason": ".payment_resolution_center_ineligible_reason",
     "PaymentRule": ".payment_rule",
     "PaymentRuleAction": ".payment_rule_action",
     "PaymentRuleCondition": ".payment_rule_condition",
@@ -4213,6 +4215,7 @@ __all__ = [
     "PaymentRequiredErrorBody",
     "PaymentRequiredErrorBodyError",
     "PaymentRequiredErrorBodyErrorType",
+    "PaymentResolutionCenterIneligibleReason",
     "PaymentRule",
     "PaymentRuleAction",
     "PaymentRuleCondition",

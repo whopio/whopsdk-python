@@ -14,6 +14,7 @@ from .payment_decline_codes import PaymentDeclineCodes
 from .payment_hold import PaymentHold
 from .payment_instrument import PaymentInstrument
 from .payment_method_types import PaymentMethodTypes
+from .payment_resolution_center_ineligible_reason import PaymentResolutionCenterIneligibleReason
 from .payment_rule_match import PaymentRuleMatch
 from .payment_verification_checks import PaymentVerificationChecks
 from .receipt_line_item import ReceiptLineItem
@@ -249,6 +250,13 @@ class Payment(UniversalBaseModel):
     refunded_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the payment was refunded, or null.
+    """
+
+    resolution_center_ineligible_reason: typing.Optional[PaymentResolutionCenterIneligibleReason] = pydantic.Field(
+        default=None
+    )
+    """
+    Why the buyer cannot open a Resolution Center case on this payment with `POST /resolution_center_cases`, or null when they can. `already_opened`: a case is already open or was decided (a withdrawn case does not count). `unsupported_payment_processor`: the payment method does not support cases. `out_of_date`: the window to open a case has passed. `not_paid`: the payment is not `paid`. `free`: nothing was charged. `already_refunded`: some of it has been refunded.
     """
 
     response_due_at: typing.Optional[str] = pydantic.Field(default=None)

@@ -22,6 +22,9 @@ if typing.TYPE_CHECKING:
     from .list_resolution_center_cases_request_direction import ListResolutionCenterCasesRequestDirection
     from .list_resolution_center_cases_request_order import ListResolutionCenterCasesRequestOrder
     from .list_resolution_center_cases_request_outcome_item import ListResolutionCenterCasesRequestOutcomeItem
+    from .list_resolution_center_cases_request_payment_methods_item import (
+        ListResolutionCenterCasesRequestPaymentMethodsItem,
+    )
     from .list_resolution_center_cases_request_reason_item import ListResolutionCenterCasesRequestReasonItem
     from .list_resolution_center_cases_request_status_item import ListResolutionCenterCasesRequestStatusItem
     from .list_resolution_center_cases_response import ListResolutionCenterCasesResponse
@@ -47,6 +50,9 @@ if typing.TYPE_CHECKING:
     )
     from .summary_resolution_center_cases_request_groups_item import SummaryResolutionCenterCasesRequestGroupsItem
     from .summary_resolution_center_cases_request_outcome_item import SummaryResolutionCenterCasesRequestOutcomeItem
+    from .summary_resolution_center_cases_request_payment_methods_item import (
+        SummaryResolutionCenterCasesRequestPaymentMethodsItem,
+    )
     from .summary_resolution_center_cases_request_reason_item import SummaryResolutionCenterCasesRequestReasonItem
     from .summary_resolution_center_cases_request_status_item import SummaryResolutionCenterCasesRequestStatusItem
     from .summary_resolution_center_cases_response import SummaryResolutionCenterCasesResponse
@@ -67,6 +73,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListResolutionCenterCasesRequestDirection": ".list_resolution_center_cases_request_direction",
     "ListResolutionCenterCasesRequestOrder": ".list_resolution_center_cases_request_order",
     "ListResolutionCenterCasesRequestOutcomeItem": ".list_resolution_center_cases_request_outcome_item",
+    "ListResolutionCenterCasesRequestPaymentMethodsItem": ".list_resolution_center_cases_request_payment_methods_item",
     "ListResolutionCenterCasesRequestReasonItem": ".list_resolution_center_cases_request_reason_item",
     "ListResolutionCenterCasesRequestStatusItem": ".list_resolution_center_cases_request_status_item",
     "ListResolutionCenterCasesResponse": ".list_resolution_center_cases_response",
@@ -84,6 +91,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RequestInfoResolutionCenterCasesRequestAttachmentsItem": ".request_info_resolution_center_cases_request_attachments_item",
     "SummaryResolutionCenterCasesRequestGroupsItem": ".summary_resolution_center_cases_request_groups_item",
     "SummaryResolutionCenterCasesRequestOutcomeItem": ".summary_resolution_center_cases_request_outcome_item",
+    "SummaryResolutionCenterCasesRequestPaymentMethodsItem": ".summary_resolution_center_cases_request_payment_methods_item",
     "SummaryResolutionCenterCasesRequestReasonItem": ".summary_resolution_center_cases_request_reason_item",
     "SummaryResolutionCenterCasesRequestStatusItem": ".summary_resolution_center_cases_request_status_item",
     "SummaryResolutionCenterCasesResponse": ".summary_resolution_center_cases_response",
@@ -126,6 +134,7 @@ __all__ = [
     "ListResolutionCenterCasesRequestDirection",
     "ListResolutionCenterCasesRequestOrder",
     "ListResolutionCenterCasesRequestOutcomeItem",
+    "ListResolutionCenterCasesRequestPaymentMethodsItem",
     "ListResolutionCenterCasesRequestReasonItem",
     "ListResolutionCenterCasesRequestStatusItem",
     "ListResolutionCenterCasesResponse",
@@ -143,6 +152,7 @@ __all__ = [
     "RequestInfoResolutionCenterCasesRequestAttachmentsItem",
     "SummaryResolutionCenterCasesRequestGroupsItem",
     "SummaryResolutionCenterCasesRequestOutcomeItem",
+    "SummaryResolutionCenterCasesRequestPaymentMethodsItem",
     "SummaryResolutionCenterCasesRequestReasonItem",
     "SummaryResolutionCenterCasesRequestStatusItem",
     "SummaryResolutionCenterCasesResponse",
