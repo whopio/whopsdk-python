@@ -19,6 +19,11 @@ class RetrieveTimeSeriesResponseData(UniversalBaseModel):
     ISO currency the values are denominated in. Present for currency-unit metrics: the convert_to currency, or usd.
     """
 
+    data_as_of: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Present for metrics computed on a schedule. When the values were computed, as an ISO 8601 timestamp.
+    """
+
     points: typing.List[RetrieveTimeSeriesResponseDataPointsItem] = pydantic.Field()
     """
     One entry per period, oldest first.
