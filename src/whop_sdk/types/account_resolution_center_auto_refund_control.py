@@ -9,22 +9,27 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class AccountResolutionCenterAutoRefundControl(UniversalBaseModel):
     card_threshold_usd: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Maximum card-funded resolution center case amount automatically refunded in USD. `null` when automatic refunds are disabled for cards.
+    Whop automatically refunds Resolution Center cases on card payments up to this amount in USD. Card payments include Visa, Mastercard, American Express and Discover. `null` when Whop does not automatically refund card cases. You can change it with `PATCH /accounts/{id}` while `locked` is `false`.
     """
 
     financing_threshold_usd: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Maximum financing-funded resolution center case amount automatically refunded in USD. `null` when automatic refunds are disabled for financing.
+    Whop automatically refunds Resolution Center cases on financing payments up to this amount in USD. Financing payments include Klarna, Affirm, Zip, Afterpay, Splitit and Sezzle. `null` when Whop does not automatically refund financing cases. You can change it with `PATCH /accounts/{id}` while `locked` is `false`.
     """
 
     locked: bool = pydantic.Field()
     """
-    Whether the account owner is prevented from changing these thresholds.
+    Whether the thresholds are locked. While `true`, `PATCH /accounts/{id}` refuses a threshold change with a `403`. You cannot change this field.
+    """
+
+    message: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Message the customer gets when Whop automatically refunds their case. `null` when no message is set. You can change it with `PATCH /accounts/{id}`. You can also change it while `locked` is `true`.
     """
 
     paypal_threshold_usd: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Maximum PayPal-funded resolution center case amount automatically refunded in USD. `null` when automatic refunds are disabled for PayPal.
+    Whop automatically refunds Resolution Center cases on PayPal and Venmo payments up to this amount in USD. `null` when Whop does not automatically refund these cases. You can change it with `PATCH /accounts/{id}` while `locked` is `false`.
     """
 
     if IS_PYDANTIC_V2:

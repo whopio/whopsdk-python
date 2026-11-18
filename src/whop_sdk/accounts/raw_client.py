@@ -47,6 +47,7 @@ from .types.update_accounts_request_logo import UpdateAccountsRequestLogo
 from .types.update_accounts_request_onboarding_type import UpdateAccountsRequestOnboardingType
 from .types.update_accounts_request_opengraph_image import UpdateAccountsRequestOpengraphImage
 from .types.update_accounts_request_opengraph_image_variant import UpdateAccountsRequestOpengraphImageVariant
+from .types.update_accounts_request_payment_controls import UpdateAccountsRequestPaymentControls
 from .types.update_accounts_request_privacy_policy import UpdateAccountsRequestPrivacyPolicy
 from .types.update_accounts_request_return_policy import UpdateAccountsRequestReturnPolicy
 from .types.update_accounts_request_shipping_policy import UpdateAccountsRequestShippingPolicy
@@ -788,6 +789,7 @@ class RawAccountsClient:
         orchestration_enabled: typing.Optional[bool] = OMIT,
         other_business_description: typing.Optional[str] = OMIT,
         other_industry_description: typing.Optional[str] = OMIT,
+        payment_controls: typing.Optional[UpdateAccountsRequestPaymentControls] = OMIT,
         privacy_policy: typing.Optional[UpdateAccountsRequestPrivacyPolicy] = OMIT,
         product_tax_code_id: typing.Optional[str] = OMIT,
         require2fa: typing.Optional[bool] = OMIT,
@@ -892,6 +894,9 @@ class RawAccountsClient:
 
         other_industry_description : typing.Optional[str]
             The description of the industry type when industry_type is other.
+
+        payment_controls : typing.Optional[UpdateAccountsRequestPaymentControls]
+            Payment controls to change. Only `resolution_center_auto_refund` can change. Whop ignores the other fields, so you can send back the object from `GET`. Requires the `payment:resolution_center` and `company:balance:read` scopes.
 
         privacy_policy : typing.Optional[UpdateAccountsRequestPrivacyPolicy]
             The account's privacy policy document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
@@ -1018,6 +1023,9 @@ class RawAccountsClient:
                 "orchestration_enabled": orchestration_enabled,
                 "other_business_description": other_business_description,
                 "other_industry_description": other_industry_description,
+                "payment_controls": convert_and_respect_annotation_metadata(
+                    object_=payment_controls, annotation=UpdateAccountsRequestPaymentControls, direction="write"
+                ),
                 "privacy_policy": convert_and_respect_annotation_metadata(
                     object_=privacy_policy,
                     annotation=typing.Optional[UpdateAccountsRequestPrivacyPolicy],
@@ -2333,6 +2341,7 @@ class AsyncRawAccountsClient:
         orchestration_enabled: typing.Optional[bool] = OMIT,
         other_business_description: typing.Optional[str] = OMIT,
         other_industry_description: typing.Optional[str] = OMIT,
+        payment_controls: typing.Optional[UpdateAccountsRequestPaymentControls] = OMIT,
         privacy_policy: typing.Optional[UpdateAccountsRequestPrivacyPolicy] = OMIT,
         product_tax_code_id: typing.Optional[str] = OMIT,
         require2fa: typing.Optional[bool] = OMIT,
@@ -2437,6 +2446,9 @@ class AsyncRawAccountsClient:
 
         other_industry_description : typing.Optional[str]
             The description of the industry type when industry_type is other.
+
+        payment_controls : typing.Optional[UpdateAccountsRequestPaymentControls]
+            Payment controls to change. Only `resolution_center_auto_refund` can change. Whop ignores the other fields, so you can send back the object from `GET`. Requires the `payment:resolution_center` and `company:balance:read` scopes.
 
         privacy_policy : typing.Optional[UpdateAccountsRequestPrivacyPolicy]
             The account's privacy policy document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
@@ -2563,6 +2575,9 @@ class AsyncRawAccountsClient:
                 "orchestration_enabled": orchestration_enabled,
                 "other_business_description": other_business_description,
                 "other_industry_description": other_industry_description,
+                "payment_controls": convert_and_respect_annotation_metadata(
+                    object_=payment_controls, annotation=UpdateAccountsRequestPaymentControls, direction="write"
+                ),
                 "privacy_policy": convert_and_respect_annotation_metadata(
                     object_=privacy_policy,
                     annotation=typing.Optional[UpdateAccountsRequestPrivacyPolicy],

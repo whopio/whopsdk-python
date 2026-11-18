@@ -39,6 +39,10 @@ if typing.TYPE_CHECKING:
     from .update_accounts_request_onboarding_type import UpdateAccountsRequestOnboardingType
     from .update_accounts_request_opengraph_image import UpdateAccountsRequestOpengraphImage
     from .update_accounts_request_opengraph_image_variant import UpdateAccountsRequestOpengraphImageVariant
+    from .update_accounts_request_payment_controls import UpdateAccountsRequestPaymentControls
+    from .update_accounts_request_payment_controls_resolution_center_auto_refund import (
+        UpdateAccountsRequestPaymentControlsResolutionCenterAutoRefund,
+    )
     from .update_accounts_request_privacy_policy import UpdateAccountsRequestPrivacyPolicy
     from .update_accounts_request_return_policy import UpdateAccountsRequestReturnPolicy
     from .update_accounts_request_shipping_policy import UpdateAccountsRequestShippingPolicy
@@ -93,6 +97,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAccountsRequestOnboardingType": ".update_accounts_request_onboarding_type",
     "UpdateAccountsRequestOpengraphImage": ".update_accounts_request_opengraph_image",
     "UpdateAccountsRequestOpengraphImageVariant": ".update_accounts_request_opengraph_image_variant",
+    "UpdateAccountsRequestPaymentControls": ".update_accounts_request_payment_controls",
+    "UpdateAccountsRequestPaymentControlsResolutionCenterAutoRefund": ".update_accounts_request_payment_controls_resolution_center_auto_refund",
     "UpdateAccountsRequestPrivacyPolicy": ".update_accounts_request_privacy_policy",
     "UpdateAccountsRequestReturnPolicy": ".update_accounts_request_return_policy",
     "UpdateAccountsRequestShippingPolicy": ".update_accounts_request_shipping_policy",
@@ -165,6 +171,8 @@ __all__ = [
     "UpdateAccountsRequestOnboardingType",
     "UpdateAccountsRequestOpengraphImage",
     "UpdateAccountsRequestOpengraphImageVariant",
+    "UpdateAccountsRequestPaymentControls",
+    "UpdateAccountsRequestPaymentControlsResolutionCenterAutoRefund",
     "UpdateAccountsRequestPrivacyPolicy",
     "UpdateAccountsRequestReturnPolicy",
     "UpdateAccountsRequestShippingPolicy",
