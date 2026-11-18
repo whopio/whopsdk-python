@@ -4,10 +4,8 @@ import typing
 
 PostAdGroupUpdatedPayloadDataDeliveryStatus = typing.Union[
     typing.Literal[
-        "all_ads_rejected",
         "rejected",
         "draft",
-        "campaign_paused",
         "paused",
         "in_review",
         "processing",
