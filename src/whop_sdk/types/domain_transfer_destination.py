@@ -2,4 +2,4 @@
 
 import typing
 
-DomainTransferDestination = typing.Union[typing.Literal["internal"], typing.Any]
+DomainTransferDestination = typing.Union[typing.Literal["internal", "external"], typing.Any]

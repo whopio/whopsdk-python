@@ -11,17 +11,17 @@ from .domain_transfer_state import DomainTransferState
 class DomainTransfer(UniversalBaseModel):
     code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The code that takes the domain. For an `internal` move it starts `whop_dt_`, and the receiving Whop account enters it as `registration.auth_code` when it creates or updates the domain. Returned when the response is a single domain and you can manage it; `null` otherwise.
+    The code that takes the domain, shown while `state` is `ready`. For an `internal` move it starts `whop_dt_`. The receiving Whop account enters it as `registration.auth_code` when it creates or updates the domain. For an `external` move it is the registrar's auth code, which you give to the new registrar. Only a single-domain response shows it, and only to a caller who can manage the domain. Otherwise it is `null`.
     """
 
     destination: DomainTransferDestination = pydantic.Field()
     """
-    Where the domain is moving. `internal` is another Whop account.
+    Where the domain is moving. `internal` is another Whop account. `external` is another registrar.
     """
 
     state: DomainTransferState = pydantic.Field()
     """
-    `ready` while the code waits to be used. `pending` once another account uses it. Whop then removes the domain's email, Apple Pay and pixel from this account. Then it moves the registration and removes the domain from this account. `releasing` while Whop turns the transfer off.
+    `ready` while the code waits to be used. For `internal`, `pending` once another account uses it. Whop then removes the domain's email, Apple Pay and pixel from this account. Then it moves the registration and removes the domain from this account. For `external`, `pending` while Whop unlocks the domain at its registrar and turns off everything Whop runs on it. The domain leaves this account when the transfer completes. `releasing` while Whop turns the transfer off.
     """
 
     if IS_PYDANTIC_V2:

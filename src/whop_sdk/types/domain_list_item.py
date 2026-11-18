@@ -99,7 +99,7 @@ class DomainListItem(UniversalBaseModel):
 
     transfer: typing.Optional[DomainTransfer] = pydantic.Field(default=None)
     """
-    Moving the domain to another Whop account. `null` when not turned on or not visible to you.
+    Moving the domain out of this account, to another Whop account or another registrar. `null` when not turned on or not visible to you.
     """
 
     updated_at: typing.Optional[str] = pydantic.Field(default=None)
