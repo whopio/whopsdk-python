@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_summary import AccountSummary
 from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
 from .invoice_line_item import InvoiceLineItem
 from .invoice_object import InvoiceObject
@@ -15,6 +16,11 @@ from .payment_address import PaymentAddress
 
 
 class Invoice(UniversalBaseModel):
+    account: AccountSummary = pydantic.Field()
+    """
+    The account that sent the invoice.
+    """
+
     account_id: str
     amount_due: Money
     billing_address: typing.Optional[PaymentAddress] = None
@@ -49,7 +55,11 @@ class Invoice(UniversalBaseModel):
     A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. `null` when none is set.
     """
 
-    metadata: typing.Dict[str, str]
+    metadata: typing.Dict[str, str] = pydantic.Field()
+    """
+    Key-value pairs the seller stored on the invoice. Empty when the invoice is read without a credential.
+    """
+
     number: str
     object: InvoiceObject
     overdue: bool
