@@ -15,7 +15,7 @@ class PaymentQr(UniversalBaseModel):
 
     copy_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The code the buyer pastes into their payment app instead of scanning, such as Pix's copy-and-paste code, so they can pay from the device showing the QR. Only present for methods that accept a pasted code.
+    The code the buyer pastes into their payment app instead of scanning, such as Pix's copy-and-paste code. This lets them pay from the device showing the QR. Only present for methods that accept a pasted code.
     """
 
     document_url: typing.Optional[str] = pydantic.Field(default=None)
@@ -35,7 +35,7 @@ class PaymentQr(UniversalBaseModel):
 
     qr_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The QR code's contents, ready to render as a scannable image — `qr_format` says how it is encoded.
+    The QR code's contents, ready to render as a scannable image. `qr_format` says how it is encoded.
     """
 
     qr_format: typing.Optional[str] = pydantic.Field(default=None)

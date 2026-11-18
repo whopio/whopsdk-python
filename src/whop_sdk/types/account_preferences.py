@@ -113,6 +113,11 @@ class AccountPreferences(UniversalBaseModel):
     The merchant of record for the account's payments. `whop` means Whop is the merchant of record and the account can switch. `null` means Whop is the merchant of record and the account's business category cannot switch. `pending` means the account switched and waits for approval. Checkout takes no payments until then. `account` means the account is the merchant of record.
     """
 
+    off_session_payment_rules: bool = pydantic.Field()
+    """
+    Whether all of this account's payment rules apply to off-session charges, including subscription renewals. Off by default, when renewals skip the rules and other off-session charges use only block and allow rules. Off-session payments still skip 3D Secure rule actions, and review requires an eligible card payment.
+    """
+
     preferred_settlement_currency: typing.Optional[AccountPreferencesPreferredSettlementCurrency] = pydantic.Field(
         default=None
     )
