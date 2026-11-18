@@ -60,6 +60,8 @@ class MembersClient:
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        affiliate_id: typing.Optional[str] = None,
+        buyer_account_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -103,6 +105,12 @@ class MembersClient:
 
         promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members holding a membership bought with one of these promo codes, prefixed `promo_`. Unknown IDs match nothing.
+
+        affiliate_id : typing.Optional[str]
+            Only return members this affiliate referred, prefixed `aff_`. Requires `affiliate:basic:read` and sorts by `created_at` only. Unknown IDs match nothing.
+
+        buyer_account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members bought by these accounts, prefixed `biz_`. Unknown IDs match nothing.
 
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
@@ -156,6 +164,8 @@ class MembersClient:
             product_ids=["prod_xxxxxxxxxxxxx"],
             variant_ids=["plan_xxxxxxxxxxxxx"],
             promo_code_ids=["promo_xxxxxxxxxxxx"],
+            affiliate_id="aff_xxxxxxxxxxxxxx",
+            buyer_account_ids=["biz_xxxxxxxxxxxxxx"],
         )
         for item in response:
             yield item
@@ -173,6 +183,8 @@ class MembersClient:
             product_ids=product_ids,
             variant_ids=variant_ids,
             promo_code_ids=promo_code_ids,
+            affiliate_id=affiliate_id,
+            buyer_account_ids=buyer_account_ids,
             query=query,
             created_after=created_after,
             created_before=created_before,
@@ -406,6 +418,8 @@ class AsyncMembersClient:
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        affiliate_id: typing.Optional[str] = None,
+        buyer_account_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -449,6 +463,12 @@ class AsyncMembersClient:
 
         promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members holding a membership bought with one of these promo codes, prefixed `promo_`. Unknown IDs match nothing.
+
+        affiliate_id : typing.Optional[str]
+            Only return members this affiliate referred, prefixed `aff_`. Requires `affiliate:basic:read` and sorts by `created_at` only. Unknown IDs match nothing.
+
+        buyer_account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members bought by these accounts, prefixed `biz_`. Unknown IDs match nothing.
 
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
@@ -507,6 +527,8 @@ class AsyncMembersClient:
                 product_ids=["prod_xxxxxxxxxxxxx"],
                 variant_ids=["plan_xxxxxxxxxxxxx"],
                 promo_code_ids=["promo_xxxxxxxxxxxx"],
+                affiliate_id="aff_xxxxxxxxxxxxxx",
+                buyer_account_ids=["biz_xxxxxxxxxxxxxx"],
             )
             async for item in response:
                 yield item
@@ -528,6 +550,8 @@ class AsyncMembersClient:
             product_ids=product_ids,
             variant_ids=variant_ids,
             promo_code_ids=promo_code_ids,
+            affiliate_id=affiliate_id,
+            buyer_account_ids=buyer_account_ids,
             query=query,
             created_after=created_after,
             created_before=created_before,

@@ -42,6 +42,7 @@ class WaitlistEntriesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
@@ -70,6 +71,9 @@ class WaitlistEntriesClient:
 
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
 
         variant_id : typing.Optional[str]
             Only return signups for this variant, prefixed `plan_`.
@@ -130,6 +134,7 @@ class WaitlistEntriesClient:
             after=after,
             last=last,
             before=before,
+            include_total_count=include_total_count,
             variant_id=variant_id,
             account_id=account_id,
             product_id=product_id,
@@ -400,6 +405,7 @@ class AsyncWaitlistEntriesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
@@ -428,6 +434,9 @@ class AsyncWaitlistEntriesClient:
 
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
 
         variant_id : typing.Optional[str]
             Only return signups for this variant, prefixed `plan_`.
@@ -497,6 +506,7 @@ class AsyncWaitlistEntriesClient:
             after=after,
             last=last,
             before=before,
+            include_total_count=include_total_count,
             variant_id=variant_id,
             account_id=account_id,
             product_id=product_id,

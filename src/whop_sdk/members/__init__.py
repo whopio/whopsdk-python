@@ -31,8 +31,9 @@ if typing.TYPE_CHECKING:
         ListLogsResponseDataItemActor,
         ListLogsResponsePageInfo,
     )
-    from .notes import ListNotesResponse, ListNotesResponsePageInfo
+    from .notes import DeleteNotesResponse, ListNotesResponse, ListNotesResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
+    "DeleteNotesResponse": ".notes",
     "ListLogsResponse": ".logs",
     "ListLogsResponseDataItem": ".logs",
     "ListLogsResponseDataItemActor": ".logs",
@@ -82,6 +83,7 @@ def __dir__():
 
 
 __all__ = [
+    "DeleteNotesResponse",
     "ListLogsResponse",
     "ListLogsResponseDataItem",
     "ListLogsResponseDataItemActor",
