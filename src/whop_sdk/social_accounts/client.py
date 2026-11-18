@@ -110,7 +110,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -161,7 +161,7 @@ class SocialAccountsClient:
         from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -207,7 +207,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -254,7 +254,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -273,7 +273,7 @@ class SocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SocialAccount:
         """
-        Deprecated compatibility endpoint. Refresh external accounts with `POST /external_accounts/{id}/refresh` instead.
+        Deprecated compatibility endpoint. Returns the social account unchanged.
 
         Parameters
         ----------
@@ -289,14 +289,14 @@ class SocialAccountsClient:
         Returns
         -------
         SocialAccount
-            refresh started through the deprecated path
+            the social account, unchanged, through the deprecated path
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -398,7 +398,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -458,7 +458,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -512,7 +512,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -567,7 +567,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -594,7 +594,7 @@ class AsyncSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SocialAccount:
         """
-        Deprecated compatibility endpoint. Refresh external accounts with `POST /external_accounts/{id}/refresh` instead.
+        Deprecated compatibility endpoint. Returns the social account unchanged.
 
         Parameters
         ----------
@@ -610,7 +610,7 @@ class AsyncSocialAccountsClient:
         Returns
         -------
         SocialAccount
-            refresh started through the deprecated path
+            the social account, unchanged, through the deprecated path
 
         Examples
         --------
@@ -619,7 +619,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

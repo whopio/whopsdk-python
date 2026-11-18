@@ -17,7 +17,6 @@ from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.service_unavailable_error import ServiceUnavailableError
-from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.external_account import ExternalAccount
 from ..types.v1error_response import V1ErrorResponse
@@ -501,7 +500,7 @@ class RawExternalAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ExternalAccount]:
         """
-        Refreshes the state of an external account. Use it to clear an `error` that has been resolved.
+        Deprecated. Returns the external account unchanged.
 
         Parameters
         ----------
@@ -517,7 +516,7 @@ class RawExternalAccountsClient:
         Returns
         -------
         HttpResponse[ExternalAccount]
-            refresh started
+            the external account, unchanged
         """
         _response = self._client_wrapper.httpx_client.request(
             f"external_accounts/{encode_path_param(id)}/refresh",
@@ -542,17 +541,6 @@ class RawExternalAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -588,17 +576,6 @@ class RawExternalAccountsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1085,7 +1062,7 @@ class AsyncRawExternalAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ExternalAccount]:
         """
-        Refreshes the state of an external account. Use it to clear an `error` that has been resolved.
+        Deprecated. Returns the external account unchanged.
 
         Parameters
         ----------
@@ -1101,7 +1078,7 @@ class AsyncRawExternalAccountsClient:
         Returns
         -------
         AsyncHttpResponse[ExternalAccount]
-            refresh started
+            the external account, unchanged
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"external_accounts/{encode_path_param(id)}/refresh",
@@ -1126,17 +1103,6 @@ class AsyncRawExternalAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -1172,17 +1138,6 @@ class AsyncRawExternalAccountsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

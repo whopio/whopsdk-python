@@ -9,11 +9,6 @@ from .social_account_platform import SocialAccountPlatform
 
 
 class SocialAccount(UniversalBaseModel):
-    error: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Why this social account currently can't be used for advertising — a failed share or a Meta-side restriction. Null when the account is healthy.
-    """
-
     external_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The platform-specific ID for this social account.

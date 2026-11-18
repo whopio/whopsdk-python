@@ -360,7 +360,7 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SocialAccount]:
         """
-        Deprecated compatibility endpoint. Refresh external accounts with `POST /external_accounts/{id}/refresh` instead.
+        Deprecated compatibility endpoint. Returns the social account unchanged.
 
         Parameters
         ----------
@@ -376,7 +376,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         HttpResponse[SocialAccount]
-            refresh started through the deprecated path
+            the social account, unchanged, through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/refresh",
@@ -755,7 +755,7 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SocialAccount]:
         """
-        Deprecated compatibility endpoint. Refresh external accounts with `POST /external_accounts/{id}/refresh` instead.
+        Deprecated compatibility endpoint. Returns the social account unchanged.
 
         Parameters
         ----------
@@ -771,7 +771,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncHttpResponse[SocialAccount]
-            refresh started through the deprecated path
+            the social account, unchanged, through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/refresh",
