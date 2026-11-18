@@ -21,7 +21,7 @@ class DomainTransfer(UniversalBaseModel):
 
     state: DomainTransferState = pydantic.Field()
     """
-    `ready` while the code waits to be used. `pending` once it has: Whop removes the domain's email, Apple Pay and pixel from this account, then moves the registration and removes the domain from this account.
+    `ready` while the code waits to be used. `pending` once another account uses it. Whop then removes the domain's email, Apple Pay and pixel from this account. Then it moves the registration and removes the domain from this account. `releasing` while Whop turns the transfer off.
     """
 
     if IS_PYDANTIC_V2:

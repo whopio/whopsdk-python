@@ -28,6 +28,8 @@ DomainIssueCode = typing.Union[
         "transfer_rejected",
         "transfer_not_cancellable",
         "domain_transfer_failed",
+        "transfer_out_locked",
+        "registrar_unavailable",
         "apple_pay_unverified",
         "pixel_not_seen",
         "pixel_not_installed",

@@ -2,4 +2,4 @@
 
 import typing
 
-DomainTransferState = typing.Union[typing.Literal["ready", "pending"], typing.Any]
+DomainTransferState = typing.Union[typing.Literal["ready", "pending", "releasing"], typing.Any]
