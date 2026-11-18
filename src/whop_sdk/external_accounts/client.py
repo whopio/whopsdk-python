@@ -110,7 +110,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -163,7 +163,7 @@ class ExternalAccountsClient:
         )
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -209,7 +209,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -258,7 +258,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -277,7 +277,7 @@ class ExternalAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExternalAccount:
         """
-        Refreshes the state of an external account. Use it to clear an `error` that has been resolved.
+        Deprecated. Returns the external account unchanged.
 
         Parameters
         ----------
@@ -293,14 +293,14 @@ class ExternalAccountsClient:
         Returns
         -------
         ExternalAccount
-            refresh started
+            the external account, unchanged
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -402,7 +402,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -464,7 +464,7 @@ class AsyncExternalAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -518,7 +518,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -575,7 +575,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -602,7 +602,7 @@ class AsyncExternalAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExternalAccount:
         """
-        Refreshes the state of an external account. Use it to clear an `error` that has been resolved.
+        Deprecated. Returns the external account unchanged.
 
         Parameters
         ----------
@@ -618,7 +618,7 @@ class AsyncExternalAccountsClient:
         Returns
         -------
         ExternalAccount
-            refresh started
+            the external account, unchanged
 
         Examples
         --------
@@ -627,7 +627,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-2",
+            "2026-11-17-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
