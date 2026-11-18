@@ -99,6 +99,7 @@ class PreferencesClient:
         failed_payment_emails: typing.Optional[bool] = OMIT,
         feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
         merchant_of_record: typing.Optional[UpdatePreferencesRequestMerchantOfRecord] = OMIT,
+        off_session_payment_rules: typing.Optional[bool] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
         renewal_reminder_emails: typing.Optional[bool] = OMIT,
         review_request_emails: typing.Optional[bool] = OMIT,
@@ -114,6 +115,7 @@ class PreferencesClient:
 
         - `ad_campaign:create`: `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`.
         - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
+        - `payment:manage`: `off_session_payment_rules`.
         - `payment:dispute`: `dispute_fighter_enabled`.
         - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
@@ -169,6 +171,9 @@ class PreferencesClient:
 
         merchant_of_record : typing.Optional[UpdatePreferencesRequestMerchantOfRecord]
             Set it to `account` to make the account the merchant of record. Only some business categories can switch. The business must be verified. The switch cannot be undone. The response shows `pending` until approval. Checkout takes no payments until then. After the switch, the account accepts only card, Apple Pay, Google Pay and crypto payments. PayPal, buy now pay later and local payment methods stop. Requires the `payout:account:update` scope on your API key.
+
+        off_session_payment_rules : typing.Optional[bool]
+            Whether this account's active payment rules apply to future off-session charges, including renewals. Off by default. Requires the payment:manage scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
@@ -226,6 +231,7 @@ class PreferencesClient:
             failed_payment_emails=failed_payment_emails,
             feedback_options=feedback_options,
             merchant_of_record=merchant_of_record,
+            off_session_payment_rules=off_session_payment_rules,
             preferred_settlement_currency=preferred_settlement_currency,
             renewal_reminder_emails=renewal_reminder_emails,
             review_request_emails=review_request_emails,
@@ -316,6 +322,7 @@ class AsyncPreferencesClient:
         failed_payment_emails: typing.Optional[bool] = OMIT,
         feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
         merchant_of_record: typing.Optional[UpdatePreferencesRequestMerchantOfRecord] = OMIT,
+        off_session_payment_rules: typing.Optional[bool] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
         renewal_reminder_emails: typing.Optional[bool] = OMIT,
         review_request_emails: typing.Optional[bool] = OMIT,
@@ -331,6 +338,7 @@ class AsyncPreferencesClient:
 
         - `ad_campaign:create`: `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`.
         - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
+        - `payment:manage`: `off_session_payment_rules`.
         - `payment:dispute`: `dispute_fighter_enabled`.
         - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
@@ -386,6 +394,9 @@ class AsyncPreferencesClient:
 
         merchant_of_record : typing.Optional[UpdatePreferencesRequestMerchantOfRecord]
             Set it to `account` to make the account the merchant of record. Only some business categories can switch. The business must be verified. The switch cannot be undone. The response shows `pending` until approval. Checkout takes no payments until then. After the switch, the account accepts only card, Apple Pay, Google Pay and crypto payments. PayPal, buy now pay later and local payment methods stop. Requires the `payout:account:update` scope on your API key.
+
+        off_session_payment_rules : typing.Optional[bool]
+            Whether this account's active payment rules apply to future off-session charges, including renewals. Off by default. Requires the payment:manage scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
@@ -451,6 +462,7 @@ class AsyncPreferencesClient:
             failed_payment_emails=failed_payment_emails,
             feedback_options=feedback_options,
             merchant_of_record=merchant_of_record,
+            off_session_payment_rules=off_session_payment_rules,
             preferred_settlement_currency=preferred_settlement_currency,
             renewal_reminder_emails=renewal_reminder_emails,
             review_request_emails=review_request_emails,
