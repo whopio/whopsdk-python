@@ -40,10 +40,11 @@ class ChannelMembersClient:
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
+        include_deleted: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ChannelMember, ListChannelMembersResponse]:
         """
-        List or search the people in a channel.
+        List or search the current members of a channel. Set include_deleted to true to include former members with a deleted_at timestamp.
 
         Parameters
         ----------
@@ -65,6 +66,9 @@ class ChannelMembersClient:
         query : typing.Optional[str]
             Search by name or username.
 
+        include_deleted : typing.Optional[bool]
+            Include former members with a deleted_at timestamp. Defaults to current members only.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -78,7 +82,7 @@ class ChannelMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -98,6 +102,7 @@ class ChannelMembersClient:
             last=last,
             before=before,
             query=query,
+            include_deleted=include_deleted,
             request_options=request_options,
         )
 
@@ -128,7 +133,7 @@ class ChannelMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -162,7 +167,7 @@ class ChannelMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -194,7 +199,7 @@ class ChannelMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -235,7 +240,7 @@ class ChannelMembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -274,10 +279,11 @@ class AsyncChannelMembersClient:
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
+        include_deleted: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ChannelMember, ListChannelMembersResponse]:
         """
-        List or search the people in a channel.
+        List or search the current members of a channel. Set include_deleted to true to include former members with a deleted_at timestamp.
 
         Parameters
         ----------
@@ -299,6 +305,9 @@ class AsyncChannelMembersClient:
         query : typing.Optional[str]
             Search by name or username.
 
+        include_deleted : typing.Optional[bool]
+            Include former members with a deleted_at timestamp. Defaults to current members only.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -314,7 +323,7 @@ class AsyncChannelMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -341,6 +350,7 @@ class AsyncChannelMembersClient:
             last=last,
             before=before,
             query=query,
+            include_deleted=include_deleted,
             request_options=request_options,
         )
 
@@ -373,7 +383,7 @@ class AsyncChannelMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -417,7 +427,7 @@ class AsyncChannelMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -457,7 +467,7 @@ class AsyncChannelMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -506,7 +516,7 @@ class AsyncChannelMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17",
+            "2026-11-17-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

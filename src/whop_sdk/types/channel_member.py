@@ -16,6 +16,11 @@ class ChannelMember(UniversalBaseModel):
     When the stored channel membership was created, as an ISO 8601 timestamp. Null for users whose access does not have a stored membership.
     """
 
+    deleted_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the membership was removed, as an ISO 8601 timestamp. Null for current members and access-derived users.
+    """
+
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Stored membership ID, or null for access-derived users.
