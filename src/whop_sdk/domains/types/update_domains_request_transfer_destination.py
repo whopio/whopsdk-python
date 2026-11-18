@@ -2,4 +2,4 @@
 
 import typing
 
-UpdateDomainsRequestTransferDestination = typing.Union[typing.Literal["internal"], typing.Any]
+UpdateDomainsRequestTransferDestination = typing.Union[typing.Literal["internal", "external"], typing.Any]
