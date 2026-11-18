@@ -4,13 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .payment_rule_field_actions_item import PaymentRuleFieldActionsItem
 from .payment_rule_field_field import PaymentRuleFieldField
 from .payment_rule_field_operators_item import PaymentRuleFieldOperatorsItem
 from .payment_rule_field_option import PaymentRuleFieldOption
+from .payment_rule_field_stage import PaymentRuleFieldStage
 from .payment_rule_field_type import PaymentRuleFieldType
 
 
 class PaymentRuleField(UniversalBaseModel):
+    actions: typing.List[PaymentRuleFieldActionsItem]
     field: PaymentRuleFieldField = pydantic.Field()
     """
     The payment attribute this condition reads.
@@ -28,6 +31,11 @@ class PaymentRuleField(UniversalBaseModel):
 
     operators: typing.List[PaymentRuleFieldOperatorsItem]
     options: typing.Optional[typing.List[PaymentRuleFieldOption]] = None
+    stage: PaymentRuleFieldStage = pydantic.Field()
+    """
+    When a rule on this field runs. An `after_authorization` field reads the bank's answer, so its rule runs after the bank authorizes the card. A rule cannot mix fields from both stages.
+    """
+
     type: PaymentRuleFieldType = pydantic.Field()
     """
     The type of value this field compares against.

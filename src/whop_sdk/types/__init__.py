@@ -1265,9 +1265,11 @@ if typing.TYPE_CHECKING:
     from .payment_rule_condition_value import PaymentRuleConditionValue
     from .payment_rule_conditions import PaymentRuleConditions
     from .payment_rule_field import PaymentRuleField
+    from .payment_rule_field_actions_item import PaymentRuleFieldActionsItem
     from .payment_rule_field_field import PaymentRuleFieldField
     from .payment_rule_field_operators_item import PaymentRuleFieldOperatorsItem
     from .payment_rule_field_option import PaymentRuleFieldOption
+    from .payment_rule_field_stage import PaymentRuleFieldStage
     from .payment_rule_field_type import PaymentRuleFieldType
     from .payment_rule_match import PaymentRuleMatch
     from .payment_rule_match_action import PaymentRuleMatchAction
@@ -2730,9 +2732,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentRuleConditionValue": ".payment_rule_condition_value",
     "PaymentRuleConditions": ".payment_rule_conditions",
     "PaymentRuleField": ".payment_rule_field",
+    "PaymentRuleFieldActionsItem": ".payment_rule_field_actions_item",
     "PaymentRuleFieldField": ".payment_rule_field_field",
     "PaymentRuleFieldOperatorsItem": ".payment_rule_field_operators_item",
     "PaymentRuleFieldOption": ".payment_rule_field_option",
+    "PaymentRuleFieldStage": ".payment_rule_field_stage",
     "PaymentRuleFieldType": ".payment_rule_field_type",
     "PaymentRuleMatch": ".payment_rule_match",
     "PaymentRuleMatchAction": ".payment_rule_match_action",
@@ -4217,9 +4221,11 @@ __all__ = [
     "PaymentRuleConditionValue",
     "PaymentRuleConditions",
     "PaymentRuleField",
+    "PaymentRuleFieldActionsItem",
     "PaymentRuleFieldField",
     "PaymentRuleFieldOperatorsItem",
     "PaymentRuleFieldOption",
+    "PaymentRuleFieldStage",
     "PaymentRuleFieldType",
     "PaymentRuleMatch",
     "PaymentRuleMatchAction",
