@@ -1362,6 +1362,21 @@ if typing.TYPE_CHECKING:
     from .receipt_status import ReceiptStatus
     from .receipt_tax_behaviors import ReceiptTaxBehaviors
     from .receipt_v2order import ReceiptV2Order
+    from .recommended_action import RecommendedAction
+    from .recommended_action_changed_resource import RecommendedActionChangedResource
+    from .recommended_action_changed_resource_object import RecommendedActionChangedResourceObject
+    from .recommended_action_preview import (
+        RecommendedActionPreview,
+        RecommendedActionPreview_WebsiteAbTest,
+        RecommendedActionPreview_WebsiteChange,
+    )
+    from .recommended_action_status import RecommendedActionStatus
+    from .recommended_action_type import RecommendedActionType
+    from .recommended_action_website_ab_test_preview import RecommendedActionWebsiteAbTestPreview
+    from .recommended_action_website_change_preview import RecommendedActionWebsiteChangePreview
+    from .recommended_action_workflow import RecommendedActionWorkflow
+    from .recommended_action_workflow_step import RecommendedActionWorkflowStep
+    from .recommended_action_workflow_step_status import RecommendedActionWorkflowStepStatus
     from .refund import Refund
     from .refund_failure_reason import RefundFailureReason
     from .refund_legacy import RefundLegacy
@@ -2830,6 +2845,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReceiptStatus": ".receipt_status",
     "ReceiptTaxBehaviors": ".receipt_tax_behaviors",
     "ReceiptV2Order": ".receipt_v2order",
+    "RecommendedAction": ".recommended_action",
+    "RecommendedActionChangedResource": ".recommended_action_changed_resource",
+    "RecommendedActionChangedResourceObject": ".recommended_action_changed_resource_object",
+    "RecommendedActionPreview": ".recommended_action_preview",
+    "RecommendedActionPreview_WebsiteAbTest": ".recommended_action_preview",
+    "RecommendedActionPreview_WebsiteChange": ".recommended_action_preview",
+    "RecommendedActionStatus": ".recommended_action_status",
+    "RecommendedActionType": ".recommended_action_type",
+    "RecommendedActionWebsiteAbTestPreview": ".recommended_action_website_ab_test_preview",
+    "RecommendedActionWebsiteChangePreview": ".recommended_action_website_change_preview",
+    "RecommendedActionWorkflow": ".recommended_action_workflow",
+    "RecommendedActionWorkflowStep": ".recommended_action_workflow_step",
+    "RecommendedActionWorkflowStepStatus": ".recommended_action_workflow_step_status",
     "Refund": ".refund",
     "RefundFailureReason": ".refund_failure_reason",
     "RefundLegacy": ".refund_legacy",
@@ -4320,6 +4348,19 @@ __all__ = [
     "ReceiptStatus",
     "ReceiptTaxBehaviors",
     "ReceiptV2Order",
+    "RecommendedAction",
+    "RecommendedActionChangedResource",
+    "RecommendedActionChangedResourceObject",
+    "RecommendedActionPreview",
+    "RecommendedActionPreview_WebsiteAbTest",
+    "RecommendedActionPreview_WebsiteChange",
+    "RecommendedActionStatus",
+    "RecommendedActionType",
+    "RecommendedActionWebsiteAbTestPreview",
+    "RecommendedActionWebsiteChangePreview",
+    "RecommendedActionWorkflow",
+    "RecommendedActionWorkflowStep",
+    "RecommendedActionWorkflowStepStatus",
     "Refund",
     "RefundFailureReason",
     "RefundLegacy",

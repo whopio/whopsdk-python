@@ -90,6 +90,7 @@ if typing.TYPE_CHECKING:
     from .products.client import AsyncProductsClient, ProductsClient
     from .promo_codes.client import AsyncPromoCodesClient, PromoCodesClient
     from .reactions.client import AsyncReactionsClient, ReactionsClient
+    from .recommended_actions.client import AsyncRecommendedActionsClient, RecommendedActionsClient
     from .refunds.client import AsyncRefundsClient, RefundsClient
     from .resolution_center_cases.client import AsyncResolutionCenterCasesClient, ResolutionCenterCasesClient
     from .review_reports.client import AsyncReviewReportsClient, ReviewReportsClient
@@ -278,6 +279,7 @@ class Whop:
         self._products: typing.Optional[ProductsClient] = None
         self._promo_codes: typing.Optional[PromoCodesClient] = None
         self._reactions: typing.Optional[ReactionsClient] = None
+        self._recommended_actions: typing.Optional[RecommendedActionsClient] = None
         self._refunds: typing.Optional[RefundsClient] = None
         self._resolution_center_cases: typing.Optional[ResolutionCenterCasesClient] = None
         self._review_reports: typing.Optional[ReviewReportsClient] = None
@@ -938,6 +940,14 @@ class Whop:
         return self._reactions
 
     @property
+    def recommended_actions(self):
+        if self._recommended_actions is None:
+            from .recommended_actions.client import RecommendedActionsClient  # noqa: E402
+
+            self._recommended_actions = RecommendedActionsClient(client_wrapper=self._client_wrapper)
+        return self._recommended_actions
+
+    @property
     def refunds(self):
         if self._refunds is None:
             from .refunds.client import RefundsClient  # noqa: E402
@@ -1271,6 +1281,7 @@ class AsyncWhop:
         self._products: typing.Optional[AsyncProductsClient] = None
         self._promo_codes: typing.Optional[AsyncPromoCodesClient] = None
         self._reactions: typing.Optional[AsyncReactionsClient] = None
+        self._recommended_actions: typing.Optional[AsyncRecommendedActionsClient] = None
         self._refunds: typing.Optional[AsyncRefundsClient] = None
         self._resolution_center_cases: typing.Optional[AsyncResolutionCenterCasesClient] = None
         self._review_reports: typing.Optional[AsyncReviewReportsClient] = None
@@ -1929,6 +1940,14 @@ class AsyncWhop:
 
             self._reactions = AsyncReactionsClient(client_wrapper=self._client_wrapper)
         return self._reactions
+
+    @property
+    def recommended_actions(self):
+        if self._recommended_actions is None:
+            from .recommended_actions.client import AsyncRecommendedActionsClient  # noqa: E402
+
+            self._recommended_actions = AsyncRecommendedActionsClient(client_wrapper=self._client_wrapper)
+        return self._recommended_actions
 
     @property
     def refunds(self):
