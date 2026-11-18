@@ -5,7 +5,6 @@ from __future__ import annotations
 import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.partner import Partner
 from .raw_client import AsyncRawPartnersClient, RawPartnersClient
@@ -13,10 +12,6 @@ from .types.create_partners_response import CreatePartnersResponse
 from .types.fee_options_partners_response import FeeOptionsPartnersResponse
 from .types.leaderboard_partners_request_period import LeaderboardPartnersRequestPeriod
 from .types.leaderboard_partners_response import LeaderboardPartnersResponse
-from .types.referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
-from .types.referred_users_partners_request_order import ReferredUsersPartnersRequestOrder
-from .types.referred_users_partners_response import ReferredUsersPartnersResponse
-from .types.referred_users_partners_response_data_item import ReferredUsersPartnersResponseDataItem
 
 if typing.TYPE_CHECKING:
     from .businesses.client import AsyncBusinessesClient, BusinessesClient
@@ -130,104 +125,6 @@ class PartnersClient:
         """
         _response = self._raw_client.leaderboard(period=period, request_options=request_options)
         return _response.data
-
-    def referred_users(
-        self,
-        *,
-        earning_partner_id: typing.Optional[str] = None,
-        earning_partner_username: typing.Optional[str] = None,
-        referring_account_id: typing.Optional[str] = None,
-        query: typing.Optional[str] = None,
-        has_businesses: typing.Optional[bool] = None,
-        has_earning_businesses: typing.Optional[bool] = None,
-        order: typing.Optional[ReferredUsersPartnersRequestOrder] = None,
-        direction: typing.Optional[ReferredUsersPartnersRequestDirection] = None,
-        first: typing.Optional[int] = None,
-        after: typing.Optional[str] = None,
-        last: typing.Optional[int] = None,
-        before: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
-        """
-        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Deprecated: this list is retired and no longer appears in the API reference. It stops responding after 2026-11-17 and has no replacement.
-
-        Parameters
-        ----------
-        earning_partner_id : typing.Optional[str]
-            The selected referring partner's user_ ID. Requires user_id=global; cannot be combined with earning_partner_username.
-
-        earning_partner_username : typing.Optional[str]
-            The selected referring partner's exact username. Requires user_id=global; cannot be combined with earning_partner_id.
-
-        referring_account_id : typing.Optional[str]
-            List the users this business's team members referred, past members included, instead of the caller's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id. The owner role reads every team member's referrals; anyone else reads only their own and those of the people under them in the org chart. earning_partner_id or earning_partner_username then narrows to one team member.
-
-        query : typing.Optional[str]
-            Search referred users by name or username. In global mode, matches the beginning of usernames only.
-
-        has_businesses : typing.Optional[bool]
-            When true, only referred users who brought at least one business onto Whop.
-
-        has_earning_businesses : typing.Optional[bool]
-            When true, only referred users with at least one business that has generated earnings.
-
-        order : typing.Optional[ReferredUsersPartnersRequestOrder]
-            The field to sort by. created_at uses the user's signup date; earnings_usd uses the current primary referrer's cached total affiliate earnings from that user.
-
-        direction : typing.Optional[ReferredUsersPartnersRequestDirection]
-            The direction to sort results.
-
-        first : typing.Optional[int]
-            Number of results to return from the start of the range.
-
-        after : typing.Optional[str]
-            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
-
-        last : typing.Optional[int]
-            Number of results to return from the end of the range.
-
-        before : typing.Optional[str]
-            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]
-            referred users listed
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-11-17-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        response = client.partners.referred_users()
-        for item in response:
-            yield item
-        # alternatively, you can paginate page-by-page
-        for page in response.iter_pages():
-            yield page
-        """
-        return self._raw_client.referred_users(
-            earning_partner_id=earning_partner_id,
-            earning_partner_username=earning_partner_username,
-            referring_account_id=referring_account_id,
-            query=query,
-            has_businesses=has_businesses,
-            has_earning_businesses=has_earning_businesses,
-            order=order,
-            direction=direction,
-            first=first,
-            after=after,
-            last=last,
-            before=before,
-            request_options=request_options,
-        )
 
     def retrieve(
         self,
@@ -414,113 +311,6 @@ class AsyncPartnersClient:
         """
         _response = await self._raw_client.leaderboard(period=period, request_options=request_options)
         return _response.data
-
-    async def referred_users(
-        self,
-        *,
-        earning_partner_id: typing.Optional[str] = None,
-        earning_partner_username: typing.Optional[str] = None,
-        referring_account_id: typing.Optional[str] = None,
-        query: typing.Optional[str] = None,
-        has_businesses: typing.Optional[bool] = None,
-        has_earning_businesses: typing.Optional[bool] = None,
-        order: typing.Optional[ReferredUsersPartnersRequestOrder] = None,
-        direction: typing.Optional[ReferredUsersPartnersRequestDirection] = None,
-        first: typing.Optional[int] = None,
-        after: typing.Optional[str] = None,
-        last: typing.Optional[int] = None,
-        before: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
-        """
-        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Deprecated: this list is retired and no longer appears in the API reference. It stops responding after 2026-11-17 and has no replacement.
-
-        Parameters
-        ----------
-        earning_partner_id : typing.Optional[str]
-            The selected referring partner's user_ ID. Requires user_id=global; cannot be combined with earning_partner_username.
-
-        earning_partner_username : typing.Optional[str]
-            The selected referring partner's exact username. Requires user_id=global; cannot be combined with earning_partner_id.
-
-        referring_account_id : typing.Optional[str]
-            List the users this business's team members referred, past members included, instead of the caller's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id. The owner role reads every team member's referrals; anyone else reads only their own and those of the people under them in the org chart. earning_partner_id or earning_partner_username then narrows to one team member.
-
-        query : typing.Optional[str]
-            Search referred users by name or username. In global mode, matches the beginning of usernames only.
-
-        has_businesses : typing.Optional[bool]
-            When true, only referred users who brought at least one business onto Whop.
-
-        has_earning_businesses : typing.Optional[bool]
-            When true, only referred users with at least one business that has generated earnings.
-
-        order : typing.Optional[ReferredUsersPartnersRequestOrder]
-            The field to sort by. created_at uses the user's signup date; earnings_usd uses the current primary referrer's cached total affiliate earnings from that user.
-
-        direction : typing.Optional[ReferredUsersPartnersRequestDirection]
-            The direction to sort results.
-
-        first : typing.Optional[int]
-            Number of results to return from the start of the range.
-
-        after : typing.Optional[str]
-            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
-
-        last : typing.Optional[int]
-            Number of results to return from the end of the range.
-
-        before : typing.Optional[str]
-            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]
-            referred users listed
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-11-17-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            response = await client.partners.referred_users()
-            async for item in response:
-                yield item
-
-            # alternatively, you can paginate page-by-page
-            async for page in response.iter_pages():
-                yield page
-
-
-        asyncio.run(main())
-        """
-        return await self._raw_client.referred_users(
-            earning_partner_id=earning_partner_id,
-            earning_partner_username=earning_partner_username,
-            referring_account_id=referring_account_id,
-            query=query,
-            has_businesses=has_businesses,
-            has_earning_businesses=has_earning_businesses,
-            order=order,
-            direction=direction,
-            first=first,
-            after=after,
-            last=last,
-            before=before,
-            request_options=request_options,
-        )
 
     async def retrieve(
         self,

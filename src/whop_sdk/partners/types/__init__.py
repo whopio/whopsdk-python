@@ -35,15 +35,6 @@ if typing.TYPE_CHECKING:
     from .leaderboard_partners_response_nearby_item_user_profile_picture import (
         LeaderboardPartnersResponseNearbyItemUserProfilePicture,
     )
-    from .referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
-    from .referred_users_partners_request_order import ReferredUsersPartnersRequestOrder
-    from .referred_users_partners_response import ReferredUsersPartnersResponse
-    from .referred_users_partners_response_data_item import ReferredUsersPartnersResponseDataItem
-    from .referred_users_partners_response_data_item_user import ReferredUsersPartnersResponseDataItemUser
-    from .referred_users_partners_response_data_item_user_profile_picture import (
-        ReferredUsersPartnersResponseDataItemUserProfilePicture,
-    )
-    from .referred_users_partners_response_page_info import ReferredUsersPartnersResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "CreatePartnersResponse": ".create_partners_response",
     "FeeOptionsPartnersResponse": ".fee_options_partners_response",
@@ -64,13 +55,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardPartnersResponseNearbyItem": ".leaderboard_partners_response_nearby_item",
     "LeaderboardPartnersResponseNearbyItemUser": ".leaderboard_partners_response_nearby_item_user",
     "LeaderboardPartnersResponseNearbyItemUserProfilePicture": ".leaderboard_partners_response_nearby_item_user_profile_picture",
-    "ReferredUsersPartnersRequestDirection": ".referred_users_partners_request_direction",
-    "ReferredUsersPartnersRequestOrder": ".referred_users_partners_request_order",
-    "ReferredUsersPartnersResponse": ".referred_users_partners_response",
-    "ReferredUsersPartnersResponseDataItem": ".referred_users_partners_response_data_item",
-    "ReferredUsersPartnersResponseDataItemUser": ".referred_users_partners_response_data_item_user",
-    "ReferredUsersPartnersResponseDataItemUserProfilePicture": ".referred_users_partners_response_data_item_user_profile_picture",
-    "ReferredUsersPartnersResponsePageInfo": ".referred_users_partners_response_page_info",
 }
 
 
@@ -115,11 +99,4 @@ __all__ = [
     "LeaderboardPartnersResponseNearbyItem",
     "LeaderboardPartnersResponseNearbyItemUser",
     "LeaderboardPartnersResponseNearbyItemUserProfilePicture",
-    "ReferredUsersPartnersRequestDirection",
-    "ReferredUsersPartnersRequestOrder",
-    "ReferredUsersPartnersResponse",
-    "ReferredUsersPartnersResponseDataItem",
-    "ReferredUsersPartnersResponseDataItemUser",
-    "ReferredUsersPartnersResponseDataItemUserProfilePicture",
-    "ReferredUsersPartnersResponsePageInfo",
 ]
