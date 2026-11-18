@@ -29,6 +29,11 @@ class AccountBalanceBreakdown(UniversalBaseModel):
     """
 
     pending_settlements: typing.List[AccountBalanceSettlement]
+    perps: str = pydantic.Field()
+    """
+    Amount held for perpetual trading, at what the trading account is worth now, in native units, as a decimal string. It is not part of `available`.
+    """
+
     reserve: str = pydantic.Field()
     """
     Amount held back, in native units, as a decimal string. Retrieve the account's reserves for why it is held and when it unlocks.
