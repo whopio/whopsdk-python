@@ -37,6 +37,11 @@ if typing.TYPE_CHECKING:
     )
     from .create_verifications_response import CreateVerificationsResponse
     from .create_verifications_response_address import CreateVerificationsResponseAddress
+    from .create_verifications_response_identity_document import CreateVerificationsResponseIdentityDocument
+    from .create_verifications_response_identity_document_status import (
+        CreateVerificationsResponseIdentityDocumentStatus,
+    )
+    from .create_verifications_response_identity_document_type import CreateVerificationsResponseIdentityDocumentType
     from .create_verifications_response_kind import CreateVerificationsResponseKind
     from .create_verifications_response_owners_item import CreateVerificationsResponseOwnersItem
     from .create_verifications_response_owners_item_rejected_checks_item import (
@@ -66,12 +71,24 @@ if typing.TYPE_CHECKING:
     from .create_verifications_response_required_documents_item_status import (
         CreateVerificationsResponseRequiredDocumentsItemStatus,
     )
+    from .create_verifications_response_selfie import CreateVerificationsResponseSelfie
+    from .create_verifications_response_selfie_capture import CreateVerificationsResponseSelfieCapture
+    from .create_verifications_response_selfie_status import CreateVerificationsResponseSelfieStatus
     from .create_verifications_response_status import CreateVerificationsResponseStatus
     from .list_verifications_request_direction import ListVerificationsRequestDirection
     from .list_verifications_request_order import ListVerificationsRequestOrder
     from .list_verifications_response import ListVerificationsResponse
     from .list_verifications_response_data_item import ListVerificationsResponseDataItem
     from .list_verifications_response_data_item_address import ListVerificationsResponseDataItemAddress
+    from .list_verifications_response_data_item_identity_document import (
+        ListVerificationsResponseDataItemIdentityDocument,
+    )
+    from .list_verifications_response_data_item_identity_document_status import (
+        ListVerificationsResponseDataItemIdentityDocumentStatus,
+    )
+    from .list_verifications_response_data_item_identity_document_type import (
+        ListVerificationsResponseDataItemIdentityDocumentType,
+    )
     from .list_verifications_response_data_item_kind import ListVerificationsResponseDataItemKind
     from .list_verifications_response_data_item_owners_item import ListVerificationsResponseDataItemOwnersItem
     from .list_verifications_response_data_item_owners_item_rejected_checks_item import (
@@ -107,6 +124,9 @@ if typing.TYPE_CHECKING:
     from .list_verifications_response_data_item_required_documents_item_status import (
         ListVerificationsResponseDataItemRequiredDocumentsItemStatus,
     )
+    from .list_verifications_response_data_item_selfie import ListVerificationsResponseDataItemSelfie
+    from .list_verifications_response_data_item_selfie_capture import ListVerificationsResponseDataItemSelfieCapture
+    from .list_verifications_response_data_item_selfie_status import ListVerificationsResponseDataItemSelfieStatus
     from .list_verifications_response_data_item_status import ListVerificationsResponseDataItemStatus
     from .list_verifications_response_page_info import ListVerificationsResponsePageInfo
     from .post_identity_profile_updated_payload import PostIdentityProfileUpdatedPayload
@@ -118,6 +138,13 @@ if typing.TYPE_CHECKING:
     from .post_verification_succeeded_payload_type import PostVerificationSucceededPayloadType
     from .retrieve_verifications_response import RetrieveVerificationsResponse
     from .retrieve_verifications_response_address import RetrieveVerificationsResponseAddress
+    from .retrieve_verifications_response_identity_document import RetrieveVerificationsResponseIdentityDocument
+    from .retrieve_verifications_response_identity_document_status import (
+        RetrieveVerificationsResponseIdentityDocumentStatus,
+    )
+    from .retrieve_verifications_response_identity_document_type import (
+        RetrieveVerificationsResponseIdentityDocumentType,
+    )
     from .retrieve_verifications_response_kind import RetrieveVerificationsResponseKind
     from .retrieve_verifications_response_owners_item import RetrieveVerificationsResponseOwnersItem
     from .retrieve_verifications_response_owners_item_rejected_checks_item import (
@@ -149,6 +176,9 @@ if typing.TYPE_CHECKING:
     from .retrieve_verifications_response_required_documents_item_status import (
         RetrieveVerificationsResponseRequiredDocumentsItemStatus,
     )
+    from .retrieve_verifications_response_selfie import RetrieveVerificationsResponseSelfie
+    from .retrieve_verifications_response_selfie_capture import RetrieveVerificationsResponseSelfieCapture
+    from .retrieve_verifications_response_selfie_status import RetrieveVerificationsResponseSelfieStatus
     from .retrieve_verifications_response_status import RetrieveVerificationsResponseStatus
     from .update_verifications_request_body import UpdateVerificationsRequestBody
     from .update_verifications_request_body_business_address import UpdateVerificationsRequestBodyBusinessAddress
@@ -203,6 +233,11 @@ if typing.TYPE_CHECKING:
     )
     from .update_verifications_response import UpdateVerificationsResponse
     from .update_verifications_response_address import UpdateVerificationsResponseAddress
+    from .update_verifications_response_identity_document import UpdateVerificationsResponseIdentityDocument
+    from .update_verifications_response_identity_document_status import (
+        UpdateVerificationsResponseIdentityDocumentStatus,
+    )
+    from .update_verifications_response_identity_document_type import UpdateVerificationsResponseIdentityDocumentType
     from .update_verifications_response_kind import UpdateVerificationsResponseKind
     from .update_verifications_response_owners_item import UpdateVerificationsResponseOwnersItem
     from .update_verifications_response_owners_item_rejected_checks_item import (
@@ -232,6 +267,9 @@ if typing.TYPE_CHECKING:
     from .update_verifications_response_required_documents_item_status import (
         UpdateVerificationsResponseRequiredDocumentsItemStatus,
     )
+    from .update_verifications_response_selfie import UpdateVerificationsResponseSelfie
+    from .update_verifications_response_selfie_capture import UpdateVerificationsResponseSelfieCapture
+    from .update_verifications_response_selfie_status import UpdateVerificationsResponseSelfieStatus
     from .update_verifications_response_status import UpdateVerificationsResponseStatus
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsRequestBody": ".create_verifications_request_body",
@@ -251,6 +289,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsRequestBody_Individual": ".create_verifications_request_body",
     "CreateVerificationsResponse": ".create_verifications_response",
     "CreateVerificationsResponseAddress": ".create_verifications_response_address",
+    "CreateVerificationsResponseIdentityDocument": ".create_verifications_response_identity_document",
+    "CreateVerificationsResponseIdentityDocumentStatus": ".create_verifications_response_identity_document_status",
+    "CreateVerificationsResponseIdentityDocumentType": ".create_verifications_response_identity_document_type",
     "CreateVerificationsResponseKind": ".create_verifications_response_kind",
     "CreateVerificationsResponseOwnersItem": ".create_verifications_response_owners_item",
     "CreateVerificationsResponseOwnersItemRejectedChecksItem": ".create_verifications_response_owners_item_rejected_checks_item",
@@ -264,12 +305,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsResponseRequestedInformationItemSelectionMode": ".create_verifications_response_requested_information_item_selection_mode",
     "CreateVerificationsResponseRequiredDocumentsItem": ".create_verifications_response_required_documents_item",
     "CreateVerificationsResponseRequiredDocumentsItemStatus": ".create_verifications_response_required_documents_item_status",
+    "CreateVerificationsResponseSelfie": ".create_verifications_response_selfie",
+    "CreateVerificationsResponseSelfieCapture": ".create_verifications_response_selfie_capture",
+    "CreateVerificationsResponseSelfieStatus": ".create_verifications_response_selfie_status",
     "CreateVerificationsResponseStatus": ".create_verifications_response_status",
     "ListVerificationsRequestDirection": ".list_verifications_request_direction",
     "ListVerificationsRequestOrder": ".list_verifications_request_order",
     "ListVerificationsResponse": ".list_verifications_response",
     "ListVerificationsResponseDataItem": ".list_verifications_response_data_item",
     "ListVerificationsResponseDataItemAddress": ".list_verifications_response_data_item_address",
+    "ListVerificationsResponseDataItemIdentityDocument": ".list_verifications_response_data_item_identity_document",
+    "ListVerificationsResponseDataItemIdentityDocumentStatus": ".list_verifications_response_data_item_identity_document_status",
+    "ListVerificationsResponseDataItemIdentityDocumentType": ".list_verifications_response_data_item_identity_document_type",
     "ListVerificationsResponseDataItemKind": ".list_verifications_response_data_item_kind",
     "ListVerificationsResponseDataItemOwnersItem": ".list_verifications_response_data_item_owners_item",
     "ListVerificationsResponseDataItemOwnersItemRejectedChecksItem": ".list_verifications_response_data_item_owners_item_rejected_checks_item",
@@ -283,6 +330,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListVerificationsResponseDataItemRequestedInformationItemSelectionMode": ".list_verifications_response_data_item_requested_information_item_selection_mode",
     "ListVerificationsResponseDataItemRequiredDocumentsItem": ".list_verifications_response_data_item_required_documents_item",
     "ListVerificationsResponseDataItemRequiredDocumentsItemStatus": ".list_verifications_response_data_item_required_documents_item_status",
+    "ListVerificationsResponseDataItemSelfie": ".list_verifications_response_data_item_selfie",
+    "ListVerificationsResponseDataItemSelfieCapture": ".list_verifications_response_data_item_selfie_capture",
+    "ListVerificationsResponseDataItemSelfieStatus": ".list_verifications_response_data_item_selfie_status",
     "ListVerificationsResponseDataItemStatus": ".list_verifications_response_data_item_status",
     "ListVerificationsResponsePageInfo": ".list_verifications_response_page_info",
     "PostIdentityProfileUpdatedPayload": ".post_identity_profile_updated_payload",
@@ -294,6 +344,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostVerificationSucceededPayloadType": ".post_verification_succeeded_payload_type",
     "RetrieveVerificationsResponse": ".retrieve_verifications_response",
     "RetrieveVerificationsResponseAddress": ".retrieve_verifications_response_address",
+    "RetrieveVerificationsResponseIdentityDocument": ".retrieve_verifications_response_identity_document",
+    "RetrieveVerificationsResponseIdentityDocumentStatus": ".retrieve_verifications_response_identity_document_status",
+    "RetrieveVerificationsResponseIdentityDocumentType": ".retrieve_verifications_response_identity_document_type",
     "RetrieveVerificationsResponseKind": ".retrieve_verifications_response_kind",
     "RetrieveVerificationsResponseOwnersItem": ".retrieve_verifications_response_owners_item",
     "RetrieveVerificationsResponseOwnersItemRejectedChecksItem": ".retrieve_verifications_response_owners_item_rejected_checks_item",
@@ -307,6 +360,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveVerificationsResponseRequestedInformationItemSelectionMode": ".retrieve_verifications_response_requested_information_item_selection_mode",
     "RetrieveVerificationsResponseRequiredDocumentsItem": ".retrieve_verifications_response_required_documents_item",
     "RetrieveVerificationsResponseRequiredDocumentsItemStatus": ".retrieve_verifications_response_required_documents_item_status",
+    "RetrieveVerificationsResponseSelfie": ".retrieve_verifications_response_selfie",
+    "RetrieveVerificationsResponseSelfieCapture": ".retrieve_verifications_response_selfie_capture",
+    "RetrieveVerificationsResponseSelfieStatus": ".retrieve_verifications_response_selfie_status",
     "RetrieveVerificationsResponseStatus": ".retrieve_verifications_response_status",
     "UpdateVerificationsRequestBody": ".update_verifications_request_body",
     "UpdateVerificationsRequestBodyBusinessAddress": ".update_verifications_request_body_business_address",
@@ -329,6 +385,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateVerificationsRequestBodyPersonalAddressRequestedInformationItemValueType": ".update_verifications_request_body_personal_address_requested_information_item_value_type",
     "UpdateVerificationsResponse": ".update_verifications_response",
     "UpdateVerificationsResponseAddress": ".update_verifications_response_address",
+    "UpdateVerificationsResponseIdentityDocument": ".update_verifications_response_identity_document",
+    "UpdateVerificationsResponseIdentityDocumentStatus": ".update_verifications_response_identity_document_status",
+    "UpdateVerificationsResponseIdentityDocumentType": ".update_verifications_response_identity_document_type",
     "UpdateVerificationsResponseKind": ".update_verifications_response_kind",
     "UpdateVerificationsResponseOwnersItem": ".update_verifications_response_owners_item",
     "UpdateVerificationsResponseOwnersItemRejectedChecksItem": ".update_verifications_response_owners_item_rejected_checks_item",
@@ -342,6 +401,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateVerificationsResponseRequestedInformationItemSelectionMode": ".update_verifications_response_requested_information_item_selection_mode",
     "UpdateVerificationsResponseRequiredDocumentsItem": ".update_verifications_response_required_documents_item",
     "UpdateVerificationsResponseRequiredDocumentsItemStatus": ".update_verifications_response_required_documents_item_status",
+    "UpdateVerificationsResponseSelfie": ".update_verifications_response_selfie",
+    "UpdateVerificationsResponseSelfieCapture": ".update_verifications_response_selfie_capture",
+    "UpdateVerificationsResponseSelfieStatus": ".update_verifications_response_selfie_status",
     "UpdateVerificationsResponseStatus": ".update_verifications_response_status",
 }
 
@@ -385,6 +447,9 @@ __all__ = [
     "CreateVerificationsRequestBody_Individual",
     "CreateVerificationsResponse",
     "CreateVerificationsResponseAddress",
+    "CreateVerificationsResponseIdentityDocument",
+    "CreateVerificationsResponseIdentityDocumentStatus",
+    "CreateVerificationsResponseIdentityDocumentType",
     "CreateVerificationsResponseKind",
     "CreateVerificationsResponseOwnersItem",
     "CreateVerificationsResponseOwnersItemRejectedChecksItem",
@@ -398,12 +463,18 @@ __all__ = [
     "CreateVerificationsResponseRequestedInformationItemSelectionMode",
     "CreateVerificationsResponseRequiredDocumentsItem",
     "CreateVerificationsResponseRequiredDocumentsItemStatus",
+    "CreateVerificationsResponseSelfie",
+    "CreateVerificationsResponseSelfieCapture",
+    "CreateVerificationsResponseSelfieStatus",
     "CreateVerificationsResponseStatus",
     "ListVerificationsRequestDirection",
     "ListVerificationsRequestOrder",
     "ListVerificationsResponse",
     "ListVerificationsResponseDataItem",
     "ListVerificationsResponseDataItemAddress",
+    "ListVerificationsResponseDataItemIdentityDocument",
+    "ListVerificationsResponseDataItemIdentityDocumentStatus",
+    "ListVerificationsResponseDataItemIdentityDocumentType",
     "ListVerificationsResponseDataItemKind",
     "ListVerificationsResponseDataItemOwnersItem",
     "ListVerificationsResponseDataItemOwnersItemRejectedChecksItem",
@@ -417,6 +488,9 @@ __all__ = [
     "ListVerificationsResponseDataItemRequestedInformationItemSelectionMode",
     "ListVerificationsResponseDataItemRequiredDocumentsItem",
     "ListVerificationsResponseDataItemRequiredDocumentsItemStatus",
+    "ListVerificationsResponseDataItemSelfie",
+    "ListVerificationsResponseDataItemSelfieCapture",
+    "ListVerificationsResponseDataItemSelfieStatus",
     "ListVerificationsResponseDataItemStatus",
     "ListVerificationsResponsePageInfo",
     "PostIdentityProfileUpdatedPayload",
@@ -428,6 +502,9 @@ __all__ = [
     "PostVerificationSucceededPayloadType",
     "RetrieveVerificationsResponse",
     "RetrieveVerificationsResponseAddress",
+    "RetrieveVerificationsResponseIdentityDocument",
+    "RetrieveVerificationsResponseIdentityDocumentStatus",
+    "RetrieveVerificationsResponseIdentityDocumentType",
     "RetrieveVerificationsResponseKind",
     "RetrieveVerificationsResponseOwnersItem",
     "RetrieveVerificationsResponseOwnersItemRejectedChecksItem",
@@ -441,6 +518,9 @@ __all__ = [
     "RetrieveVerificationsResponseRequestedInformationItemSelectionMode",
     "RetrieveVerificationsResponseRequiredDocumentsItem",
     "RetrieveVerificationsResponseRequiredDocumentsItemStatus",
+    "RetrieveVerificationsResponseSelfie",
+    "RetrieveVerificationsResponseSelfieCapture",
+    "RetrieveVerificationsResponseSelfieStatus",
     "RetrieveVerificationsResponseStatus",
     "UpdateVerificationsRequestBody",
     "UpdateVerificationsRequestBodyBusinessAddress",
@@ -463,6 +543,9 @@ __all__ = [
     "UpdateVerificationsRequestBodyPersonalAddressRequestedInformationItemValueType",
     "UpdateVerificationsResponse",
     "UpdateVerificationsResponseAddress",
+    "UpdateVerificationsResponseIdentityDocument",
+    "UpdateVerificationsResponseIdentityDocumentStatus",
+    "UpdateVerificationsResponseIdentityDocumentType",
     "UpdateVerificationsResponseKind",
     "UpdateVerificationsResponseOwnersItem",
     "UpdateVerificationsResponseOwnersItemRejectedChecksItem",
@@ -476,5 +559,8 @@ __all__ = [
     "UpdateVerificationsResponseRequestedInformationItemSelectionMode",
     "UpdateVerificationsResponseRequiredDocumentsItem",
     "UpdateVerificationsResponseRequiredDocumentsItemStatus",
+    "UpdateVerificationsResponseSelfie",
+    "UpdateVerificationsResponseSelfieCapture",
+    "UpdateVerificationsResponseSelfieStatus",
     "UpdateVerificationsResponseStatus",
 ]

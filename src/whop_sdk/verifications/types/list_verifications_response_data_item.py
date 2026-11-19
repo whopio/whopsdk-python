@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .list_verifications_response_data_item_address import ListVerificationsResponseDataItemAddress
+from .list_verifications_response_data_item_identity_document import ListVerificationsResponseDataItemIdentityDocument
 from .list_verifications_response_data_item_kind import ListVerificationsResponseDataItemKind
 from .list_verifications_response_data_item_owners_item import ListVerificationsResponseDataItemOwnersItem
 from .list_verifications_response_data_item_requested_information_item import (
@@ -13,6 +14,7 @@ from .list_verifications_response_data_item_requested_information_item import (
 from .list_verifications_response_data_item_required_documents_item import (
     ListVerificationsResponseDataItemRequiredDocumentsItem,
 )
+from .list_verifications_response_data_item_selfie import ListVerificationsResponseDataItemSelfie
 from .list_verifications_response_data_item_status import ListVerificationsResponseDataItemStatus
 
 
@@ -63,6 +65,11 @@ class ListVerificationsResponseDataItem(UniversalBaseModel):
     Verification profile ID, prefixed `idpf_`.
     """
 
+    identity_document: typing.Optional[ListVerificationsResponseDataItemIdentityDocument] = pydantic.Field(default=None)
+    """
+    Identity document on file for the person. Individual verifications only. `null` until the person sends a document.
+    """
+
     incorporation_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     Date the business was incorporated, formatted as `YYYY-MM-DD`, as on file for the business verification. Business verifications only; `null` until it is sent.
@@ -102,6 +109,11 @@ class ListVerificationsResponseDataItem(UniversalBaseModel):
     )
     """
     Documents for a document-upload verification and their progress. Present only on individual verifications created by sending `documents`. `pending_upload` documents were not accepted yet — send the full set again with another Create Verification call.
+    """
+
+    selfie: typing.Optional[ListVerificationsResponseDataItemSelfie] = pydantic.Field(default=None)
+    """
+    Selfie check of the person. Individual verifications only. `null` when the verification has no selfie check.
     """
 
     session_url: typing.Optional[str] = pydantic.Field(default=None)
