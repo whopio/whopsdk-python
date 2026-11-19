@@ -17,6 +17,11 @@ class UserPreferences(UniversalBaseModel):
     Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. `false` when the user has no cards balance.
     """
 
+    show_level: bool = pydantic.Field()
+    """
+    Whether other people can see the user's Whop Level. Set to `false` to hide it.
+    """
+
     terms_accepted: bool = pydantic.Field()
     """
     Whether the user has accepted Whop's terms and policies. `false` until recorded via `PATCH` with `terms_accepted: true`.

@@ -59253,6 +59253,14 @@ client.users.preferences.update()
 <dl>
 <dd>
 
+**show_level:** `typing.Optional[bool]` — Whether other people can see the user's Whop Level. Set to `false` to hide it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **terms_accepted:** `typing.Optional[bool]` — Records the user's acceptance of Whop's terms and policies. Only `true` is accepted — the server stamps `terms_accepted_at` and acceptance cannot be withdrawn here.
     
 </dd>

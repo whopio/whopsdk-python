@@ -77,6 +77,7 @@ class RawPreferencesClient:
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
+        show_level: typing.Optional[bool] = OMIT,
         terms_accepted: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UserPreferences]:
@@ -90,6 +91,9 @@ class RawPreferencesClient:
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
+
+        show_level : typing.Optional[bool]
+            Whether other people can see the user's Whop Level. Set to `false` to hide it.
 
         terms_accepted : typing.Optional[bool]
             Records the user's acceptance of Whop's terms and policies. Only `true` is accepted — the server stamps `terms_accepted_at` and acceptance cannot be withdrawn here.
@@ -109,6 +113,7 @@ class RawPreferencesClient:
             json={
                 "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
                 "cards_auto_top_up": cards_auto_top_up,
+                "show_level": show_level,
                 "terms_accepted": terms_accepted,
             },
             headers={
@@ -220,6 +225,7 @@ class AsyncRawPreferencesClient:
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
+        show_level: typing.Optional[bool] = OMIT,
         terms_accepted: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UserPreferences]:
@@ -233,6 +239,9 @@ class AsyncRawPreferencesClient:
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
+
+        show_level : typing.Optional[bool]
+            Whether other people can see the user's Whop Level. Set to `false` to hide it.
 
         terms_accepted : typing.Optional[bool]
             Records the user's acceptance of Whop's terms and policies. Only `true` is accepted — the server stamps `terms_accepted_at` and acceptance cannot be withdrawn here.
@@ -252,6 +261,7 @@ class AsyncRawPreferencesClient:
             json={
                 "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
                 "cards_auto_top_up": cards_auto_top_up,
+                "show_level": show_level,
                 "terms_accepted": terms_accepted,
             },
             headers={
