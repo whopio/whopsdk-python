@@ -14,6 +14,24 @@ if typing.TYPE_CHECKING:
     from .list_reports_response_data_item_columns_item_type import ListReportsResponseDataItemColumnsItemType
     from .list_reports_response_data_item_columns_item_unit import ListReportsResponseDataItemColumnsItemUnit
     from .list_reports_response_data_item_window_kind import ListReportsResponseDataItemWindowKind
+    from .partner_revenue_lines_reports_request_breakdown_by import PartnerRevenueLinesReportsRequestBreakdownBy
+    from .partner_revenue_lines_reports_request_direction import PartnerRevenueLinesReportsRequestDirection
+    from .partner_revenue_lines_reports_request_order import PartnerRevenueLinesReportsRequestOrder
+    from .partner_revenue_lines_reports_response import PartnerRevenueLinesReportsResponse
+    from .partner_revenue_lines_reports_response_data import PartnerRevenueLinesReportsResponseData
+    from .partner_revenue_lines_reports_response_data_reports_item import (
+        PartnerRevenueLinesReportsResponseDataReportsItem,
+    )
+    from .partner_revenue_lines_reports_response_data_reports_item_rows_item import (
+        PartnerRevenueLinesReportsResponseDataReportsItemRowsItem,
+    )
+    from .partner_revenue_lines_reports_response_data_reports_item_rows_item_income_source import (
+        PartnerRevenueLinesReportsResponseDataReportsItemRowsItemIncomeSource,
+    )
+    from .partner_revenue_lines_reports_response_data_reports_item_rows_item_revenue_line import (
+        PartnerRevenueLinesReportsResponseDataReportsItemRowsItemRevenueLine,
+    )
+    from .partner_revenue_lines_reports_response_page_info import PartnerRevenueLinesReportsResponsePageInfo
     from .platform_trends_reports_request_breakdown_by import PlatformTrendsReportsRequestBreakdownBy
     from .platform_trends_reports_request_direction import PlatformTrendsReportsRequestDirection
     from .platform_trends_reports_request_order import PlatformTrendsReportsRequestOrder
@@ -64,6 +82,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListReportsResponseDataItemColumnsItemType": ".list_reports_response_data_item_columns_item_type",
     "ListReportsResponseDataItemColumnsItemUnit": ".list_reports_response_data_item_columns_item_unit",
     "ListReportsResponseDataItemWindowKind": ".list_reports_response_data_item_window_kind",
+    "PartnerRevenueLinesReportsRequestBreakdownBy": ".partner_revenue_lines_reports_request_breakdown_by",
+    "PartnerRevenueLinesReportsRequestDirection": ".partner_revenue_lines_reports_request_direction",
+    "PartnerRevenueLinesReportsRequestOrder": ".partner_revenue_lines_reports_request_order",
+    "PartnerRevenueLinesReportsResponse": ".partner_revenue_lines_reports_response",
+    "PartnerRevenueLinesReportsResponseData": ".partner_revenue_lines_reports_response_data",
+    "PartnerRevenueLinesReportsResponseDataReportsItem": ".partner_revenue_lines_reports_response_data_reports_item",
+    "PartnerRevenueLinesReportsResponseDataReportsItemRowsItem": ".partner_revenue_lines_reports_response_data_reports_item_rows_item",
+    "PartnerRevenueLinesReportsResponseDataReportsItemRowsItemIncomeSource": ".partner_revenue_lines_reports_response_data_reports_item_rows_item_income_source",
+    "PartnerRevenueLinesReportsResponseDataReportsItemRowsItemRevenueLine": ".partner_revenue_lines_reports_response_data_reports_item_rows_item_revenue_line",
+    "PartnerRevenueLinesReportsResponsePageInfo": ".partner_revenue_lines_reports_response_page_info",
     "PlatformTrendsReportsRequestBreakdownBy": ".platform_trends_reports_request_breakdown_by",
     "PlatformTrendsReportsRequestDirection": ".platform_trends_reports_request_direction",
     "PlatformTrendsReportsRequestOrder": ".platform_trends_reports_request_order",
@@ -116,6 +144,16 @@ __all__ = [
     "ListReportsResponseDataItemColumnsItemType",
     "ListReportsResponseDataItemColumnsItemUnit",
     "ListReportsResponseDataItemWindowKind",
+    "PartnerRevenueLinesReportsRequestBreakdownBy",
+    "PartnerRevenueLinesReportsRequestDirection",
+    "PartnerRevenueLinesReportsRequestOrder",
+    "PartnerRevenueLinesReportsResponse",
+    "PartnerRevenueLinesReportsResponseData",
+    "PartnerRevenueLinesReportsResponseDataReportsItem",
+    "PartnerRevenueLinesReportsResponseDataReportsItemRowsItem",
+    "PartnerRevenueLinesReportsResponseDataReportsItemRowsItemIncomeSource",
+    "PartnerRevenueLinesReportsResponseDataReportsItemRowsItemRevenueLine",
+    "PartnerRevenueLinesReportsResponsePageInfo",
     "PlatformTrendsReportsRequestBreakdownBy",
     "PlatformTrendsReportsRequestDirection",
     "PlatformTrendsReportsRequestOrder",

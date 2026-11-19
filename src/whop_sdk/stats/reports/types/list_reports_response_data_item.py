@@ -41,7 +41,7 @@ class ListReportsResponseDataItem(UniversalBaseModel):
 
     window_kind: ListReportsResponseDataItemWindowKind = pydantic.Field()
     """
-    `range` reports measure activity in a period; `as_of` reports measure state at a moment.
+    `range` reports measure activity in a period. `as_of` reports measure state at a moment.
     """
 
     if IS_PYDANTIC_V2:
