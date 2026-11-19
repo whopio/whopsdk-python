@@ -37,6 +37,11 @@ class ApiKey(UniversalBaseModel):
     Whether this is the resource's default API key. Default keys cannot be updated or deleted, only rotated.
     """
 
+    last_used_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the API key last authenticated a request, as an ISO 8601 timestamp. Recorded at most once an hour, so it can trail the latest request by up to an hour. `null` means the key has not been used since this field was introduced.
+    """
+
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Human-readable name identifying the API key, or `null` when none was set.

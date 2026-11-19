@@ -3,15 +3,19 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.permission_action import PermissionAction
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .permission_action import PermissionAction
 
 
-class ListPermissionsResponseDataItem(UniversalBaseModel):
-    action: PermissionAction
+class PermissionGrant(UniversalBaseModel):
+    action: PermissionAction = pydantic.Field()
+    """
+    The permission action.
+    """
+
     granted: bool = pydantic.Field()
     """
-    Whether the credential is granted the action for the resource.
+    Whether the action is granted on the resource.
     """
 
     if IS_PYDANTIC_V2:
