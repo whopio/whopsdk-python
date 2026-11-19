@@ -17,11 +17,6 @@ class UserPreferences(UniversalBaseModel):
     Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. `false` when the user has no cards balance.
     """
 
-    show_earnings: bool = pydantic.Field()
-    """
-    Whether to show the user's earnings on their profile.
-    """
-
     show_joined_whops: bool = pydantic.Field()
     """
     Whether to show the whops the user joined on their profile.

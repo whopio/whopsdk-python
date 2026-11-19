@@ -51,7 +51,7 @@ class PreferencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-3",
+            "2026-11-19",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -65,7 +65,6 @@ class PreferencesClient:
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
-        show_earnings: typing.Optional[bool] = OMIT,
         show_joined_whops: typing.Optional[bool] = OMIT,
         show_level: typing.Optional[bool] = OMIT,
         show_location: typing.Optional[bool] = OMIT,
@@ -84,9 +83,6 @@ class PreferencesClient:
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
-
-        show_earnings : typing.Optional[bool]
-            Whether to show the user's earnings on their profile.
 
         show_joined_whops : typing.Optional[bool]
             Whether to show the whops the user joined on their profile.
@@ -119,7 +115,7 @@ class PreferencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-17-3",
+            "2026-11-19",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -128,7 +124,6 @@ class PreferencesClient:
         _response = self._raw_client.update(
             bounty_worker_onboarding_dismissed=bounty_worker_onboarding_dismissed,
             cards_auto_top_up=cards_auto_top_up,
-            show_earnings=show_earnings,
             show_joined_whops=show_joined_whops,
             show_level=show_level,
             show_location=show_location,
@@ -186,7 +181,7 @@ class AsyncPreferencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-3",
+            "2026-11-19",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -206,7 +201,6 @@ class AsyncPreferencesClient:
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
-        show_earnings: typing.Optional[bool] = OMIT,
         show_joined_whops: typing.Optional[bool] = OMIT,
         show_level: typing.Optional[bool] = OMIT,
         show_location: typing.Optional[bool] = OMIT,
@@ -225,9 +219,6 @@ class AsyncPreferencesClient:
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
-
-        show_earnings : typing.Optional[bool]
-            Whether to show the user's earnings on their profile.
 
         show_joined_whops : typing.Optional[bool]
             Whether to show the whops the user joined on their profile.
@@ -262,7 +253,7 @@ class AsyncPreferencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-17-3",
+            "2026-11-19",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -277,7 +268,6 @@ class AsyncPreferencesClient:
         _response = await self._raw_client.update(
             bounty_worker_onboarding_dismissed=bounty_worker_onboarding_dismissed,
             cards_auto_top_up=cards_auto_top_up,
-            show_earnings=show_earnings,
             show_joined_whops=show_joined_whops,
             show_level=show_level,
             show_location=show_location,
