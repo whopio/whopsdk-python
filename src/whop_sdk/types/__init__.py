@@ -128,6 +128,9 @@ if typing.TYPE_CHECKING:
     from .ad_content_review_network_title import AdContentReviewNetworkTitle
     from .ad_content_review_status import AdContentReviewStatus
     from .ad_content_review_tag import AdContentReviewTag
+    from .ad_content_review_tag_restriction import AdContentReviewTagRestriction
+    from .ad_content_review_tag_restriction_kind import AdContentReviewTagRestrictionKind
+    from .ad_content_review_tag_restriction_network import AdContentReviewTagRestrictionNetwork
     from .ad_creative import AdCreative
     from .ad_creative_crop import AdCreativeCrop
     from .ad_creative_format import AdCreativeFormat
@@ -1745,6 +1748,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdContentReviewNetworkTitle": ".ad_content_review_network_title",
     "AdContentReviewStatus": ".ad_content_review_status",
     "AdContentReviewTag": ".ad_content_review_tag",
+    "AdContentReviewTagRestriction": ".ad_content_review_tag_restriction",
+    "AdContentReviewTagRestrictionKind": ".ad_content_review_tag_restriction_kind",
+    "AdContentReviewTagRestrictionNetwork": ".ad_content_review_tag_restriction_network",
     "AdCreative": ".ad_creative",
     "AdCreativeCrop": ".ad_creative_crop",
     "AdCreativeFormat": ".ad_creative_format",
@@ -3248,6 +3254,9 @@ __all__ = [
     "AdContentReviewNetworkTitle",
     "AdContentReviewStatus",
     "AdContentReviewTag",
+    "AdContentReviewTagRestriction",
+    "AdContentReviewTagRestrictionKind",
+    "AdContentReviewTagRestrictionNetwork",
     "AdCreative",
     "AdCreativeCrop",
     "AdCreativeFormat",
