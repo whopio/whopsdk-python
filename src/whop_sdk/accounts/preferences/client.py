@@ -10,6 +10,7 @@ from .types.update_preferences_request_ads_payment_methods import UpdatePreferen
 from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
 )
+from .types.update_preferences_request_card_surcharge import UpdatePreferencesRequestCardSurcharge
 from .types.update_preferences_request_customer_tracking import UpdatePreferencesRequestCustomerTracking
 from .types.update_preferences_request_economic_intelligence_duration_key import (
     UpdatePreferencesRequestEconomicIntelligenceDurationKey,
@@ -87,6 +88,7 @@ class PreferencesClient:
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
         cancellation_emails: typing.Optional[bool] = OMIT,
+        card_surcharge: typing.Optional[UpdatePreferencesRequestCardSurcharge] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         covers_subaccount_negative_balances: typing.Optional[bool] = OMIT,
@@ -117,7 +119,7 @@ class PreferencesClient:
         - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
         - `payment:manage`: `off_session_payment_rules`.
         - `payment:dispute`: `dispute_fighter_enabled`.
-        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
+        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
 
         To update keys under more than one scope, the API key needs all of those scopes.
@@ -141,6 +143,9 @@ class PreferencesClient:
 
         cancellation_emails : typing.Optional[bool]
             Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
+
+        card_surcharge : typing.Optional[UpdatePreferencesRequestCardSurcharge]
+            The card surcharge a point of sale adds to credit card payments, replaced as a whole. You can always turn it off. You can turn it on only when `card_surcharge.maximum_percentage` is not null. Requires the `company:update` scope on your API key.
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds are automatically moved to the account's cards balance. Requires a cards balance on the account and the `payout:account:update` scope on your API key.
@@ -221,6 +226,7 @@ class PreferencesClient:
             ads_scheduling_timezone=ads_scheduling_timezone,
             ads_triple_whale_integration=ads_triple_whale_integration,
             cancellation_emails=cancellation_emails,
+            card_surcharge=card_surcharge,
             cards_auto_top_up=cards_auto_top_up,
             cards_notifications=cards_notifications,
             covers_subaccount_negative_balances=covers_subaccount_negative_balances,
@@ -310,6 +316,7 @@ class AsyncPreferencesClient:
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
         cancellation_emails: typing.Optional[bool] = OMIT,
+        card_surcharge: typing.Optional[UpdatePreferencesRequestCardSurcharge] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         covers_subaccount_negative_balances: typing.Optional[bool] = OMIT,
@@ -340,7 +347,7 @@ class AsyncPreferencesClient:
         - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
         - `payment:manage`: `off_session_payment_rules`.
         - `payment:dispute`: `dispute_fighter_enabled`.
-        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
+        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
 
         To update keys under more than one scope, the API key needs all of those scopes.
@@ -364,6 +371,9 @@ class AsyncPreferencesClient:
 
         cancellation_emails : typing.Optional[bool]
             Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
+
+        card_surcharge : typing.Optional[UpdatePreferencesRequestCardSurcharge]
+            The card surcharge a point of sale adds to credit card payments, replaced as a whole. You can always turn it off. You can turn it on only when `card_surcharge.maximum_percentage` is not null. Requires the `company:update` scope on your API key.
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds are automatically moved to the account's cards balance. Requires a cards balance on the account and the `payout:account:update` scope on your API key.
@@ -452,6 +462,7 @@ class AsyncPreferencesClient:
             ads_scheduling_timezone=ads_scheduling_timezone,
             ads_triple_whale_integration=ads_triple_whale_integration,
             cancellation_emails=cancellation_emails,
+            card_surcharge=card_surcharge,
             cards_auto_top_up=cards_auto_top_up,
             cards_notifications=cards_notifications,
             covers_subaccount_negative_balances=covers_subaccount_negative_balances,

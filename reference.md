@@ -35990,6 +35990,14 @@ client.payments.create(
 <dl>
 <dd>
 
+**apply_surcharge:** `typing.Optional[bool]` — Adds the account's card surcharge, set in `card_surcharge` on the account's preferences, when the card is a credit card. Send it only after you have shown the buyer the surcharge. Whop calculates the amount. You cannot send an amount. With a `confirmation_token`, the surcharge is a line of its own, calculated on the purchase after discounts and before tax. With a `card_present` `payment_method`, the surcharge is added after the reader reads the card, with `POST /payments/{id}/apply_surcharge`. A debit or prepaid card, or an account that cannot surcharge, pays no surcharge. The payment still goes ahead. Only for a one-time purchase, and not with `quote_id`. Defaults to false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **auto_capture_after_minutes:** `typing.Optional[int]` — Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
     
 </dd>
@@ -53219,7 +53227,7 @@ The required scope depends on which preferences you update.
 - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
 - `payment:manage`: `off_session_payment_rules`.
 - `payment:dispute`: `dispute_fighter_enabled`.
-- `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`.
+- `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
 - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
 
 To update keys under more than one scope, the API key needs all of those scopes.
@@ -53304,6 +53312,14 @@ client.accounts.preferences.update(
 <dd>
 
 **cancellation_emails:** `typing.Optional[bool]` — Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**card_surcharge:** `typing.Optional[UpdatePreferencesRequestCardSurcharge]` — The card surcharge a point of sale adds to credit card payments, replaced as a whole. You can always turn it off. You can turn it on only when `card_surcharge.maximum_percentage` is not null. Requires the `company:update` scope on your API key.
     
 </dd>
 </dl>
