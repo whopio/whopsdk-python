@@ -3,5 +3,5 @@
 import typing
 
 CreateDepositsResponseMethodsBankCurrenciesItemRailsItem = typing.Union[
-    typing.Literal["ach", "wire", "sepa", "fps", "chaps"], typing.Any
+    typing.Literal["ach", "wire", "sepa", "fps", "chaps", "swift"], typing.Any
 ]
