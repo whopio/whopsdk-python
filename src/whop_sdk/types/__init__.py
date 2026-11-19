@@ -1300,6 +1300,7 @@ if typing.TYPE_CHECKING:
     from .payout_method_list_item_destination import PayoutMethodListItemDestination
     from .permission import Permission
     from .permission_action import PermissionAction
+    from .permission_grant import PermissionGrant
     from .permission_granted_to_system_roles_item import PermissionGrantedToSystemRolesItem
     from .pixel_validation import PixelValidation
     from .plan import Plan
@@ -2786,6 +2787,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PayoutMethodListItemDestination": ".payout_method_list_item_destination",
     "Permission": ".permission",
     "PermissionAction": ".permission_action",
+    "PermissionGrant": ".permission_grant",
     "PermissionGrantedToSystemRolesItem": ".permission_granted_to_system_roles_item",
     "PixelValidation": ".pixel_validation",
     "Plan": ".plan",
@@ -4292,6 +4294,7 @@ __all__ = [
     "PayoutMethodListItemDestination",
     "Permission",
     "PermissionAction",
+    "PermissionGrant",
     "PermissionGrantedToSystemRolesItem",
     "PixelValidation",
     "Plan",

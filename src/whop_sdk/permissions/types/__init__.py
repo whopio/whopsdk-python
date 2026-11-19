@@ -7,11 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .list_permissions_response import ListPermissionsResponse
-    from .list_permissions_response_data_item import ListPermissionsResponseDataItem
-_dynamic_imports: typing.Dict[str, str] = {
-    "ListPermissionsResponse": ".list_permissions_response",
-    "ListPermissionsResponseDataItem": ".list_permissions_response_data_item",
-}
+_dynamic_imports: typing.Dict[str, str] = {"ListPermissionsResponse": ".list_permissions_response"}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -35,4 +31,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["ListPermissionsResponse", "ListPermissionsResponseDataItem"]
+__all__ = ["ListPermissionsResponse"]

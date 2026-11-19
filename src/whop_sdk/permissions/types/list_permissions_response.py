@@ -4,11 +4,11 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .list_permissions_response_data_item import ListPermissionsResponseDataItem
+from ...types.permission_grant import PermissionGrant
 
 
 class ListPermissionsResponse(UniversalBaseModel):
-    data: typing.List[ListPermissionsResponseDataItem]
+    data: typing.List[PermissionGrant]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

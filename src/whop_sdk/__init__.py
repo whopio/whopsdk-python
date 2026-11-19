@@ -1165,6 +1165,7 @@ if typing.TYPE_CHECKING:
         PayoutMethodListItemDestination,
         Permission,
         PermissionAction,
+        PermissionGrant,
         PermissionGrantedToSystemRolesItem,
         PixelValidation,
         Plan,
@@ -2952,7 +2953,7 @@ if typing.TYPE_CHECKING:
         RetrievePeopleResponseUsageTimezoneItem,
         RetrievePeopleResponseUser,
     )
-    from .permissions import ListPermissionsResponse, ListPermissionsResponseDataItem
+    from .permissions import ListPermissionsResponse
     from .plans import (
         CalculateTaxPlansRequestAddress,
         CalculateTaxPlansRequestTaxIdsItem,
@@ -4977,7 +4978,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPermissionsApiKeysResponse": ".api_keys",
     "ListPermissionsApiKeysResponsePageInfo": ".api_keys",
     "ListPermissionsResponse": ".permissions",
-    "ListPermissionsResponseDataItem": ".permissions",
     "ListPlansRequestDirection": ".plans",
     "ListPlansRequestOrder": ".plans",
     "ListPlansResponse": ".plans",
@@ -5557,6 +5557,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PayoutMethodListItemDestination": ".types",
     "Permission": ".types",
     "PermissionAction": ".types",
+    "PermissionGrant": ".types",
     "PermissionGrantedToSystemRolesItem": ".types",
     "PixelValidation": ".types",
     "Plan": ".types",
@@ -8316,7 +8317,6 @@ __all__ = [
     "ListPermissionsApiKeysResponse",
     "ListPermissionsApiKeysResponsePageInfo",
     "ListPermissionsResponse",
-    "ListPermissionsResponseDataItem",
     "ListPlansRequestDirection",
     "ListPlansRequestOrder",
     "ListPlansResponse",
@@ -8896,6 +8896,7 @@ __all__ = [
     "PayoutMethodListItemDestination",
     "Permission",
     "PermissionAction",
+    "PermissionGrant",
     "PermissionGrantedToSystemRolesItem",
     "PixelValidation",
     "Plan",
