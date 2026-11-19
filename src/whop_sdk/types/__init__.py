@@ -1378,6 +1378,8 @@ if typing.TYPE_CHECKING:
         RecommendedActionPreview_WebsiteAbTest,
         RecommendedActionPreview_WebsiteChange,
     )
+    from .recommended_action_stat import RecommendedActionStat
+    from .recommended_action_stat_direction import RecommendedActionStatDirection
     from .recommended_action_status import RecommendedActionStatus
     from .recommended_action_type import RecommendedActionType
     from .recommended_action_website_ab_test_preview import RecommendedActionWebsiteAbTestPreview
@@ -2877,6 +2879,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RecommendedActionPreview": ".recommended_action_preview",
     "RecommendedActionPreview_WebsiteAbTest": ".recommended_action_preview",
     "RecommendedActionPreview_WebsiteChange": ".recommended_action_preview",
+    "RecommendedActionStat": ".recommended_action_stat",
+    "RecommendedActionStatDirection": ".recommended_action_stat_direction",
     "RecommendedActionStatus": ".recommended_action_status",
     "RecommendedActionType": ".recommended_action_type",
     "RecommendedActionWebsiteAbTestPreview": ".recommended_action_website_ab_test_preview",
@@ -4398,6 +4402,8 @@ __all__ = [
     "RecommendedActionPreview",
     "RecommendedActionPreview_WebsiteAbTest",
     "RecommendedActionPreview_WebsiteChange",
+    "RecommendedActionStat",
+    "RecommendedActionStatDirection",
     "RecommendedActionStatus",
     "RecommendedActionType",
     "RecommendedActionWebsiteAbTestPreview",
