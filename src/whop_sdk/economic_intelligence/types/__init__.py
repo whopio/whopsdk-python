@@ -11,8 +11,6 @@ if typing.TYPE_CHECKING:
     from .list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
     from .list_economic_intelligence_response import ListEconomicIntelligenceResponse
     from .list_economic_intelligence_response_page_info import ListEconomicIntelligenceResponsePageInfo
-    from .update_economic_intelligence_request_result_page import UpdateEconomicIntelligenceRequestResultPage
-    from .update_economic_intelligence_request_sentiment import UpdateEconomicIntelligenceRequestSentiment
     from .update_economic_intelligence_request_status import UpdateEconomicIntelligenceRequestStatus
 _dynamic_imports: typing.Dict[str, str] = {
     "ListEconomicIntelligenceRequestDirection": ".list_economic_intelligence_request_direction",
@@ -20,8 +18,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListEconomicIntelligenceRequestStatus": ".list_economic_intelligence_request_status",
     "ListEconomicIntelligenceResponse": ".list_economic_intelligence_response",
     "ListEconomicIntelligenceResponsePageInfo": ".list_economic_intelligence_response_page_info",
-    "UpdateEconomicIntelligenceRequestResultPage": ".update_economic_intelligence_request_result_page",
-    "UpdateEconomicIntelligenceRequestSentiment": ".update_economic_intelligence_request_sentiment",
     "UpdateEconomicIntelligenceRequestStatus": ".update_economic_intelligence_request_status",
 }
 
@@ -53,7 +49,5 @@ __all__ = [
     "ListEconomicIntelligenceRequestStatus",
     "ListEconomicIntelligenceResponse",
     "ListEconomicIntelligenceResponsePageInfo",
-    "UpdateEconomicIntelligenceRequestResultPage",
-    "UpdateEconomicIntelligenceRequestSentiment",
     "UpdateEconomicIntelligenceRequestStatus",
 ]

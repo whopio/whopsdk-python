@@ -12,8 +12,6 @@ if typing.TYPE_CHECKING:
         ListEconomicIntelligenceRequestStatus,
         ListEconomicIntelligenceResponse,
         ListEconomicIntelligenceResponsePageInfo,
-        UpdateEconomicIntelligenceRequestResultPage,
-        UpdateEconomicIntelligenceRequestSentiment,
         UpdateEconomicIntelligenceRequestStatus,
     )
 _dynamic_imports: typing.Dict[str, str] = {
@@ -22,8 +20,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListEconomicIntelligenceRequestStatus": ".types",
     "ListEconomicIntelligenceResponse": ".types",
     "ListEconomicIntelligenceResponsePageInfo": ".types",
-    "UpdateEconomicIntelligenceRequestResultPage": ".types",
-    "UpdateEconomicIntelligenceRequestSentiment": ".types",
     "UpdateEconomicIntelligenceRequestStatus": ".types",
 }
 
@@ -55,7 +51,5 @@ __all__ = [
     "ListEconomicIntelligenceRequestStatus",
     "ListEconomicIntelligenceResponse",
     "ListEconomicIntelligenceResponsePageInfo",
-    "UpdateEconomicIntelligenceRequestResultPage",
-    "UpdateEconomicIntelligenceRequestSentiment",
     "UpdateEconomicIntelligenceRequestStatus",
 ]
