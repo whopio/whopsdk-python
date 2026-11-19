@@ -10,6 +10,7 @@ if typing.TYPE_CHECKING:
     from .create_methods_request_recipient_address import CreateMethodsRequestRecipientAddress
     from .create_methods_response import CreateMethodsResponse
     from .create_methods_response_bank_verification_state import CreateMethodsResponseBankVerificationState
+    from .create_methods_response_instant_unavailable_reason import CreateMethodsResponseInstantUnavailableReason
     from .create_methods_response_object import CreateMethodsResponseObject
     from .create_methods_response_recipient import CreateMethodsResponseRecipient
     from .create_methods_response_status import CreateMethodsResponseStatus
@@ -28,6 +29,9 @@ if typing.TYPE_CHECKING:
     )
     from .list_methods_response_data_item_estimated_arrival import ListMethodsResponseDataItemEstimatedArrival
     from .list_methods_response_data_item_fee_structure import ListMethodsResponseDataItemFeeStructure
+    from .list_methods_response_data_item_instant_unavailable_reason import (
+        ListMethodsResponseDataItemInstantUnavailableReason,
+    )
     from .list_methods_response_data_item_object import ListMethodsResponseDataItemObject
     from .list_methods_response_data_item_quote import ListMethodsResponseDataItemQuote
     from .list_methods_response_data_item_quote_instant import ListMethodsResponseDataItemQuoteInstant
@@ -55,6 +59,7 @@ if typing.TYPE_CHECKING:
     from .update_methods_request_address import UpdateMethodsRequestAddress
     from .update_methods_response import UpdateMethodsResponse
     from .update_methods_response_bank_verification_state import UpdateMethodsResponseBankVerificationState
+    from .update_methods_response_instant_unavailable_reason import UpdateMethodsResponseInstantUnavailableReason
     from .update_methods_response_object import UpdateMethodsResponseObject
     from .update_methods_response_recipient import UpdateMethodsResponseRecipient
     from .update_methods_response_status import UpdateMethodsResponseStatus
@@ -69,6 +74,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateMethodsRequestRecipientAddress": ".create_methods_request_recipient_address",
     "CreateMethodsResponse": ".create_methods_response",
     "CreateMethodsResponseBankVerificationState": ".create_methods_response_bank_verification_state",
+    "CreateMethodsResponseInstantUnavailableReason": ".create_methods_response_instant_unavailable_reason",
     "CreateMethodsResponseObject": ".create_methods_response_object",
     "CreateMethodsResponseRecipient": ".create_methods_response_recipient",
     "CreateMethodsResponseStatus": ".create_methods_response_status",
@@ -83,6 +89,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListMethodsResponseDataItemBankVerificationState": ".list_methods_response_data_item_bank_verification_state",
     "ListMethodsResponseDataItemEstimatedArrival": ".list_methods_response_data_item_estimated_arrival",
     "ListMethodsResponseDataItemFeeStructure": ".list_methods_response_data_item_fee_structure",
+    "ListMethodsResponseDataItemInstantUnavailableReason": ".list_methods_response_data_item_instant_unavailable_reason",
     "ListMethodsResponseDataItemObject": ".list_methods_response_data_item_object",
     "ListMethodsResponseDataItemQuote": ".list_methods_response_data_item_quote",
     "ListMethodsResponseDataItemQuoteInstant": ".list_methods_response_data_item_quote_instant",
@@ -104,6 +111,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMethodsRequestAddress": ".update_methods_request_address",
     "UpdateMethodsResponse": ".update_methods_response",
     "UpdateMethodsResponseBankVerificationState": ".update_methods_response_bank_verification_state",
+    "UpdateMethodsResponseInstantUnavailableReason": ".update_methods_response_instant_unavailable_reason",
     "UpdateMethodsResponseObject": ".update_methods_response_object",
     "UpdateMethodsResponseRecipient": ".update_methods_response_recipient",
     "UpdateMethodsResponseStatus": ".update_methods_response_status",
@@ -140,6 +148,7 @@ __all__ = [
     "CreateMethodsRequestRecipientAddress",
     "CreateMethodsResponse",
     "CreateMethodsResponseBankVerificationState",
+    "CreateMethodsResponseInstantUnavailableReason",
     "CreateMethodsResponseObject",
     "CreateMethodsResponseRecipient",
     "CreateMethodsResponseStatus",
@@ -154,6 +163,7 @@ __all__ = [
     "ListMethodsResponseDataItemBankVerificationState",
     "ListMethodsResponseDataItemEstimatedArrival",
     "ListMethodsResponseDataItemFeeStructure",
+    "ListMethodsResponseDataItemInstantUnavailableReason",
     "ListMethodsResponseDataItemObject",
     "ListMethodsResponseDataItemQuote",
     "ListMethodsResponseDataItemQuoteInstant",
@@ -175,6 +185,7 @@ __all__ = [
     "UpdateMethodsRequestAddress",
     "UpdateMethodsResponse",
     "UpdateMethodsResponseBankVerificationState",
+    "UpdateMethodsResponseInstantUnavailableReason",
     "UpdateMethodsResponseObject",
     "UpdateMethodsResponseRecipient",
     "UpdateMethodsResponseStatus",

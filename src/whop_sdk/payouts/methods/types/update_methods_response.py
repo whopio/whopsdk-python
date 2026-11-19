@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .update_methods_response_bank_verification_state import UpdateMethodsResponseBankVerificationState
+from .update_methods_response_instant_unavailable_reason import UpdateMethodsResponseInstantUnavailableReason
 from .update_methods_response_object import UpdateMethodsResponseObject
 from .update_methods_response_recipient import UpdateMethodsResponseRecipient
 from .update_methods_response_status import UpdateMethodsResponseStatus
@@ -40,6 +41,13 @@ class UpdateMethodsResponse(UniversalBaseModel):
     id: str = pydantic.Field()
     """
     Payout method ID, prefixed `potk_`.
+    """
+
+    instant_unavailable_reason: typing.Optional[UpdateMethodsResponseInstantUnavailableReason] = pydantic.Field(
+        default=None
+    )
+    """
+    Why instant delivery is unavailable. `new_payout_method_hold` means the payout method is within its initial instant delivery hold. `minimum_crypto_sales_not_met` means the account has not reached the sales requirement for instant cryptocurrency payouts. `null` means neither restriction applies.
     """
 
     institution_name: typing.Optional[str] = None

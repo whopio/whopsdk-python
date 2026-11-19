@@ -93,6 +93,9 @@ if typing.TYPE_CHECKING:
         PostPayoutMethodCreatedPayloadDataEstimatedArrival,
     )
     from .post_payout_method_created_payload_data_fee_structure import PostPayoutMethodCreatedPayloadDataFeeStructure
+    from .post_payout_method_created_payload_data_instant_unavailable_reason import (
+        PostPayoutMethodCreatedPayloadDataInstantUnavailableReason,
+    )
     from .post_payout_method_created_payload_data_object import PostPayoutMethodCreatedPayloadDataObject
     from .post_payout_method_created_payload_data_quote import PostPayoutMethodCreatedPayloadDataQuote
     from .post_payout_method_created_payload_data_quote_instant import PostPayoutMethodCreatedPayloadDataQuoteInstant
@@ -237,6 +240,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPayoutMethodCreatedPayloadDataBankVerificationState": ".post_payout_method_created_payload_data_bank_verification_state",
     "PostPayoutMethodCreatedPayloadDataEstimatedArrival": ".post_payout_method_created_payload_data_estimated_arrival",
     "PostPayoutMethodCreatedPayloadDataFeeStructure": ".post_payout_method_created_payload_data_fee_structure",
+    "PostPayoutMethodCreatedPayloadDataInstantUnavailableReason": ".post_payout_method_created_payload_data_instant_unavailable_reason",
     "PostPayoutMethodCreatedPayloadDataObject": ".post_payout_method_created_payload_data_object",
     "PostPayoutMethodCreatedPayloadDataQuote": ".post_payout_method_created_payload_data_quote",
     "PostPayoutMethodCreatedPayloadDataQuoteInstant": ".post_payout_method_created_payload_data_quote_instant",
@@ -385,6 +389,7 @@ __all__ = [
     "PostPayoutMethodCreatedPayloadDataBankVerificationState",
     "PostPayoutMethodCreatedPayloadDataEstimatedArrival",
     "PostPayoutMethodCreatedPayloadDataFeeStructure",
+    "PostPayoutMethodCreatedPayloadDataInstantUnavailableReason",
     "PostPayoutMethodCreatedPayloadDataObject",
     "PostPayoutMethodCreatedPayloadDataQuote",
     "PostPayoutMethodCreatedPayloadDataQuoteInstant",

@@ -40,7 +40,7 @@ class PostPayoutMethodCreatedPayloadDataQuote(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Why instant delivery is unavailable for this method. `minimum_crypto_sales_not_met` means the account has not reached the total sales required for instant cryptocurrency payouts. `null` when this restriction does not apply.
+    Why instant delivery is unavailable. `new_payout_method_hold` means the payout method is within its initial instant delivery hold. `minimum_crypto_sales_not_met` means the account has not reached the sales requirement for instant cryptocurrency payouts. `null` means neither restriction applies.
     """
 
     max_limit: typing.Optional[float] = pydantic.Field(default=None)
