@@ -46518,6 +46518,167 @@ client.stats.retrieve(
 </dl>
 </details>
 
+## SuspensionAppeals
+<details><summary><code>client.suspension_appeals.<a href="src/whop_sdk/suspension_appeals/client.py">create</a>(...) -> SuspensionAppeal</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submits an appeal for one direct subaccount using a platform account API key with company:suspend_child. First retrieve the appeal context and copy its account IDs and suspension timestamps into the submission. Submitting accepts the declaration returned by the context. Provide written business answers or a private video uploaded through POST /files with the same platform account. Supporting files must also be private and uploaded by that platform. One appeal is accepted per suspension. Submission does not reinstate the account. Use Idempotency-Key to safely retry, and retrieve the context to check the decision.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+from whop_sdk.suspension_appeals import CreateSuspensionAppealsRequestSuspensionAppealSubmission, CreateSuspensionAppealsRequestSuspensionAppealSubmissionAccountsItem
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.suspension_appeals.create(
+    suspension_appeal_submission=CreateSuspensionAppealsRequestSuspensionAppealSubmission(
+        accounts=[
+            CreateSuspensionAppealsRequestSuspensionAppealSubmissionAccountsItem(
+                id="biz_xxxxxxxxxxxxxx",
+                suspended_at="2026-01-01T12:00:00.000Z",
+            )
+        ],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**suspension_appeal_submission:** `CreateSuspensionAppealsRequestSuspensionAppealSubmission` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Direct subaccount ID, prefixed biz_. Required for platform API keys. Whop sessions may omit it for a personal appeal.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.suspension_appeals.<a href="src/whop_sdk/suspension_appeals/client.py">context</a>(...) -> SuspensionAppealContext</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns appeal eligibility, the declaration accepted on submission, and optional fulfillment evidence requests for a direct subaccount. Requires a platform account API key with company:suspend_child and account_id. Only the requested subaccount is included. After submission, use this endpoint to read the appeal status and decision.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.suspension_appeals.context()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Direct subaccount ID, prefixed biz_. Required for platform API keys. Whop sessions may omit it for a personal appeal.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Swaps
 <details><summary><code>client.swaps.<a href="src/whop_sdk/swaps/client.py">list</a>(...) -> ListSwapsResponse</code></summary>
 <dl>

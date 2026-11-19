@@ -100,6 +100,7 @@ if typing.TYPE_CHECKING:
     from .shipments.client import AsyncShipmentsClient, ShipmentsClient
     from .social_accounts.client import AsyncSocialAccountsClient, SocialAccountsClient
     from .stats.client import AsyncStatsClient, StatsClient
+    from .suspension_appeals.client import AsyncSuspensionAppealsClient, SuspensionAppealsClient
     from .swaps.client import AsyncSwapsClient, SwapsClient
     from .team_members.client import AsyncTeamMembersClient, TeamMembersClient
     from .trades.client import AsyncTradesClient, TradesClient
@@ -289,6 +290,7 @@ class Whop:
         self._shipments: typing.Optional[ShipmentsClient] = None
         self._social_accounts: typing.Optional[SocialAccountsClient] = None
         self._stats: typing.Optional[StatsClient] = None
+        self._suspension_appeals: typing.Optional[SuspensionAppealsClient] = None
         self._swaps: typing.Optional[SwapsClient] = None
         self._team_members: typing.Optional[TeamMembersClient] = None
         self._trades: typing.Optional[TradesClient] = None
@@ -1020,6 +1022,14 @@ class Whop:
         return self._stats
 
     @property
+    def suspension_appeals(self):
+        if self._suspension_appeals is None:
+            from .suspension_appeals.client import SuspensionAppealsClient  # noqa: E402
+
+            self._suspension_appeals = SuspensionAppealsClient(client_wrapper=self._client_wrapper)
+        return self._suspension_appeals
+
+    @property
     def swaps(self):
         if self._swaps is None:
             from .swaps.client import SwapsClient  # noqa: E402
@@ -1291,6 +1301,7 @@ class AsyncWhop:
         self._shipments: typing.Optional[AsyncShipmentsClient] = None
         self._social_accounts: typing.Optional[AsyncSocialAccountsClient] = None
         self._stats: typing.Optional[AsyncStatsClient] = None
+        self._suspension_appeals: typing.Optional[AsyncSuspensionAppealsClient] = None
         self._swaps: typing.Optional[AsyncSwapsClient] = None
         self._team_members: typing.Optional[AsyncTeamMembersClient] = None
         self._trades: typing.Optional[AsyncTradesClient] = None
@@ -2020,6 +2031,14 @@ class AsyncWhop:
 
             self._stats = AsyncStatsClient(client_wrapper=self._client_wrapper)
         return self._stats
+
+    @property
+    def suspension_appeals(self):
+        if self._suspension_appeals is None:
+            from .suspension_appeals.client import AsyncSuspensionAppealsClient  # noqa: E402
+
+            self._suspension_appeals = AsyncSuspensionAppealsClient(client_wrapper=self._client_wrapper)
+        return self._suspension_appeals
 
     @property
     def swaps(self):
