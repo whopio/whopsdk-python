@@ -38,6 +38,7 @@ class SupportedMethodsClient:
         destination_currency: typing.Optional[str] = None,
         party_type: typing.Optional[ListSupportedMethodsRequestPartyType] = None,
         include_individual_banks: typing.Optional[bool] = None,
+        generic_only: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -75,6 +76,9 @@ class SupportedMethodsClient:
 
         include_individual_banks : typing.Optional[bool]
             Whether to list each bank as its own payout method in countries where people choose a bank by name. Each bank has `parent_id` set to the bank deposit method that lists it. When `false`, these countries list one bank deposit method instead.
+
+        generic_only : typing.Optional[bool]
+            In countries that list methods by payout route, only list one generic method per route and receiving currency. Each is the method that costs least for the amount, and has `category` and `rail` set. Returns an empty list there when no generic method is available. Other countries list as without this parameter.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -122,6 +126,7 @@ class SupportedMethodsClient:
             destination_currency=destination_currency,
             party_type=party_type,
             include_individual_banks=include_individual_banks,
+            generic_only=generic_only,
             first=first,
             after=after,
             last=last,
@@ -157,6 +162,7 @@ class AsyncSupportedMethodsClient:
         destination_currency: typing.Optional[str] = None,
         party_type: typing.Optional[ListSupportedMethodsRequestPartyType] = None,
         include_individual_banks: typing.Optional[bool] = None,
+        generic_only: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -194,6 +200,9 @@ class AsyncSupportedMethodsClient:
 
         include_individual_banks : typing.Optional[bool]
             Whether to list each bank as its own payout method in countries where people choose a bank by name. Each bank has `parent_id` set to the bank deposit method that lists it. When `false`, these countries list one bank deposit method instead.
+
+        generic_only : typing.Optional[bool]
+            In countries that list methods by payout route, only list one generic method per route and receiving currency. Each is the method that costs least for the amount, and has `category` and `rail` set. Returns an empty list there when no generic method is available. Other countries list as without this parameter.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -250,6 +259,7 @@ class AsyncSupportedMethodsClient:
             destination_currency=destination_currency,
             party_type=party_type,
             include_individual_banks=include_individual_banks,
+            generic_only=generic_only,
             first=first,
             after=after,
             last=last,
