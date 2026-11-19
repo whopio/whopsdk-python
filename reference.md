@@ -42093,6 +42093,93 @@ client.recommended_actions.retrieve(
 </dl>
 </details>
 
+<details><summary><code>client.recommended_actions.<a href="src/whop_sdk/recommended_actions/client.py">update</a>(...) -> RecommendedAction</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Edits the arguments of a `ready` action's steps before it runs. Send the action's `workflow` back with one entry for each step, in the same order. An entry with `arguments` replaces that step's arguments. An entry without them leaves the step as it is. Only `arguments` can change. Other step fields can be sent back only with the values the action has.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+from whop_sdk.recommended_actions import UpdateRecommendedActionsRequestWorkflow, UpdateRecommendedActionsRequestWorkflowStepsItem
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.recommended_actions.update(
+    id="reca_xxxxxxxxxxxxx",
+    workflow=UpdateRecommendedActionsRequestWorkflow(
+        steps=[
+            UpdateRecommendedActionsRequestWorkflowStepsItem()
+        ],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Recommended action ID, prefixed `reca_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**workflow:** `UpdateRecommendedActionsRequestWorkflow` — The action's workflow with the arguments to change.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.recommended_actions.<a href="src/whop_sdk/recommended_actions/client.py">dismiss</a>(...) -> RecommendedAction</code></summary>
 <dl>
 <dd>
