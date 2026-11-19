@@ -585,6 +585,9 @@ if typing.TYPE_CHECKING:
     from .external_account_parent import ExternalAccountParent
     from .external_account_parent_platform import ExternalAccountParentPlatform
     from .external_account_platform import ExternalAccountPlatform
+    from .external_message_email import ExternalMessageEmail
+    from .external_message_email_object import ExternalMessageEmailObject
+    from .external_message_email_status import ExternalMessageEmailStatus
     from .fee_markup import FeeMarkup
     from .fee_markup_list_item import FeeMarkupListItem
     from .fee_markup_types import FeeMarkupTypes
@@ -2200,6 +2203,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExternalAccountParent": ".external_account_parent",
     "ExternalAccountParentPlatform": ".external_account_parent_platform",
     "ExternalAccountPlatform": ".external_account_platform",
+    "ExternalMessageEmail": ".external_message_email",
+    "ExternalMessageEmailObject": ".external_message_email_object",
+    "ExternalMessageEmailStatus": ".external_message_email_status",
     "FeeMarkup": ".fee_markup",
     "FeeMarkupListItem": ".fee_markup_list_item",
     "FeeMarkupTypes": ".fee_markup_types",
@@ -3717,6 +3723,9 @@ __all__ = [
     "ExternalAccountParent",
     "ExternalAccountParentPlatform",
     "ExternalAccountPlatform",
+    "ExternalMessageEmail",
+    "ExternalMessageEmailObject",
+    "ExternalMessageEmailStatus",
     "FeeMarkup",
     "FeeMarkupListItem",
     "FeeMarkupTypes",

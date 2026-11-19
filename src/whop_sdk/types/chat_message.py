@@ -9,6 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel, update
 from .chat_message_message_type import ChatMessageMessageType
 from .chat_message_poll import ChatMessagePoll
 from .embed import Embed
+from .external_message_email import ExternalMessageEmail
 from .file import File
 from .gif import Gif
 from .message_custom_author import MessageCustomAuthor
@@ -45,6 +46,11 @@ class ChatMessage(UniversalBaseModel):
 
     edited: bool
     embeds: typing.List[Embed]
+    external_message: typing.Optional[ExternalMessageEmail] = pydantic.Field(default=None)
+    """
+    The message outside chat that this message was sent or received as. `object` says which kind it is, such as `email_message`. For an email, the first file in `attachments` named `email.html` holds the email's HTML body. The email's own attachments are also in `attachments`. `null` for a message that exists only in chat, or a deleted message.
+    """
+
     gifs: typing.List[Gif]
     id: str = pydantic.Field()
     """
