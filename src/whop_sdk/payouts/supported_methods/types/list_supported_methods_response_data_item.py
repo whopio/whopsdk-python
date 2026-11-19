@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .list_supported_methods_response_data_item_category import ListSupportedMethodsResponseDataItemCategory
 from .list_supported_methods_response_data_item_delivery_type import ListSupportedMethodsResponseDataItemDeliveryType
 from .list_supported_methods_response_data_item_fee_structure import ListSupportedMethodsResponseDataItemFeeStructure
 from .list_supported_methods_response_data_item_object import ListSupportedMethodsResponseDataItemObject
@@ -14,6 +15,11 @@ from .list_supported_methods_response_data_item_required_fields_item import (
 
 
 class ListSupportedMethodsResponseDataItem(UniversalBaseModel):
+    category: typing.Optional[ListSupportedMethodsResponseDataItemCategory] = pydantic.Field(default=None)
+    """
+    Category of the payout route that this method belongs to. Set only when `generic_only` is true and this country lists methods by payout route. `null` for every other method.
+    """
+
     delivery_type: ListSupportedMethodsResponseDataItemDeliveryType = pydantic.Field()
     """
     How funds are delivered, for example `bank_deposit`.
@@ -48,6 +54,11 @@ class ListSupportedMethodsResponseDataItem(UniversalBaseModel):
     quotes: typing.Optional[typing.List[ListSupportedMethodsResponseDataItemQuotesItem]] = pydantic.Field(default=None)
     """
     Fee and delivery estimates for the requested amount, one per destination currency. Null unless an amount was provided.
+    """
+
+    rail: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Payout rail that this method pays through, for example `ach`, `sepa`, `venmo` or `ethereum`. Set only when `generic_only` is true and this country lists methods by payout route. `null` for every other method.
     """
 
     required_fields: typing.Optional[typing.List[ListSupportedMethodsResponseDataItemRequiredFieldsItem]] = (

@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .list_supported_methods_request_party_type import ListSupportedMethodsRequestPartyType
     from .list_supported_methods_response import ListSupportedMethodsResponse
     from .list_supported_methods_response_data_item import ListSupportedMethodsResponseDataItem
+    from .list_supported_methods_response_data_item_category import ListSupportedMethodsResponseDataItemCategory
     from .list_supported_methods_response_data_item_delivery_type import (
         ListSupportedMethodsResponseDataItemDeliveryType,
     )
@@ -34,6 +35,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListSupportedMethodsRequestPartyType": ".list_supported_methods_request_party_type",
     "ListSupportedMethodsResponse": ".list_supported_methods_response",
     "ListSupportedMethodsResponseDataItem": ".list_supported_methods_response_data_item",
+    "ListSupportedMethodsResponseDataItemCategory": ".list_supported_methods_response_data_item_category",
     "ListSupportedMethodsResponseDataItemDeliveryType": ".list_supported_methods_response_data_item_delivery_type",
     "ListSupportedMethodsResponseDataItemFeeStructure": ".list_supported_methods_response_data_item_fee_structure",
     "ListSupportedMethodsResponseDataItemObject": ".list_supported_methods_response_data_item_object",
@@ -71,6 +73,7 @@ __all__ = [
     "ListSupportedMethodsRequestPartyType",
     "ListSupportedMethodsResponse",
     "ListSupportedMethodsResponseDataItem",
+    "ListSupportedMethodsResponseDataItemCategory",
     "ListSupportedMethodsResponseDataItemDeliveryType",
     "ListSupportedMethodsResponseDataItemFeeStructure",
     "ListSupportedMethodsResponseDataItemObject",
