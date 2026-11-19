@@ -147,6 +147,8 @@ class StatsClient:
         team_lead_id: typing.Optional[str] = None,
         activity: typing.Optional[RetrieveStatsRequestActivity] = None,
         breakdown_limit: typing.Optional[int] = None,
+        account_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        runner_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveStatsResponse:
         """
@@ -385,6 +387,12 @@ class StatsClient:
         breakdown_limit : typing.Optional[int]
             With a single breakdown_by, keep the groups with the highest whole-range values, up to this many, and fold every other group into one entry named other. A rate or an average ranks its groups by the deals it divides by. The other entry is measured from the underlying rows, so a distinct count or a rate stays exact rather than being added up from groups. Available on partner metrics only.
 
+        account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Business ids (biz_...) to scope the series to; the series sums their figures. Available on metrics that list account_ids.
+
+        runner_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Runner user ids (user_...) to scope the series to; the series sums the figures of the campaigns they hold. Available on metrics that list runner_ids.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -409,6 +417,8 @@ class StatsClient:
             ad_campaign_ids=["adcamp_xxxxxxxxxxxxxx"],
             ad_group_ids=["adgrp_xxxxxxxxxxxxxx"],
             ad_ids=["ad_xxxxxxxxxxxxxx"],
+            account_ids=["biz_xxxxxxxxxxxxxx"],
+            runner_ids=["user_xxxxxxxxxxxxxx"],
         )
         """
         _response = self._raw_client.retrieve(
@@ -489,6 +499,8 @@ class StatsClient:
             team_lead_id=team_lead_id,
             activity=activity,
             breakdown_limit=breakdown_limit,
+            account_ids=account_ids,
+            runner_ids=runner_ids,
             request_options=request_options,
         )
         return _response.data
@@ -644,6 +656,8 @@ class AsyncStatsClient:
         team_lead_id: typing.Optional[str] = None,
         activity: typing.Optional[RetrieveStatsRequestActivity] = None,
         breakdown_limit: typing.Optional[int] = None,
+        account_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        runner_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveStatsResponse:
         """
@@ -882,6 +896,12 @@ class AsyncStatsClient:
         breakdown_limit : typing.Optional[int]
             With a single breakdown_by, keep the groups with the highest whole-range values, up to this many, and fold every other group into one entry named other. A rate or an average ranks its groups by the deals it divides by. The other entry is measured from the underlying rows, so a distinct count or a rate stays exact rather than being added up from groups. Available on partner metrics only.
 
+        account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Business ids (biz_...) to scope the series to; the series sums their figures. Available on metrics that list account_ids.
+
+        runner_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Runner user ids (user_...) to scope the series to; the series sums the figures of the campaigns they hold. Available on metrics that list runner_ids.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -911,6 +931,8 @@ class AsyncStatsClient:
                 ad_campaign_ids=["adcamp_xxxxxxxxxxxxxx"],
                 ad_group_ids=["adgrp_xxxxxxxxxxxxxx"],
                 ad_ids=["ad_xxxxxxxxxxxxxx"],
+                account_ids=["biz_xxxxxxxxxxxxxx"],
+                runner_ids=["user_xxxxxxxxxxxxxx"],
             )
 
 
@@ -994,6 +1016,8 @@ class AsyncStatsClient:
             team_lead_id=team_lead_id,
             activity=activity,
             breakdown_limit=breakdown_limit,
+            account_ids=account_ids,
+            runner_ids=runner_ids,
             request_options=request_options,
         )
         return _response.data
