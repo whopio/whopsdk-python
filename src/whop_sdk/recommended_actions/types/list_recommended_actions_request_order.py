@@ -2,4 +2,4 @@
 
 import typing
 
-ListRecommendedActionsRequestOrder = typing.Union[typing.Literal["created_at", "run_started_at"], typing.Any]
+ListRecommendedActionsRequestOrder = typing.Union[typing.Literal["created_at", "run_started_at", "lift"], typing.Any]
