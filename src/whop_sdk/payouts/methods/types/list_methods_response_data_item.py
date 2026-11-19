@@ -8,6 +8,9 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .list_methods_response_data_item_bank_verification_state import ListMethodsResponseDataItemBankVerificationState
 from .list_methods_response_data_item_estimated_arrival import ListMethodsResponseDataItemEstimatedArrival
 from .list_methods_response_data_item_fee_structure import ListMethodsResponseDataItemFeeStructure
+from .list_methods_response_data_item_instant_unavailable_reason import (
+    ListMethodsResponseDataItemInstantUnavailableReason,
+)
 from .list_methods_response_data_item_object import ListMethodsResponseDataItemObject
 from .list_methods_response_data_item_quote import ListMethodsResponseDataItemQuote
 from .list_methods_response_data_item_recipient import ListMethodsResponseDataItemRecipient
@@ -53,6 +56,13 @@ class ListMethodsResponseDataItem(UniversalBaseModel):
     id: str = pydantic.Field()
     """
     Payout method ID.
+    """
+
+    instant_unavailable_reason: typing.Optional[ListMethodsResponseDataItemInstantUnavailableReason] = pydantic.Field(
+        default=None
+    )
+    """
+    Why instant delivery is unavailable. `new_payout_method_hold` means the payout method is within its initial instant delivery hold. `minimum_crypto_sales_not_met` means the account has not reached the sales requirement for instant cryptocurrency payouts. `null` means neither restriction applies.
     """
 
     institution_name: typing.Optional[str] = pydantic.Field(default=None)

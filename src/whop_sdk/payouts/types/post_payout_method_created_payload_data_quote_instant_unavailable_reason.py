@@ -3,5 +3,5 @@
 import typing
 
 PostPayoutMethodCreatedPayloadDataQuoteInstantUnavailableReason = typing.Union[
-    typing.Literal["minimum_crypto_sales_not_met"], typing.Any
+    typing.Literal["minimum_crypto_sales_not_met", "new_payout_method_hold"], typing.Any
 ]
