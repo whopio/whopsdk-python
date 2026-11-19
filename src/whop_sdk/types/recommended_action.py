@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .recommended_action_preview import RecommendedActionPreview
+from .recommended_action_stat import RecommendedActionStat
 from .recommended_action_status import RecommendedActionStatus
 from .recommended_action_type import RecommendedActionType
 from .recommended_action_workflow import RecommendedActionWorkflow
@@ -19,6 +20,11 @@ class RecommendedAction(UniversalBaseModel):
     created_at: str = pydantic.Field()
     """
     When the action was created, as an ISO 8601 timestamp.
+    """
+
+    experiment_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The experiment measuring the action's outcome, prefixed `expt_`. `null` when there is none.
     """
 
     id: str = pydantic.Field()
@@ -56,6 +62,7 @@ class RecommendedAction(UniversalBaseModel):
     Where the action is. `preparing` while its work is built, and it cannot run yet. `ready` when it can run. `running` while its steps are sent. `executed` when every step succeeded. `failed` when the run ended before every step succeeded. `dismissed` when the owner chose not to run it. `superseded` when Whop retired it, such as for a newer action.
     """
 
+    target_stats: typing.List[RecommendedActionStat]
     title: str = pydantic.Field()
     """
     What the action does, written for the account owner.
