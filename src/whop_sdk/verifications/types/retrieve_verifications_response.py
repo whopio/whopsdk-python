@@ -5,12 +5,14 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .retrieve_verifications_response_address import RetrieveVerificationsResponseAddress
+from .retrieve_verifications_response_identity_document import RetrieveVerificationsResponseIdentityDocument
 from .retrieve_verifications_response_kind import RetrieveVerificationsResponseKind
 from .retrieve_verifications_response_owners_item import RetrieveVerificationsResponseOwnersItem
 from .retrieve_verifications_response_requested_information_item import (
     RetrieveVerificationsResponseRequestedInformationItem,
 )
 from .retrieve_verifications_response_required_documents_item import RetrieveVerificationsResponseRequiredDocumentsItem
+from .retrieve_verifications_response_selfie import RetrieveVerificationsResponseSelfie
 from .retrieve_verifications_response_status import RetrieveVerificationsResponseStatus
 
 
@@ -61,6 +63,11 @@ class RetrieveVerificationsResponse(UniversalBaseModel):
     Verification profile ID, prefixed `idpf_`.
     """
 
+    identity_document: typing.Optional[RetrieveVerificationsResponseIdentityDocument] = pydantic.Field(default=None)
+    """
+    Identity document on file for the person. Individual verifications only. `null` until the person sends a document.
+    """
+
     incorporation_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     Date the business was incorporated, formatted as `YYYY-MM-DD`, as on file for the business verification. Business verifications only; `null` until it is sent.
@@ -100,6 +107,11 @@ class RetrieveVerificationsResponse(UniversalBaseModel):
     )
     """
     Documents for a document-upload verification and their progress. Present only on individual verifications created by sending `documents`. `pending_upload` documents were not accepted yet — send the full set again with another Create Verification call.
+    """
+
+    selfie: typing.Optional[RetrieveVerificationsResponseSelfie] = pydantic.Field(default=None)
+    """
+    Selfie check of the person. Individual verifications only. `null` when the verification has no selfie check.
     """
 
     session_url: typing.Optional[str] = pydantic.Field(default=None)
