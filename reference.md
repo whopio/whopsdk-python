@@ -59269,7 +59269,47 @@ client.users.preferences.update()
 <dl>
 <dd>
 
+**show_earnings:** `typing.Optional[bool]` — Whether to show the user's earnings on their profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_joined_whops:** `typing.Optional[bool]` — Whether to show the whops the user joined on their profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **show_level:** `typing.Optional[bool]` — Whether other people can see the user's Whop Level. Set to `false` to hide it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_location:** `typing.Optional[bool]` — Whether to show the user's location on their profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_owned_whops:** `typing.Optional[bool]` — Whether to show the whops the user owns on their profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_user_ranking:** `typing.Optional[bool]` — Whether to show the user's ranking on their profile.
     
 </dd>
 </dl>

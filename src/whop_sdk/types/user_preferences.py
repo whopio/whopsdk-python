@@ -17,9 +17,34 @@ class UserPreferences(UniversalBaseModel):
     Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. `false` when the user has no cards balance.
     """
 
+    show_earnings: bool = pydantic.Field()
+    """
+    Whether to show the user's earnings on their profile.
+    """
+
+    show_joined_whops: bool = pydantic.Field()
+    """
+    Whether to show the whops the user joined on their profile.
+    """
+
     show_level: bool = pydantic.Field()
     """
     Whether other people can see the user's Whop Level. Set to `false` to hide it.
+    """
+
+    show_location: bool = pydantic.Field()
+    """
+    Whether to show the user's location on their profile.
+    """
+
+    show_owned_whops: bool = pydantic.Field()
+    """
+    Whether to show the whops the user owns on their profile.
+    """
+
+    show_user_ranking: bool = pydantic.Field()
+    """
+    Whether to show the user's ranking on their profile.
     """
 
     terms_accepted: bool = pydantic.Field()

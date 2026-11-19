@@ -65,7 +65,12 @@ class PreferencesClient:
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
+        show_earnings: typing.Optional[bool] = OMIT,
+        show_joined_whops: typing.Optional[bool] = OMIT,
         show_level: typing.Optional[bool] = OMIT,
+        show_location: typing.Optional[bool] = OMIT,
+        show_owned_whops: typing.Optional[bool] = OMIT,
+        show_user_ranking: typing.Optional[bool] = OMIT,
         terms_accepted: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserPreferences:
@@ -80,8 +85,23 @@ class PreferencesClient:
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
 
+        show_earnings : typing.Optional[bool]
+            Whether to show the user's earnings on their profile.
+
+        show_joined_whops : typing.Optional[bool]
+            Whether to show the whops the user joined on their profile.
+
         show_level : typing.Optional[bool]
             Whether other people can see the user's Whop Level. Set to `false` to hide it.
+
+        show_location : typing.Optional[bool]
+            Whether to show the user's location on their profile.
+
+        show_owned_whops : typing.Optional[bool]
+            Whether to show the whops the user owns on their profile.
+
+        show_user_ranking : typing.Optional[bool]
+            Whether to show the user's ranking on their profile.
 
         terms_accepted : typing.Optional[bool]
             Records the user's acceptance of Whop's terms and policies. Only `true` is accepted — the server stamps `terms_accepted_at` and acceptance cannot be withdrawn here.
@@ -108,7 +128,12 @@ class PreferencesClient:
         _response = self._raw_client.update(
             bounty_worker_onboarding_dismissed=bounty_worker_onboarding_dismissed,
             cards_auto_top_up=cards_auto_top_up,
+            show_earnings=show_earnings,
+            show_joined_whops=show_joined_whops,
             show_level=show_level,
+            show_location=show_location,
+            show_owned_whops=show_owned_whops,
+            show_user_ranking=show_user_ranking,
             terms_accepted=terms_accepted,
             request_options=request_options,
         )
@@ -181,7 +206,12 @@ class AsyncPreferencesClient:
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
+        show_earnings: typing.Optional[bool] = OMIT,
+        show_joined_whops: typing.Optional[bool] = OMIT,
         show_level: typing.Optional[bool] = OMIT,
+        show_location: typing.Optional[bool] = OMIT,
+        show_owned_whops: typing.Optional[bool] = OMIT,
+        show_user_ranking: typing.Optional[bool] = OMIT,
         terms_accepted: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserPreferences:
@@ -196,8 +226,23 @@ class AsyncPreferencesClient:
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
 
+        show_earnings : typing.Optional[bool]
+            Whether to show the user's earnings on their profile.
+
+        show_joined_whops : typing.Optional[bool]
+            Whether to show the whops the user joined on their profile.
+
         show_level : typing.Optional[bool]
             Whether other people can see the user's Whop Level. Set to `false` to hide it.
+
+        show_location : typing.Optional[bool]
+            Whether to show the user's location on their profile.
+
+        show_owned_whops : typing.Optional[bool]
+            Whether to show the whops the user owns on their profile.
+
+        show_user_ranking : typing.Optional[bool]
+            Whether to show the user's ranking on their profile.
 
         terms_accepted : typing.Optional[bool]
             Records the user's acceptance of Whop's terms and policies. Only `true` is accepted — the server stamps `terms_accepted_at` and acceptance cannot be withdrawn here.
@@ -232,7 +277,12 @@ class AsyncPreferencesClient:
         _response = await self._raw_client.update(
             bounty_worker_onboarding_dismissed=bounty_worker_onboarding_dismissed,
             cards_auto_top_up=cards_auto_top_up,
+            show_earnings=show_earnings,
+            show_joined_whops=show_joined_whops,
             show_level=show_level,
+            show_location=show_location,
+            show_owned_whops=show_owned_whops,
+            show_user_ranking=show_user_ranking,
             terms_accepted=terms_accepted,
             request_options=request_options,
         )
