@@ -21,8 +21,6 @@ from .types.list_economic_intelligence_request_direction import ListEconomicInte
 from .types.list_economic_intelligence_request_order import ListEconomicIntelligenceRequestOrder
 from .types.list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
 from .types.list_economic_intelligence_response import ListEconomicIntelligenceResponse
-from .types.update_economic_intelligence_request_result_page import UpdateEconomicIntelligenceRequestResultPage
-from .types.update_economic_intelligence_request_sentiment import UpdateEconomicIntelligenceRequestSentiment
 from .types.update_economic_intelligence_request_status import UpdateEconomicIntelligenceRequestStatus
 from pydantic import ValidationError
 
@@ -39,7 +37,6 @@ class RawEconomicIntelligenceClient:
         *,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListEconomicIntelligenceRequestStatus] = None,
-        input: typing.Optional[str] = None,
         has_run: typing.Optional[bool] = None,
         order: typing.Optional[ListEconomicIntelligenceRequestOrder] = None,
         direction: typing.Optional[ListEconomicIntelligenceRequestDirection] = None,
@@ -50,7 +47,7 @@ class RawEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists an account's recommendations, newest first by default. `status: ready` is what the account can act on now. Any other listing is its history of runs. Executed recommendations and runs stay listed after Economic Intelligence turns off, but new recommendations are offered only to businesses it is written for. For visitor countries, page views, ad impressions and clicks, or payment volume over a time range, use `GET /stats/time_series/:metric`.
+        Deprecated. Use `GET /recommended_actions` instead. Lists an account's recommendations, newest first by default. `status: ready` lists what the account can act on now. Any other listing is its history of runs. Executed recommendations and runs stay listed after Economic Intelligence turns off. New recommendations are offered only to businesses it is written for. For visitor countries, page views, ad impressions and clicks, or payment volume over a time range, use `GET /stats/time_series/:metric`.
 
         Parameters
         ----------
@@ -59,9 +56,6 @@ class RawEconomicIntelligenceClient:
 
         status : typing.Optional[ListEconomicIntelligenceRequestStatus]
             `ready` lists the recommendations the account can run now. A run status lists only the runs in that state. `queued`, `pending` and `superseded` are no longer listed and answer nothing.
-
-        input : typing.Optional[str]
-            No longer read: recommendations are written for the business as it changes. Up to 1000 characters.
 
         has_run : typing.Optional[bool]
             When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read.
@@ -99,7 +93,6 @@ class RawEconomicIntelligenceClient:
             params={
                 "account_id": account_id,
                 "status": status,
-                "input": input,
                 "has_run": has_run,
                 "order": order,
                 "direction": direction,
@@ -128,7 +121,6 @@ class RawEconomicIntelligenceClient:
                     _get_next = lambda: self.list(
                         account_id=account_id,
                         status=status,
-                        input=input,
                         has_run=has_run,
                         order=order,
                         direction=direction,
@@ -185,47 +177,23 @@ class RawEconomicIntelligenceClient:
         self,
         id: str,
         *,
+        status: UpdateEconomicIntelligenceRequestStatus,
         account_id: typing.Optional[str] = None,
-        input: typing.Optional[str] = OMIT,
-        result_id: typing.Optional[str] = OMIT,
-        result_page: typing.Optional[UpdateEconomicIntelligenceRequestResultPage] = OMIT,
-        result_url: typing.Optional[str] = OMIT,
-        sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
-        status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
-        user_feedback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[EconomicIntelligence]:
         """
-        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire a ready recommendation. A rating alone leaves its status unchanged. To run a recommendation yourself, send `status: running` to start. Send `status: executed` when it is carried out, or `status: incomplete` if the run ended without carrying it out. With `executed`, name what changed in `result_id` or where the run worked in `result_page`, and the result links there. Whop AI reports its own runs the same way. Send `status: acknowledged` once an executed run's result has been seen.
+        Deprecated. Use `POST /recommended_actions/:id/dismiss` instead.Dismisses a ready recommendation. Send `status: superseded`. A recommendation that is already superseded stays unchanged. Other statuses and fields return a `400` that names `/api/v1/recommended_actions`.
 
         Parameters
         ----------
         id : str
             Recommendation ID, prefixed `reca_`.
 
+        status : UpdateEconomicIntelligenceRequestStatus
+            Use `superseded` to dismiss a ready recommendation.
+
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
-
-        input : typing.Optional[str]
-            No longer read: recommendations are written for the business as it changes. Up to 1000 characters.
-
-        result_id : typing.Optional[str]
-            With `status: executed`, the ID of what the run produced or changed, and the recommendation's `result_url` becomes where to view it: an ad (`ad_`), ad group (`adgrp_`) or ad campaign (`adcamp_`), a website (`app_`), a product (`prod_`), a plan (`plan_`), a checkout link (`ch_`), a promo code (`promo_`), or an experience (`exp_`). Without `result_id` or `result_page`, `result_url` links to the resource the recommendation was about, when it names one. Send only one of `result_id`, `result_page` and `result_url`.
-
-        result_page : typing.Optional[UpdateEconomicIntelligenceRequestResultPage]
-            With `status: executed`, the page where the run's result can be seen when it is not one resource, such as the checkout links list. The recommendation's `result_url` becomes that page on the account's dashboard.
-
-        result_url : typing.Optional[str]
-            With `status: executed`, where to view what was produced when it is outside Whop. An http or https URL. Prefer `result_id` for anything on Whop.
-
-        sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
-            A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
-
-        status : typing.Optional[UpdateEconomicIntelligenceRequestStatus]
-            Use `running` to start a run of a ready recommendation, `executed` to record that it was carried out, `incomplete` to record that a running recommendation's run ended without carrying it out, `superseded` to reject a ready recommendation, or `acknowledged` to mark an executed run as seen; the recommendation stays `executed` and records `acknowledged_at`.
-
-        user_feedback : typing.Optional[str]
-            An optional explanation of the rating or rejection.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -243,13 +211,7 @@ class RawEconomicIntelligenceClient:
                 "account_id": account_id,
             },
             json={
-                "input": input,
-                "result_id": result_id,
-                "result_page": result_page,
-                "result_url": result_url,
-                "sentiment": sentiment,
                 "status": status,
-                "user_feedback": user_feedback,
             },
             headers={
                 "content-type": "application/json",
@@ -330,7 +292,6 @@ class AsyncRawEconomicIntelligenceClient:
         *,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListEconomicIntelligenceRequestStatus] = None,
-        input: typing.Optional[str] = None,
         has_run: typing.Optional[bool] = None,
         order: typing.Optional[ListEconomicIntelligenceRequestOrder] = None,
         direction: typing.Optional[ListEconomicIntelligenceRequestDirection] = None,
@@ -341,7 +302,7 @@ class AsyncRawEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists an account's recommendations, newest first by default. `status: ready` is what the account can act on now. Any other listing is its history of runs. Executed recommendations and runs stay listed after Economic Intelligence turns off, but new recommendations are offered only to businesses it is written for. For visitor countries, page views, ad impressions and clicks, or payment volume over a time range, use `GET /stats/time_series/:metric`.
+        Deprecated. Use `GET /recommended_actions` instead. Lists an account's recommendations, newest first by default. `status: ready` lists what the account can act on now. Any other listing is its history of runs. Executed recommendations and runs stay listed after Economic Intelligence turns off. New recommendations are offered only to businesses it is written for. For visitor countries, page views, ad impressions and clicks, or payment volume over a time range, use `GET /stats/time_series/:metric`.
 
         Parameters
         ----------
@@ -350,9 +311,6 @@ class AsyncRawEconomicIntelligenceClient:
 
         status : typing.Optional[ListEconomicIntelligenceRequestStatus]
             `ready` lists the recommendations the account can run now. A run status lists only the runs in that state. `queued`, `pending` and `superseded` are no longer listed and answer nothing.
-
-        input : typing.Optional[str]
-            No longer read: recommendations are written for the business as it changes. Up to 1000 characters.
 
         has_run : typing.Optional[bool]
             When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read.
@@ -390,7 +348,6 @@ class AsyncRawEconomicIntelligenceClient:
             params={
                 "account_id": account_id,
                 "status": status,
-                "input": input,
                 "has_run": has_run,
                 "order": order,
                 "direction": direction,
@@ -421,7 +378,6 @@ class AsyncRawEconomicIntelligenceClient:
                         return await self.list(
                             account_id=account_id,
                             status=status,
-                            input=input,
                             has_run=has_run,
                             order=order,
                             direction=direction,
@@ -479,47 +435,23 @@ class AsyncRawEconomicIntelligenceClient:
         self,
         id: str,
         *,
+        status: UpdateEconomicIntelligenceRequestStatus,
         account_id: typing.Optional[str] = None,
-        input: typing.Optional[str] = OMIT,
-        result_id: typing.Optional[str] = OMIT,
-        result_page: typing.Optional[UpdateEconomicIntelligenceRequestResultPage] = OMIT,
-        result_url: typing.Optional[str] = OMIT,
-        sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
-        status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
-        user_feedback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[EconomicIntelligence]:
         """
-        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire a ready recommendation. A rating alone leaves its status unchanged. To run a recommendation yourself, send `status: running` to start. Send `status: executed` when it is carried out, or `status: incomplete` if the run ended without carrying it out. With `executed`, name what changed in `result_id` or where the run worked in `result_page`, and the result links there. Whop AI reports its own runs the same way. Send `status: acknowledged` once an executed run's result has been seen.
+        Deprecated. Use `POST /recommended_actions/:id/dismiss` instead.Dismisses a ready recommendation. Send `status: superseded`. A recommendation that is already superseded stays unchanged. Other statuses and fields return a `400` that names `/api/v1/recommended_actions`.
 
         Parameters
         ----------
         id : str
             Recommendation ID, prefixed `reca_`.
 
+        status : UpdateEconomicIntelligenceRequestStatus
+            Use `superseded` to dismiss a ready recommendation.
+
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
-
-        input : typing.Optional[str]
-            No longer read: recommendations are written for the business as it changes. Up to 1000 characters.
-
-        result_id : typing.Optional[str]
-            With `status: executed`, the ID of what the run produced or changed, and the recommendation's `result_url` becomes where to view it: an ad (`ad_`), ad group (`adgrp_`) or ad campaign (`adcamp_`), a website (`app_`), a product (`prod_`), a plan (`plan_`), a checkout link (`ch_`), a promo code (`promo_`), or an experience (`exp_`). Without `result_id` or `result_page`, `result_url` links to the resource the recommendation was about, when it names one. Send only one of `result_id`, `result_page` and `result_url`.
-
-        result_page : typing.Optional[UpdateEconomicIntelligenceRequestResultPage]
-            With `status: executed`, the page where the run's result can be seen when it is not one resource, such as the checkout links list. The recommendation's `result_url` becomes that page on the account's dashboard.
-
-        result_url : typing.Optional[str]
-            With `status: executed`, where to view what was produced when it is outside Whop. An http or https URL. Prefer `result_id` for anything on Whop.
-
-        sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
-            A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
-
-        status : typing.Optional[UpdateEconomicIntelligenceRequestStatus]
-            Use `running` to start a run of a ready recommendation, `executed` to record that it was carried out, `incomplete` to record that a running recommendation's run ended without carrying it out, `superseded` to reject a ready recommendation, or `acknowledged` to mark an executed run as seen; the recommendation stays `executed` and records `acknowledged_at`.
-
-        user_feedback : typing.Optional[str]
-            An optional explanation of the rating or rejection.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -537,13 +469,7 @@ class AsyncRawEconomicIntelligenceClient:
                 "account_id": account_id,
             },
             json={
-                "input": input,
-                "result_id": result_id,
-                "result_page": result_page,
-                "result_url": result_url,
-                "sentiment": sentiment,
                 "status": status,
-                "user_feedback": user_feedback,
             },
             headers={
                 "content-type": "application/json",

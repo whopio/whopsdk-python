@@ -2,6 +2,4 @@
 
 import typing
 
-UpdateEconomicIntelligenceRequestStatus = typing.Union[
-    typing.Literal["running", "executed", "incomplete", "superseded", "acknowledged"], typing.Any
-]
+UpdateEconomicIntelligenceRequestStatus = typing.Union[typing.Literal["superseded"], typing.Any]
