@@ -66,7 +66,7 @@ class NotificationsClient:
         )
 
         client = Whop(
-            "2026-11-17-3",
+            "2026-11-19",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -149,7 +149,7 @@ class AsyncNotificationsClient:
         )
 
         client = AsyncWhop(
-            "2026-11-17-3",
+            "2026-11-19",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

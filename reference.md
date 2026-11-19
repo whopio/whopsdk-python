@@ -59269,14 +59269,6 @@ client.users.preferences.update()
 <dl>
 <dd>
 
-**show_earnings:** `typing.Optional[bool]` — Whether to show the user's earnings on their profile.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **show_joined_whops:** `typing.Optional[bool]` — Whether to show the whops the user joined on their profile.
     
 </dd>

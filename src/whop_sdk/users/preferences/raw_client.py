@@ -77,7 +77,6 @@ class RawPreferencesClient:
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
-        show_earnings: typing.Optional[bool] = OMIT,
         show_joined_whops: typing.Optional[bool] = OMIT,
         show_level: typing.Optional[bool] = OMIT,
         show_location: typing.Optional[bool] = OMIT,
@@ -96,9 +95,6 @@ class RawPreferencesClient:
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
-
-        show_earnings : typing.Optional[bool]
-            Whether to show the user's earnings on their profile.
 
         show_joined_whops : typing.Optional[bool]
             Whether to show the whops the user joined on their profile.
@@ -133,7 +129,6 @@ class RawPreferencesClient:
             json={
                 "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
                 "cards_auto_top_up": cards_auto_top_up,
-                "show_earnings": show_earnings,
                 "show_joined_whops": show_joined_whops,
                 "show_level": show_level,
                 "show_location": show_location,
@@ -250,7 +245,6 @@ class AsyncRawPreferencesClient:
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
-        show_earnings: typing.Optional[bool] = OMIT,
         show_joined_whops: typing.Optional[bool] = OMIT,
         show_level: typing.Optional[bool] = OMIT,
         show_location: typing.Optional[bool] = OMIT,
@@ -269,9 +263,6 @@ class AsyncRawPreferencesClient:
 
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
-
-        show_earnings : typing.Optional[bool]
-            Whether to show the user's earnings on their profile.
 
         show_joined_whops : typing.Optional[bool]
             Whether to show the whops the user joined on their profile.
@@ -306,7 +297,6 @@ class AsyncRawPreferencesClient:
             json={
                 "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
                 "cards_auto_top_up": cards_auto_top_up,
-                "show_earnings": show_earnings,
                 "show_joined_whops": show_joined_whops,
                 "show_level": show_level,
                 "show_location": show_location,
