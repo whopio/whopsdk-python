@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .course_list_item_experience import CourseListItemExperience
 from .course_list_item_resume_lesson import CourseListItemResumeLesson
 from .course_list_item_thumbnail import CourseListItemThumbnail
 from .course_visibilities import CourseVisibilities
@@ -44,6 +45,11 @@ class CourseListItem(UniversalBaseModel):
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     A brief summary of the course content and objectives. Null if no description has been set.
+    """
+
+    experience: CourseListItemExperience = pydantic.Field()
+    """
+    The parent experience that this course belongs to.
     """
 
     id: str = pydantic.Field()

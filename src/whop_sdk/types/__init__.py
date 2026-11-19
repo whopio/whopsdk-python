@@ -395,6 +395,7 @@ if typing.TYPE_CHECKING:
     from .course_chapters_item_lessons_item import CourseChaptersItemLessonsItem
     from .course_chapters_item_lessons_item_thumbnail import CourseChaptersItemLessonsItemThumbnail
     from .course_chapters_item_lessons_item_video_asset import CourseChaptersItemLessonsItemVideoAsset
+    from .course_experience import CourseExperience
     from .course_lesson import CourseLesson
     from .course_lesson_assessment_questions_item import CourseLessonAssessmentQuestionsItem
     from .course_lesson_assessment_questions_item_image import CourseLessonAssessmentQuestionsItemImage
@@ -416,6 +417,7 @@ if typing.TYPE_CHECKING:
     from .course_lesson_thumbnail import CourseLessonThumbnail
     from .course_lesson_video_asset import CourseLessonVideoAsset
     from .course_list_item import CourseListItem
+    from .course_list_item_experience import CourseListItemExperience
     from .course_list_item_resume_lesson import CourseListItemResumeLesson
     from .course_list_item_thumbnail import CourseListItemThumbnail
     from .course_resume_lesson import CourseResumeLesson
@@ -424,7 +426,9 @@ if typing.TYPE_CHECKING:
     from .course_student_course_experience import CourseStudentCourseExperience
     from .course_student_list_item import CourseStudentListItem
     from .course_student_list_item_user import CourseStudentListItemUser
+    from .course_student_list_item_user_profile_picture import CourseStudentListItemUserProfilePicture
     from .course_student_user import CourseStudentUser
+    from .course_student_user_profile_picture import CourseStudentUserProfilePicture
     from .course_thumbnail import CourseThumbnail
     from .course_visibilities import CourseVisibilities
     from .courses_assessment_question_types import CoursesAssessmentQuestionTypes
@@ -2026,6 +2030,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CourseChaptersItemLessonsItem": ".course_chapters_item_lessons_item",
     "CourseChaptersItemLessonsItemThumbnail": ".course_chapters_item_lessons_item_thumbnail",
     "CourseChaptersItemLessonsItemVideoAsset": ".course_chapters_item_lessons_item_video_asset",
+    "CourseExperience": ".course_experience",
     "CourseLesson": ".course_lesson",
     "CourseLessonAssessmentQuestionsItem": ".course_lesson_assessment_questions_item",
     "CourseLessonAssessmentQuestionsItemImage": ".course_lesson_assessment_questions_item_image",
@@ -2047,6 +2052,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CourseLessonThumbnail": ".course_lesson_thumbnail",
     "CourseLessonVideoAsset": ".course_lesson_video_asset",
     "CourseListItem": ".course_list_item",
+    "CourseListItemExperience": ".course_list_item_experience",
     "CourseListItemResumeLesson": ".course_list_item_resume_lesson",
     "CourseListItemThumbnail": ".course_list_item_thumbnail",
     "CourseResumeLesson": ".course_resume_lesson",
@@ -2055,7 +2061,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CourseStudentCourseExperience": ".course_student_course_experience",
     "CourseStudentListItem": ".course_student_list_item",
     "CourseStudentListItemUser": ".course_student_list_item_user",
+    "CourseStudentListItemUserProfilePicture": ".course_student_list_item_user_profile_picture",
     "CourseStudentUser": ".course_student_user",
+    "CourseStudentUserProfilePicture": ".course_student_user_profile_picture",
     "CourseThumbnail": ".course_thumbnail",
     "CourseVisibilities": ".course_visibilities",
     "CoursesAssessmentQuestionTypes": ".courses_assessment_question_types",
@@ -3549,6 +3557,7 @@ __all__ = [
     "CourseChaptersItemLessonsItem",
     "CourseChaptersItemLessonsItemThumbnail",
     "CourseChaptersItemLessonsItemVideoAsset",
+    "CourseExperience",
     "CourseLesson",
     "CourseLessonAssessmentQuestionsItem",
     "CourseLessonAssessmentQuestionsItemImage",
@@ -3570,6 +3579,7 @@ __all__ = [
     "CourseLessonThumbnail",
     "CourseLessonVideoAsset",
     "CourseListItem",
+    "CourseListItemExperience",
     "CourseListItemResumeLesson",
     "CourseListItemThumbnail",
     "CourseResumeLesson",
@@ -3578,7 +3588,9 @@ __all__ = [
     "CourseStudentCourseExperience",
     "CourseStudentListItem",
     "CourseStudentListItemUser",
+    "CourseStudentListItemUserProfilePicture",
     "CourseStudentUser",
+    "CourseStudentUserProfilePicture",
     "CourseThumbnail",
     "CourseVisibilities",
     "CoursesAssessmentQuestionTypes",

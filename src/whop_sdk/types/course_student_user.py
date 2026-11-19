@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .course_student_user_profile_picture import CourseStudentUserProfilePicture
 
 
 class CourseStudentUser(UniversalBaseModel):
@@ -19,6 +20,11 @@ class CourseStudentUser(UniversalBaseModel):
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user's display name shown on their public profile.
+    """
+
+    profile_picture: typing.Optional[CourseStudentUserProfilePicture] = pydantic.Field(default=None)
+    """
+    The user's profile picture attachment with URL, content type, and file metadata. Null if using a legacy profile picture.
     """
 
     username: str = pydantic.Field()
