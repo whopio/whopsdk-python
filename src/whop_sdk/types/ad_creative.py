@@ -34,6 +34,11 @@ class AdCreative(UniversalBaseModel):
     The kind of asset, image or video.
     """
 
+    source_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The file this format was cut out of, prefixed `file_`. Null for the original asset or a format uploaded as it is.
+    """
+
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
     CDN url of the asset.

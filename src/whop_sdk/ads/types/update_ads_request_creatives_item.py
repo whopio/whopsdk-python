@@ -20,6 +20,11 @@ class UpdateAdsRequestCreativesItem(UniversalBaseModel):
     Uploaded file ID, prefixed `file_`.
     """
 
+    source_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The uploaded file to cut this format out of, prefixed `file_`. Whop cuts the `crop` window out of it, in that file's pixels, and makes the slot's file. Omit it to use `id` as uploaded.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
