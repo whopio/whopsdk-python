@@ -48,11 +48,11 @@ class ListReportsResponseDataItemColumnsItem(UniversalBaseModel):
         FieldMetadata(alias="set"),
         pydantic.Field(
             alias="set",
-            description="Properties only. `fixed` breakdowns list every value, zero-filled; `open` ones list values with activity.",
+            description="Properties only. `fixed` breakdowns list every value, zero-filled. `open` ones list values with activity.",
         ),
     ] = None
     """
-    Properties only. `fixed` breakdowns list every value, zero-filled; `open` ones list values with activity.
+    Properties only. `fixed` breakdowns list every value, zero-filled. `open` ones list values with activity.
     """
 
     type: ListReportsResponseDataItemColumnsItemType = pydantic.Field()

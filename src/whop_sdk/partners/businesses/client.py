@@ -53,6 +53,7 @@ class BusinessesClient:
         advance_status: typing.Optional[ListBusinessesRequestAdvanceStatus] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
+        counted_in_network_volume: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -87,6 +88,9 @@ class BusinessesClient:
 
         has_earnings : typing.Optional[bool]
             When true, only businesses with pending or completed earnings paid to the caller.
+
+        counted_in_network_volume : typing.Optional[bool]
+            When true, only the referrals that the `partner_network_volume` series count today. A referral whose window has ended is left out. Requires `referring_account_id`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -165,6 +169,7 @@ class BusinessesClient:
             advance_status=advance_status,
             status=status,
             has_earnings=has_earnings,
+            counted_in_network_volume=counted_in_network_volume,
             first=first,
             after=after,
             last=last,
@@ -411,6 +416,7 @@ class AsyncBusinessesClient:
         advance_status: typing.Optional[ListBusinessesRequestAdvanceStatus] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
+        counted_in_network_volume: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -445,6 +451,9 @@ class AsyncBusinessesClient:
 
         has_earnings : typing.Optional[bool]
             When true, only businesses with pending or completed earnings paid to the caller.
+
+        counted_in_network_volume : typing.Optional[bool]
+            When true, only the referrals that the `partner_network_volume` series count today. A referral whose window has ended is left out. Requires `referring_account_id`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -532,6 +541,7 @@ class AsyncBusinessesClient:
             advance_status=advance_status,
             status=status,
             has_earnings=has_earnings,
+            counted_in_network_volume=counted_in_network_volume,
             first=first,
             after=after,
             last=last,

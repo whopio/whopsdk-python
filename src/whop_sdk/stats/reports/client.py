@@ -6,6 +6,10 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from .raw_client import AsyncRawReportsClient, RawReportsClient
 from .types.list_reports_response import ListReportsResponse
+from .types.partner_revenue_lines_reports_request_breakdown_by import PartnerRevenueLinesReportsRequestBreakdownBy
+from .types.partner_revenue_lines_reports_request_direction import PartnerRevenueLinesReportsRequestDirection
+from .types.partner_revenue_lines_reports_request_order import PartnerRevenueLinesReportsRequestOrder
+from .types.partner_revenue_lines_reports_response import PartnerRevenueLinesReportsResponse
 from .types.platform_trends_reports_request_breakdown_by import PlatformTrendsReportsRequestBreakdownBy
 from .types.platform_trends_reports_request_direction import PlatformTrendsReportsRequestDirection
 from .types.platform_trends_reports_request_order import PlatformTrendsReportsRequestOrder
@@ -53,6 +57,102 @@ class ReportsClient:
         client.stats.reports.list()
         """
         _response = self._raw_client.list(request_options=request_options)
+        return _response.data
+
+    def partner_revenue_lines(
+        self,
+        *,
+        referring_account_id: str,
+        breakdown_by: typing.Optional[PartnerRevenueLinesReportsRequestBreakdownBy] = None,
+        columns: typing.Optional[str] = None,
+        windows: typing.Optional[str] = None,
+        time_zone: typing.Optional[str] = None,
+        revenue_line: typing.Optional[str] = None,
+        income_source: typing.Optional[str] = None,
+        order: typing.Optional[PartnerRevenueLinesReportsRequestOrder] = None,
+        direction: typing.Optional[PartnerRevenueLinesReportsRequestDirection] = None,
+        convert_to: typing.Optional[str] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PartnerRevenueLinesReportsResponse:
+        """
+        The revenue lines charged to the businesses that the team of a partner business referred. Each row shows the commission paid to the partner business on that line. Lines that share an income source show the whole commission of that source. A team member who is not an owner sees only the referrals of their own team. While a day of the window is still being read, `commission` and `paid` are `null` on every row. A line may be missing. The days fill within minutes, so read the report again.
+
+        Parameters
+        ----------
+        referring_account_id : str
+            Partner business to report on, prefixed `biz_`.
+
+        breakdown_by : typing.Optional[PartnerRevenueLinesReportsRequestBreakdownBy]
+            `revenue_line` for one row per revenue line. Omit it for one row per window with the total commission.
+
+        columns : typing.Optional[str]
+            Comma-separated columns to return on each row. Defaults to `commission,paid`. `income_source` is available on `revenue_line` rows.
+
+        windows : typing.Optional[str]
+            Comma-separated windows of at most 366 days, at most four, in the syntax every report accepts. Each window covers whole days, through the end of its last day. A `prev:` window covers as many days and ends where the window it precedes starts. Defaults to `30d`.
+
+        time_zone : typing.Optional[str]
+            IANA zone that the days of each window fall in. Defaults to `Etc/UTC`.
+
+        revenue_line : typing.Optional[str]
+            Comma-separated revenue lines to keep.
+
+        income_source : typing.Optional[str]
+            Comma-separated income sources to keep.
+
+        order : typing.Optional[PartnerRevenueLinesReportsRequestOrder]
+            The requested metric that ranks rows, by its value in the first window. Defaults to the first requested metric.
+
+        direction : typing.Optional[PartnerRevenueLinesReportsRequestDirection]
+            Ranking direction. Defaults to `desc`.
+
+        convert_to : typing.Optional[str]
+            Currency code to return money in. Defaults to `usd`.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PartnerRevenueLinesReportsResponse
+            Each revenue line's figures for each requested window, with rows in the same order in every window.
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-17-3",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.stats.reports.partner_revenue_lines(
+            referring_account_id="referring_account_id",
+        )
+        """
+        _response = self._raw_client.partner_revenue_lines(
+            referring_account_id=referring_account_id,
+            breakdown_by=breakdown_by,
+            columns=columns,
+            windows=windows,
+            time_zone=time_zone,
+            revenue_line=revenue_line,
+            income_source=income_source,
+            order=order,
+            direction=direction,
+            convert_to=convert_to,
+            first=first,
+            after=after,
+            request_options=request_options,
+        )
         return _response.data
 
     def platform_trends(
@@ -214,6 +314,110 @@ class AsyncReportsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(request_options=request_options)
+        return _response.data
+
+    async def partner_revenue_lines(
+        self,
+        *,
+        referring_account_id: str,
+        breakdown_by: typing.Optional[PartnerRevenueLinesReportsRequestBreakdownBy] = None,
+        columns: typing.Optional[str] = None,
+        windows: typing.Optional[str] = None,
+        time_zone: typing.Optional[str] = None,
+        revenue_line: typing.Optional[str] = None,
+        income_source: typing.Optional[str] = None,
+        order: typing.Optional[PartnerRevenueLinesReportsRequestOrder] = None,
+        direction: typing.Optional[PartnerRevenueLinesReportsRequestDirection] = None,
+        convert_to: typing.Optional[str] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PartnerRevenueLinesReportsResponse:
+        """
+        The revenue lines charged to the businesses that the team of a partner business referred. Each row shows the commission paid to the partner business on that line. Lines that share an income source show the whole commission of that source. A team member who is not an owner sees only the referrals of their own team. While a day of the window is still being read, `commission` and `paid` are `null` on every row. A line may be missing. The days fill within minutes, so read the report again.
+
+        Parameters
+        ----------
+        referring_account_id : str
+            Partner business to report on, prefixed `biz_`.
+
+        breakdown_by : typing.Optional[PartnerRevenueLinesReportsRequestBreakdownBy]
+            `revenue_line` for one row per revenue line. Omit it for one row per window with the total commission.
+
+        columns : typing.Optional[str]
+            Comma-separated columns to return on each row. Defaults to `commission,paid`. `income_source` is available on `revenue_line` rows.
+
+        windows : typing.Optional[str]
+            Comma-separated windows of at most 366 days, at most four, in the syntax every report accepts. Each window covers whole days, through the end of its last day. A `prev:` window covers as many days and ends where the window it precedes starts. Defaults to `30d`.
+
+        time_zone : typing.Optional[str]
+            IANA zone that the days of each window fall in. Defaults to `Etc/UTC`.
+
+        revenue_line : typing.Optional[str]
+            Comma-separated revenue lines to keep.
+
+        income_source : typing.Optional[str]
+            Comma-separated income sources to keep.
+
+        order : typing.Optional[PartnerRevenueLinesReportsRequestOrder]
+            The requested metric that ranks rows, by its value in the first window. Defaults to the first requested metric.
+
+        direction : typing.Optional[PartnerRevenueLinesReportsRequestDirection]
+            Ranking direction. Defaults to `desc`.
+
+        convert_to : typing.Optional[str]
+            Currency code to return money in. Defaults to `usd`.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PartnerRevenueLinesReportsResponse
+            Each revenue line's figures for each requested window, with rows in the same order in every window.
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-17-3",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.stats.reports.partner_revenue_lines(
+                referring_account_id="referring_account_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.partner_revenue_lines(
+            referring_account_id=referring_account_id,
+            breakdown_by=breakdown_by,
+            columns=columns,
+            windows=windows,
+            time_zone=time_zone,
+            revenue_line=revenue_line,
+            income_source=income_source,
+            order=order,
+            direction=direction,
+            convert_to=convert_to,
+            first=first,
+            after=after,
+            request_options=request_options,
+        )
         return _response.data
 
     async def platform_trends(

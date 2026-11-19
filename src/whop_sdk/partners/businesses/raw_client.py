@@ -47,6 +47,7 @@ class RawBusinessesClient:
         advance_status: typing.Optional[ListBusinessesRequestAdvanceStatus] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
+        counted_in_network_volume: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -81,6 +82,9 @@ class RawBusinessesClient:
 
         has_earnings : typing.Optional[bool]
             When true, only businesses with pending or completed earnings paid to the caller.
+
+        counted_in_network_volume : typing.Optional[bool]
+            When true, only the referrals that the `partner_network_volume` series count today. A referral whose window has ended is left out. Requires `referring_account_id`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -147,6 +151,7 @@ class RawBusinessesClient:
                 "advance_status": advance_status,
                 "status": status,
                 "has_earnings": has_earnings,
+                "counted_in_network_volume": counted_in_network_volume,
                 "first": first,
                 "after": after,
                 "last": last,
@@ -186,6 +191,7 @@ class RawBusinessesClient:
                         advance_status=advance_status,
                         status=status,
                         has_earnings=has_earnings,
+                        counted_in_network_volume=counted_in_network_volume,
                         first=first,
                         after=_parsed_next,
                         last=last,
@@ -563,6 +569,7 @@ class AsyncRawBusinessesClient:
         advance_status: typing.Optional[ListBusinessesRequestAdvanceStatus] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
+        counted_in_network_volume: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -597,6 +604,9 @@ class AsyncRawBusinessesClient:
 
         has_earnings : typing.Optional[bool]
             When true, only businesses with pending or completed earnings paid to the caller.
+
+        counted_in_network_volume : typing.Optional[bool]
+            When true, only the referrals that the `partner_network_volume` series count today. A referral whose window has ended is left out. Requires `referring_account_id`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -663,6 +673,7 @@ class AsyncRawBusinessesClient:
                 "advance_status": advance_status,
                 "status": status,
                 "has_earnings": has_earnings,
+                "counted_in_network_volume": counted_in_network_volume,
                 "first": first,
                 "after": after,
                 "last": last,
@@ -704,6 +715,7 @@ class AsyncRawBusinessesClient:
                             advance_status=advance_status,
                             status=status,
                             has_earnings=has_earnings,
+                            counted_in_network_volume=counted_in_network_volume,
                             first=first,
                             after=_parsed_next,
                             last=last,

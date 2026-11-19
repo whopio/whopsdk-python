@@ -13,6 +13,10 @@ from ...errors.bad_request_error import BadRequestError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.unauthorized_error import UnauthorizedError
 from .types.list_reports_response import ListReportsResponse
+from .types.partner_revenue_lines_reports_request_breakdown_by import PartnerRevenueLinesReportsRequestBreakdownBy
+from .types.partner_revenue_lines_reports_request_direction import PartnerRevenueLinesReportsRequestDirection
+from .types.partner_revenue_lines_reports_request_order import PartnerRevenueLinesReportsRequestOrder
+from .types.partner_revenue_lines_reports_response import PartnerRevenueLinesReportsResponse
 from .types.platform_trends_reports_request_breakdown_by import PlatformTrendsReportsRequestBreakdownBy
 from .types.platform_trends_reports_request_direction import PlatformTrendsReportsRequestDirection
 from .types.platform_trends_reports_request_order import PlatformTrendsReportsRequestOrder
@@ -56,6 +60,133 @@ class RawReportsClient:
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def partner_revenue_lines(
+        self,
+        *,
+        referring_account_id: str,
+        breakdown_by: typing.Optional[PartnerRevenueLinesReportsRequestBreakdownBy] = None,
+        columns: typing.Optional[str] = None,
+        windows: typing.Optional[str] = None,
+        time_zone: typing.Optional[str] = None,
+        revenue_line: typing.Optional[str] = None,
+        income_source: typing.Optional[str] = None,
+        order: typing.Optional[PartnerRevenueLinesReportsRequestOrder] = None,
+        direction: typing.Optional[PartnerRevenueLinesReportsRequestDirection] = None,
+        convert_to: typing.Optional[str] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PartnerRevenueLinesReportsResponse]:
+        """
+        The revenue lines charged to the businesses that the team of a partner business referred. Each row shows the commission paid to the partner business on that line. Lines that share an income source show the whole commission of that source. A team member who is not an owner sees only the referrals of their own team. While a day of the window is still being read, `commission` and `paid` are `null` on every row. A line may be missing. The days fill within minutes, so read the report again.
+
+        Parameters
+        ----------
+        referring_account_id : str
+            Partner business to report on, prefixed `biz_`.
+
+        breakdown_by : typing.Optional[PartnerRevenueLinesReportsRequestBreakdownBy]
+            `revenue_line` for one row per revenue line. Omit it for one row per window with the total commission.
+
+        columns : typing.Optional[str]
+            Comma-separated columns to return on each row. Defaults to `commission,paid`. `income_source` is available on `revenue_line` rows.
+
+        windows : typing.Optional[str]
+            Comma-separated windows of at most 366 days, at most four, in the syntax every report accepts. Each window covers whole days, through the end of its last day. A `prev:` window covers as many days and ends where the window it precedes starts. Defaults to `30d`.
+
+        time_zone : typing.Optional[str]
+            IANA zone that the days of each window fall in. Defaults to `Etc/UTC`.
+
+        revenue_line : typing.Optional[str]
+            Comma-separated revenue lines to keep.
+
+        income_source : typing.Optional[str]
+            Comma-separated income sources to keep.
+
+        order : typing.Optional[PartnerRevenueLinesReportsRequestOrder]
+            The requested metric that ranks rows, by its value in the first window. Defaults to the first requested metric.
+
+        direction : typing.Optional[PartnerRevenueLinesReportsRequestDirection]
+            Ranking direction. Defaults to `desc`.
+
+        convert_to : typing.Optional[str]
+            Currency code to return money in. Defaults to `usd`.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PartnerRevenueLinesReportsResponse]
+            Each revenue line's figures for each requested window, with rows in the same order in every window.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "stats/reports/partner_revenue_lines",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "referring_account_id": referring_account_id,
+                "breakdown_by": breakdown_by,
+                "columns": columns,
+                "windows": windows,
+                "time_zone": time_zone,
+                "revenue_line": revenue_line,
+                "income_source": income_source,
+                "order": order,
+                "direction": direction,
+                "convert_to": convert_to,
+                "first": first,
+                "after": after,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PartnerRevenueLinesReportsResponse,
+                    parse_obj_as(
+                        type_=PartnerRevenueLinesReportsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -255,6 +386,133 @@ class AsyncRawReportsClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def partner_revenue_lines(
+        self,
+        *,
+        referring_account_id: str,
+        breakdown_by: typing.Optional[PartnerRevenueLinesReportsRequestBreakdownBy] = None,
+        columns: typing.Optional[str] = None,
+        windows: typing.Optional[str] = None,
+        time_zone: typing.Optional[str] = None,
+        revenue_line: typing.Optional[str] = None,
+        income_source: typing.Optional[str] = None,
+        order: typing.Optional[PartnerRevenueLinesReportsRequestOrder] = None,
+        direction: typing.Optional[PartnerRevenueLinesReportsRequestDirection] = None,
+        convert_to: typing.Optional[str] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PartnerRevenueLinesReportsResponse]:
+        """
+        The revenue lines charged to the businesses that the team of a partner business referred. Each row shows the commission paid to the partner business on that line. Lines that share an income source show the whole commission of that source. A team member who is not an owner sees only the referrals of their own team. While a day of the window is still being read, `commission` and `paid` are `null` on every row. A line may be missing. The days fill within minutes, so read the report again.
+
+        Parameters
+        ----------
+        referring_account_id : str
+            Partner business to report on, prefixed `biz_`.
+
+        breakdown_by : typing.Optional[PartnerRevenueLinesReportsRequestBreakdownBy]
+            `revenue_line` for one row per revenue line. Omit it for one row per window with the total commission.
+
+        columns : typing.Optional[str]
+            Comma-separated columns to return on each row. Defaults to `commission,paid`. `income_source` is available on `revenue_line` rows.
+
+        windows : typing.Optional[str]
+            Comma-separated windows of at most 366 days, at most four, in the syntax every report accepts. Each window covers whole days, through the end of its last day. A `prev:` window covers as many days and ends where the window it precedes starts. Defaults to `30d`.
+
+        time_zone : typing.Optional[str]
+            IANA zone that the days of each window fall in. Defaults to `Etc/UTC`.
+
+        revenue_line : typing.Optional[str]
+            Comma-separated revenue lines to keep.
+
+        income_source : typing.Optional[str]
+            Comma-separated income sources to keep.
+
+        order : typing.Optional[PartnerRevenueLinesReportsRequestOrder]
+            The requested metric that ranks rows, by its value in the first window. Defaults to the first requested metric.
+
+        direction : typing.Optional[PartnerRevenueLinesReportsRequestDirection]
+            Ranking direction. Defaults to `desc`.
+
+        convert_to : typing.Optional[str]
+            Currency code to return money in. Defaults to `usd`.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PartnerRevenueLinesReportsResponse]
+            Each revenue line's figures for each requested window, with rows in the same order in every window.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "stats/reports/partner_revenue_lines",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "referring_account_id": referring_account_id,
+                "breakdown_by": breakdown_by,
+                "columns": columns,
+                "windows": windows,
+                "time_zone": time_zone,
+                "revenue_line": revenue_line,
+                "income_source": income_source,
+                "order": order,
+                "direction": direction,
+                "convert_to": convert_to,
+                "first": first,
+                "after": after,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PartnerRevenueLinesReportsResponse,
+                    parse_obj_as(
+                        type_=PartnerRevenueLinesReportsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
