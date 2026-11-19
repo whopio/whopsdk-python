@@ -9,6 +9,7 @@ from .account_economic_intelligence_previous_period import AccountEconomicIntell
 from .account_preferences_merchant_of_record import AccountPreferencesMerchantOfRecord
 from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
 from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
+from .card_surcharge_preferences import CardSurchargePreferences
 from .customer_tracking_preferences import CustomerTrackingPreferences
 from .feedback_option import FeedbackOption
 
@@ -42,6 +43,11 @@ class AccountPreferences(UniversalBaseModel):
     cancellation_emails: bool = pydantic.Field()
     """
     Whether Whop emails members when their membership is canceled or terminated. `true` by default. Set it to `false` to stop these emails while keeping the account's other customer emails. They also stop while the account's `send_customer_emails` is `false`.
+    """
+
+    card_surcharge: CardSurchargePreferences = pydantic.Field()
+    """
+    The card surcharge a point of sale adds to credit card payments. Debit and prepaid cards never pay it.
     """
 
     cards_auto_top_up: bool = pydantic.Field()

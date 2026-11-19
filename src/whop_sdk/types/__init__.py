@@ -329,6 +329,7 @@ if typing.TYPE_CHECKING:
     from .card_brands import CardBrands
     from .card_funding_types import CardFundingTypes
     from .card_issuing_transaction_status import CardIssuingTransactionStatus
+    from .card_surcharge_preferences import CardSurchargePreferences
     from .card_transaction import CardTransaction
     from .card_transaction_legacy import CardTransactionLegacy
     from .card_transaction_list_item import CardTransactionListItem
@@ -1959,6 +1960,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CardBrands": ".card_brands",
     "CardFundingTypes": ".card_funding_types",
     "CardIssuingTransactionStatus": ".card_issuing_transaction_status",
+    "CardSurchargePreferences": ".card_surcharge_preferences",
     "CardTransaction": ".card_transaction",
     "CardTransactionLegacy": ".card_transaction_legacy",
     "CardTransactionListItem": ".card_transaction_list_item",
@@ -3479,6 +3481,7 @@ __all__ = [
     "CardBrands",
     "CardFundingTypes",
     "CardIssuingTransactionStatus",
+    "CardSurchargePreferences",
     "CardTransaction",
     "CardTransactionLegacy",
     "CardTransactionListItem",

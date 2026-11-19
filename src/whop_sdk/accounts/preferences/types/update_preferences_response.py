@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ....types.card_surcharge_preferences import CardSurchargePreferences
 from ....types.customer_tracking_preferences import CustomerTrackingPreferences
 from .update_preferences_response_ads_agreement import UpdatePreferencesResponseAdsAgreement
 from .update_preferences_response_ads_payment_methods import UpdatePreferencesResponseAdsPaymentMethods
@@ -53,6 +54,11 @@ class UpdatePreferencesResponse(UniversalBaseModel):
     cancellation_emails: bool = pydantic.Field()
     """
     Whether Whop emails members when their membership is canceled or terminated. `true` by default. Set it to `false` to stop these emails while keeping the account's other customer emails. They also stop while the account's `send_customer_emails` is `false`.
+    """
+
+    card_surcharge: CardSurchargePreferences = pydantic.Field()
+    """
+    The card surcharge a point of sale adds to credit card payments. Debit and prepaid cards never pay it.
     """
 
     cards_auto_top_up: bool = pydantic.Field()

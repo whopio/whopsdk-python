@@ -397,6 +397,7 @@ class RawPaymentsClient:
         *,
         account_id: str,
         affiliate_code: typing.Optional[str] = OMIT,
+        apply_surcharge: typing.Optional[bool] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         billing_address: typing.Optional[CreatePaymentsRequestBillingAddress] = OMIT,
         capture: typing.Optional[bool] = OMIT,
@@ -430,6 +431,9 @@ class RawPaymentsClient:
 
         affiliate_code : typing.Optional[str]
             The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters. Not supported with a `card_present` `payment_method`.
+
+        apply_surcharge : typing.Optional[bool]
+            Adds the account's card surcharge, set in `card_surcharge` on the account's preferences, when the card is a credit card. Send it only after you have shown the buyer the surcharge. Whop calculates the amount. You cannot send an amount. With a `confirmation_token`, the surcharge is a line of its own, calculated on the purchase after discounts and before tax. With a `card_present` `payment_method`, the surcharge is added after the reader reads the card, with `POST /payments/{id}/apply_surcharge`. A debit or prepaid card, or an account that cannot surcharge, pays no surcharge. The payment still goes ahead. Only for a one-time purchase, and not with `quote_id`. Defaults to false.
 
         auto_capture_after_minutes : typing.Optional[int]
             Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
@@ -508,6 +512,7 @@ class RawPaymentsClient:
             method="POST",
             json={
                 "affiliate_code": affiliate_code,
+                "apply_surcharge": apply_surcharge,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "billing_address": convert_and_respect_annotation_metadata(
                     object_=billing_address,
@@ -2142,6 +2147,7 @@ class AsyncRawPaymentsClient:
         *,
         account_id: str,
         affiliate_code: typing.Optional[str] = OMIT,
+        apply_surcharge: typing.Optional[bool] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         billing_address: typing.Optional[CreatePaymentsRequestBillingAddress] = OMIT,
         capture: typing.Optional[bool] = OMIT,
@@ -2175,6 +2181,9 @@ class AsyncRawPaymentsClient:
 
         affiliate_code : typing.Optional[str]
             The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters. Not supported with a `card_present` `payment_method`.
+
+        apply_surcharge : typing.Optional[bool]
+            Adds the account's card surcharge, set in `card_surcharge` on the account's preferences, when the card is a credit card. Send it only after you have shown the buyer the surcharge. Whop calculates the amount. You cannot send an amount. With a `confirmation_token`, the surcharge is a line of its own, calculated on the purchase after discounts and before tax. With a `card_present` `payment_method`, the surcharge is added after the reader reads the card, with `POST /payments/{id}/apply_surcharge`. A debit or prepaid card, or an account that cannot surcharge, pays no surcharge. The payment still goes ahead. Only for a one-time purchase, and not with `quote_id`. Defaults to false.
 
         auto_capture_after_minutes : typing.Optional[int]
             Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
@@ -2253,6 +2262,7 @@ class AsyncRawPaymentsClient:
             method="POST",
             json={
                 "affiliate_code": affiliate_code,
+                "apply_surcharge": apply_surcharge,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "billing_address": convert_and_respect_annotation_metadata(
                     object_=billing_address,

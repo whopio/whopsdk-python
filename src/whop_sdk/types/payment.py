@@ -310,6 +310,11 @@ class Payment(UniversalBaseModel):
     The price before discounts, tax and fees.
     """
 
+    surcharge: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The card surcharge the buyer pays for paying by credit card. It is included in `total` and `amount_charged`, and appears in `line_items` as a line of its own. Null when the payment has no surcharge.
+    """
+
     tax_amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
     The sales tax or VAT collected. Null when no tax applied.
