@@ -12,6 +12,9 @@ if typing.TYPE_CHECKING:
         ListRecommendedActionsRequestStatusesItem,
         ListRecommendedActionsResponse,
         ListRecommendedActionsResponsePageInfo,
+        UpdateRecommendedActionsRequestWorkflow,
+        UpdateRecommendedActionsRequestWorkflowStepsItem,
+        UpdateRecommendedActionsRequestWorkflowStepsItemStatus,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "ListRecommendedActionsRequestDirection": ".types",
@@ -19,6 +22,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListRecommendedActionsRequestStatusesItem": ".types",
     "ListRecommendedActionsResponse": ".types",
     "ListRecommendedActionsResponsePageInfo": ".types",
+    "UpdateRecommendedActionsRequestWorkflow": ".types",
+    "UpdateRecommendedActionsRequestWorkflowStepsItem": ".types",
+    "UpdateRecommendedActionsRequestWorkflowStepsItemStatus": ".types",
 }
 
 
@@ -49,4 +55,7 @@ __all__ = [
     "ListRecommendedActionsRequestStatusesItem",
     "ListRecommendedActionsResponse",
     "ListRecommendedActionsResponsePageInfo",
+    "UpdateRecommendedActionsRequestWorkflow",
+    "UpdateRecommendedActionsRequestWorkflowStepsItem",
+    "UpdateRecommendedActionsRequestWorkflowStepsItemStatus",
 ]

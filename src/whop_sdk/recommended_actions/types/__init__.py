@@ -11,12 +11,20 @@ if typing.TYPE_CHECKING:
     from .list_recommended_actions_request_statuses_item import ListRecommendedActionsRequestStatusesItem
     from .list_recommended_actions_response import ListRecommendedActionsResponse
     from .list_recommended_actions_response_page_info import ListRecommendedActionsResponsePageInfo
+    from .update_recommended_actions_request_workflow import UpdateRecommendedActionsRequestWorkflow
+    from .update_recommended_actions_request_workflow_steps_item import UpdateRecommendedActionsRequestWorkflowStepsItem
+    from .update_recommended_actions_request_workflow_steps_item_status import (
+        UpdateRecommendedActionsRequestWorkflowStepsItemStatus,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
     "ListRecommendedActionsRequestDirection": ".list_recommended_actions_request_direction",
     "ListRecommendedActionsRequestOrder": ".list_recommended_actions_request_order",
     "ListRecommendedActionsRequestStatusesItem": ".list_recommended_actions_request_statuses_item",
     "ListRecommendedActionsResponse": ".list_recommended_actions_response",
     "ListRecommendedActionsResponsePageInfo": ".list_recommended_actions_response_page_info",
+    "UpdateRecommendedActionsRequestWorkflow": ".update_recommended_actions_request_workflow",
+    "UpdateRecommendedActionsRequestWorkflowStepsItem": ".update_recommended_actions_request_workflow_steps_item",
+    "UpdateRecommendedActionsRequestWorkflowStepsItemStatus": ".update_recommended_actions_request_workflow_steps_item_status",
 }
 
 
@@ -47,4 +55,7 @@ __all__ = [
     "ListRecommendedActionsRequestStatusesItem",
     "ListRecommendedActionsResponse",
     "ListRecommendedActionsResponsePageInfo",
+    "UpdateRecommendedActionsRequestWorkflow",
+    "UpdateRecommendedActionsRequestWorkflowStepsItem",
+    "UpdateRecommendedActionsRequestWorkflowStepsItemStatus",
 ]

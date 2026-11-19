@@ -11,6 +11,7 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
@@ -21,7 +22,11 @@ from .types.list_recommended_actions_request_direction import ListRecommendedAct
 from .types.list_recommended_actions_request_order import ListRecommendedActionsRequestOrder
 from .types.list_recommended_actions_request_statuses_item import ListRecommendedActionsRequestStatusesItem
 from .types.list_recommended_actions_response import ListRecommendedActionsResponse
+from .types.update_recommended_actions_request_workflow import UpdateRecommendedActionsRequestWorkflow
 from pydantic import ValidationError
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class RawRecommendedActionsClient:
@@ -237,6 +242,121 @@ class RawRecommendedActionsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update(
+        self,
+        id: str,
+        *,
+        workflow: UpdateRecommendedActionsRequestWorkflow,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[RecommendedAction]:
+        """
+        Edits the arguments of a `ready` action's steps before it runs. Send the action's `workflow` back with one entry for each step, in the same order. An entry with `arguments` replaces that step's arguments. An entry without them leaves the step as it is. Only `arguments` can change. Other step fields can be sent back only with the values the action has.
+
+        Parameters
+        ----------
+        id : str
+            Recommended action ID, prefixed `reca_`.
+
+        workflow : UpdateRecommendedActionsRequestWorkflow
+            The action's workflow with the arguments to change.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[RecommendedAction]
+            Action updated
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"recommended_actions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
+            method="PATCH",
+            json={
+                "workflow": convert_and_respect_annotation_metadata(
+                    object_=workflow, annotation=UpdateRecommendedActionsRequestWorkflow, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RecommendedAction,
+                    parse_obj_as(
+                        type_=RecommendedAction,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -648,6 +768,121 @@ class AsyncRawRecommendedActionsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update(
+        self,
+        id: str,
+        *,
+        workflow: UpdateRecommendedActionsRequestWorkflow,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[RecommendedAction]:
+        """
+        Edits the arguments of a `ready` action's steps before it runs. Send the action's `workflow` back with one entry for each step, in the same order. An entry with `arguments` replaces that step's arguments. An entry without them leaves the step as it is. Only `arguments` can change. Other step fields can be sent back only with the values the action has.
+
+        Parameters
+        ----------
+        id : str
+            Recommended action ID, prefixed `reca_`.
+
+        workflow : UpdateRecommendedActionsRequestWorkflow
+            The action's workflow with the arguments to change.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[RecommendedAction]
+            Action updated
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"recommended_actions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
+            method="PATCH",
+            json={
+                "workflow": convert_and_respect_annotation_metadata(
+                    object_=workflow, annotation=UpdateRecommendedActionsRequestWorkflow, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RecommendedAction,
+                    parse_obj_as(
+                        type_=RecommendedAction,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

@@ -11,6 +11,10 @@ from .types.list_recommended_actions_request_direction import ListRecommendedAct
 from .types.list_recommended_actions_request_order import ListRecommendedActionsRequestOrder
 from .types.list_recommended_actions_request_statuses_item import ListRecommendedActionsRequestStatusesItem
 from .types.list_recommended_actions_response import ListRecommendedActionsResponse
+from .types.update_recommended_actions_request_workflow import UpdateRecommendedActionsRequestWorkflow
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class RecommendedActionsClient:
@@ -141,6 +145,55 @@ class RecommendedActionsClient:
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    def update(
+        self,
+        id: str,
+        *,
+        workflow: UpdateRecommendedActionsRequestWorkflow,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RecommendedAction:
+        """
+        Edits the arguments of a `ready` action's steps before it runs. Send the action's `workflow` back with one entry for each step, in the same order. An entry with `arguments` replaces that step's arguments. An entry without them leaves the step as it is. Only `arguments` can change. Other step fields can be sent back only with the values the action has.
+
+        Parameters
+        ----------
+        id : str
+            Recommended action ID, prefixed `reca_`.
+
+        workflow : UpdateRecommendedActionsRequestWorkflow
+            The action's workflow with the arguments to change.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RecommendedAction
+            Action updated
+
+        Examples
+        --------
+        from whop_sdk import Whop
+        from whop_sdk.recommended_actions import (
+            UpdateRecommendedActionsRequestWorkflow,
+            UpdateRecommendedActionsRequestWorkflowStepsItem,
+        )
+
+        client = Whop(
+            "2026-11-17-3",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.recommended_actions.update(
+            id="reca_xxxxxxxxxxxxx",
+            workflow=UpdateRecommendedActionsRequestWorkflow(
+                steps=[UpdateRecommendedActionsRequestWorkflowStepsItem()],
+            ),
+        )
+        """
+        _response = self._raw_client.update(id, workflow=workflow, request_options=request_options)
         return _response.data
 
     def dismiss(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> RecommendedAction:
@@ -355,6 +408,63 @@ class AsyncRecommendedActionsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def update(
+        self,
+        id: str,
+        *,
+        workflow: UpdateRecommendedActionsRequestWorkflow,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RecommendedAction:
+        """
+        Edits the arguments of a `ready` action's steps before it runs. Send the action's `workflow` back with one entry for each step, in the same order. An entry with `arguments` replaces that step's arguments. An entry without them leaves the step as it is. Only `arguments` can change. Other step fields can be sent back only with the values the action has.
+
+        Parameters
+        ----------
+        id : str
+            Recommended action ID, prefixed `reca_`.
+
+        workflow : UpdateRecommendedActionsRequestWorkflow
+            The action's workflow with the arguments to change.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RecommendedAction
+            Action updated
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+        from whop_sdk.recommended_actions import (
+            UpdateRecommendedActionsRequestWorkflow,
+            UpdateRecommendedActionsRequestWorkflowStepsItem,
+        )
+
+        client = AsyncWhop(
+            "2026-11-17-3",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.recommended_actions.update(
+                id="reca_xxxxxxxxxxxxx",
+                workflow=UpdateRecommendedActionsRequestWorkflow(
+                    steps=[UpdateRecommendedActionsRequestWorkflowStepsItem()],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update(id, workflow=workflow, request_options=request_options)
         return _response.data
 
     async def dismiss(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> RecommendedAction:
