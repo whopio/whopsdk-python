@@ -40,10 +40,12 @@ class RawAppInstallationsClient:
         external_id: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        requesting_reauthorization: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         order: typing.Optional[ListAppInstallationsRequestOrder] = None,
         direction: typing.Optional[ListAppInstallationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -71,6 +73,9 @@ class RawAppInstallationsClient:
         created_after : typing.Optional[str]
             Only return installations created after this ISO 8601 timestamp.
 
+        requesting_reauthorization : typing.Optional[bool]
+            When `true`, only return installations whose app asks for permissions the account hasn't approved yet. When `false`, only return the others.
+
         first : typing.Optional[int]
             Number of results to return from the start of the range.
 
@@ -82,6 +87,9 @@ class RawAppInstallationsClient:
 
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
 
         order : typing.Optional[ListAppInstallationsRequestOrder]
             Field to sort installations by. `name` sorts by app name, and only when listing the apps installed on one account.
@@ -108,10 +116,12 @@ class RawAppInstallationsClient:
                 "external_id": external_id,
                 "created_before": created_before,
                 "created_after": created_after,
+                "requesting_reauthorization": requesting_reauthorization,
                 "first": first,
                 "after": after,
                 "last": last,
                 "before": before,
+                "include_total_count": include_total_count,
                 "order": order,
                 "direction": direction,
             },
@@ -139,10 +149,12 @@ class RawAppInstallationsClient:
                         external_id=external_id,
                         created_before=created_before,
                         created_after=created_after,
+                        requesting_reauthorization=requesting_reauthorization,
                         first=first,
                         after=_parsed_next,
                         last=last,
                         before=before,
+                        include_total_count=include_total_count,
                         order=order,
                         direction=direction,
                         request_options=request_options,
@@ -399,10 +411,12 @@ class AsyncRawAppInstallationsClient:
         external_id: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        requesting_reauthorization: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         order: typing.Optional[ListAppInstallationsRequestOrder] = None,
         direction: typing.Optional[ListAppInstallationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -430,6 +444,9 @@ class AsyncRawAppInstallationsClient:
         created_after : typing.Optional[str]
             Only return installations created after this ISO 8601 timestamp.
 
+        requesting_reauthorization : typing.Optional[bool]
+            When `true`, only return installations whose app asks for permissions the account hasn't approved yet. When `false`, only return the others.
+
         first : typing.Optional[int]
             Number of results to return from the start of the range.
 
@@ -441,6 +458,9 @@ class AsyncRawAppInstallationsClient:
 
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
 
         order : typing.Optional[ListAppInstallationsRequestOrder]
             Field to sort installations by. `name` sorts by app name, and only when listing the apps installed on one account.
@@ -467,10 +487,12 @@ class AsyncRawAppInstallationsClient:
                 "external_id": external_id,
                 "created_before": created_before,
                 "created_after": created_after,
+                "requesting_reauthorization": requesting_reauthorization,
                 "first": first,
                 "after": after,
                 "last": last,
                 "before": before,
+                "include_total_count": include_total_count,
                 "order": order,
                 "direction": direction,
             },
@@ -500,10 +522,12 @@ class AsyncRawAppInstallationsClient:
                             external_id=external_id,
                             created_before=created_before,
                             created_after=created_after,
+                            requesting_reauthorization=requesting_reauthorization,
                             first=first,
                             after=_parsed_next,
                             last=last,
                             before=before,
+                            include_total_count=include_total_count,
                             order=order,
                             direction=direction,
                             request_options=request_options,
