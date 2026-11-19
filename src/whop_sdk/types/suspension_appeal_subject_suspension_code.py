@@ -5,8 +5,11 @@ import typing
 SuspensionAppealSubjectSuspensionCode = typing.Union[
     typing.Literal[
         "fraudulent_activity",
+        "unauthorized_payments",
+        "previous_fraud_suspension",
         "prohibited_business_category",
         "unverifiable_business",
+        "unverifiable_fulfillment",
         "sanctions",
         "unsupported_jurisdiction",
         "prohibited_content",
