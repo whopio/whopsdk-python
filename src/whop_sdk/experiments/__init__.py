@@ -16,6 +16,8 @@ if typing.TYPE_CHECKING:
         ListExperimentsRequestStatus,
         ListExperimentsResponse,
         ListExperimentsResponsePageInfo,
+        ResultsExperimentsResponse,
+        ResultsExperimentsResponseStatus,
         UpdateExperimentsRequestControl,
         UpdateExperimentsRequestVariantsItem,
     )
@@ -29,6 +31,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListExperimentsRequestStatus": ".types",
     "ListExperimentsResponse": ".types",
     "ListExperimentsResponsePageInfo": ".types",
+    "ResultsExperimentsResponse": ".types",
+    "ResultsExperimentsResponseStatus": ".types",
     "UpdateExperimentsRequestControl": ".types",
     "UpdateExperimentsRequestVariantsItem": ".types",
 }
@@ -65,6 +69,8 @@ __all__ = [
     "ListExperimentsRequestStatus",
     "ListExperimentsResponse",
     "ListExperimentsResponsePageInfo",
+    "ResultsExperimentsResponse",
+    "ResultsExperimentsResponseStatus",
     "UpdateExperimentsRequestControl",
     "UpdateExperimentsRequestVariantsItem",
 ]

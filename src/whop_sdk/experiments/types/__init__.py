@@ -15,6 +15,8 @@ if typing.TYPE_CHECKING:
     from .list_experiments_request_status import ListExperimentsRequestStatus
     from .list_experiments_response import ListExperimentsResponse
     from .list_experiments_response_page_info import ListExperimentsResponsePageInfo
+    from .results_experiments_response import ResultsExperimentsResponse
+    from .results_experiments_response_status import ResultsExperimentsResponseStatus
     from .update_experiments_request_control import UpdateExperimentsRequestControl
     from .update_experiments_request_variants_item import UpdateExperimentsRequestVariantsItem
 _dynamic_imports: typing.Dict[str, str] = {
@@ -27,6 +29,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListExperimentsRequestStatus": ".list_experiments_request_status",
     "ListExperimentsResponse": ".list_experiments_response",
     "ListExperimentsResponsePageInfo": ".list_experiments_response_page_info",
+    "ResultsExperimentsResponse": ".results_experiments_response",
+    "ResultsExperimentsResponseStatus": ".results_experiments_response_status",
     "UpdateExperimentsRequestControl": ".update_experiments_request_control",
     "UpdateExperimentsRequestVariantsItem": ".update_experiments_request_variants_item",
 }
@@ -63,6 +67,8 @@ __all__ = [
     "ListExperimentsRequestStatus",
     "ListExperimentsResponse",
     "ListExperimentsResponsePageInfo",
+    "ResultsExperimentsResponse",
+    "ResultsExperimentsResponseStatus",
     "UpdateExperimentsRequestControl",
     "UpdateExperimentsRequestVariantsItem",
 ]

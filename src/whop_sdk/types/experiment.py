@@ -6,7 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .experiment_bucket_by import ExperimentBucketBy
 from .experiment_control import ExperimentControl
+from .experiment_kind import ExperimentKind
 from .experiment_resource_reference import ExperimentResourceReference
+from .experiment_stat import ExperimentStat
 from .experiment_status import ExperimentStatus
 from .experiment_variants_item import ExperimentVariantsItem
 
@@ -68,6 +70,11 @@ class Experiment(UniversalBaseModel):
     Unique identifier for the experiment, prefixed `expt_`.
     """
 
+    kind: typing.Optional[ExperimentKind] = pydantic.Field(default=None)
+    """
+    The kind of experiment: `boolean` is a feature flag, `experiment` assigns its subjects to arms, `beforeafter` compares a change with the period before it.
+    """
+
     metadata: typing.Optional[typing.Dict[str, str]] = pydantic.Field(default=None)
     """
     Key-value pairs attached when the experiment was created. Empty when none were set.
@@ -91,6 +98,11 @@ class Experiment(UniversalBaseModel):
     status: ExperimentStatus = pydantic.Field()
     """
     Lifecycle state. `draft` — not yet live; `active` — currently running; `paused` — traffic paused; `ended` — concluded.
+    """
+
+    target_stats: typing.Optional[typing.List[ExperimentStat]] = pydantic.Field(default=None)
+    """
+    The measures the experiment sets out to move, as the stats API reads them. `null` when there are none.
     """
 
     updated_at: typing.Optional[str] = None

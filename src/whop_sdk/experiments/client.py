@@ -17,6 +17,7 @@ from .types.list_experiments_request_direction import ListExperimentsRequestDire
 from .types.list_experiments_request_order import ListExperimentsRequestOrder
 from .types.list_experiments_request_status import ListExperimentsRequestStatus
 from .types.list_experiments_response import ListExperimentsResponse
+from .types.results_experiments_response import ResultsExperimentsResponse
 from .types.update_experiments_request_control import UpdateExperimentsRequestControl
 from .types.update_experiments_request_variants_item import UpdateExperimentsRequestVariantsItem
 
@@ -280,10 +281,10 @@ class ExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -326,10 +327,10 @@ class ExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
 
@@ -382,15 +383,15 @@ class ExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
         """
-        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account. Activating needs Economic Intelligence on for the owning account: while the account's `economic_intelligence` is `false`, this returns a `403` and the experiment keeps its status. Turn it on with `PATCH /accounts/:account_id/preferences`. Creating, editing, pausing and ending an experiment don't need it.
+        Starts or resumes an experiment or feature flag so evaluation begins serving it. Activating a draft sets `started_at`. Activating a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account. Activating needs Economic Intelligence on for the owning account. When it is off, the request returns `403` and the experiment keeps its status. Turn it on with `PATCH /accounts/:account_id/preferences`. Creating, editing, pausing, and ending an experiment without a winner do not need it.
 
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -426,18 +427,18 @@ class ExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
         """
-        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account.
+        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone. Omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account. Passing `winning_arm` needs Economic Intelligence on for the owning account, like activating. Ending without one does not.
 
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         findings : str
             What you learned and why you chose this outcome. Required.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         winning_arm : typing.Optional[str]
             The treatment that won. Setting it rolls that arm out: every later evaluation returns it to every caller, ignoring targeting and allocation, and exposures stop being recorded. Omit it when control won — an ended experiment with no winning arm evaluates to `control` for everyone, so ending again without one also reverts a rollout recorded by mistake. Not accepted on feature flags, which evaluate to disabled once ended.
@@ -482,10 +483,10 @@ class ExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -509,6 +510,58 @@ class ExperimentsClient:
         )
         """
         _response = self._raw_client.pause(id, account_id=account_id, request_options=request_options)
+        return _response.data
+
+    def results(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        to: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ResultsExperimentsResponse:
+        """
+        Returns an experiment's results: one reading per target stat, with the arms it was read on. Requires `experiment:read` on the owning account, and the read scope of each target stat's metric, `stats:read` for most.
+
+        Parameters
+        ----------
+        id : str
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
+
+        account_id : typing.Optional[str]
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
+
+        from_ : typing.Optional[str]
+            Start of the reporting window, as an ISO 8601 date or timestamp. Defaults to the experiment's start date.
+
+        to : typing.Optional[str]
+            End of the reporting window, as an ISO 8601 date or timestamp. Defaults to today.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResultsExperimentsResponse
+            experiment results returned
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-19-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.experiments.results(
+            id="id",
+        )
+        """
+        _response = self._raw_client.results(
+            id, account_id=account_id, from_=from_, to=to, request_options=request_options
+        )
         return _response.data
 
 
@@ -793,10 +846,10 @@ class AsyncExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -847,10 +900,10 @@ class AsyncExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
 
@@ -911,15 +964,15 @@ class AsyncExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
         """
-        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account. Activating needs Economic Intelligence on for the owning account: while the account's `economic_intelligence` is `false`, this returns a `403` and the experiment keeps its status. Turn it on with `PATCH /accounts/:account_id/preferences`. Creating, editing, pausing and ending an experiment don't need it.
+        Starts or resumes an experiment or feature flag so evaluation begins serving it. Activating a draft sets `started_at`. Activating a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account. Activating needs Economic Intelligence on for the owning account. When it is off, the request returns `403` and the experiment keeps its status. Turn it on with `PATCH /accounts/:account_id/preferences`. Creating, editing, pausing, and ending an experiment without a winner do not need it.
 
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -963,18 +1016,18 @@ class AsyncExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
         """
-        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account.
+        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone. Omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account. Passing `winning_arm` needs Economic Intelligence on for the owning account, like activating. Ending without one does not.
 
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         findings : str
             What you learned and why you chose this outcome. Required.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         winning_arm : typing.Optional[str]
             The treatment that won. Setting it rolls that arm out: every later evaluation returns it to every caller, ignoring targeting and allocation, and exposures stop being recorded. Omit it when control won — an ended experiment with no winning arm evaluates to `control` for everyone, so ending again without one also reverts a rollout recorded by mistake. Not accepted on feature flags, which evaluate to disabled once ended.
@@ -1027,10 +1080,10 @@ class AsyncExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1062,4 +1115,64 @@ class AsyncExperimentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.pause(id, account_id=account_id, request_options=request_options)
+        return _response.data
+
+    async def results(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        to: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ResultsExperimentsResponse:
+        """
+        Returns an experiment's results: one reading per target stat, with the arms it was read on. Requires `experiment:read` on the owning account, and the read scope of each target stat's metric, `stats:read` for most.
+
+        Parameters
+        ----------
+        id : str
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
+
+        account_id : typing.Optional[str]
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
+
+        from_ : typing.Optional[str]
+            Start of the reporting window, as an ISO 8601 date or timestamp. Defaults to the experiment's start date.
+
+        to : typing.Optional[str]
+            End of the reporting window, as an ISO 8601 date or timestamp. Defaults to today.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResultsExperimentsResponse
+            experiment results returned
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-19-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.experiments.results(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.results(
+            id, account_id=account_id, from_=from_, to=to, request_options=request_options
+        )
         return _response.data
