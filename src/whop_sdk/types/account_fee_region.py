@@ -25,6 +25,8 @@ AccountFeeRegion = typing.Union[
         "do",
         "sv",
         "hn",
+        "ec",
+        "py",
     ],
     typing.Any,
 ]
