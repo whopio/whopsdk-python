@@ -32698,6 +32698,14 @@ client.notifications.badges(
 <dl>
 <dd>
 
+**unread:** `typing.Optional[bool]` — Only return badges for experiences with unread notifications.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

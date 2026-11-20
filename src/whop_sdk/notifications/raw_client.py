@@ -292,6 +292,7 @@ class RawNotificationsClient:
         *,
         experience_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         last_fetched_at: typing.Optional[str] = None,
+        unread: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BadgesNotificationsResponse]:
         """
@@ -304,6 +305,9 @@ class RawNotificationsClient:
 
         last_fetched_at : typing.Optional[str]
             The client's last fetched-at ISO 8601 timestamp, used to partially refresh badges after a websocket message.
+
+        unread : typing.Optional[bool]
+            Only return badges for experiences with unread notifications.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -320,6 +324,7 @@ class RawNotificationsClient:
             params={
                 "experience_ids": experience_ids,
                 "last_fetched_at": last_fetched_at,
+                "unread": unread,
             },
             request_options=request_options,
         )
@@ -813,6 +818,7 @@ class AsyncRawNotificationsClient:
         *,
         experience_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         last_fetched_at: typing.Optional[str] = None,
+        unread: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BadgesNotificationsResponse]:
         """
@@ -825,6 +831,9 @@ class AsyncRawNotificationsClient:
 
         last_fetched_at : typing.Optional[str]
             The client's last fetched-at ISO 8601 timestamp, used to partially refresh badges after a websocket message.
+
+        unread : typing.Optional[bool]
+            Only return badges for experiences with unread notifications.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -841,6 +850,7 @@ class AsyncRawNotificationsClient:
             params={
                 "experience_ids": experience_ids,
                 "last_fetched_at": last_fetched_at,
+                "unread": unread,
             },
             request_options=request_options,
         )

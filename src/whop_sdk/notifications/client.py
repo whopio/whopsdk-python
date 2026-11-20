@@ -187,6 +187,7 @@ class NotificationsClient:
         *,
         experience_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         last_fetched_at: typing.Optional[str] = None,
+        unread: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BadgesNotificationsResponse:
         """
@@ -199,6 +200,9 @@ class NotificationsClient:
 
         last_fetched_at : typing.Optional[str]
             The client's last fetched-at ISO 8601 timestamp, used to partially refresh badges after a websocket message.
+
+        unread : typing.Optional[bool]
+            Only return badges for experiences with unread notifications.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -222,7 +226,10 @@ class NotificationsClient:
         )
         """
         _response = self._raw_client.badges(
-            experience_ids=experience_ids, last_fetched_at=last_fetched_at, request_options=request_options
+            experience_ids=experience_ids,
+            last_fetched_at=last_fetched_at,
+            unread=unread,
+            request_options=request_options,
         )
         return _response.data
 
@@ -492,6 +499,7 @@ class AsyncNotificationsClient:
         *,
         experience_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         last_fetched_at: typing.Optional[str] = None,
+        unread: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BadgesNotificationsResponse:
         """
@@ -504,6 +512,9 @@ class AsyncNotificationsClient:
 
         last_fetched_at : typing.Optional[str]
             The client's last fetched-at ISO 8601 timestamp, used to partially refresh badges after a websocket message.
+
+        unread : typing.Optional[bool]
+            Only return badges for experiences with unread notifications.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -535,7 +546,10 @@ class AsyncNotificationsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.badges(
-            experience_ids=experience_ids, last_fetched_at=last_fetched_at, request_options=request_options
+            experience_ids=experience_ids,
+            last_fetched_at=last_fetched_at,
+            unread=unread,
+            request_options=request_options,
         )
         return _response.data
 
