@@ -97,6 +97,7 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "external_account_connection_fee",
         "external_card_load_deposit",
         "external_card_load_offset",
+        "fee_rebate",
         "fraud_prevention_fee",
         "fx_gain_loss",
         "fx_markup",
