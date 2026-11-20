@@ -13,6 +13,11 @@ class TeamMemberManager(UniversalBaseModel):
     The manager's team member ID, starting with `ausr_` or `mber_`; treat it as opaque.
     """
 
+    legal_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The legal name from the manager's approved identity verification, returned to the account's own API key when listing a partner account's team. `null` when the manager has none, and for other callers.
+    """
+
     user: UserSummary = pydantic.Field()
     """
     The user behind the manager's team membership.
