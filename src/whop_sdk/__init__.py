@@ -2406,6 +2406,7 @@ if typing.TYPE_CHECKING:
     from .experiments import (
         CreateExperimentsRequestBucketBy,
         CreateExperimentsRequestControl,
+        CreateExperimentsRequestKind,
         CreateExperimentsRequestVariantsItem,
         ExposuresExperimentsResponse,
         ListExperimentsRequestDirection,
@@ -4130,6 +4131,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateExperiencesRequestLogo": ".experiences",
     "CreateExperimentsRequestBucketBy": ".experiments",
     "CreateExperimentsRequestControl": ".experiments",
+    "CreateExperimentsRequestKind": ".experiments",
     "CreateExperimentsRequestVariantsItem": ".experiments",
     "CreateExportsRequestResource": ".exports",
     "CreateExternalAccountsRequestBody": ".external_accounts",
@@ -7524,6 +7526,7 @@ __all__ = [
     "CreateExperiencesRequestLogo",
     "CreateExperimentsRequestBucketBy",
     "CreateExperimentsRequestControl",
+    "CreateExperimentsRequestKind",
     "CreateExperimentsRequestVariantsItem",
     "CreateExportsRequestResource",
     "CreateExternalAccountsRequestBody",

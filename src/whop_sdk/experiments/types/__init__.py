@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .create_experiments_request_bucket_by import CreateExperimentsRequestBucketBy
     from .create_experiments_request_control import CreateExperimentsRequestControl
+    from .create_experiments_request_kind import CreateExperimentsRequestKind
     from .create_experiments_request_variants_item import CreateExperimentsRequestVariantsItem
     from .exposures_experiments_response import ExposuresExperimentsResponse
     from .list_experiments_request_direction import ListExperimentsRequestDirection
@@ -22,6 +23,7 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateExperimentsRequestBucketBy": ".create_experiments_request_bucket_by",
     "CreateExperimentsRequestControl": ".create_experiments_request_control",
+    "CreateExperimentsRequestKind": ".create_experiments_request_kind",
     "CreateExperimentsRequestVariantsItem": ".create_experiments_request_variants_item",
     "ExposuresExperimentsResponse": ".exposures_experiments_response",
     "ListExperimentsRequestDirection": ".list_experiments_request_direction",
@@ -60,6 +62,7 @@ def __dir__():
 __all__ = [
     "CreateExperimentsRequestBucketBy",
     "CreateExperimentsRequestControl",
+    "CreateExperimentsRequestKind",
     "CreateExperimentsRequestVariantsItem",
     "ExposuresExperimentsResponse",
     "ListExperimentsRequestDirection",
