@@ -29259,7 +29259,6 @@ client = Whop(
 )
 
 client.media.generate(
-    prompt="A 9:16 product showcase of a cordless power scrubber",
     type="video",
 )
 
@@ -29273,14 +29272,6 @@ client.media.generate(
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**prompt:** `str` — What to generate. Up to 2,000 characters.
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -29301,7 +29292,23 @@ client.media.generate(
 <dl>
 <dd>
 
+**ad_video:** `typing.Optional[GenerateMediaRequestAdVideo]` — Makes a video ad: Whop writes the prompt, picks product photos, and adds a voiceover with captions. The video is 15 seconds at `720p` in 9:16. Video only. Can't be combined with `prompt`, `reference_media`, `duration_seconds` or `resolution`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **duration_seconds:** `typing.Optional[int]` — Video length in seconds. Video only; defaults to 5.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prompt:** `typing.Optional[str]` — What to generate. Up to 2,000 characters. Required unless `ad_video` is set.
     
 </dd>
 </dl>
