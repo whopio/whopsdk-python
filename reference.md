@@ -23346,6 +23346,14 @@ client.experiments.activate(
 <dl>
 <dd>
 
+**duration_days:** `typing.Optional[int]` — Reporting window length in days, at most 7. Omit to use the default of 7 days. This does not automatically end the experiment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -42202,7 +42210,7 @@ client.recommended_actions.retrieve(
 <dl>
 <dd>
 
-Edits the arguments of a `ready` action's steps before it runs. Send the action's `workflow` back with one entry for each step, in the same order. An entry with `arguments` replaces that step's arguments. An entry without them leaves the step as it is. Only `arguments` can change. Other step fields can be sent back only with the values the action has.
+Edits the arguments of a `ready` action's steps before it runs. Send the action's `workflow` back with one entry for each step, in the same order. An entry with `arguments` replaces that step's arguments. An entry without them leaves the step as it is. Only `arguments` can change. Other step fields can be sent back only with the values the action has. Changing the `kind` of the `createExperiment` step rewrites the steps around it: `beforeafter` publishes the change before measuring it, and `experiment` tests it on a share of visitors.
 </dd>
 </dl>
 </dd>

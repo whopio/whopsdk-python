@@ -533,6 +533,7 @@ class RawExperimentsClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        duration_days: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
@@ -545,6 +546,9 @@ class RawExperimentsClient:
 
         account_id : typing.Optional[str]
             Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
+
+        duration_days : typing.Optional[int]
+            Reporting window length in days, at most 7. Omit to use the default of 7 days. This does not automatically end the experiment.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -561,7 +565,9 @@ class RawExperimentsClient:
             params={
                 "account_id": account_id,
             },
-            json={},
+            json={
+                "duration_days": duration_days,
+            },
             headers={
                 "content-type": "application/json",
             },
@@ -1341,6 +1347,7 @@ class AsyncRawExperimentsClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        duration_days: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
@@ -1353,6 +1360,9 @@ class AsyncRawExperimentsClient:
 
         account_id : typing.Optional[str]
             Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
+
+        duration_days : typing.Optional[int]
+            Reporting window length in days, at most 7. Omit to use the default of 7 days. This does not automatically end the experiment.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1369,7 +1379,9 @@ class AsyncRawExperimentsClient:
             params={
                 "account_id": account_id,
             },
-            json={},
+            json={
+                "duration_days": duration_days,
+            },
             headers={
                 "content-type": "application/json",
             },
