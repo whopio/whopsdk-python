@@ -13,6 +13,7 @@ LedgerActivityLineType = typing.Union[
         "payment_refund",
         "payment_refund_reversal",
         "platform_balance_payment",
+        "fee_rebate",
         "platform_balance_payment_refund",
         "ad_spend_purchase",
         "psp_refund_payable",
