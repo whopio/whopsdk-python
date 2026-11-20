@@ -571,12 +571,18 @@ if typing.TYPE_CHECKING:
     from .experience_notification_preference_object import ExperienceNotificationPreferenceObject
     from .experience_products_item import ExperienceProductsItem
     from .experiment import Experiment
+    from .experiment_arm_results import ExperimentArmResults
     from .experiment_bucket_by import ExperimentBucketBy
     from .experiment_control import ExperimentControl
     from .experiment_exposure import ExperimentExposure
     from .experiment_exposure_batch import ExperimentExposureBatch
+    from .experiment_kind import ExperimentKind
+    from .experiment_reading import ExperimentReading
+    from .experiment_reading_direction import ExperimentReadingDirection
     from .experiment_resource_reference import ExperimentResourceReference
     from .experiment_resource_reference_object import ExperimentResourceReferenceObject
+    from .experiment_stat import ExperimentStat
+    from .experiment_stat_direction import ExperimentStatDirection
     from .experiment_status import ExperimentStatus
     from .experiment_variants_item import ExperimentVariantsItem
     from .export import Export
@@ -2193,12 +2199,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExperienceNotificationPreferenceObject": ".experience_notification_preference_object",
     "ExperienceProductsItem": ".experience_products_item",
     "Experiment": ".experiment",
+    "ExperimentArmResults": ".experiment_arm_results",
     "ExperimentBucketBy": ".experiment_bucket_by",
     "ExperimentControl": ".experiment_control",
     "ExperimentExposure": ".experiment_exposure",
     "ExperimentExposureBatch": ".experiment_exposure_batch",
+    "ExperimentKind": ".experiment_kind",
+    "ExperimentReading": ".experiment_reading",
+    "ExperimentReadingDirection": ".experiment_reading_direction",
     "ExperimentResourceReference": ".experiment_resource_reference",
     "ExperimentResourceReferenceObject": ".experiment_resource_reference_object",
+    "ExperimentStat": ".experiment_stat",
+    "ExperimentStatDirection": ".experiment_stat_direction",
     "ExperimentStatus": ".experiment_status",
     "ExperimentVariantsItem": ".experiment_variants_item",
     "Export": ".export",
@@ -3717,12 +3729,18 @@ __all__ = [
     "ExperienceNotificationPreferenceObject",
     "ExperienceProductsItem",
     "Experiment",
+    "ExperimentArmResults",
     "ExperimentBucketBy",
     "ExperimentControl",
     "ExperimentExposure",
     "ExperimentExposureBatch",
+    "ExperimentKind",
+    "ExperimentReading",
+    "ExperimentReadingDirection",
     "ExperimentResourceReference",
     "ExperimentResourceReferenceObject",
+    "ExperimentStat",
+    "ExperimentStatDirection",
     "ExperimentStatus",
     "ExperimentVariantsItem",
     "Export",

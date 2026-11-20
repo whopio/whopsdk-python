@@ -26,6 +26,7 @@ from .types.list_experiments_request_direction import ListExperimentsRequestDire
 from .types.list_experiments_request_order import ListExperimentsRequestOrder
 from .types.list_experiments_request_status import ListExperimentsRequestStatus
 from .types.list_experiments_response import ListExperimentsResponse
+from .types.results_experiments_response import ResultsExperimentsResponse
 from .types.update_experiments_request_control import UpdateExperimentsRequestControl
 from .types.update_experiments_request_variants_item import UpdateExperimentsRequestVariantsItem
 from pydantic import ValidationError
@@ -363,10 +364,10 @@ class RawExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -432,10 +433,10 @@ class RawExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
 
@@ -521,15 +522,15 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account. Activating needs Economic Intelligence on for the owning account: while the account's `economic_intelligence` is `false`, this returns a `403` and the experiment keeps its status. Turn it on with `PATCH /accounts/:account_id/preferences`. Creating, editing, pausing and ending an experiment don't need it.
+        Starts or resumes an experiment or feature flag so evaluation begins serving it. Activating a draft sets `started_at`. Activating a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account. Activating needs Economic Intelligence on for the owning account. When it is off, the request returns `403` and the experiment keeps its status. Turn it on with `PATCH /accounts/:account_id/preferences`. Creating, editing, pausing, and ending an experiment without a winner do not need it.
 
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -604,18 +605,18 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account.
+        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone. Omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account. Passing `winning_arm` needs Economic Intelligence on for the owning account, like activating. Ending without one does not.
 
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         findings : str
             What you learned and why you chose this outcome. Required.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         winning_arm : typing.Optional[str]
             The treatment that won. Setting it rolls that arm out: every later evaluation returns it to every caller, ignoring targeting and allocation, and exposures stop being recorded. Omit it when control won — an ended experiment with no winning arm evaluates to `control` for everyone, so ending again without one also reverts a rollout recorded by mistake. Not accepted on feature flags, which evaluate to disabled once ended.
@@ -699,10 +700,10 @@ class RawExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -733,6 +734,81 @@ class RawExperimentsClient:
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 409:
                 raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def results(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        to: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ResultsExperimentsResponse]:
+        """
+        Returns an experiment's results: one reading per target stat, with the arms it was read on. Requires `experiment:read` on the owning account, and the read scope of each target stat's metric, `stats:read` for most.
+
+        Parameters
+        ----------
+        id : str
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
+
+        account_id : typing.Optional[str]
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
+
+        from_ : typing.Optional[str]
+            Start of the reporting window, as an ISO 8601 date or timestamp. Defaults to the experiment's start date.
+
+        to : typing.Optional[str]
+            End of the reporting window, as an ISO 8601 date or timestamp. Defaults to today.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ResultsExperimentsResponse]
+            experiment results returned
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"experiments/{encode_path_param(id)}/results",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "account_id": account_id,
+                "from": from_,
+                "to": to,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ResultsExperimentsResponse,
+                    parse_obj_as(
+                        type_=ResultsExperimentsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1084,10 +1160,10 @@ class AsyncRawExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1153,10 +1229,10 @@ class AsyncRawExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
 
@@ -1242,15 +1318,15 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account. Activating needs Economic Intelligence on for the owning account: while the account's `economic_intelligence` is `false`, this returns a `403` and the experiment keeps its status. Turn it on with `PATCH /accounts/:account_id/preferences`. Creating, editing, pausing and ending an experiment don't need it.
+        Starts or resumes an experiment or feature flag so evaluation begins serving it. Activating a draft sets `started_at`. Activating a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account. Activating needs Economic Intelligence on for the owning account. When it is off, the request returns `403` and the experiment keeps its status. Turn it on with `PATCH /accounts/:account_id/preferences`. Creating, editing, pausing, and ending an experiment without a winner do not need it.
 
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1325,18 +1401,18 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account.
+        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone. Omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account. Passing `winning_arm` needs Economic Intelligence on for the owning account, like activating. Ending without one does not.
 
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         findings : str
             What you learned and why you chose this outcome. Required.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         winning_arm : typing.Optional[str]
             The treatment that won. Setting it rolls that arm out: every later evaluation returns it to every caller, ignoring targeting and allocation, and exposures stop being recorded. Omit it when control won — an ended experiment with no winning arm evaluates to `control` for everyone, so ending again without one also reverts a rollout recorded by mistake. Not accepted on feature flags, which evaluate to disabled once ended.
@@ -1420,10 +1496,10 @@ class AsyncRawExperimentsClient:
         Parameters
         ----------
         id : str
-            The experiment identifier — the `expt_` id or the flag_key handle.
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
 
         account_id : typing.Optional[str]
-            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1454,6 +1530,81 @@ class AsyncRawExperimentsClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 409:
                 raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def results(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        from_: typing.Optional[str] = None,
+        to: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ResultsExperimentsResponse]:
+        """
+        Returns an experiment's results: one reading per target stat, with the arms it was read on. Requires `experiment:read` on the owning account, and the read scope of each target stat's metric, `stats:read` for most.
+
+        Parameters
+        ----------
+        id : str
+            The experiment identifier, the `expt_` id or the `flag_key` handle.
+
+        account_id : typing.Optional[str]
+            Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
+
+        from_ : typing.Optional[str]
+            Start of the reporting window, as an ISO 8601 date or timestamp. Defaults to the experiment's start date.
+
+        to : typing.Optional[str]
+            End of the reporting window, as an ISO 8601 date or timestamp. Defaults to today.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ResultsExperimentsResponse]
+            experiment results returned
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"experiments/{encode_path_param(id)}/results",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "account_id": account_id,
+                "from": from_,
+                "to": to,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ResultsExperimentsResponse,
+                    parse_obj_as(
+                        type_=ResultsExperimentsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
