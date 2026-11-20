@@ -32,6 +32,11 @@ class ExperimentArmResults(UniversalBaseModel):
     This arm's own parameters where they differ from the reading's. `null` when they do not.
     """
 
+    statistically_significant: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether `lift_confidence_interval` excludes zero, so the lift is unlikely to be noise. `false` while the interval is unknown. `null` on the control.
+    """
+
     value: typing.Optional[float] = pydantic.Field(default=None)
     """
     The measure on this arm, in the reading's unit. `null` when unknown.
