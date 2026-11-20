@@ -392,6 +392,7 @@ class ExperimentsClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        duration_days: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
         """
@@ -404,6 +405,9 @@ class ExperimentsClient:
 
         account_id : typing.Optional[str]
             Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
+
+        duration_days : typing.Optional[int]
+            Reporting window length in days, at most 7. Omit to use the default of 7 days. This does not automatically end the experiment.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -426,7 +430,9 @@ class ExperimentsClient:
             id="id",
         )
         """
-        _response = self._raw_client.activate(id, account_id=account_id, request_options=request_options)
+        _response = self._raw_client.activate(
+            id, account_id=account_id, duration_days=duration_days, request_options=request_options
+        )
         return _response.data
 
     def end(
@@ -983,6 +989,7 @@ class AsyncExperimentsClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        duration_days: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
         """
@@ -995,6 +1002,9 @@ class AsyncExperimentsClient:
 
         account_id : typing.Optional[str]
             Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
+
+        duration_days : typing.Optional[int]
+            Reporting window length in days, at most 7. Omit to use the default of 7 days. This does not automatically end the experiment.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1025,7 +1035,9 @@ class AsyncExperimentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.activate(id, account_id=account_id, request_options=request_options)
+        _response = await self._raw_client.activate(
+            id, account_id=account_id, duration_days=duration_days, request_options=request_options
+        )
         return _response.data
 
     async def end(
