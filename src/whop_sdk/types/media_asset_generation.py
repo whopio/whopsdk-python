@@ -5,9 +5,15 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .media_asset_generation_resolution import MediaAssetGenerationResolution
+from .media_assets_ad_video import MediaAssetsAdVideo
 
 
 class MediaAssetGeneration(UniversalBaseModel):
+    ad_video: typing.Optional[MediaAssetsAdVideo] = pydantic.Field(default=None)
+    """
+    The video ad request. `null` unless the asset was generated with `ad_video`.
+    """
+
     duration_seconds: typing.Optional[float] = pydantic.Field(default=None)
     """
     Requested video length in seconds. `null` for images.
@@ -15,7 +21,7 @@ class MediaAssetGeneration(UniversalBaseModel):
 
     prompt: str = pydantic.Field()
     """
-    What the asset was generated from.
+    What the asset was generated from. For a video ad, this is the prompt Whop wrote. It is empty until Whop writes it.
     """
 
     reference_media: typing.List[str]

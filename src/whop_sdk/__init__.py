@@ -764,6 +764,7 @@ if typing.TYPE_CHECKING:
         MediaAssetMediaType,
         MediaAssetSource,
         MediaAssetStatus,
+        MediaAssetsAdVideo,
         Member,
         MemberAccessLevel,
         MemberLastActivity,
@@ -2578,7 +2579,7 @@ if typing.TYPE_CHECKING:
         PostFinancialActivityFundsAvailablePayloadType,
     )
     from .livestreams import ListLivestreamsResponse, ListLivestreamsResponsePageInfo
-    from .media import GenerateMediaRequestResolution, GenerateMediaRequestType
+    from .media import GenerateMediaRequestAdVideo, GenerateMediaRequestResolution, GenerateMediaRequestType
     from .members import (
         ListMembersRequestAccessLevel,
         ListMembersRequestDirection,
@@ -4588,6 +4589,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FunnelStep": ".types",
     "FunnelStepResult": ".types",
     "FutureUsageTypes": ".types",
+    "GenerateMediaRequestAdVideo": ".media",
     "GenerateMediaRequestResolution": ".media",
     "GenerateMediaRequestType": ".media",
     "Gif": ".types",
@@ -5228,6 +5230,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MediaAssetMediaType": ".types",
     "MediaAssetSource": ".types",
     "MediaAssetStatus": ".types",
+    "MediaAssetsAdVideo": ".types",
     "Member": ".types",
     "MemberAccessLevel": ".types",
     "MemberLastActivity": ".types",
@@ -7983,6 +7986,7 @@ __all__ = [
     "FunnelStep",
     "FunnelStepResult",
     "FutureUsageTypes",
+    "GenerateMediaRequestAdVideo",
     "GenerateMediaRequestResolution",
     "GenerateMediaRequestType",
     "Gif",
@@ -8623,6 +8627,7 @@ __all__ = [
     "MediaAssetMediaType",
     "MediaAssetSource",
     "MediaAssetStatus",
+    "MediaAssetsAdVideo",
     "Member",
     "MemberAccessLevel",
     "MemberLastActivity",

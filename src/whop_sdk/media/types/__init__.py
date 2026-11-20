@@ -6,9 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .generate_media_request_ad_video import GenerateMediaRequestAdVideo
     from .generate_media_request_resolution import GenerateMediaRequestResolution
     from .generate_media_request_type import GenerateMediaRequestType
 _dynamic_imports: typing.Dict[str, str] = {
+    "GenerateMediaRequestAdVideo": ".generate_media_request_ad_video",
     "GenerateMediaRequestResolution": ".generate_media_request_resolution",
     "GenerateMediaRequestType": ".generate_media_request_type",
 }
@@ -35,4 +37,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["GenerateMediaRequestResolution", "GenerateMediaRequestType"]
+__all__ = ["GenerateMediaRequestAdVideo", "GenerateMediaRequestResolution", "GenerateMediaRequestType"]

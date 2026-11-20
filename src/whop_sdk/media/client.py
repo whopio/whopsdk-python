@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.media_asset import MediaAsset
 from .raw_client import AsyncRawMediaClient, RawMediaClient
+from .types.generate_media_request_ad_video import GenerateMediaRequestAdVideo
 from .types.generate_media_request_resolution import GenerateMediaRequestResolution
 from .types.generate_media_request_type import GenerateMediaRequestType
 
@@ -31,10 +32,11 @@ class MediaClient:
     def generate(
         self,
         *,
-        prompt: str,
         type: GenerateMediaRequestType,
         account_id: typing.Optional[str] = OMIT,
+        ad_video: typing.Optional[GenerateMediaRequestAdVideo] = OMIT,
         duration_seconds: typing.Optional[int] = OMIT,
+        prompt: typing.Optional[str] = OMIT,
         reference_media: typing.Optional[typing.Sequence[str]] = OMIT,
         resolution: typing.Optional[GenerateMediaRequestResolution] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -44,17 +46,20 @@ class MediaClient:
 
         Parameters
         ----------
-        prompt : str
-            What to generate. Up to 2,000 characters.
-
         type : GenerateMediaRequestType
             The kind of media to generate.
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the account the API key belongs to.
 
+        ad_video : typing.Optional[GenerateMediaRequestAdVideo]
+            Makes a video ad: Whop writes the prompt, picks product photos, and adds a voiceover with captions. The video is 15 seconds at `720p` in 9:16. Video only. Can't be combined with `prompt`, `reference_media`, `duration_seconds` or `resolution`.
+
         duration_seconds : typing.Optional[int]
             Video length in seconds. Video only; defaults to 5.
+
+        prompt : typing.Optional[str]
+            What to generate. Up to 2,000 characters. Required unless `ad_video` is set.
 
         reference_media : typing.Optional[typing.Sequence[str]]
             Optional reference file IDs (`file_` prefixed), up to 4. Images guide the output: for video, a single image seeds the opening frame; multiple images guide subject and style instead. Include one video to remake it: its motion and scene are kept and the images are swapped in. Video only; needs an image and can't be combined with `duration_seconds`. The output matches the video's length, up to 30 seconds, and is billed on it.
@@ -80,15 +85,15 @@ class MediaClient:
             token="YOUR_TOKEN",
         )
         client.media.generate(
-            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
         )
         """
         _response = self._raw_client.generate(
-            prompt=prompt,
             type=type,
             account_id=account_id,
+            ad_video=ad_video,
             duration_seconds=duration_seconds,
+            prompt=prompt,
             reference_media=reference_media,
             resolution=resolution,
             request_options=request_options,
@@ -147,10 +152,11 @@ class AsyncMediaClient:
     async def generate(
         self,
         *,
-        prompt: str,
         type: GenerateMediaRequestType,
         account_id: typing.Optional[str] = OMIT,
+        ad_video: typing.Optional[GenerateMediaRequestAdVideo] = OMIT,
         duration_seconds: typing.Optional[int] = OMIT,
+        prompt: typing.Optional[str] = OMIT,
         reference_media: typing.Optional[typing.Sequence[str]] = OMIT,
         resolution: typing.Optional[GenerateMediaRequestResolution] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -160,17 +166,20 @@ class AsyncMediaClient:
 
         Parameters
         ----------
-        prompt : str
-            What to generate. Up to 2,000 characters.
-
         type : GenerateMediaRequestType
             The kind of media to generate.
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the account the API key belongs to.
 
+        ad_video : typing.Optional[GenerateMediaRequestAdVideo]
+            Makes a video ad: Whop writes the prompt, picks product photos, and adds a voiceover with captions. The video is 15 seconds at `720p` in 9:16. Video only. Can't be combined with `prompt`, `reference_media`, `duration_seconds` or `resolution`.
+
         duration_seconds : typing.Optional[int]
             Video length in seconds. Video only; defaults to 5.
+
+        prompt : typing.Optional[str]
+            What to generate. Up to 2,000 characters. Required unless `ad_video` is set.
 
         reference_media : typing.Optional[typing.Sequence[str]]
             Optional reference file IDs (`file_` prefixed), up to 4. Images guide the output: for video, a single image seeds the opening frame; multiple images guide subject and style instead. Include one video to remake it: its motion and scene are kept and the images are swapped in. Video only; needs an image and can't be combined with `duration_seconds`. The output matches the video's length, up to 30 seconds, and is billed on it.
@@ -201,7 +210,6 @@ class AsyncMediaClient:
 
         async def main() -> None:
             await client.media.generate(
-                prompt="A 9:16 product showcase of a cordless power scrubber",
                 type="video",
             )
 
@@ -209,10 +217,11 @@ class AsyncMediaClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.generate(
-            prompt=prompt,
             type=type,
             account_id=account_id,
+            ad_video=ad_video,
             duration_seconds=duration_seconds,
+            prompt=prompt,
             reference_media=reference_media,
             resolution=resolution,
             request_options=request_options,

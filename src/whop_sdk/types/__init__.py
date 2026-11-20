@@ -785,6 +785,7 @@ if typing.TYPE_CHECKING:
     from .media_asset_media_type import MediaAssetMediaType
     from .media_asset_source import MediaAssetSource
     from .media_asset_status import MediaAssetStatus
+    from .media_assets_ad_video import MediaAssetsAdVideo
     from .member import Member
     from .member_access_level import MemberAccessLevel
     from .member_last_activity import MemberLastActivity
@@ -2410,6 +2411,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MediaAssetMediaType": ".media_asset_media_type",
     "MediaAssetSource": ".media_asset_source",
     "MediaAssetStatus": ".media_asset_status",
+    "MediaAssetsAdVideo": ".media_assets_ad_video",
     "Member": ".member",
     "MemberAccessLevel": ".member_access_level",
     "MemberLastActivity": ".member_last_activity",
@@ -3941,6 +3943,7 @@ __all__ = [
     "MediaAssetMediaType",
     "MediaAssetSource",
     "MediaAssetStatus",
+    "MediaAssetsAdVideo",
     "Member",
     "MemberAccessLevel",
     "MemberLastActivity",
