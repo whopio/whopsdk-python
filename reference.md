@@ -994,7 +994,7 @@ client.accounts.update(
 <dl>
 <dd>
 
-**collect_vat_id:** `typing.Optional[bool]` — Whether checkout shows a VAT/tax ID field for buyers to optionally enter. Does not require a VAT ID to purchase.
+**collect_vat_id:** `typing.Optional[bool]` — The account's saved preference for offering optional buyer VAT/tax ID entry. Checkouts where Whop collects and remits tax offer entry automatically, regardless of this preference. Does not require a VAT ID to purchase.
     
 </dd>
 </dl>

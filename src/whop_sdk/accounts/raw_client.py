@@ -845,7 +845,7 @@ class RawAccountsClient:
             The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
         collect_vat_id : typing.Optional[bool]
-            Whether checkout shows a VAT/tax ID field for buyers to optionally enter. Does not require a VAT ID to purchase.
+            The account's saved preference for offering optional buyer VAT/tax ID entry. Checkouts where Whop collects and remits tax offer entry automatically, regardless of this preference. Does not require a VAT ID to purchase.
 
         country : typing.Optional[str]
             Country where the account is located.
@@ -2397,7 +2397,7 @@ class AsyncRawAccountsClient:
             The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
         collect_vat_id : typing.Optional[bool]
-            Whether checkout shows a VAT/tax ID field for buyers to optionally enter. Does not require a VAT ID to purchase.
+            The account's saved preference for offering optional buyer VAT/tax ID entry. Checkouts where Whop collects and remits tax offer entry automatically, regardless of this preference. Does not require a VAT ID to purchase.
 
         country : typing.Optional[str]
             Country where the account is located.

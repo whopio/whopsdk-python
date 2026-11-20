@@ -84,7 +84,7 @@ class Account(UniversalBaseModel):
 
     collect_vat_id: bool = pydantic.Field()
     """
-    Whether checkout shows a VAT/tax ID field for buyers to optionally enter. Does not require a VAT ID to purchase.
+    The account's saved preference for offering optional buyer VAT/tax ID entry. Checkouts where Whop collects and remits tax offer entry automatically, regardless of this preference. Does not require a VAT ID to purchase.
     """
 
     company_formation: AccountCompanyFormation = pydantic.Field()
