@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ....types.account_affiliate_program import AccountAffiliateProgram
 from ....types.card_surcharge_preferences import CardSurchargePreferences
 from ....types.customer_tracking_preferences import CustomerTrackingPreferences
 from .retrieve_preferences_response_ads_agreement import RetrievePreferencesResponseAdsAgreement
@@ -51,6 +52,11 @@ class RetrievePreferencesResponse(UniversalBaseModel):
     ads_triple_whale_integration: RetrievePreferencesResponseAdsTripleWhaleIntegration = pydantic.Field()
     """
     The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel. Available to any Triple Whale customer — Shopify, WooCommerce, or a custom checkout — by setting `shop_domain`. Requires the `ad_campaign:create` scope. Once connected, ad click-through URLs Whop serves carry `tw_source=whop` and `tw_adid=<ad id>` query parameters so Triple Whale's pixel attributes conversions back to the originating ad — no destination URL changes are needed.
+    """
+
+    affiliate_program: AccountAffiliateProgram = pydantic.Field()
+    """
+    The account's affiliate program: its instructions, its application and the product it features for affiliates. `GET /accounts/{account_id}/affiliate_program` returns the same object without authentication.
     """
 
     cancellation_emails: bool = pydantic.Field()

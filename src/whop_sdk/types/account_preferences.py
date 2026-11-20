@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_affiliate_program import AccountAffiliateProgram
 from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
 from .account_economic_intelligence_previous_period import AccountEconomicIntelligencePreviousPeriod
 from .account_preferences_merchant_of_record import AccountPreferencesMerchantOfRecord
@@ -38,6 +39,11 @@ class AccountPreferences(UniversalBaseModel):
     ads_triple_whale_integration: typing.Dict[str, typing.Any] = pydantic.Field()
     """
     The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel, and tags ad click-through URLs with `tw_source`/`tw_adid` so Triple Whale's pixel attributes conversions back to the right ad. `status` is `connected`, `not_connected`, or `requires_shop_domain` (Triple Whale keys records by shop, so spend only flows once `shop_domain` is set). `masked_api_key` shows the leading characters of the stored key; the full key is never returned. `shop_domain` is the shop spend is reported for.
+    """
+
+    affiliate_program: AccountAffiliateProgram = pydantic.Field()
+    """
+    The account's affiliate program: its instructions, its application and the product it features for affiliates. `GET /accounts/{account_id}/affiliate_program` returns the same object without authentication.
     """
 
     cancellation_emails: bool = pydantic.Field()

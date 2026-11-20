@@ -52637,6 +52637,80 @@ client.webhooks.test(
 </dl>
 </details>
 
+## Accounts AffiliateProgram
+<details><summary><code>client.accounts.affiliate_program.<a href="src/whop_sdk/accounts/affiliate_program/client.py">retrieve</a>(...) -> AccountAffiliateProgram</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the account's affiliate program. It holds the instructions for its affiliates, its affiliate application and the product it features for affiliates. This endpoint needs no authentication. To change the program, update the `affiliate_program` key of the account's preferences. To turn affiliates on or off, set `global_affiliate_status` and `member_affiliate_status` on each product.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.accounts.affiliate_program.retrieve(
+    account_id="account_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `str` — The account ID, prefixed `biz_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Accounts CustomerTracking
 <details><summary><code>client.accounts.customer_tracking.<a href="src/whop_sdk/accounts/customer_tracking/client.py">retrieve</a>(...) -> AccountCustomerTracking</code></summary>
 <dl>
@@ -53330,7 +53404,7 @@ client.accounts.preferences.retrieve(
 <dl>
 <dd>
 
-Updates the account's preferences. Each top-level key in the body replaces its stored value as a whole. Keys left out keep their current values.
+Updates the account's preferences. Keys left out keep their current values. In `affiliate_program` and `ads_triple_whale_integration`, only the fields you send change. `customer_tracking`, `card_surcharge` and `ads_payment_methods` replace their stored value as a whole.
 
 The required scope depends on which preferences you update.
 
@@ -53340,6 +53414,7 @@ The required scope depends on which preferences you update.
 - `payment:dispute`: `dispute_fighter_enabled`.
 - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
 - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
+- `affiliate:update`: `affiliate_program`.
 
 To update keys under more than one scope, the API key needs all of those scopes.
 </dd>
@@ -53415,6 +53490,14 @@ client.accounts.preferences.update(
 <dd>
 
 **ads_triple_whale_integration:** `typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration]` — Connects or disconnects the Triple Whale integration, or changes the shop it reports to. Requires the `ad_campaign:create` scope on your API key. Connecting requires a `shop_domain` to report spend against.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**affiliate_program:** `typing.Optional[UpdatePreferencesRequestAffiliateProgram]` — The account's affiliate program. Only the fields you send change, and fields left out keep their current values. To clear a field, set it to `null`. To turn affiliates on or off, set `global_affiliate_status` and `member_affiliate_status` on each product with `PATCH /products/{id}`. Requires the `affiliate:update` scope on your API key.
     
 </dd>
 </dl>
@@ -53502,7 +53585,7 @@ client.accounts.preferences.update(
 <dl>
 <dd>
 
-**feedback_options:** `typing.Optional[typing.List[UpdatePreferencesRequestFeedbackOptionsItem]]` — Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
+**feedback_options:** `typing.Optional[typing.List[UpdatePreferencesRequestFeedbackOptionsItem]]` — Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it. Options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
     
 </dd>
 </dl>

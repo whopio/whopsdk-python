@@ -63,6 +63,13 @@ if typing.TYPE_CHECKING:
     from .update_preferences_request_ads_triple_whale_integration import (
         UpdatePreferencesRequestAdsTripleWhaleIntegration,
     )
+    from .update_preferences_request_affiliate_program import UpdatePreferencesRequestAffiliateProgram
+    from .update_preferences_request_affiliate_program_application_questions_item import (
+        UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItem,
+    )
+    from .update_preferences_request_affiliate_program_application_questions_item_field_type import (
+        UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItemFieldType,
+    )
     from .update_preferences_request_card_surcharge import UpdatePreferencesRequestCardSurcharge
     from .update_preferences_request_customer_tracking import UpdatePreferencesRequestCustomerTracking
     from .update_preferences_request_economic_intelligence_duration_key import (
@@ -148,6 +155,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary": ".update_preferences_request_ads_payment_methods_primary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType": ".update_preferences_request_ads_payment_methods_primary_type",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration": ".update_preferences_request_ads_triple_whale_integration",
+    "UpdatePreferencesRequestAffiliateProgram": ".update_preferences_request_affiliate_program",
+    "UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItem": ".update_preferences_request_affiliate_program_application_questions_item",
+    "UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItemFieldType": ".update_preferences_request_affiliate_program_application_questions_item_field_type",
     "UpdatePreferencesRequestCardSurcharge": ".update_preferences_request_card_surcharge",
     "UpdatePreferencesRequestCustomerTracking": ".update_preferences_request_customer_tracking",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey": ".update_preferences_request_economic_intelligence_duration_key",
@@ -225,6 +235,9 @@ __all__ = [
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration",
+    "UpdatePreferencesRequestAffiliateProgram",
+    "UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItem",
+    "UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItemFieldType",
     "UpdatePreferencesRequestCardSurcharge",
     "UpdatePreferencesRequestCustomerTracking",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey",

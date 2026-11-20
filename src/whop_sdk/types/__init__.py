@@ -11,6 +11,9 @@ if typing.TYPE_CHECKING:
     from .access_pass_types import AccessPassTypes
     from .access_token import AccessToken
     from .account import Account
+    from .account_affiliate_program import AccountAffiliateProgram
+    from .account_affiliate_program_question import AccountAffiliateProgramQuestion
+    from .account_affiliate_program_question_field_type import AccountAffiliateProgramQuestionFieldType
     from .account_balance_breakdown import AccountBalanceBreakdown
     from .account_balance_settlement import AccountBalanceSettlement
     from .account_balance_token import AccountBalanceToken
@@ -1659,6 +1662,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccessPassTypes": ".access_pass_types",
     "AccessToken": ".access_token",
     "Account": ".account",
+    "AccountAffiliateProgram": ".account_affiliate_program",
+    "AccountAffiliateProgramQuestion": ".account_affiliate_program_question",
+    "AccountAffiliateProgramQuestionFieldType": ".account_affiliate_program_question_field_type",
     "AccountBalanceBreakdown": ".account_balance_breakdown",
     "AccountBalanceSettlement": ".account_balance_settlement",
     "AccountBalanceToken": ".account_balance_token",
@@ -3191,6 +3197,9 @@ __all__ = [
     "AccessPassTypes",
     "AccessToken",
     "Account",
+    "AccountAffiliateProgram",
+    "AccountAffiliateProgramQuestion",
+    "AccountAffiliateProgramQuestionFieldType",
     "AccountBalanceBreakdown",
     "AccountBalanceSettlement",
     "AccountBalanceToken",

@@ -20,6 +20,7 @@ from .types.update_preferences_request_ads_payment_methods import UpdatePreferen
 from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
 )
+from .types.update_preferences_request_affiliate_program import UpdatePreferencesRequestAffiliateProgram
 from .types.update_preferences_request_card_surcharge import UpdatePreferencesRequestCardSurcharge
 from .types.update_preferences_request_customer_tracking import UpdatePreferencesRequestCustomerTracking
 from .types.update_preferences_request_economic_intelligence_duration_key import (
@@ -118,6 +119,7 @@ class RawPreferencesClient:
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
+        affiliate_program: typing.Optional[UpdatePreferencesRequestAffiliateProgram] = OMIT,
         cancellation_emails: typing.Optional[bool] = OMIT,
         card_surcharge: typing.Optional[UpdatePreferencesRequestCardSurcharge] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
@@ -142,7 +144,7 @@ class RawPreferencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdatePreferencesResponse]:
         """
-        Updates the account's preferences. Each top-level key in the body replaces its stored value as a whole. Keys left out keep their current values.
+        Updates the account's preferences. Keys left out keep their current values. In `affiliate_program` and `ads_triple_whale_integration`, only the fields you send change. `customer_tracking`, `card_surcharge` and `ads_payment_methods` replace their stored value as a whole.
 
         The required scope depends on which preferences you update.
 
@@ -152,6 +154,7 @@ class RawPreferencesClient:
         - `payment:dispute`: `dispute_fighter_enabled`.
         - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
+        - `affiliate:update`: `affiliate_program`.
 
         To update keys under more than one scope, the API key needs all of those scopes.
 
@@ -171,6 +174,9 @@ class RawPreferencesClient:
 
         ads_triple_whale_integration : typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration]
             Connects or disconnects the Triple Whale integration, or changes the shop it reports to. Requires the `ad_campaign:create` scope on your API key. Connecting requires a `shop_domain` to report spend against.
+
+        affiliate_program : typing.Optional[UpdatePreferencesRequestAffiliateProgram]
+            The account's affiliate program. Only the fields you send change, and fields left out keep their current values. To clear a field, set it to `null`. To turn affiliates on or off, set `global_affiliate_status` and `member_affiliate_status` on each product with `PATCH /products/{id}`. Requires the `affiliate:update` scope on your API key.
 
         cancellation_emails : typing.Optional[bool]
             Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
@@ -203,7 +209,7 @@ class RawPreferencesClient:
             Whether Whop emails members when a renewal payment fails or needs them to verify it. Set it to `false` to stop these emails while keeping the account's other customer emails. Subscriptions billed by invoice still get their invoice emails. Requires the `company:update` scope on your API key.
 
         feedback_options : typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]]
-            Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
+            Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it. Options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
 
         merchant_of_record : typing.Optional[UpdatePreferencesRequestMerchantOfRecord]
             Set it to `account` to make the account the merchant of record. Only some business categories can switch. The business must be verified. The switch cannot be undone. The response shows `pending` until approval. Checkout takes no payments until then. After the switch, the account accepts only card, Apple Pay, Google Pay and crypto payments. PayPal, buy now pay later and local payment methods stop. Requires the `payout:account:update` scope on your API key.
@@ -251,6 +257,9 @@ class RawPreferencesClient:
                     object_=ads_triple_whale_integration,
                     annotation=UpdatePreferencesRequestAdsTripleWhaleIntegration,
                     direction="write",
+                ),
+                "affiliate_program": convert_and_respect_annotation_metadata(
+                    object_=affiliate_program, annotation=UpdatePreferencesRequestAffiliateProgram, direction="write"
                 ),
                 "cancellation_emails": cancellation_emails,
                 "card_surcharge": convert_and_respect_annotation_metadata(
@@ -430,6 +439,7 @@ class AsyncRawPreferencesClient:
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
+        affiliate_program: typing.Optional[UpdatePreferencesRequestAffiliateProgram] = OMIT,
         cancellation_emails: typing.Optional[bool] = OMIT,
         card_surcharge: typing.Optional[UpdatePreferencesRequestCardSurcharge] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
@@ -454,7 +464,7 @@ class AsyncRawPreferencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdatePreferencesResponse]:
         """
-        Updates the account's preferences. Each top-level key in the body replaces its stored value as a whole. Keys left out keep their current values.
+        Updates the account's preferences. Keys left out keep their current values. In `affiliate_program` and `ads_triple_whale_integration`, only the fields you send change. `customer_tracking`, `card_surcharge` and `ads_payment_methods` replace their stored value as a whole.
 
         The required scope depends on which preferences you update.
 
@@ -464,6 +474,7 @@ class AsyncRawPreferencesClient:
         - `payment:dispute`: `dispute_fighter_enabled`.
         - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
+        - `affiliate:update`: `affiliate_program`.
 
         To update keys under more than one scope, the API key needs all of those scopes.
 
@@ -483,6 +494,9 @@ class AsyncRawPreferencesClient:
 
         ads_triple_whale_integration : typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration]
             Connects or disconnects the Triple Whale integration, or changes the shop it reports to. Requires the `ad_campaign:create` scope on your API key. Connecting requires a `shop_domain` to report spend against.
+
+        affiliate_program : typing.Optional[UpdatePreferencesRequestAffiliateProgram]
+            The account's affiliate program. Only the fields you send change, and fields left out keep their current values. To clear a field, set it to `null`. To turn affiliates on or off, set `global_affiliate_status` and `member_affiliate_status` on each product with `PATCH /products/{id}`. Requires the `affiliate:update` scope on your API key.
 
         cancellation_emails : typing.Optional[bool]
             Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
@@ -515,7 +529,7 @@ class AsyncRawPreferencesClient:
             Whether Whop emails members when a renewal payment fails or needs them to verify it. Set it to `false` to stop these emails while keeping the account's other customer emails. Subscriptions billed by invoice still get their invoice emails. Requires the `company:update` scope on your API key.
 
         feedback_options : typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]]
-            Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
+            Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it. Options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
 
         merchant_of_record : typing.Optional[UpdatePreferencesRequestMerchantOfRecord]
             Set it to `account` to make the account the merchant of record. Only some business categories can switch. The business must be verified. The switch cannot be undone. The response shows `pending` until approval. Checkout takes no payments until then. After the switch, the account accepts only card, Apple Pay, Google Pay and crypto payments. PayPal, buy now pay later and local payment methods stop. Requires the `payout:account:update` scope on your API key.
@@ -563,6 +577,9 @@ class AsyncRawPreferencesClient:
                     object_=ads_triple_whale_integration,
                     annotation=UpdatePreferencesRequestAdsTripleWhaleIntegration,
                     direction="write",
+                ),
+                "affiliate_program": convert_and_respect_annotation_metadata(
+                    object_=affiliate_program, annotation=UpdatePreferencesRequestAffiliateProgram, direction="write"
                 ),
                 "cancellation_emails": cancellation_emails,
                 "card_surcharge": convert_and_respect_annotation_metadata(
