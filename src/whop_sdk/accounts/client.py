@@ -52,6 +52,7 @@ from .types.update_accounts_request_terms_of_service import UpdateAccountsReques
 from .types.update_accounts_request_three_ds_level import UpdateAccountsRequestThreeDsLevel
 
 if typing.TYPE_CHECKING:
+    from .affiliate_program.client import AffiliateProgramClient, AsyncAffiliateProgramClient
     from .customer_tracking.client import AsyncCustomerTrackingClient, CustomerTrackingClient
     from .fees.client import AsyncFeesClient, FeesClient
     from .financing_providers.client import AsyncFinancingProvidersClient, FinancingProvidersClient
@@ -65,6 +66,7 @@ class AccountsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawAccountsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._affiliate_program: typing.Optional[AffiliateProgramClient] = None
         self._customer_tracking: typing.Optional[CustomerTrackingClient] = None
         self._fees: typing.Optional[FeesClient] = None
         self._financing_providers: typing.Optional[FinancingProvidersClient] = None
@@ -1033,6 +1035,14 @@ class AccountsClient:
         return _response.data
 
     @property
+    def affiliate_program(self):
+        if self._affiliate_program is None:
+            from .affiliate_program.client import AffiliateProgramClient  # noqa: E402
+
+            self._affiliate_program = AffiliateProgramClient(client_wrapper=self._client_wrapper)
+        return self._affiliate_program
+
+    @property
     def customer_tracking(self):
         if self._customer_tracking is None:
             from .customer_tracking.client import CustomerTrackingClient  # noqa: E402
@@ -1077,6 +1087,7 @@ class AsyncAccountsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawAccountsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._affiliate_program: typing.Optional[AsyncAffiliateProgramClient] = None
         self._customer_tracking: typing.Optional[AsyncCustomerTrackingClient] = None
         self._fees: typing.Optional[AsyncFeesClient] = None
         self._financing_providers: typing.Optional[AsyncFinancingProvidersClient] = None
@@ -2137,6 +2148,14 @@ class AsyncAccountsClient:
             request_options=request_options,
         )
         return _response.data
+
+    @property
+    def affiliate_program(self):
+        if self._affiliate_program is None:
+            from .affiliate_program.client import AsyncAffiliateProgramClient  # noqa: E402
+
+            self._affiliate_program = AsyncAffiliateProgramClient(client_wrapper=self._client_wrapper)
+        return self._affiliate_program
 
     @property
     def customer_tracking(self):

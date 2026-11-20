@@ -22,7 +22,7 @@ class AccountCards(UniversalBaseModel):
 
     status: AccountCardsStatus = pydantic.Field()
     """
-    Where the card application stands. `approved` means cards can be issued. `needs_verification` means the applicant has not completed identity verification yet; `needs_information` means they did, but the documents were rejected for a fixable reason and must be resubmitted. `pending` and `manual_review` are in flight. `denied`, `locked`, and `canceled` are terminal.
+    Where the card application stands. `approved` means cards can be issued. `needs_verification` means the applicant has not completed identity verification yet. `needs_information` means they did, but the documents were rejected for a fixable reason and must be resubmitted. `pending` and `manual_review` are in flight. `denied`, `locked`, and `canceled` are terminal.
     """
 
     if IS_PYDANTIC_V2:
