@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .recommended_action_changed_resource_object import RecommendedActionChangedResourceObject
+from .recommended_action_changed_resource_resource_type import RecommendedActionChangedResourceResourceType
 
 
 class RecommendedActionChangedResource(UniversalBaseModel):
@@ -13,9 +13,9 @@ class RecommendedActionChangedResource(UniversalBaseModel):
     ID of the resource. A `variant` ID is prefixed `plan_`.
     """
 
-    object: RecommendedActionChangedResourceObject = pydantic.Field()
+    resource_type: RecommendedActionChangedResourceResourceType = pydantic.Field()
     """
-    Type of the resource. New types can be added, so skip an entry whose `object` you do not know.
+    Type of the resource. New types can be added, so skip an entry whose `resource_type` you do not know.
     """
 
     if IS_PYDANTIC_V2:

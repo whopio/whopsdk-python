@@ -1379,7 +1379,7 @@ if typing.TYPE_CHECKING:
     from .receipt_v2order import ReceiptV2Order
     from .recommended_action import RecommendedAction
     from .recommended_action_changed_resource import RecommendedActionChangedResource
-    from .recommended_action_changed_resource_object import RecommendedActionChangedResourceObject
+    from .recommended_action_changed_resource_resource_type import RecommendedActionChangedResourceResourceType
     from .recommended_action_preview import (
         RecommendedActionPreview,
         RecommendedActionPreview_WebsiteAbTest,
@@ -2889,7 +2889,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReceiptV2Order": ".receipt_v2order",
     "RecommendedAction": ".recommended_action",
     "RecommendedActionChangedResource": ".recommended_action_changed_resource",
-    "RecommendedActionChangedResourceObject": ".recommended_action_changed_resource_object",
+    "RecommendedActionChangedResourceResourceType": ".recommended_action_changed_resource_resource_type",
     "RecommendedActionPreview": ".recommended_action_preview",
     "RecommendedActionPreview_WebsiteAbTest": ".recommended_action_preview",
     "RecommendedActionPreview_WebsiteChange": ".recommended_action_preview",
@@ -4419,7 +4419,7 @@ __all__ = [
     "ReceiptV2Order",
     "RecommendedAction",
     "RecommendedActionChangedResource",
-    "RecommendedActionChangedResourceObject",
+    "RecommendedActionChangedResourceResourceType",
     "RecommendedActionPreview",
     "RecommendedActionPreview_WebsiteAbTest",
     "RecommendedActionPreview_WebsiteChange",
