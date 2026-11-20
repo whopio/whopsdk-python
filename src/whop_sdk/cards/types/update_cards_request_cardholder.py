@@ -8,27 +8,27 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdateCardsRequestCardholder(UniversalBaseModel):
     """
-    Details for the invited cardholder, accepted only while completing onboarding on an invited card. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not.
+    Details for the cardholder. On an invited card, these fields complete onboarding. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not. On an issued card, only email and phone can be changed. 3D Secure verification codes go to that email and phone.
     """
 
     email: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Email address for the invited cardholder.
+    Email address for the cardholder.
     """
 
     first_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Legal first name of the invited cardholder.
+    Legal first name of the invited cardholder. Only accepted on an invited card.
     """
 
     last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Legal last name of the invited cardholder.
+    Legal last name of the invited cardholder. Only accepted on an invited card.
     """
 
     phone: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Phone number for the invited cardholder.
+    Phone number for the cardholder, in international format with the country code (for example `+14155550100`).
     """
 
     if IS_PYDANTIC_V2:

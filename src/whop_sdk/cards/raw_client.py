@@ -400,7 +400,7 @@ class RawCardsClient:
             Pass `true` to permanently cancel the card. A canceled card cannot be uncanceled. Cannot be combined with other fields.
 
         cardholder : typing.Optional[UpdateCardsRequestCardholder]
-            Details for the invited cardholder, accepted only while completing onboarding on an invited card. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not.
+            Details for the cardholder. On an invited card, these fields complete onboarding. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not. On an issued card, only email and phone can be changed. 3D Secure verification codes go to that email and phone.
 
         frozen : typing.Optional[bool]
             Pass `true` to freeze the card, `false` to unfreeze it. The assigned cardholder may freeze their own card without the payout:account:update scope.
@@ -893,7 +893,7 @@ class AsyncRawCardsClient:
             Pass `true` to permanently cancel the card. A canceled card cannot be uncanceled. Cannot be combined with other fields.
 
         cardholder : typing.Optional[UpdateCardsRequestCardholder]
-            Details for the invited cardholder, accepted only while completing onboarding on an invited card. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not.
+            Details for the cardholder. On an invited card, these fields complete onboarding. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not. On an issued card, only email and phone can be changed. 3D Secure verification codes go to that email and phone.
 
         frozen : typing.Optional[bool]
             Pass `true` to freeze the card, `false` to unfreeze it. The assigned cardholder may freeze their own card without the payout:account:update scope.
