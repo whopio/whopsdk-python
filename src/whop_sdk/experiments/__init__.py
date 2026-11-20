@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .types import (
         CreateExperimentsRequestBucketBy,
         CreateExperimentsRequestControl,
+        CreateExperimentsRequestKind,
         CreateExperimentsRequestVariantsItem,
         ExposuresExperimentsResponse,
         ListExperimentsRequestDirection,
@@ -24,6 +25,7 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateExperimentsRequestBucketBy": ".types",
     "CreateExperimentsRequestControl": ".types",
+    "CreateExperimentsRequestKind": ".types",
     "CreateExperimentsRequestVariantsItem": ".types",
     "ExposuresExperimentsResponse": ".types",
     "ListExperimentsRequestDirection": ".types",
@@ -62,6 +64,7 @@ def __dir__():
 __all__ = [
     "CreateExperimentsRequestBucketBy",
     "CreateExperimentsRequestControl",
+    "CreateExperimentsRequestKind",
     "CreateExperimentsRequestVariantsItem",
     "ExposuresExperimentsResponse",
     "ListExperimentsRequestDirection",

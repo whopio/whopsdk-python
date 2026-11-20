@@ -7,10 +7,12 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.experiment import Experiment
 from ..types.experiment_resource_reference import ExperimentResourceReference
+from ..types.experiment_stat import ExperimentStat
 from ..types.exposures_experiments_request_subject import ExposuresExperimentsRequestSubject
 from .raw_client import AsyncRawExperimentsClient, RawExperimentsClient
 from .types.create_experiments_request_bucket_by import CreateExperimentsRequestBucketBy
 from .types.create_experiments_request_control import CreateExperimentsRequestControl
+from .types.create_experiments_request_kind import CreateExperimentsRequestKind
 from .types.create_experiments_request_variants_item import CreateExperimentsRequestVariantsItem
 from .types.exposures_experiments_response import ExposuresExperimentsResponse
 from .types.list_experiments_request_direction import ListExperimentsRequestDirection
@@ -131,9 +133,11 @@ class ExperimentsClient:
         bucket_by: typing.Optional[CreateExperimentsRequestBucketBy] = OMIT,
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
+        kind: typing.Optional[CreateExperimentsRequestKind] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
+        target_stats: typing.Optional[typing.Sequence[ExperimentStat]] = OMIT,
         variants: typing.Optional[typing.Sequence[CreateExperimentsRequestVariantsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
@@ -156,6 +160,9 @@ class ExperimentsClient:
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
 
+        kind : typing.Optional[CreateExperimentsRequestKind]
+            `experiment` assigns its subjects to arms and takes `variants`. `beforeafter` compares a change with the period before it: it assigns nobody and needs `target_stats`. Defaults to `experiment`.
+
         metadata : typing.Optional[typing.Dict[str, str]]
             Up to 20 key-value pairs you can attach to the experiment for your own use, such as which pages it changes. Keys are at most 40 characters and values at most 500.
 
@@ -164,6 +171,9 @@ class ExperimentsClient:
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
+
+        target_stats : typing.Optional[typing.Sequence[ExperimentStat]]
+            The measures the experiment sets out to move, as the stats API reads them. Only an account's experiment takes them.
 
         variants : typing.Optional[typing.Sequence[CreateExperimentsRequestVariantsItem]]
             Treatment arms to create. Users outside every arm form the implicit `control` group. Required unless `feature_flag_only` is `true`.
@@ -196,9 +206,11 @@ class ExperimentsClient:
             bucket_by=bucket_by,
             control=control,
             hypothesis=hypothesis,
+            kind=kind,
             metadata=metadata,
             name=name,
             related_resource=related_resource,
+            target_stats=target_stats,
             variants=variants,
             request_options=request_options,
         )
@@ -680,9 +692,11 @@ class AsyncExperimentsClient:
         bucket_by: typing.Optional[CreateExperimentsRequestBucketBy] = OMIT,
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
+        kind: typing.Optional[CreateExperimentsRequestKind] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
+        target_stats: typing.Optional[typing.Sequence[ExperimentStat]] = OMIT,
         variants: typing.Optional[typing.Sequence[CreateExperimentsRequestVariantsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Experiment:
@@ -705,6 +719,9 @@ class AsyncExperimentsClient:
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
 
+        kind : typing.Optional[CreateExperimentsRequestKind]
+            `experiment` assigns its subjects to arms and takes `variants`. `beforeafter` compares a change with the period before it: it assigns nobody and needs `target_stats`. Defaults to `experiment`.
+
         metadata : typing.Optional[typing.Dict[str, str]]
             Up to 20 key-value pairs you can attach to the experiment for your own use, such as which pages it changes. Keys are at most 40 characters and values at most 500.
 
@@ -713,6 +730,9 @@ class AsyncExperimentsClient:
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
+
+        target_stats : typing.Optional[typing.Sequence[ExperimentStat]]
+            The measures the experiment sets out to move, as the stats API reads them. Only an account's experiment takes them.
 
         variants : typing.Optional[typing.Sequence[CreateExperimentsRequestVariantsItem]]
             Treatment arms to create. Users outside every arm form the implicit `control` group. Required unless `feature_flag_only` is `true`.
@@ -753,9 +773,11 @@ class AsyncExperimentsClient:
             bucket_by=bucket_by,
             control=control,
             hypothesis=hypothesis,
+            kind=kind,
             metadata=metadata,
             name=name,
             related_resource=related_resource,
+            target_stats=target_stats,
             variants=variants,
             request_options=request_options,
         )
