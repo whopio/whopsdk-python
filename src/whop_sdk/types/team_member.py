@@ -53,6 +53,11 @@ class TeamMember(UniversalBaseModel):
     Whether this member or invite has the view-only Partner role, directly or through a custom role based on it. A Partner can read only the account's basic details.
     """
 
+    legal_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The legal name from the member's approved identity verification, returned to the account's own API key when listing or retrieving a partner account's team members. `null` when the member has none, for invites, on write responses, and for other callers.
+    """
+
     reports_to_chain: typing.Optional[typing.List[TeamMemberManager]] = None
     reports_to_id: typing.Optional[str] = pydantic.Field(default=None)
     """
