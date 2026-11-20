@@ -15,7 +15,7 @@ class TeamMemberManager(UniversalBaseModel):
 
     legal_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The legal name from the manager's approved identity verification, returned to the account's own API key when listing a partner account's team. `null` when the manager has none, and for other callers.
+    The first and last name on the manager's approved identity verification, set only when the manager has no profile name. Returned to the account's own API key when listing a partner account's team. `null` when the manager has a profile name or no approved verification, and for other callers.
     """
 
     user: UserSummary = pydantic.Field()
