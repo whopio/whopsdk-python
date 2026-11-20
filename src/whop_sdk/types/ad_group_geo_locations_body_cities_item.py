@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class AdGroupGeoLocationsBodyCitiesItem(UniversalBaseModel):
     key: str = pydantic.Field()
     """
-    The city's key in the location taxonomy.
+    The city's key: its US state or country, then its name, such as `US-TX:Austin`. An older ad group can hold a numeric key, which stays valid.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)
