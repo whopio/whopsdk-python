@@ -55,7 +55,7 @@ class TeamMember(UniversalBaseModel):
 
     legal_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The legal name from the member's approved identity verification, returned to the account's own API key when listing or retrieving a partner account's team members. `null` when the member has none, for invites, on write responses, and for other callers.
+    The first and last name on the member's approved identity verification, set only when the member has no profile name. Returned to the account's own API key when listing or retrieving a partner account's team members. `null` when the member has a profile name or no approved verification, for invites, on write responses, and for other callers.
     """
 
     reports_to_chain: typing.Optional[typing.List[TeamMemberManager]] = None
