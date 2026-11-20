@@ -840,6 +840,7 @@ if typing.TYPE_CHECKING:
     from .membership_status import MembershipStatus
     from .memberships_sortable_columns import MembershipsSortableColumns
     from .message import Message
+    from .message_automation import MessageAutomation
     from .message_custom_author import MessageCustomAuthor
     from .message_link_footer import MessageLinkFooter
     from .message_link_preview import MessageLinkPreview
@@ -2464,6 +2465,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MembershipStatus": ".membership_status",
     "MembershipsSortableColumns": ".memberships_sortable_columns",
     "Message": ".message",
+    "MessageAutomation": ".message_automation",
     "MessageCustomAuthor": ".message_custom_author",
     "MessageLinkFooter": ".message_link_footer",
     "MessageLinkPreview": ".message_link_preview",
@@ -3994,6 +3996,7 @@ __all__ = [
     "MembershipStatus",
     "MembershipsSortableColumns",
     "Message",
+    "MessageAutomation",
     "MessageCustomAuthor",
     "MessageLinkFooter",
     "MessageLinkPreview",

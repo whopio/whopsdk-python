@@ -12,6 +12,7 @@ from .embed import Embed
 from .external_message_email import ExternalMessageEmail
 from .file import File
 from .gif import Gif
+from .message_automation import MessageAutomation
 from .message_custom_author import MessageCustomAuthor
 from .message_link_preview import MessageLinkPreview
 from .message_reaction_count import MessageReactionCount
@@ -27,6 +28,11 @@ class ChatMessage(UniversalBaseModel):
     """
 
     author_user_id: typing.Optional[str] = None
+    automation: typing.Optional[MessageAutomation] = pydantic.Field(default=None)
+    """
+    The automation that sent this message. `null` for a message no automation sent, a deleted message, or a caller without `automation:read` on the automation's account.
+    """
+
     channel_id: str
     content: typing.Optional[str] = pydantic.Field(default=None)
     """
