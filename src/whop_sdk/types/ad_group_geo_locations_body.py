@@ -12,7 +12,7 @@ from .ad_group_geo_locations_body_zips_item import AdGroupGeoLocationsBodyZipsIt
 class AdGroupGeoLocationsBody(UniversalBaseModel):
     cities: typing.Optional[typing.List[AdGroupGeoLocationsBodyCitiesItem]] = pydantic.Field(default=None)
     """
-    Cities, keyed by the location taxonomy.
+    Cities, each keyed by its US state or country and its name.
     """
 
     countries: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
