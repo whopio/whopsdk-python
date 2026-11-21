@@ -946,6 +946,7 @@ if typing.TYPE_CHECKING:
     )
     from .payment_instrument import PaymentInstrument
     from .payment_instrument_card import PaymentInstrumentCard
+    from .payment_instrument_crypto import PaymentInstrumentCrypto
     from .payment_last_payment_error import PaymentLastPaymentError
     from .payment_last_payment_error_decline_code import PaymentLastPaymentErrorDeclineCode
     from .payment_legacy import PaymentLegacy
@@ -2573,6 +2574,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentInstructions_Voucher": ".payment_instructions",
     "PaymentInstrument": ".payment_instrument",
     "PaymentInstrumentCard": ".payment_instrument_card",
+    "PaymentInstrumentCrypto": ".payment_instrument_crypto",
     "PaymentLastPaymentError": ".payment_last_payment_error",
     "PaymentLastPaymentErrorDeclineCode": ".payment_last_payment_error_decline_code",
     "PaymentLegacy": ".payment_legacy",
@@ -4108,6 +4110,7 @@ __all__ = [
     "PaymentInstructions_Voucher",
     "PaymentInstrument",
     "PaymentInstrumentCard",
+    "PaymentInstrumentCrypto",
     "PaymentLastPaymentError",
     "PaymentLastPaymentErrorDeclineCode",
     "PaymentLegacy",
