@@ -47,6 +47,11 @@ class UpdateVerificationsResponseOwnersItem(UniversalBaseModel):
     What the person is to the business.
     """
 
+    session_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Hosted verification session URL for the owner to complete their own identity checks. Expires 7 days after creation. `null` unless the business review waits on this owner to start or finish a hosted session.
+    """
+
     status: UpdateVerificationsResponseOwnersItemStatus = pydantic.Field()
     """
     Where the owner's own verification stands, in the same states as `status`. `action_required` when their documents need sending again.
