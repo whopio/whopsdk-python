@@ -36944,6 +36944,14 @@ client.payments.refund(
 <dl>
 <dd>
 
+**destination_wallet:** `typing.Optional[str]` — The buyer's Solana wallet address, for a crypto payment only. A crypto payment is refunded to the wallet it came from when that wallet is known. When it is not known, the refund is refused until you send this address. The refund then goes to this address as USDC on Solana and cannot be reversed. Not accepted for any other payment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Your own key-value data to attach to the refund, returned on it and on its `refund.created` and `refund.updated` webhooks. At most 50 keys; keys up to 100 characters and values up to 500.
     
 </dd>
