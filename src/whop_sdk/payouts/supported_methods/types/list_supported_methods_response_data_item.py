@@ -71,7 +71,7 @@ class ListSupportedMethodsResponseDataItem(UniversalBaseModel):
     supports_instant_delivery: bool
     supports_paypal_login: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Whether the payer can add this method by logging in to PayPal through `POST /payouts/paypal_link_sessions`, which confirms the PayPal account is verified and owned by the payee. True only for the PayPal method, and only once PayPal login is enabled for the account.
+    Whether the payer can add this method by logging in to PayPal through `POST /payouts/paypal_link_sessions`, which confirms the PayPal account is verified and owned by the payee. True only for the PayPal method.
     """
 
     supports_standard_delivery: bool
