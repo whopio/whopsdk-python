@@ -48,6 +48,7 @@ jobs:
         env:
           EVENT: ${{ github.event_name }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
+          REF: ${{ github.ref }}
         run: |
           set -euo pipefail
 
@@ -84,6 +85,11 @@ jobs:
             emit release true
             emit dry true
             exit 0
+          fi
+
+          if [ "$REF" != "refs/heads/main" ]; then
+            echo "::error::a release runs from main only. Dispatch this workflow from main, or keep dry_run on."
+            exit 1
           fi
 
           emit dry false
@@ -234,31 +240,28 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  # PyPI trusts this workflow, in the pypi environment, to publish whop-sdk (trusted publishing): no
+  # long-lived token exists. The environment admits main alone, so no other ref's run gets the
+  # identity token PyPI accepts.
   publish:
     needs: [decide, build]
     if: needs.decide.outputs.release == 'true' && needs.decide.outputs.dry == 'false'
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/whop-sdk/${{ needs.decide.outputs.version }}/
+    permissions:
+      id-token: write  # the identity token PyPI exchanges for a short-lived upload token
     steps:
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: dist
           path: dist/
 
-      - name: Check the token is present
-        env:
-          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: |
-          set -euo pipefail
-          if [ -z "${PYPI_TOKEN:-}" ]; then
-            echo "::error::PYPI_TOKEN is not set on this repository; the upload would fail after the build."
-            exit 1
-          fi
-
       - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
         with:
           packages-dir: dist/
           print-hash: true
-          password: ${{ secrets.PYPI_TOKEN }}
 
   tag:
     needs: [decide, build, publish]
