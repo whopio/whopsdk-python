@@ -9,9 +9,10 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreateSocialAccountsRequestBody_Facebook(UniversalBaseModel):
-    platform: typing.Literal["facebook"] = "facebook"
+class CreateSocialAccountsRequestBody_Aimerce(UniversalBaseModel):
+    platform: typing.Literal["aimerce"] = "aimerce"
     account_id: typing.Optional[str] = None
+    api_key: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -23,8 +24,8 @@ class CreateSocialAccountsRequestBody_Facebook(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class CreateSocialAccountsRequestBody_Tiktok(UniversalBaseModel):
-    platform: typing.Literal["tiktok"] = "tiktok"
+class CreateSocialAccountsRequestBody_Facebook(UniversalBaseModel):
+    platform: typing.Literal["facebook"] = "facebook"
     account_id: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
@@ -52,10 +53,9 @@ class CreateSocialAccountsRequestBody_Klaviyo(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class CreateSocialAccountsRequestBody_Aimerce(UniversalBaseModel):
-    platform: typing.Literal["aimerce"] = "aimerce"
+class CreateSocialAccountsRequestBody_Tiktok(UniversalBaseModel):
+    platform: typing.Literal["tiktok"] = "tiktok"
     account_id: typing.Optional[str] = None
-    api_key: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -69,10 +69,10 @@ class CreateSocialAccountsRequestBody_Aimerce(UniversalBaseModel):
 
 CreateSocialAccountsRequestBody = typing_extensions.Annotated[
     typing.Union[
-        CreateSocialAccountsRequestBody_Facebook,
-        CreateSocialAccountsRequestBody_Tiktok,
-        CreateSocialAccountsRequestBody_Klaviyo,
         CreateSocialAccountsRequestBody_Aimerce,
+        CreateSocialAccountsRequestBody_Facebook,
+        CreateSocialAccountsRequestBody_Klaviyo,
+        CreateSocialAccountsRequestBody_Tiktok,
     ],
     pydantic.Field(discriminator="platform"),
 ]

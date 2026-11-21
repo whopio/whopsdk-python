@@ -15,10 +15,6 @@ if typing.TYPE_CHECKING:
         CreateSocialAccountsRequestBody_Klaviyo,
         CreateSocialAccountsRequestBody_Tiktok,
     )
-    from .create_social_accounts_request_body_aimerce import CreateSocialAccountsRequestBodyAimerce
-    from .create_social_accounts_request_body_facebook import CreateSocialAccountsRequestBodyFacebook
-    from .create_social_accounts_request_body_klaviyo import CreateSocialAccountsRequestBodyKlaviyo
-    from .create_social_accounts_request_body_tiktok import CreateSocialAccountsRequestBodyTiktok
     from .delete_social_accounts_response import DeleteSocialAccountsResponse
     from .list_social_accounts_request_direction import ListSocialAccountsRequestDirection
     from .list_social_accounts_request_order import ListSocialAccountsRequestOrder
@@ -31,10 +27,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectSocialAccountsRequestPlatform": ".connect_social_accounts_request_platform",
     "ConnectSocialAccountsResponse": ".connect_social_accounts_response",
     "CreateSocialAccountsRequestBody": ".create_social_accounts_request_body",
-    "CreateSocialAccountsRequestBodyAimerce": ".create_social_accounts_request_body_aimerce",
-    "CreateSocialAccountsRequestBodyFacebook": ".create_social_accounts_request_body_facebook",
-    "CreateSocialAccountsRequestBodyKlaviyo": ".create_social_accounts_request_body_klaviyo",
-    "CreateSocialAccountsRequestBodyTiktok": ".create_social_accounts_request_body_tiktok",
     "CreateSocialAccountsRequestBody_Aimerce": ".create_social_accounts_request_body",
     "CreateSocialAccountsRequestBody_Facebook": ".create_social_accounts_request_body",
     "CreateSocialAccountsRequestBody_Klaviyo": ".create_social_accounts_request_body",
@@ -75,10 +67,6 @@ __all__ = [
     "ConnectSocialAccountsRequestPlatform",
     "ConnectSocialAccountsResponse",
     "CreateSocialAccountsRequestBody",
-    "CreateSocialAccountsRequestBodyAimerce",
-    "CreateSocialAccountsRequestBodyFacebook",
-    "CreateSocialAccountsRequestBodyKlaviyo",
-    "CreateSocialAccountsRequestBodyTiktok",
     "CreateSocialAccountsRequestBody_Aimerce",
     "CreateSocialAccountsRequestBody_Facebook",
     "CreateSocialAccountsRequestBody_Klaviyo",

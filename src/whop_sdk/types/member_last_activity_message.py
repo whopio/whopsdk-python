@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .member_last_activity_message_object import MemberLastActivityMessageObject
+from .member_last_activity_message_type import MemberLastActivityMessageType
 from .user_summary import UserSummary
 
 
@@ -29,14 +29,14 @@ class MemberLastActivityMessage(UniversalBaseModel):
     The message ID.
     """
 
-    object: MemberLastActivityMessageObject = pydantic.Field()
-    """
-    Always `message`.
-    """
-
     plain_content: typing.Optional[str] = pydantic.Field(default=None)
     """
     The message text without formatting. `null` when the message has no text, such as an attachment on its own.
+    """
+
+    type: MemberLastActivityMessageType = pydantic.Field()
+    """
+    Always `message`.
     """
 
     if IS_PYDANTIC_V2:

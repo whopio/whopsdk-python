@@ -5,7 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .experience_notification_preference_level import ExperienceNotificationPreferenceLevel
-from .experience_notification_preference_object import ExperienceNotificationPreferenceObject
+from .experience_notification_preference_type import ExperienceNotificationPreferenceType
 from .notification_preference_scope import NotificationPreferenceScope
 
 
@@ -15,14 +15,14 @@ class ExperienceNotificationPreference(UniversalBaseModel):
     What the user is notified about in the experience: `all` notifications, only `mentions`, or `nothing`.
     """
 
-    object: ExperienceNotificationPreferenceObject = pydantic.Field()
-    """
-    The type of object. Always `experience_notification_preference`.
-    """
-
     scope: NotificationPreferenceScope = pydantic.Field()
     """
     What the preference applies to. Echo it back to `PATCH /users/me/preferences/notifications` to change this preference.
+    """
+
+    type: ExperienceNotificationPreferenceType = pydantic.Field()
+    """
+    Always `experience_notification_preference`.
     """
 
     if IS_PYDANTIC_V2:

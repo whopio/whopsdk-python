@@ -11,10 +11,10 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class AutomationStepSender_EmailAddress(UniversalBaseModel):
     """
-    Who a step's message comes from. `object` picks the shape: an `email_address` for an `email` step, a `user` on the team for a `message` step.
+    Who a step's message comes from. `type` picks the shape: an `email_address` for an `email` step, a `user` on the team for a `message` step.
     """
 
-    object: typing.Literal["email_address"] = "email_address"
+    type: typing.Literal["email_address"] = "email_address"
     address: str
     id: str
 
@@ -30,10 +30,10 @@ class AutomationStepSender_EmailAddress(UniversalBaseModel):
 
 class AutomationStepSender_User(UniversalBaseModel):
     """
-    Who a step's message comes from. `object` picks the shape: an `email_address` for an `email` step, a `user` on the team for a `message` step.
+    Who a step's message comes from. `type` picks the shape: an `email_address` for an `email` step, a `user` on the team for a `message` step.
     """
 
-    object: typing.Literal["user"] = "user"
+    type: typing.Literal["user"] = "user"
     id: str
     name: typing.Optional[str] = None
     username: str
@@ -49,5 +49,5 @@ class AutomationStepSender_User(UniversalBaseModel):
 
 
 AutomationStepSender = typing_extensions.Annotated[
-    typing.Union[AutomationStepSender_EmailAddress, AutomationStepSender_User], pydantic.Field(discriminator="object")
+    typing.Union[AutomationStepSender_EmailAddress, AutomationStepSender_User], pydantic.Field(discriminator="type")
 ]

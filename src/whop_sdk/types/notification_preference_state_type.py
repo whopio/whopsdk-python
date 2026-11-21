@@ -2,6 +2,6 @@
 
 import typing
 
-NotificationPreferenceStateObject = typing.Union[
+NotificationPreferenceStateType = typing.Union[
     typing.Literal["notification_preference", "experience_notification_preference"], typing.Any
 ]

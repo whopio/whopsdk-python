@@ -18,10 +18,10 @@ from .search_record_promo_code_promo_type import SearchRecordPromoCodePromoType
 
 class SearchRecord_Account(UniversalBaseModel):
     """
-    The record a result points to. Its fields depend on `object`, and every type shares basics like `title` and `image_url`.
+    The record a result points to. Its fields depend on `type`, and every type shares basics like `title` and `image_url`.
     """
 
-    object: typing.Literal["account"] = "account"
+    type: typing.Literal["account"] = "account"
     banner_image_url: typing.Optional[str] = None
     description: typing.Optional[str] = None
     id: str
@@ -42,10 +42,10 @@ class SearchRecord_Account(UniversalBaseModel):
 
 class SearchRecord_Affiliate(UniversalBaseModel):
     """
-    The record a result points to. Its fields depend on `object`, and every type shares basics like `title` and `image_url`.
+    The record a result points to. Its fields depend on `type`, and every type shares basics like `title` and `image_url`.
     """
 
-    object: typing.Literal["affiliate"] = "affiliate"
+    type: typing.Literal["affiliate"] = "affiliate"
     account_id: str
     description: typing.Optional[str] = None
     id: str
@@ -66,10 +66,10 @@ class SearchRecord_Affiliate(UniversalBaseModel):
 
 class SearchRecord_Member(UniversalBaseModel):
     """
-    The record a result points to. Its fields depend on `object`, and every type shares basics like `title` and `image_url`.
+    The record a result points to. Its fields depend on `type`, and every type shares basics like `title` and `image_url`.
     """
 
-    object: typing.Literal["member"] = "member"
+    type: typing.Literal["member"] = "member"
     account_id: str
     description: typing.Optional[str] = None
     email: typing.Optional[str] = None
@@ -92,10 +92,10 @@ class SearchRecord_Member(UniversalBaseModel):
 
 class SearchRecord_Membership(UniversalBaseModel):
     """
-    The record a result points to. Its fields depend on `object`, and every type shares basics like `title` and `image_url`.
+    The record a result points to. Its fields depend on `type`, and every type shares basics like `title` and `image_url`.
     """
 
-    object: typing.Literal["membership"] = "membership"
+    type: typing.Literal["membership"] = "membership"
     account_id: str
     description: typing.Optional[str] = None
     id: str
@@ -117,10 +117,10 @@ class SearchRecord_Membership(UniversalBaseModel):
 
 class SearchRecord_Payment(UniversalBaseModel):
     """
-    The record a result points to. Its fields depend on `object`, and every type shares basics like `title` and `image_url`.
+    The record a result points to. Its fields depend on `type`, and every type shares basics like `title` and `image_url`.
     """
 
-    object: typing.Literal["payment"] = "payment"
+    type: typing.Literal["payment"] = "payment"
     account_id: str
     created_at: str
     description: typing.Optional[str] = None
@@ -146,10 +146,10 @@ class SearchRecord_Payment(UniversalBaseModel):
 
 class SearchRecord_PromoCode(UniversalBaseModel):
     """
-    The record a result points to. Its fields depend on `object`, and every type shares basics like `title` and `image_url`.
+    The record a result points to. Its fields depend on `type`, and every type shares basics like `title` and `image_url`.
     """
 
-    object: typing.Literal["promo_code"] = "promo_code"
+    type: typing.Literal["promo_code"] = "promo_code"
     account_id: str
     amount_off: float
     currency: SearchRecordPromoCodeCurrency
@@ -173,10 +173,10 @@ class SearchRecord_PromoCode(UniversalBaseModel):
 
 class SearchRecord_ResolutionCenterCase(UniversalBaseModel):
     """
-    The record a result points to. Its fields depend on `object`, and every type shares basics like `title` and `image_url`.
+    The record a result points to. Its fields depend on `type`, and every type shares basics like `title` and `image_url`.
     """
 
-    object: typing.Literal["resolution_center_case"] = "resolution_center_case"
+    type: typing.Literal["resolution_center_case"] = "resolution_center_case"
     account_id: str
     description: typing.Optional[str] = None
     id: str
@@ -196,10 +196,10 @@ class SearchRecord_ResolutionCenterCase(UniversalBaseModel):
 
 class SearchRecord_Review(UniversalBaseModel):
     """
-    The record a result points to. Its fields depend on `object`, and every type shares basics like `title` and `image_url`.
+    The record a result points to. Its fields depend on `type`, and every type shares basics like `title` and `image_url`.
     """
 
-    object: typing.Literal["review"] = "review"
+    type: typing.Literal["review"] = "review"
     account_id: str
     created_at: str
     description: typing.Optional[str] = None
@@ -229,5 +229,5 @@ SearchRecord = typing_extensions.Annotated[
         SearchRecord_ResolutionCenterCase,
         SearchRecord_Review,
     ],
-    pydantic.Field(discriminator="object"),
+    pydantic.Field(discriminator="type"),
 ]

@@ -3,17 +3,17 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreateExternalAccountsRequestBodyKlaviyo(UniversalBaseModel):
+class CreateKlaviyoExternalAccount(UniversalBaseModel):
     """
     Connects the account's existing Klaviyo account with a private API key.
     """
 
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+    The account ID, prefixed `biz_`. For an account-scoped API key, omit this field to use its account.
     """
 
     api_key: str = pydantic.Field()

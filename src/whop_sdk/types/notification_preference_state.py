@@ -6,7 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .notification_preference_scope import NotificationPreferenceScope
 from .notification_preference_state_level import NotificationPreferenceStateLevel
-from .notification_preference_state_object import NotificationPreferenceStateObject
+from .notification_preference_state_type import NotificationPreferenceStateType
 
 
 class NotificationPreferenceState(UniversalBaseModel):
@@ -15,14 +15,14 @@ class NotificationPreferenceState(UniversalBaseModel):
     What the user is now notified about in this scope, or `null` if the preference was cleared and the scope inherits its default again.
     """
 
-    object: NotificationPreferenceStateObject = pydantic.Field()
-    """
-    Which kind of preference was written: `experience_notification_preference` for an experience level, `notification_preference` for a topic override.
-    """
-
     scope: NotificationPreferenceScope = pydantic.Field()
     """
     The scope that was written, resolved. `null` on a dimension means the preference is not narrowed there.
+    """
+
+    type: NotificationPreferenceStateType = pydantic.Field()
+    """
+    Which kind of preference was written: `experience_notification_preference` for an experience level, `notification_preference` for a topic override.
     """
 
     if IS_PYDANTIC_V2:

@@ -110,7 +110,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -158,15 +158,17 @@ class SocialAccountsClient:
         Examples
         --------
         from whop_sdk import Whop
-        from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
+        from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Aimerce
 
         client = Whop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.social_accounts.create(
-            request=CreateSocialAccountsRequestBody_Facebook(),
+            request=CreateSocialAccountsRequestBody_Aimerce(
+                api_key="api_key",
+            ),
         )
         """
         _response = self._raw_client.create(request=request, request_options=request_options)
@@ -207,7 +209,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -254,7 +256,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -296,7 +298,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -398,7 +400,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -455,10 +457,10 @@ class AsyncSocialAccountsClient:
         import asyncio
 
         from whop_sdk import AsyncWhop
-        from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
+        from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Aimerce
 
         client = AsyncWhop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -466,7 +468,9 @@ class AsyncSocialAccountsClient:
 
         async def main() -> None:
             await client.social_accounts.create(
-                request=CreateSocialAccountsRequestBody_Facebook(),
+                request=CreateSocialAccountsRequestBody_Aimerce(
+                    api_key="api_key",
+                ),
             )
 
 
@@ -512,7 +516,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -567,7 +571,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -619,7 +623,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-19-2",
+            "2026-11-20",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

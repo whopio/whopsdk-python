@@ -3,17 +3,17 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreateSocialAccountsRequestBodyAimerce(UniversalBaseModel):
+class CreateAimerceExternalAccount(UniversalBaseModel):
     """
     Connects the account's Aimerce shop with an API key and turns on the Aimerce tracking pixel. Requires the `company:manage_checkout` scope instead of `social_account:create`.
     """
 
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+    The account ID, prefixed `biz_`. For an account-scoped API key, omit this field to use its account.
     """
 
     api_key: str = pydantic.Field()
