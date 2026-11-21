@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .payment_instrument_card import PaymentInstrumentCard
+from .payment_instrument_crypto import PaymentInstrumentCrypto
 from .payment_method_icons import PaymentMethodIcons
 
 
@@ -12,6 +13,11 @@ class PaymentInstrument(UniversalBaseModel):
     card: typing.Optional[PaymentInstrumentCard] = pydantic.Field(default=None)
     """
     Card, Apple Pay, and Google Pay payments only: the card's network, last four, issuer identification number, expiry, and network transaction id.
+    """
+
+    crypto: typing.Optional[PaymentInstrumentCrypto] = pydantic.Field(default=None)
+    """
+    Crypto payments only: the on-chain transaction that the buyer sent.
     """
 
     display_name: str = pydantic.Field()
