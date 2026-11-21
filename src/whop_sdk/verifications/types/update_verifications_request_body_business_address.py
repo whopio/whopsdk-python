@@ -83,6 +83,11 @@ class UpdateVerificationsRequestBodyBusinessAddress(UniversalBaseModel):
     Owners of the business, up to 10 per request. Create Verification sends the business for review when the business details, business documents, and owners are in, and every new owner's documents are sent. It does this in the request that completes the set. It also does this when the last owner's documents finish sending in the background, or when you call it again after Update Verification. Owners can still be added, changed, or removed while the review waits on them.
     """
 
+    phone: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Phone number of the business representative, with country code.
+    """
+
     place_of_incorporation: typing.Optional[str] = pydantic.Field(default=None)
     """
     State or region where the business is incorporated. Sent to the verification provider and returned in the response; `requested_information` asks for it while it is still missing.
