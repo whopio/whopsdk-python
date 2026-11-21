@@ -72,9 +72,29 @@ class Invoice(UniversalBaseModel):
     """
 
     payment_method_id: typing.Optional[str] = None
+    quote_accepted_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the customer accepted and signed the quote, as an ISO 8601 timestamp. An edit to the draft clears it, unless the edit changes only `recipient_emails`. `null` when the quote was not accepted.
+    """
+
     quote_sent_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the draft was last emailed to its recipients as a quote, as an ISO 8601 timestamp. A quote stays a draft and cannot be paid. It is not issued on its `due_at`. `null` when the invoice was never sent as a quote.
+    """
+
+    quote_signature_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A link to the signature the customer drew, as a PNG image with a transparent background. The link expires after a short time. `null` when the quote was not accepted, and for a credential without the member:basic:read permission.
+    """
+
+    quote_signer_email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The email address of the Whop user who signed the quote. `null` when the quote was not accepted, when the signer was not signed in to Whop, and without the member:email:read permission.
+    """
+
+    quote_signer_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The full name the customer typed to sign the quote. `null` when the quote was not accepted, and for a credential without the member:basic:read permission.
     """
 
     recipient_emails: typing.List[str]
