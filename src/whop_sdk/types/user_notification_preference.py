@@ -6,7 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .notification_preference_scope import NotificationPreferenceScope
 from .user_notification_preference_level import UserNotificationPreferenceLevel
-from .user_notification_preference_object import UserNotificationPreferenceObject
+from .user_notification_preference_type import UserNotificationPreferenceType
 
 
 class UserNotificationPreference(UniversalBaseModel):
@@ -25,14 +25,14 @@ class UserNotificationPreference(UniversalBaseModel):
     What the user is notified about in this scope: `all` or `nothing`.
     """
 
-    object: UserNotificationPreferenceObject = pydantic.Field()
-    """
-    The type of object. Always `notification_preference`.
-    """
-
     scope: NotificationPreferenceScope = pydantic.Field()
     """
     What the preference applies to. Echo it back to `PATCH /users/me/preferences/notifications` to change this preference.
+    """
+
+    type: UserNotificationPreferenceType = pydantic.Field()
+    """
+    Always `notification_preference`.
     """
 
     updated_at: str = pydantic.Field()

@@ -15,10 +15,6 @@ if typing.TYPE_CHECKING:
         CreateExternalAccountsRequestBody_Klaviyo,
         CreateExternalAccountsRequestBody_Tiktok,
     )
-    from .create_external_accounts_request_body_aimerce import CreateExternalAccountsRequestBodyAimerce
-    from .create_external_accounts_request_body_facebook import CreateExternalAccountsRequestBodyFacebook
-    from .create_external_accounts_request_body_klaviyo import CreateExternalAccountsRequestBodyKlaviyo
-    from .create_external_accounts_request_body_tiktok import CreateExternalAccountsRequestBodyTiktok
     from .delete_external_accounts_response import DeleteExternalAccountsResponse
     from .list_external_accounts_request_direction import ListExternalAccountsRequestDirection
     from .list_external_accounts_request_order import ListExternalAccountsRequestOrder
@@ -31,10 +27,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectExternalAccountsRequestPlatform": ".connect_external_accounts_request_platform",
     "ConnectExternalAccountsResponse": ".connect_external_accounts_response",
     "CreateExternalAccountsRequestBody": ".create_external_accounts_request_body",
-    "CreateExternalAccountsRequestBodyAimerce": ".create_external_accounts_request_body_aimerce",
-    "CreateExternalAccountsRequestBodyFacebook": ".create_external_accounts_request_body_facebook",
-    "CreateExternalAccountsRequestBodyKlaviyo": ".create_external_accounts_request_body_klaviyo",
-    "CreateExternalAccountsRequestBodyTiktok": ".create_external_accounts_request_body_tiktok",
     "CreateExternalAccountsRequestBody_Aimerce": ".create_external_accounts_request_body",
     "CreateExternalAccountsRequestBody_Facebook": ".create_external_accounts_request_body",
     "CreateExternalAccountsRequestBody_Klaviyo": ".create_external_accounts_request_body",
@@ -75,10 +67,6 @@ __all__ = [
     "ConnectExternalAccountsRequestPlatform",
     "ConnectExternalAccountsResponse",
     "CreateExternalAccountsRequestBody",
-    "CreateExternalAccountsRequestBodyAimerce",
-    "CreateExternalAccountsRequestBodyFacebook",
-    "CreateExternalAccountsRequestBodyKlaviyo",
-    "CreateExternalAccountsRequestBodyTiktok",
     "CreateExternalAccountsRequestBody_Aimerce",
     "CreateExternalAccountsRequestBody_Facebook",
     "CreateExternalAccountsRequestBody_Klaviyo",

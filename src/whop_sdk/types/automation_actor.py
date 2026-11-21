@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .automation_actor_object import AutomationActorObject
+from .automation_actor_resource_type import AutomationActorResourceType
 
 
 class AutomationActor(UniversalBaseModel):
@@ -13,7 +13,7 @@ class AutomationActor(UniversalBaseModel):
     ID of the user, account or app, prefixed `user_`, `biz_` or `app_`.
     """
 
-    object: AutomationActorObject = pydantic.Field()
+    resource_type: AutomationActorResourceType = pydantic.Field()
     """
     What acted: a `user`, an `account` through one of its API keys, or an `app`.
     """

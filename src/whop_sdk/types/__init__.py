@@ -274,7 +274,7 @@ if typing.TYPE_CHECKING:
     from .authorized_user_user import AuthorizedUserUser
     from .automation import Automation
     from .automation_actor import AutomationActor
-    from .automation_actor_object import AutomationActorObject
+    from .automation_actor_resource_type import AutomationActorResourceType
     from .automation_enrollment import AutomationEnrollment
     from .automation_enrollment_status import AutomationEnrollmentStatus
     from .automation_enrollment_trigger_event import AutomationEnrollmentTriggerEvent
@@ -435,6 +435,10 @@ if typing.TYPE_CHECKING:
     from .course_thumbnail import CourseThumbnail
     from .course_visibilities import CourseVisibilities
     from .courses_assessment_question_types import CoursesAssessmentQuestionTypes
+    from .create_aimerce_external_account import CreateAimerceExternalAccount
+    from .create_facebook_external_account import CreateFacebookExternalAccount
+    from .create_klaviyo_external_account import CreateKlaviyoExternalAccount
+    from .create_tiktok_external_account import CreateTiktokExternalAccount
     from .currencies import Currencies
     from .custom_ctas import CustomCtas
     from .custom_field_types import CustomFieldTypes
@@ -571,7 +575,7 @@ if typing.TYPE_CHECKING:
     from .experience_list_item_image import ExperienceListItemImage
     from .experience_notification_preference import ExperienceNotificationPreference
     from .experience_notification_preference_level import ExperienceNotificationPreferenceLevel
-    from .experience_notification_preference_object import ExperienceNotificationPreferenceObject
+    from .experience_notification_preference_type import ExperienceNotificationPreferenceType
     from .experience_products_item import ExperienceProductsItem
     from .experiment import Experiment
     from .experiment_arm_results import ExperimentArmResults
@@ -791,9 +795,8 @@ if typing.TYPE_CHECKING:
     from .media_assets_ad_video import MediaAssetsAdVideo
     from .member import Member
     from .member_access_level import MemberAccessLevel
-    from .member_last_activity import MemberLastActivity
     from .member_last_activity_message import MemberLastActivityMessage
-    from .member_last_activity_message_object import MemberLastActivityMessageObject
+    from .member_last_activity_message_type import MemberLastActivityMessageType
     from .member_legacy import MemberLegacy
     from .member_legacy_company import MemberLegacyCompany
     from .member_legacy_user import MemberLegacyUser
@@ -874,7 +877,7 @@ if typing.TYPE_CHECKING:
     from .notification_preference_scope_channel import NotificationPreferenceScopeChannel
     from .notification_preference_state import NotificationPreferenceState
     from .notification_preference_state_level import NotificationPreferenceStateLevel
-    from .notification_preference_state_object import NotificationPreferenceStateObject
+    from .notification_preference_state_type import NotificationPreferenceStateType
     from .notification_sender import NotificationSender
     from .notification_topic import NotificationTopic
     from .notification_topic_summary import NotificationTopicSummary
@@ -1608,7 +1611,7 @@ if typing.TYPE_CHECKING:
     from .user_level import UserLevel
     from .user_notification_preference import UserNotificationPreference
     from .user_notification_preference_level import UserNotificationPreferenceLevel
-    from .user_notification_preference_object import UserNotificationPreferenceObject
+    from .user_notification_preference_type import UserNotificationPreferenceType
     from .user_preferences import UserPreferences
     from .user_profile_picture import UserProfilePicture
     from .user_recommended_action import UserRecommendedAction
@@ -1922,7 +1925,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AuthorizedUserUser": ".authorized_user_user",
     "Automation": ".automation",
     "AutomationActor": ".automation_actor",
-    "AutomationActorObject": ".automation_actor_object",
+    "AutomationActorResourceType": ".automation_actor_resource_type",
     "AutomationEnrollment": ".automation_enrollment",
     "AutomationEnrollmentStatus": ".automation_enrollment_status",
     "AutomationEnrollmentTriggerEvent": ".automation_enrollment_trigger_event",
@@ -2079,6 +2082,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CourseThumbnail": ".course_thumbnail",
     "CourseVisibilities": ".course_visibilities",
     "CoursesAssessmentQuestionTypes": ".courses_assessment_question_types",
+    "CreateAimerceExternalAccount": ".create_aimerce_external_account",
+    "CreateFacebookExternalAccount": ".create_facebook_external_account",
+    "CreateKlaviyoExternalAccount": ".create_klaviyo_external_account",
+    "CreateTiktokExternalAccount": ".create_tiktok_external_account",
     "Currencies": ".currencies",
     "CustomCtas": ".custom_ctas",
     "CustomFieldTypes": ".custom_field_types",
@@ -2205,7 +2212,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExperienceListItemImage": ".experience_list_item_image",
     "ExperienceNotificationPreference": ".experience_notification_preference",
     "ExperienceNotificationPreferenceLevel": ".experience_notification_preference_level",
-    "ExperienceNotificationPreferenceObject": ".experience_notification_preference_object",
+    "ExperienceNotificationPreferenceType": ".experience_notification_preference_type",
     "ExperienceProductsItem": ".experience_products_item",
     "Experiment": ".experiment",
     "ExperimentArmResults": ".experiment_arm_results",
@@ -2421,9 +2428,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MediaAssetsAdVideo": ".media_assets_ad_video",
     "Member": ".member",
     "MemberAccessLevel": ".member_access_level",
-    "MemberLastActivity": ".member_last_activity",
     "MemberLastActivityMessage": ".member_last_activity_message",
-    "MemberLastActivityMessageObject": ".member_last_activity_message_object",
+    "MemberLastActivityMessageType": ".member_last_activity_message_type",
     "MemberLegacy": ".member_legacy",
     "MemberLegacyCompany": ".member_legacy_company",
     "MemberLegacyUser": ".member_legacy_user",
@@ -2504,7 +2510,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationPreferenceScopeChannel": ".notification_preference_scope_channel",
     "NotificationPreferenceState": ".notification_preference_state",
     "NotificationPreferenceStateLevel": ".notification_preference_state_level",
-    "NotificationPreferenceStateObject": ".notification_preference_state_object",
+    "NotificationPreferenceStateType": ".notification_preference_state_type",
     "NotificationSender": ".notification_sender",
     "NotificationTopic": ".notification_topic",
     "NotificationTopicSummary": ".notification_topic_summary",
@@ -3120,7 +3126,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserLevel": ".user_level",
     "UserNotificationPreference": ".user_notification_preference",
     "UserNotificationPreferenceLevel": ".user_notification_preference_level",
-    "UserNotificationPreferenceObject": ".user_notification_preference_object",
+    "UserNotificationPreferenceType": ".user_notification_preference_type",
     "UserPreferences": ".user_preferences",
     "UserProfilePicture": ".user_profile_picture",
     "UserRecommendedAction": ".user_recommended_action",
@@ -3458,7 +3464,7 @@ __all__ = [
     "AuthorizedUserUser",
     "Automation",
     "AutomationActor",
-    "AutomationActorObject",
+    "AutomationActorResourceType",
     "AutomationEnrollment",
     "AutomationEnrollmentStatus",
     "AutomationEnrollmentTriggerEvent",
@@ -3615,6 +3621,10 @@ __all__ = [
     "CourseThumbnail",
     "CourseVisibilities",
     "CoursesAssessmentQuestionTypes",
+    "CreateAimerceExternalAccount",
+    "CreateFacebookExternalAccount",
+    "CreateKlaviyoExternalAccount",
+    "CreateTiktokExternalAccount",
     "Currencies",
     "CustomCtas",
     "CustomFieldTypes",
@@ -3741,7 +3751,7 @@ __all__ = [
     "ExperienceListItemImage",
     "ExperienceNotificationPreference",
     "ExperienceNotificationPreferenceLevel",
-    "ExperienceNotificationPreferenceObject",
+    "ExperienceNotificationPreferenceType",
     "ExperienceProductsItem",
     "Experiment",
     "ExperimentArmResults",
@@ -3957,9 +3967,8 @@ __all__ = [
     "MediaAssetsAdVideo",
     "Member",
     "MemberAccessLevel",
-    "MemberLastActivity",
     "MemberLastActivityMessage",
-    "MemberLastActivityMessageObject",
+    "MemberLastActivityMessageType",
     "MemberLegacy",
     "MemberLegacyCompany",
     "MemberLegacyUser",
@@ -4040,7 +4049,7 @@ __all__ = [
     "NotificationPreferenceScopeChannel",
     "NotificationPreferenceState",
     "NotificationPreferenceStateLevel",
-    "NotificationPreferenceStateObject",
+    "NotificationPreferenceStateType",
     "NotificationSender",
     "NotificationTopic",
     "NotificationTopicSummary",
@@ -4656,7 +4665,7 @@ __all__ = [
     "UserLevel",
     "UserNotificationPreference",
     "UserNotificationPreferenceLevel",
-    "UserNotificationPreferenceObject",
+    "UserNotificationPreferenceType",
     "UserPreferences",
     "UserProfilePicture",
     "UserRecommendedAction",
