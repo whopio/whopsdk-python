@@ -51,6 +51,11 @@ class UpdateVerificationsRequestBodyPersonalAddress(UniversalBaseModel):
     Personal address for the individual.
     """
 
+    phone: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Phone number of the person, with country code.
+    """
+
     requested_information: typing.Optional[
         typing.List[UpdateVerificationsRequestBodyPersonalAddressRequestedInformationItem]
     ] = pydantic.Field(default=None)
