@@ -36105,7 +36105,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**auto_capture_after_minutes:** `typing.Optional[int]` — Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+**auto_capture_after_minutes:** `typing.Optional[int]` — Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days), or 5 and 1440 (1 day) for `card_present`.
     
 </dd>
 </dl>
@@ -36121,7 +36121,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**capture:** `typing.Optional[bool]` — Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
+**capture:** `typing.Optional[bool]` — Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`. With a `card_present` `payment_method`, false holds the sale so its line items can change after the tap with `PATCH /payments/{id}`. Capture it for its total, or Whop captures it after `auto_capture_after_minutes` (10 by default).
     
 </dd>
 </dl>
@@ -36638,6 +36638,14 @@ client.payments.update(
 <dl>
 <dd>
 
+**line_items:** `typing.Optional[typing.List[UpdatePaymentsRequestLineItemsItem]]` — The line items of an in-person payment, changed after the reader reads the card and before the payment is captured. The list replaces the current one. Send each line already on the payment back with its `id`, and add a line with a one-time `variant`. Only lines added this way can change or be left out, and leaving one out removes it. Added lines aren't taxed. On an open payment, change them before you confirm the payment on the reader, within Stripe's 30 seconds. On a payment created with `capture: false`, change them before you capture, then capture the payment for its new `total`. Off by default. Contact Whop support to turn it on for your account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
     
 </dd>
@@ -36678,7 +36686,7 @@ client.payments.update(
 <dl>
 <dd>
 
-Captures the full amount of a card payment created with `capture: false`. The payment must still be in `requires_capture` before `capture_expires_at`. Partial capture, multiple captures, capturing more than the authorized amount, and tips are not supported.
+Captures a card payment created with `capture: false` for its `total`. The payment must still be in `requires_capture` before `capture_expires_at`. An in-person payment's total can move away from its authorized amount when its line items change after the card was authorized. Above it, Whop captures the difference where Stripe allows it for the merchant's category, and otherwise raises the authorization first, which the card can decline. Capturing more or less than the authorized amount is off by default. Contact Whop support to turn it on for your account. Multiple captures are not supported.
 </dd>
 </dl>
 </dd>
@@ -36720,6 +36728,22 @@ client.payments.capture(
 <dd>
 
 **id:** `str` — The unique identifier of the payment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**amount:** `typing.Optional[float]` — The amount to capture, in the payment's currency. It must equal the payment's `total`, and defaults to it. The total moves away from the authorized amount when its line items change after the card was authorized. Capturing more or less than the authorized amount is off by default. Contact Whop support to turn it on for your account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Keys and values added to the payment's `metadata` once it is captured, such as the file of the buyer's signature. Only for an in-person payment created with `capture: false`.
     
 </dd>
 </dl>

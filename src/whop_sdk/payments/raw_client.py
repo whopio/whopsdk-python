@@ -48,6 +48,7 @@ from .types.summary_payments_request_statuses_item import SummaryPaymentsRequest
 from .types.summary_payments_request_substatuses_item import SummaryPaymentsRequestSubstatusesItem
 from .types.summary_payments_request_tracking_states_item import SummaryPaymentsRequestTrackingStatesItem
 from .types.summary_payments_response import SummaryPaymentsResponse
+from .types.update_payments_request_line_items_item import UpdatePaymentsRequestLineItemsItem
 from .types.update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 from pydantic import ValidationError
 
@@ -436,13 +437,13 @@ class RawPaymentsClient:
             Adds the account's card surcharge, set in `card_surcharge` on the account's preferences, when the card is a credit card. Send it only after you have shown the buyer the surcharge. Whop calculates the amount. You cannot send an amount. With a `confirmation_token`, the surcharge is a line of its own, calculated on the purchase after discounts and before tax. With a `card_present` `payment_method`, the surcharge is added after the reader reads the card, with `POST /payments/{id}/apply_surcharge`. A debit or prepaid card, or an account that cannot surcharge, pays no surcharge. The payment still goes ahead. Only for a one-time purchase, and not with `quote_id`. Defaults to false.
 
         auto_capture_after_minutes : typing.Optional[int]
-            Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+            Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days), or 5 and 1440 (1 day) for `card_present`.
 
         billing_address : typing.Optional[CreatePaymentsRequestBillingAddress]
             The buyer's billing address, returned on the payment as `billing_address` and used to calculate tax when Whop calculates it for the account. Only with a `paypal` `payment_method`. Only the keys you supply are kept.
 
         capture : typing.Optional[bool]
-            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
+            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`. With a `card_present` `payment_method`, false holds the sale so its line items can change after the tap with `PATCH /payments/{id}`. Capture it for its total, or Whop captures it after `auto_capture_after_minutes` (10 by default).
 
         confirmation_token : typing.Optional[str]
             A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
@@ -894,6 +895,7 @@ class RawPaymentsClient:
         self,
         id: str,
         *,
+        line_items: typing.Optional[typing.Sequence[UpdatePaymentsRequestLineItemsItem]] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[UpdatePaymentsRequestShippingAddress] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -905,6 +907,9 @@ class RawPaymentsClient:
         ----------
         id : str
             The payment, prefixed `pay_`.
+
+        line_items : typing.Optional[typing.Sequence[UpdatePaymentsRequestLineItemsItem]]
+            The line items of an in-person payment, changed after the reader reads the card and before the payment is captured. The list replaces the current one. Send each line already on the payment back with its `id`, and add a line with a one-time `variant`. Only lines added this way can change or be left out, and leaving one out removes it. Added lines aren't taxed. On an open payment, change them before you confirm the payment on the reader, within Stripe's 30 seconds. On a payment created with `capture: false`, change them before you capture, then capture the payment for its new `total`. Off by default. Contact Whop support to turn it on for your account.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
@@ -918,13 +923,18 @@ class RawPaymentsClient:
         Returns
         -------
         HttpResponse[Payment]
-            shipping address replaced
+            line items changed after the card was read
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items,
+                    annotation=typing.Sequence[UpdatePaymentsRequestLineItemsItem],
+                    direction="write",
+                ),
                 "return_url": return_url,
                 "shipping_address": convert_and_respect_annotation_metadata(
                     object_=shipping_address,
@@ -1002,15 +1012,26 @@ class RawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def capture(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        amount: typing.Optional[float] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentStatus]:
         """
-        Captures the full amount of a card payment created with `capture: false`. The payment must still be in `requires_capture` before `capture_expires_at`. Partial capture, multiple captures, capturing more than the authorized amount, and tips are not supported.
+        Captures a card payment created with `capture: false` for its `total`. The payment must still be in `requires_capture` before `capture_expires_at`. An in-person payment's total can move away from its authorized amount when its line items change after the card was authorized. Above it, Whop captures the difference where Stripe allows it for the merchant's category, and otherwise raises the authorization first, which the card can decline. Capturing more or less than the authorized amount is off by default. Contact Whop support to turn it on for your account. Multiple captures are not supported.
 
         Parameters
         ----------
         id : str
             The unique identifier of the payment.
+
+        amount : typing.Optional[float]
+            The amount to capture, in the payment's currency. It must equal the payment's `total`, and defaults to it. The total moves away from the authorized amount when its line items change after the card was authorized. Capturing more or less than the authorized amount is off by default. Contact Whop support to turn it on for your account.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Keys and values added to the payment's `metadata` once it is captured, such as the file of the buyer's signature. Only for an in-person payment created with `capture: false`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1018,13 +1039,21 @@ class RawPaymentsClient:
         Returns
         -------
         HttpResponse[PaymentStatus]
-            Payment captured
+            Payment captured for its total, with metadata
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/capture",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
+            json={
+                "amount": amount,
+                "metadata": metadata,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -2191,13 +2220,13 @@ class AsyncRawPaymentsClient:
             Adds the account's card surcharge, set in `card_surcharge` on the account's preferences, when the card is a credit card. Send it only after you have shown the buyer the surcharge. Whop calculates the amount. You cannot send an amount. With a `confirmation_token`, the surcharge is a line of its own, calculated on the purchase after discounts and before tax. With a `card_present` `payment_method`, the surcharge is added after the reader reads the card, with `POST /payments/{id}/apply_surcharge`. A debit or prepaid card, or an account that cannot surcharge, pays no surcharge. The payment still goes ahead. Only for a one-time purchase, and not with `quote_id`. Defaults to false.
 
         auto_capture_after_minutes : typing.Optional[int]
-            Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+            Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days), or 5 and 1440 (1 day) for `card_present`.
 
         billing_address : typing.Optional[CreatePaymentsRequestBillingAddress]
             The buyer's billing address, returned on the payment as `billing_address` and used to calculate tax when Whop calculates it for the account. Only with a `paypal` `payment_method`. Only the keys you supply are kept.
 
         capture : typing.Optional[bool]
-            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
+            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`. With a `card_present` `payment_method`, false holds the sale so its line items can change after the tap with `PATCH /payments/{id}`. Capture it for its total, or Whop captures it after `auto_capture_after_minutes` (10 by default).
 
         confirmation_token : typing.Optional[str]
             A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
@@ -2651,6 +2680,7 @@ class AsyncRawPaymentsClient:
         self,
         id: str,
         *,
+        line_items: typing.Optional[typing.Sequence[UpdatePaymentsRequestLineItemsItem]] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[UpdatePaymentsRequestShippingAddress] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2662,6 +2692,9 @@ class AsyncRawPaymentsClient:
         ----------
         id : str
             The payment, prefixed `pay_`.
+
+        line_items : typing.Optional[typing.Sequence[UpdatePaymentsRequestLineItemsItem]]
+            The line items of an in-person payment, changed after the reader reads the card and before the payment is captured. The list replaces the current one. Send each line already on the payment back with its `id`, and add a line with a one-time `variant`. Only lines added this way can change or be left out, and leaving one out removes it. Added lines aren't taxed. On an open payment, change them before you confirm the payment on the reader, within Stripe's 30 seconds. On a payment created with `capture: false`, change them before you capture, then capture the payment for its new `total`. Off by default. Contact Whop support to turn it on for your account.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
@@ -2675,13 +2708,18 @@ class AsyncRawPaymentsClient:
         Returns
         -------
         AsyncHttpResponse[Payment]
-            shipping address replaced
+            line items changed after the card was read
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items,
+                    annotation=typing.Sequence[UpdatePaymentsRequestLineItemsItem],
+                    direction="write",
+                ),
                 "return_url": return_url,
                 "shipping_address": convert_and_respect_annotation_metadata(
                     object_=shipping_address,
@@ -2759,15 +2797,26 @@ class AsyncRawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def capture(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        amount: typing.Optional[float] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentStatus]:
         """
-        Captures the full amount of a card payment created with `capture: false`. The payment must still be in `requires_capture` before `capture_expires_at`. Partial capture, multiple captures, capturing more than the authorized amount, and tips are not supported.
+        Captures a card payment created with `capture: false` for its `total`. The payment must still be in `requires_capture` before `capture_expires_at`. An in-person payment's total can move away from its authorized amount when its line items change after the card was authorized. Above it, Whop captures the difference where Stripe allows it for the merchant's category, and otherwise raises the authorization first, which the card can decline. Capturing more or less than the authorized amount is off by default. Contact Whop support to turn it on for your account. Multiple captures are not supported.
 
         Parameters
         ----------
         id : str
             The unique identifier of the payment.
+
+        amount : typing.Optional[float]
+            The amount to capture, in the payment's currency. It must equal the payment's `total`, and defaults to it. The total moves away from the authorized amount when its line items change after the card was authorized. Capturing more or less than the authorized amount is off by default. Contact Whop support to turn it on for your account.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Keys and values added to the payment's `metadata` once it is captured, such as the file of the buyer's signature. Only for an in-person payment created with `capture: false`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2775,13 +2824,21 @@ class AsyncRawPaymentsClient:
         Returns
         -------
         AsyncHttpResponse[PaymentStatus]
-            Payment captured
+            Payment captured for its total, with metadata
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/capture",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
+            json={
+                "amount": amount,
+                "metadata": metadata,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:

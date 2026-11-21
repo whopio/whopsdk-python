@@ -89,6 +89,11 @@ if typing.TYPE_CHECKING:
     from .summary_payments_response import SummaryPaymentsResponse
     from .summary_payments_response_groups import SummaryPaymentsResponseGroups
     from .summary_payments_response_groups_substatus import SummaryPaymentsResponseGroupsSubstatus
+    from .update_payments_request_line_items_item import UpdatePaymentsRequestLineItemsItem
+    from .update_payments_request_line_items_item_variant import UpdatePaymentsRequestLineItemsItemVariant
+    from .update_payments_request_line_items_item_variant_product import (
+        UpdatePaymentsRequestLineItemsItemVariantProduct,
+    )
     from .update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestBillingAddress": ".create_payments_request_billing_address",
@@ -158,6 +163,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SummaryPaymentsResponse": ".summary_payments_response",
     "SummaryPaymentsResponseGroups": ".summary_payments_response_groups",
     "SummaryPaymentsResponseGroupsSubstatus": ".summary_payments_response_groups_substatus",
+    "UpdatePaymentsRequestLineItemsItem": ".update_payments_request_line_items_item",
+    "UpdatePaymentsRequestLineItemsItemVariant": ".update_payments_request_line_items_item_variant",
+    "UpdatePaymentsRequestLineItemsItemVariantProduct": ".update_payments_request_line_items_item_variant_product",
     "UpdatePaymentsRequestShippingAddress": ".update_payments_request_shipping_address",
 }
 
@@ -251,5 +259,8 @@ __all__ = [
     "SummaryPaymentsResponse",
     "SummaryPaymentsResponseGroups",
     "SummaryPaymentsResponseGroupsSubstatus",
+    "UpdatePaymentsRequestLineItemsItem",
+    "UpdatePaymentsRequestLineItemsItemVariant",
+    "UpdatePaymentsRequestLineItemsItemVariantProduct",
     "UpdatePaymentsRequestShippingAddress",
 ]
