@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .list_payouts_response_data_item_failure_next_step import ListPayoutsResponseDataItemFailureNextStep
 
 
 class ListPayoutsResponseDataItemFailure(UniversalBaseModel):
@@ -24,7 +25,12 @@ class ListPayoutsResponseDataItemFailure(UniversalBaseModel):
 
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Human-readable explanation of the failure. Callers holding `payout:destination:read` may receive text personalized to the destination; other callers get the generic catalog message.
+    Human-readable explanation of the failure. Callers holding `payout:destination:read` may receive text personalized to the destination. Other callers get the generic catalog message.
+    """
+
+    next_step: typing.Optional[ListPayoutsResponseDataItemFailureNextStep] = pydantic.Field(default=None)
+    """
+    What to do before a new payout can succeed. `withdraw_again` means that the payout method needs no change. `null` when the failure has no code from the error catalog, or when the account owner canceled the payout.
     """
 
     if IS_PYDANTIC_V2:
