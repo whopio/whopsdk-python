@@ -49,6 +49,7 @@ if typing.TYPE_CHECKING:
     from .post_invoice_voided_payload_api_version import PostInvoiceVoidedPayloadApiVersion
     from .post_invoice_voided_payload_type import PostInvoiceVoidedPayloadType
     from .send_invoices_request_collection_method import SendInvoicesRequestCollectionMethod
+    from .send_invoices_request_send_as import SendInvoicesRequestSendAs
     from .update_invoices_request_billing_address import UpdateInvoicesRequestBillingAddress
     from .update_invoices_request_items_item import UpdateInvoicesRequestItemsItem
     from .update_invoices_request_items_item_variant import UpdateInvoicesRequestItemsItemVariant
@@ -104,6 +105,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostInvoiceVoidedPayloadApiVersion": ".post_invoice_voided_payload_api_version",
     "PostInvoiceVoidedPayloadType": ".post_invoice_voided_payload_type",
     "SendInvoicesRequestCollectionMethod": ".send_invoices_request_collection_method",
+    "SendInvoicesRequestSendAs": ".send_invoices_request_send_as",
     "UpdateInvoicesRequestBillingAddress": ".update_invoices_request_billing_address",
     "UpdateInvoicesRequestItemsItem": ".update_invoices_request_items_item",
     "UpdateInvoicesRequestItemsItemVariant": ".update_invoices_request_items_item_variant",
@@ -175,6 +177,7 @@ __all__ = [
     "PostInvoiceVoidedPayloadApiVersion",
     "PostInvoiceVoidedPayloadType",
     "SendInvoicesRequestCollectionMethod",
+    "SendInvoicesRequestSendAs",
     "UpdateInvoicesRequestBillingAddress",
     "UpdateInvoicesRequestItemsItem",
     "UpdateInvoicesRequestItemsItemVariant",

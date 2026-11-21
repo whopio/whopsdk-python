@@ -72,6 +72,11 @@ class Invoice(UniversalBaseModel):
     """
 
     payment_method_id: typing.Optional[str] = None
+    quote_sent_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the draft was last emailed to its recipients as a quote, as an ISO 8601 timestamp. A quote stays a draft and cannot be paid. It is not issued on its `due_at`. `null` when the invoice was never sent as a quote.
+    """
+
     recipient_emails: typing.List[str]
     scheduled_charge_at: typing.Optional[str] = pydantic.Field(default=None)
     """
@@ -86,7 +91,7 @@ class Invoice(UniversalBaseModel):
     scheduled_send_at: typing.Optional[str] = None
     sends_on_due_date: bool = pydantic.Field()
     """
-    Whether this draft is issued automatically when its `due_at` arrives. Issuing it charges its `payment_method_id`, or emails its payment link to its `recipient_emails`. `false` for an invoice that is not a draft and for a draft with a scheduled send. `false` while sending the draft would fail for missing recipients or an unavailable payment link. `false` for a draft that had no future `due_at` when it was last saved. `false` for a draft created before 2026-11-12T22:00:00Z.
+    Whether this draft is issued automatically when its `due_at` arrives. Issuing it charges its `payment_method_id`, or emails its payment link to its `recipient_emails`. `false` for an invoice that is not a draft, for a draft with a scheduled send, and for a draft sent as a quote. `false` while sending the draft would fail for missing recipients or an unavailable payment link. `false` for a draft that had no future `due_at` when it was last saved. `false` for a draft created before 2026-11-12T22:00:00Z.
     """
 
     status: InvoiceStatus
