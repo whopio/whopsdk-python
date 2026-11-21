@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.ledger_activity import LedgerActivity
 from .raw_client import AsyncRawDepositsClient, RawDepositsClient
+from .types.create_deposits_request_currency import CreateDepositsRequestCurrency
 from .types.create_deposits_request_metadata_value import CreateDepositsRequestMetadataValue
 from .types.create_deposits_response import CreateDepositsResponse
 from .types.reverse_deposits_request_metadata_value import ReverseDepositsRequestMetadataValue
@@ -34,6 +35,7 @@ class DepositsClient:
         *,
         destination: str,
         amount: typing.Optional[float] = OMIT,
+        currency: typing.Optional[CreateDepositsRequestCurrency] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
         origin_bic: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
@@ -49,6 +51,9 @@ class DepositsClient:
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
+
+        currency : typing.Optional[CreateDepositsRequestCurrency]
+            Bank account currency to set up for the destination. A USD account is always set up. Pass `cad` once to also set up a CAD account. After that, every request returns the details of all set-up currencies.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
             Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
@@ -83,6 +88,7 @@ class DepositsClient:
         _response = self._raw_client.create(
             destination=destination,
             amount=amount,
+            currency=currency,
             metadata=metadata,
             origin_bic=origin_bic,
             payment_method_id=payment_method_id,
@@ -166,6 +172,7 @@ class AsyncDepositsClient:
         *,
         destination: str,
         amount: typing.Optional[float] = OMIT,
+        currency: typing.Optional[CreateDepositsRequestCurrency] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
         origin_bic: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
@@ -181,6 +188,9 @@ class AsyncDepositsClient:
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
+
+        currency : typing.Optional[CreateDepositsRequestCurrency]
+            Bank account currency to set up for the destination. A USD account is always set up. Pass `cad` once to also set up a CAD account. After that, every request returns the details of all set-up currencies.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
             Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
@@ -223,6 +233,7 @@ class AsyncDepositsClient:
         _response = await self._raw_client.create(
             destination=destination,
             amount=amount,
+            currency=currency,
             metadata=metadata,
             origin_bic=origin_bic,
             payment_method_id=payment_method_id,

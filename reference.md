@@ -18641,6 +18641,14 @@ client.deposits.create(
 <dl>
 <dd>
 
+**currency:** `typing.Optional[CreateDepositsRequestCurrency]` — Bank account currency to set up for the destination. A USD account is always set up. Pass `cad` once to also set up a CAD account. After that, every request returns the details of all set-up currencies.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]` — Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
     
 </dd>
