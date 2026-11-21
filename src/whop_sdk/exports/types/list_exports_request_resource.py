@@ -37,7 +37,6 @@ ListExportsRequestResource = typing.Union[
         "promo_codes",
         "resolutions",
         "entries",
-        "leads",
         "invoices",
         "cancelation_reasons",
         "child_companies",
