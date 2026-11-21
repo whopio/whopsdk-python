@@ -819,6 +819,7 @@ class PaymentsClient:
         self,
         id: str,
         *,
+        destination_wallet: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         partial_amount: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -830,6 +831,9 @@ class PaymentsClient:
         ----------
         id : str
             The payment to refund, prefixed `pay_`.
+
+        destination_wallet : typing.Optional[str]
+            The buyer's Solana wallet address, for a crypto payment only. A crypto payment is refunded to the wallet it came from when that wallet is known. When it is not known, the refund is refused until you send this address. The refund then goes to this address as USDC on Solana and cannot be reversed. Not accepted for any other payment.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Your own key-value data to attach to the refund, returned on it and on its `refund.created` and `refund.updated` webhooks. At most 50 keys; keys up to 100 characters and values up to 500.
@@ -859,7 +863,11 @@ class PaymentsClient:
         )
         """
         _response = self._raw_client.refund(
-            id, metadata=metadata, partial_amount=partial_amount, request_options=request_options
+            id,
+            destination_wallet=destination_wallet,
+            metadata=metadata,
+            partial_amount=partial_amount,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1924,6 +1932,7 @@ class AsyncPaymentsClient:
         self,
         id: str,
         *,
+        destination_wallet: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         partial_amount: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1935,6 +1944,9 @@ class AsyncPaymentsClient:
         ----------
         id : str
             The payment to refund, prefixed `pay_`.
+
+        destination_wallet : typing.Optional[str]
+            The buyer's Solana wallet address, for a crypto payment only. A crypto payment is refunded to the wallet it came from when that wallet is known. When it is not known, the refund is refused until you send this address. The refund then goes to this address as USDC on Solana and cannot be reversed. Not accepted for any other payment.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Your own key-value data to attach to the refund, returned on it and on its `refund.created` and `refund.updated` webhooks. At most 50 keys; keys up to 100 characters and values up to 500.
@@ -1972,7 +1984,11 @@ class AsyncPaymentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.refund(
-            id, metadata=metadata, partial_amount=partial_amount, request_options=request_options
+            id,
+            destination_wallet=destination_wallet,
+            metadata=metadata,
+            partial_amount=partial_amount,
+            request_options=request_options,
         )
         return _response.data
 
