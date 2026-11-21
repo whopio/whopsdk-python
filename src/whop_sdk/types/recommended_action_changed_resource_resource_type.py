@@ -2,4 +2,4 @@
 
 import typing
 
-RecommendedActionChangedResourceResourceType = typing.Union[typing.Literal["variant"], typing.Any]
+RecommendedActionChangedResourceResourceType = typing.Union[typing.Literal["variant", "promo_code"], typing.Any]

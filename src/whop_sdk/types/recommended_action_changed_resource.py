@@ -10,7 +10,7 @@ from .recommended_action_changed_resource_resource_type import RecommendedAction
 class RecommendedActionChangedResource(UniversalBaseModel):
     id: str = pydantic.Field()
     """
-    ID of the resource. A `variant` ID is prefixed `plan_`.
+    ID of the resource. A `variant` ID is prefixed `plan_` and a `promo_code` ID `promo_`.
     """
 
     resource_type: RecommendedActionChangedResourceResourceType = pydantic.Field()
