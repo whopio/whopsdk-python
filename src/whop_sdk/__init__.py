@@ -2237,6 +2237,7 @@ if typing.TYPE_CHECKING:
         UpdateCoursesRequestThumbnail,
     )
     from .deposits import (
+        CreateDepositsRequestCurrency,
         CreateDepositsRequestMetadataValue,
         CreateDepositsResponse,
         CreateDepositsResponseMethods,
@@ -4108,6 +4109,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateCompanyTokenTransactionsRequest_Transfer": ".company_token_transactions",
     "CreateCourseLessonsRequestThumbnail": ".course_lessons",
     "CreateCoursesRequestThumbnail": ".courses",
+    "CreateDepositsRequestCurrency": ".deposits",
     "CreateDepositsRequestMetadataValue": ".deposits",
     "CreateDepositsResponse": ".deposits",
     "CreateDepositsResponseMethods": ".deposits",
@@ -7508,6 +7510,7 @@ __all__ = [
     "CreateCompanyTokenTransactionsRequest_Transfer",
     "CreateCourseLessonsRequestThumbnail",
     "CreateCoursesRequestThumbnail",
+    "CreateDepositsRequestCurrency",
     "CreateDepositsRequestMetadataValue",
     "CreateDepositsResponse",
     "CreateDepositsResponseMethods",

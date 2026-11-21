@@ -17,6 +17,7 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.ledger_activity import LedgerActivity
+from .types.create_deposits_request_currency import CreateDepositsRequestCurrency
 from .types.create_deposits_request_metadata_value import CreateDepositsRequestMetadataValue
 from .types.create_deposits_response import CreateDepositsResponse
 from .types.reverse_deposits_request_metadata_value import ReverseDepositsRequestMetadataValue
@@ -35,6 +36,7 @@ class RawDepositsClient:
         *,
         destination: str,
         amount: typing.Optional[float] = OMIT,
+        currency: typing.Optional[CreateDepositsRequestCurrency] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
         origin_bic: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
@@ -50,6 +52,9 @@ class RawDepositsClient:
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
+
+        currency : typing.Optional[CreateDepositsRequestCurrency]
+            Bank account currency to set up for the destination. A USD account is always set up. Pass `cad` once to also set up a CAD account. After that, every request returns the details of all set-up currencies.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
             Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
@@ -74,6 +79,7 @@ class RawDepositsClient:
             method="POST",
             json={
                 "amount": amount,
+                "currency": currency,
                 "destination": destination,
                 "metadata": convert_and_respect_annotation_metadata(
                     object_=metadata,
@@ -270,6 +276,7 @@ class AsyncRawDepositsClient:
         *,
         destination: str,
         amount: typing.Optional[float] = OMIT,
+        currency: typing.Optional[CreateDepositsRequestCurrency] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
         origin_bic: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
@@ -285,6 +292,9 @@ class AsyncRawDepositsClient:
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
+
+        currency : typing.Optional[CreateDepositsRequestCurrency]
+            Bank account currency to set up for the destination. A USD account is always set up. Pass `cad` once to also set up a CAD account. After that, every request returns the details of all set-up currencies.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
             Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
@@ -309,6 +319,7 @@ class AsyncRawDepositsClient:
             method="POST",
             json={
                 "amount": amount,
+                "currency": currency,
                 "destination": destination,
                 "metadata": convert_and_respect_annotation_metadata(
                     object_=metadata,
