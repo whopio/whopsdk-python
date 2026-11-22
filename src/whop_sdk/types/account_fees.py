@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_covered_payout_fees import AccountCoveredPayoutFees
 from .account_fee import AccountFee
 from .account_fee_markups import AccountFeeMarkups
+from .account_subaccount_fee_mode import AccountSubaccountFeeMode
 
 
 class AccountFees(UniversalBaseModel):
@@ -163,6 +164,11 @@ class AccountFees(UniversalBaseModel):
     sepa_return: AccountFee = pydantic.Field()
     """
     A flat fee in euros (EUR), charged when the buyer's bank returns a SEPA Direct Debit payment unpaid.
+    """
+
+    subaccount_fee_mode: typing.Optional[AccountSubaccountFeeMode] = pydantic.Field(default=None)
+    """
+    How this account charges its subaccounts, and whether the caller can change it. `null` for a subaccount.
     """
 
     tax_calculation: AccountFee = pydantic.Field()
