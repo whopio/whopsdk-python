@@ -17,6 +17,11 @@ class LedgerActivitySource(UniversalBaseModel):
     Source of this ledger activity. Platform markup fees use object platform_fee and the ledger activity ID.
     """
 
+    account_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID of the account that runs the ad campaign (ad_campaign sources only).
+    """
+
     amount_float: typing.Optional[float] = pydantic.Field(default=None)
     """
     Payout amount as a decimal number in the destination currency (payout sources only; requires payout:withdrawal:read).
@@ -137,6 +142,11 @@ class LedgerActivitySource(UniversalBaseModel):
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
     Lifecycle status. On payout sources this is the payout status (requires payout:withdrawal:read); on airdrop_link sources it is the claim-link status (ungated); on payment and top-up sources it is the friendly payment status such as succeeded/pending/failed (ungated); on bank_deposit sources it is succeeded, reversal_in_progress or reversed (ungated).
+    """
+
+    title: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Name of the ad campaign the spend, payout, or funding belongs to (ad_campaign sources only).
     """
 
     to_amount: typing.Optional[str] = pydantic.Field(default=None)

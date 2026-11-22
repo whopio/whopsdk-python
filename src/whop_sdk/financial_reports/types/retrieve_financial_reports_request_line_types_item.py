@@ -6,8 +6,11 @@ RetrieveFinancialReportsRequestLineTypesItem = typing.Union[
     typing.Literal[
         "account_settlement",
         "ad_affiliate_payout_received",
+        "ad_balance_funding_receipt",
         "ad_budget_release",
         "ad_campaign_budget",
+        "ad_funding_disbursement",
+        "ad_income_receipt",
         "ad_publisher_payout",
         "ad_publisher_payout_received",
         "ad_spend_charge",
