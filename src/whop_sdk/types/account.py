@@ -13,6 +13,7 @@ from .account_company_formation import AccountCompanyFormation
 from .account_financing import AccountFinancing
 from .account_home_preferences_item import AccountHomePreferencesItem
 from .account_level import AccountLevel
+from .account_merchant_of_record import AccountMerchantOfRecord
 from .account_onboarding_type import AccountOnboardingType
 from .account_opengraph_image_variant import AccountOpengraphImageVariant
 from .account_parent import AccountParent
@@ -38,7 +39,7 @@ from .user_summary import UserSummary
 class Account(UniversalBaseModel):
     ads_spend_usd: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Lifetime charged ad spend for the account, in USD. Computed only on `list` for callers with `stats:read` on the account; `null` otherwise.
+    Lifetime charged ad spend for the account, in USD. Computed only on `list` for callers with `stats:read` on the account, and `null` otherwise.
     """
 
     balances: typing.List[AccountBalanceToken]
@@ -178,6 +179,11 @@ class Account(UniversalBaseModel):
     Account logo image URL.
     """
 
+    merchant_of_record: typing.Optional[AccountMerchantOfRecord] = pydantic.Field(default=None)
+    """
+    The merchant of record for the account's payments. `whop` means Whop is the merchant of record and the account can switch. `null` means Whop is the merchant of record and the account cannot switch. `pending` means the account switched and waits for approval. Checkout takes no payments until then. `required_actions` lists what the account must answer, or says that it was not approved. `account` means the account is the merchant of record. Switch with `merchant_of_record` on `PATCH /accounts/{id}/preferences`. Whop sends `account.updated` when this value changes.
+    """
+
     metadata: typing.Dict[str, typing.Any] = pydantic.Field()
     """
     Arbitrary key/value metadata supplied at account creation.
@@ -305,6 +311,11 @@ class Account(UniversalBaseModel):
     """
 
     social_links: typing.List[AccountSocialLink]
+    statement_descriptor: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The text on buyers' card statements for this account's payments, up to 22 characters. While Whop is the merchant of record, it starts with `WHOP*`. Whop drops the `WHOP*` prefix when the account is its own merchant of record and can take card payments. It keeps the prefix if fewer than five characters or no letters would remain. A product or payment descriptor takes precedence. `null` uses a descriptor made from the account's title.
+    """
+
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
     Whether the account can operate on Whop: `active` or `suspended`. Computed on `list`, `retrieve`, `me`, and `suspend`; `null` otherwise.
@@ -379,12 +390,12 @@ class Account(UniversalBaseModel):
 
     volume_l30d_usd: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Volume through the account in the last 30 days (GMV from paid receipts), normalized to USD. Computed only on `list` for callers with `stats:read` on the account; `null` otherwise.
+    Volume through the account in the last 30 days (GMV from paid receipts), normalized to USD. Computed only on `list` for callers with `stats:read` on the account, and `null` otherwise.
     """
 
     volume_usd: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Lifetime volume through the account — sales plus transfers received — normalized to USD. Computed only on `list` for callers with `stats:read` on the account; `null` otherwise.
+    Lifetime volume through the account (sales plus transfers received), normalized to USD. Computed only on `list` for callers with `stats:read` on the account, and `null` otherwise.
     """
 
     wallet: typing.Optional[AccountWallet] = pydantic.Field(default=None)
