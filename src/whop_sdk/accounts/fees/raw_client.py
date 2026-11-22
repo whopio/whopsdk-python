@@ -45,6 +45,7 @@ from .types.update_fees_request_pool_payout import UpdateFeesRequestPoolPayout
 from .types.update_fees_request_revshare import UpdateFeesRequestRevshare
 from .types.update_fees_request_sepa_dispute import UpdateFeesRequestSepaDispute
 from .types.update_fees_request_sepa_return import UpdateFeesRequestSepaReturn
+from .types.update_fees_request_subaccount_fee_mode import UpdateFeesRequestSubaccountFeeMode
 from .types.update_fees_request_tax_calculation import UpdateFeesRequestTaxCalculation
 from .types.update_fees_request_tax_service import UpdateFeesRequestTaxService
 from .types.update_fees_request_three_ds import UpdateFeesRequestThreeDs
@@ -159,6 +160,7 @@ class RawFeesClient:
         revshare: typing.Optional[UpdateFeesRequestRevshare] = OMIT,
         sepa_dispute: typing.Optional[UpdateFeesRequestSepaDispute] = OMIT,
         sepa_return: typing.Optional[UpdateFeesRequestSepaReturn] = OMIT,
+        subaccount_fee_mode: typing.Optional[UpdateFeesRequestSubaccountFeeMode] = OMIT,
         tax_calculation: typing.Optional[UpdateFeesRequestTaxCalculation] = OMIT,
         tax_service: typing.Optional[UpdateFeesRequestTaxService] = OMIT,
         three_ds: typing.Optional[UpdateFeesRequestThreeDs] = OMIT,
@@ -262,6 +264,9 @@ class RawFeesClient:
 
         sepa_return : typing.Optional[UpdateFeesRequestSepaReturn]
             The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        subaccount_fee_mode : typing.Optional[UpdateFeesRequestSubaccountFeeMode]
+            Changes how this account charges its subaccounts. Only an account without a parent account can set it. An account can change `inherit` to either other mode. It can change `subaccount_rates_collect_difference` to `subaccount_rates`. Whop must make other changes.
 
         tax_calculation : typing.Optional[UpdateFeesRequestTaxCalculation]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -377,6 +382,9 @@ class RawFeesClient:
                 ),
                 "sepa_return": convert_and_respect_annotation_metadata(
                     object_=sepa_return, annotation=UpdateFeesRequestSepaReturn, direction="write"
+                ),
+                "subaccount_fee_mode": convert_and_respect_annotation_metadata(
+                    object_=subaccount_fee_mode, annotation=UpdateFeesRequestSubaccountFeeMode, direction="write"
                 ),
                 "tax_calculation": convert_and_respect_annotation_metadata(
                     object_=tax_calculation, annotation=UpdateFeesRequestTaxCalculation, direction="write"
@@ -554,6 +562,7 @@ class AsyncRawFeesClient:
         revshare: typing.Optional[UpdateFeesRequestRevshare] = OMIT,
         sepa_dispute: typing.Optional[UpdateFeesRequestSepaDispute] = OMIT,
         sepa_return: typing.Optional[UpdateFeesRequestSepaReturn] = OMIT,
+        subaccount_fee_mode: typing.Optional[UpdateFeesRequestSubaccountFeeMode] = OMIT,
         tax_calculation: typing.Optional[UpdateFeesRequestTaxCalculation] = OMIT,
         tax_service: typing.Optional[UpdateFeesRequestTaxService] = OMIT,
         three_ds: typing.Optional[UpdateFeesRequestThreeDs] = OMIT,
@@ -657,6 +666,9 @@ class AsyncRawFeesClient:
 
         sepa_return : typing.Optional[UpdateFeesRequestSepaReturn]
             The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        subaccount_fee_mode : typing.Optional[UpdateFeesRequestSubaccountFeeMode]
+            Changes how this account charges its subaccounts. Only an account without a parent account can set it. An account can change `inherit` to either other mode. It can change `subaccount_rates_collect_difference` to `subaccount_rates`. Whop must make other changes.
 
         tax_calculation : typing.Optional[UpdateFeesRequestTaxCalculation]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -772,6 +784,9 @@ class AsyncRawFeesClient:
                 ),
                 "sepa_return": convert_and_respect_annotation_metadata(
                     object_=sepa_return, annotation=UpdateFeesRequestSepaReturn, direction="write"
+                ),
+                "subaccount_fee_mode": convert_and_respect_annotation_metadata(
+                    object_=subaccount_fee_mode, annotation=UpdateFeesRequestSubaccountFeeMode, direction="write"
                 ),
                 "tax_calculation": convert_and_respect_annotation_metadata(
                     object_=tax_calculation, annotation=UpdateFeesRequestTaxCalculation, direction="write"

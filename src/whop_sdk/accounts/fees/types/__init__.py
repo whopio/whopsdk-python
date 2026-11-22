@@ -83,6 +83,8 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_sepa_dispute_regions_value import UpdateFeesRequestSepaDisputeRegionsValue
     from .update_fees_request_sepa_return import UpdateFeesRequestSepaReturn
     from .update_fees_request_sepa_return_regions_value import UpdateFeesRequestSepaReturnRegionsValue
+    from .update_fees_request_subaccount_fee_mode import UpdateFeesRequestSubaccountFeeMode
+    from .update_fees_request_subaccount_fee_mode_mode import UpdateFeesRequestSubaccountFeeModeMode
     from .update_fees_request_tax_calculation import UpdateFeesRequestTaxCalculation
     from .update_fees_request_tax_calculation_regions_value import UpdateFeesRequestTaxCalculationRegionsValue
     from .update_fees_request_tax_service import UpdateFeesRequestTaxService
@@ -163,6 +165,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestSepaDisputeRegionsValue": ".update_fees_request_sepa_dispute_regions_value",
     "UpdateFeesRequestSepaReturn": ".update_fees_request_sepa_return",
     "UpdateFeesRequestSepaReturnRegionsValue": ".update_fees_request_sepa_return_regions_value",
+    "UpdateFeesRequestSubaccountFeeMode": ".update_fees_request_subaccount_fee_mode",
+    "UpdateFeesRequestSubaccountFeeModeMode": ".update_fees_request_subaccount_fee_mode_mode",
     "UpdateFeesRequestTaxCalculation": ".update_fees_request_tax_calculation",
     "UpdateFeesRequestTaxCalculationRegionsValue": ".update_fees_request_tax_calculation_regions_value",
     "UpdateFeesRequestTaxService": ".update_fees_request_tax_service",
@@ -267,6 +271,8 @@ __all__ = [
     "UpdateFeesRequestSepaDisputeRegionsValue",
     "UpdateFeesRequestSepaReturn",
     "UpdateFeesRequestSepaReturnRegionsValue",
+    "UpdateFeesRequestSubaccountFeeMode",
+    "UpdateFeesRequestSubaccountFeeModeMode",
     "UpdateFeesRequestTaxCalculation",
     "UpdateFeesRequestTaxCalculationRegionsValue",
     "UpdateFeesRequestTaxService",
