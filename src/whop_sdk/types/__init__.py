@@ -67,6 +67,7 @@ if typing.TYPE_CHECKING:
     from .account_level import AccountLevel
     from .account_link import AccountLink
     from .account_link_use_cases import AccountLinkUseCases
+    from .account_merchant_of_record import AccountMerchantOfRecord
     from .account_onboarding_type import AccountOnboardingType
     from .account_opengraph_image_variant import AccountOpengraphImageVariant
     from .account_parent import AccountParent
@@ -1722,6 +1723,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountLevel": ".account_level",
     "AccountLink": ".account_link",
     "AccountLinkUseCases": ".account_link_use_cases",
+    "AccountMerchantOfRecord": ".account_merchant_of_record",
     "AccountOnboardingType": ".account_onboarding_type",
     "AccountOpengraphImageVariant": ".account_opengraph_image_variant",
     "AccountParent": ".account_parent",
@@ -3261,6 +3263,7 @@ __all__ = [
     "AccountLevel",
     "AccountLink",
     "AccountLinkUseCases",
+    "AccountMerchantOfRecord",
     "AccountOnboardingType",
     "AccountOpengraphImageVariant",
     "AccountParent",

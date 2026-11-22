@@ -513,6 +513,7 @@ class AccountsClient:
         show_reviews_dtc: typing.Optional[bool] = OMIT,
         show_user_directory: typing.Optional[bool] = OMIT,
         social_links: typing.Optional[typing.Sequence[typing.Dict[str, typing.Any]]] = OMIT,
+        statement_descriptor: typing.Optional[str] = OMIT,
         store_page_config: typing.Optional[UpdateAccountsRequestStorePageConfig] = OMIT,
         target_audience: typing.Optional[str] = OMIT,
         tax_collection_enabled_states: typing.Optional[
@@ -643,6 +644,9 @@ class AccountsClient:
         social_links : typing.Optional[typing.Sequence[typing.Dict[str, typing.Any]]]
             The full list of social links to display for the account.
 
+        statement_descriptor : typing.Optional[str]
+            The text on buyers' card statements for this account's payments. It must be 5 to 22 characters with at least one letter, using only A-Z and 0-9 after any `WHOP*` prefix. It must start with `WHOP*` while Whop is the merchant of record. Once the account has switched to being its own merchant of record (`merchant_of_record` in account preferences), it can be set without the prefix. `null` clears it. Requires the `payout:account:update` scope.
+
         store_page_config : typing.Optional[UpdateAccountsRequestStorePageConfig]
             Account store page display configuration.
 
@@ -739,6 +743,7 @@ class AccountsClient:
             show_reviews_dtc=show_reviews_dtc,
             show_user_directory=show_user_directory,
             social_links=social_links,
+            statement_descriptor=statement_descriptor,
             store_page_config=store_page_config,
             target_audience=target_audience,
             tax_collection_enabled_states=tax_collection_enabled_states,
@@ -1588,6 +1593,7 @@ class AsyncAccountsClient:
         show_reviews_dtc: typing.Optional[bool] = OMIT,
         show_user_directory: typing.Optional[bool] = OMIT,
         social_links: typing.Optional[typing.Sequence[typing.Dict[str, typing.Any]]] = OMIT,
+        statement_descriptor: typing.Optional[str] = OMIT,
         store_page_config: typing.Optional[UpdateAccountsRequestStorePageConfig] = OMIT,
         target_audience: typing.Optional[str] = OMIT,
         tax_collection_enabled_states: typing.Optional[
@@ -1718,6 +1724,9 @@ class AsyncAccountsClient:
         social_links : typing.Optional[typing.Sequence[typing.Dict[str, typing.Any]]]
             The full list of social links to display for the account.
 
+        statement_descriptor : typing.Optional[str]
+            The text on buyers' card statements for this account's payments. It must be 5 to 22 characters with at least one letter, using only A-Z and 0-9 after any `WHOP*` prefix. It must start with `WHOP*` while Whop is the merchant of record. Once the account has switched to being its own merchant of record (`merchant_of_record` in account preferences), it can be set without the prefix. `null` clears it. Requires the `payout:account:update` scope.
+
         store_page_config : typing.Optional[UpdateAccountsRequestStorePageConfig]
             Account store page display configuration.
 
@@ -1822,6 +1831,7 @@ class AsyncAccountsClient:
             show_reviews_dtc=show_reviews_dtc,
             show_user_directory=show_user_directory,
             social_links=social_links,
+            statement_descriptor=statement_descriptor,
             store_page_config=store_page_config,
             target_audience=target_audience,
             tax_collection_enabled_states=tax_collection_enabled_states,

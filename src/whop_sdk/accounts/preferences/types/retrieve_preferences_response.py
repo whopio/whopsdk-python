@@ -145,7 +145,7 @@ class RetrievePreferencesResponse(UniversalBaseModel):
 
     merchant_of_record: typing.Optional[RetrievePreferencesResponseMerchantOfRecord] = pydantic.Field(default=None)
     """
-    The merchant of record for the account's payments. `whop` means Whop is the merchant of record and the account can switch. `null` means Whop is the merchant of record and the account's business category cannot switch. `pending` means the account switched and waits for approval. Checkout takes no payments until then. `account` means the account is the merchant of record.
+    The merchant of record for the account's payments. `whop` means Whop is the merchant of record and the account can switch. `null` means Whop is the merchant of record and the account cannot switch. `pending` means the account switched and waits for approval. Checkout takes no payments until then. `account` means the account is the merchant of record.
     """
 
     off_session_payment_rules: bool = pydantic.Field()
