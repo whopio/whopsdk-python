@@ -9,17 +9,17 @@ from .update_payments_request_line_items_item_variant_product import UpdatePayme
 
 class UpdatePaymentsRequestLineItemsItemVariant(UniversalBaseModel):
     """
-    A one-time line to add. A payment carries one added line per product, so a line for a product that already has one replaces it.
+    A line to add. Each product holds one added line, so a new line for the same product replaces it.
     """
 
     initial_price: float = pydantic.Field()
     """
-    The line's price in the payment's currency, at most two decimal places. 0 takes the product's added line off.
+    Price in the payment's currency, up to two decimal places. `0` removes the product's added line.
     """
 
     product: UpdatePaymentsRequestLineItemsItemVariantProduct = pydantic.Field()
     """
-    The product the line belongs to. It is found by `external_identifier` and created hidden when the account has none, so it never shows in the store.
+    Product for the line, matched by `external_identifier`. Created hidden if it doesn't exist. An existing product must be hidden.
     """
 
     if IS_PYDANTIC_V2:

@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdatePaymentsRequestLineItemsItemVariantProduct(UniversalBaseModel):
     """
-    The product the line belongs to. It is found by `external_identifier` and created hidden when the account has none, so it never shows in the store.
+    Product for the line, matched by `external_identifier`. Created hidden if it doesn't exist. An existing product must be hidden.
     """
 
     external_identifier: str = pydantic.Field()
@@ -18,7 +18,7 @@ class UpdatePaymentsRequestLineItemsItemVariantProduct(UniversalBaseModel):
 
     title: str = pydantic.Field()
     """
-    The product's name, also the line's label on the receipt.
+    Product name, shown as the line's label on the receipt.
     """
 
     if IS_PYDANTIC_V2:
