@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class AutomationStepMessageConfig(UniversalBaseModel):
+    attachment_ids: typing.Optional[typing.List[str]] = None
     sender_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The team member the message comes from, as a user ID prefixed `user_`. Only that member can name themselves. `null` sends as the account owner.

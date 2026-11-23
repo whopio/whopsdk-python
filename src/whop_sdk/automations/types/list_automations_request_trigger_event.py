@@ -8,6 +8,7 @@ ListAutomationsRequestTriggerEvent = typing.Union[
         "payment.failed",
         "membership.activated",
         "membership.trial_ending_soon",
+        "membership.cancel_at_period_end_changed",
         "member.created",
         "invoice.created",
         "invoice.paid",

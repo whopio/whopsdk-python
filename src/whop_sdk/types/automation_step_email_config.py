@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class AutomationStepEmailConfig(UniversalBaseModel):
+    attachment_ids: typing.Optional[typing.List[str]] = None
     sender_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The mailbox the email comes from, prefixed `emaddr_`: an email address on the account whose domain can send email. Naming one needs what `/email_addresses` asks to use it. `null` sends from the account's name through Whop.
