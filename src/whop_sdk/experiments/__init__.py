@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .types import (
         CreateExperimentsRequestBucketBy,
         CreateExperimentsRequestControl,
+        CreateExperimentsRequestDecisionMode,
         CreateExperimentsRequestKind,
         CreateExperimentsRequestVariantsItem,
         ExposuresExperimentsResponse,
@@ -20,11 +21,13 @@ if typing.TYPE_CHECKING:
         ResultsExperimentsResponse,
         ResultsExperimentsResponseStatus,
         UpdateExperimentsRequestControl,
+        UpdateExperimentsRequestDecisionMode,
         UpdateExperimentsRequestVariantsItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateExperimentsRequestBucketBy": ".types",
     "CreateExperimentsRequestControl": ".types",
+    "CreateExperimentsRequestDecisionMode": ".types",
     "CreateExperimentsRequestKind": ".types",
     "CreateExperimentsRequestVariantsItem": ".types",
     "ExposuresExperimentsResponse": ".types",
@@ -36,6 +39,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResultsExperimentsResponse": ".types",
     "ResultsExperimentsResponseStatus": ".types",
     "UpdateExperimentsRequestControl": ".types",
+    "UpdateExperimentsRequestDecisionMode": ".types",
     "UpdateExperimentsRequestVariantsItem": ".types",
 }
 
@@ -64,6 +68,7 @@ def __dir__():
 __all__ = [
     "CreateExperimentsRequestBucketBy",
     "CreateExperimentsRequestControl",
+    "CreateExperimentsRequestDecisionMode",
     "CreateExperimentsRequestKind",
     "CreateExperimentsRequestVariantsItem",
     "ExposuresExperimentsResponse",
@@ -75,5 +80,6 @@ __all__ = [
     "ResultsExperimentsResponse",
     "ResultsExperimentsResponseStatus",
     "UpdateExperimentsRequestControl",
+    "UpdateExperimentsRequestDecisionMode",
     "UpdateExperimentsRequestVariantsItem",
 ]

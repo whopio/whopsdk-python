@@ -586,6 +586,7 @@ if typing.TYPE_CHECKING:
     from .experiment_arm_results import ExperimentArmResults
     from .experiment_bucket_by import ExperimentBucketBy
     from .experiment_control import ExperimentControl
+    from .experiment_decision_mode import ExperimentDecisionMode
     from .experiment_exposure import ExperimentExposure
     from .experiment_exposure_batch import ExperimentExposureBatch
     from .experiment_kind import ExperimentKind
@@ -2228,6 +2229,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExperimentArmResults": ".experiment_arm_results",
     "ExperimentBucketBy": ".experiment_bucket_by",
     "ExperimentControl": ".experiment_control",
+    "ExperimentDecisionMode": ".experiment_decision_mode",
     "ExperimentExposure": ".experiment_exposure",
     "ExperimentExposureBatch": ".experiment_exposure_batch",
     "ExperimentKind": ".experiment_kind",
@@ -3772,6 +3774,7 @@ __all__ = [
     "ExperimentArmResults",
     "ExperimentBucketBy",
     "ExperimentControl",
+    "ExperimentDecisionMode",
     "ExperimentExposure",
     "ExperimentExposureBatch",
     "ExperimentKind",

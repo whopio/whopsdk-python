@@ -21,6 +21,7 @@ from ..types.experiment_stat import ExperimentStat
 from ..types.exposures_experiments_request_subject import ExposuresExperimentsRequestSubject
 from .types.create_experiments_request_bucket_by import CreateExperimentsRequestBucketBy
 from .types.create_experiments_request_control import CreateExperimentsRequestControl
+from .types.create_experiments_request_decision_mode import CreateExperimentsRequestDecisionMode
 from .types.create_experiments_request_kind import CreateExperimentsRequestKind
 from .types.create_experiments_request_variants_item import CreateExperimentsRequestVariantsItem
 from .types.exposures_experiments_response import ExposuresExperimentsResponse
@@ -30,6 +31,7 @@ from .types.list_experiments_request_status import ListExperimentsRequestStatus
 from .types.list_experiments_response import ListExperimentsResponse
 from .types.results_experiments_response import ResultsExperimentsResponse
 from .types.update_experiments_request_control import UpdateExperimentsRequestControl
+from .types.update_experiments_request_decision_mode import UpdateExperimentsRequestDecisionMode
 from .types.update_experiments_request_variants_item import UpdateExperimentsRequestVariantsItem
 from pydantic import ValidationError
 
@@ -169,6 +171,7 @@ class RawExperimentsClient:
         flag_key: str,
         bucket_by: typing.Optional[CreateExperimentsRequestBucketBy] = OMIT,
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
+        decision_mode: typing.Optional[CreateExperimentsRequestDecisionMode] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         kind: typing.Optional[CreateExperimentsRequestKind] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -193,6 +196,9 @@ class RawExperimentsClient:
             Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]`; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
 
         control : typing.Optional[CreateExperimentsRequestControl]
+
+        decision_mode : typing.Optional[CreateExperimentsRequestDecisionMode]
+            How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Omit to leave it to the owner. Not accepted on feature flags.
 
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
@@ -233,6 +239,7 @@ class RawExperimentsClient:
                 "control": convert_and_respect_annotation_metadata(
                     object_=control, annotation=CreateExperimentsRequestControl, direction="write"
                 ),
+                "decision_mode": decision_mode,
                 "flag_key": flag_key,
                 "hypothesis": hypothesis,
                 "kind": kind,
@@ -436,6 +443,7 @@ class RawExperimentsClient:
         *,
         account_id: typing.Optional[str] = None,
         control: typing.Optional[UpdateExperimentsRequestControl] = OMIT,
+        decision_mode: typing.Optional[UpdateExperimentsRequestDecisionMode] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
         variants: typing.Optional[typing.Sequence[UpdateExperimentsRequestVariantsItem]] = OMIT,
@@ -453,6 +461,9 @@ class RawExperimentsClient:
             Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
+
+        decision_mode : typing.Optional[UpdateExperimentsRequestDecisionMode]
+            How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Send `null` to leave it to the owner. Not accepted on feature flags. Omit to leave unchanged.
 
         hypothesis : typing.Optional[str]
             Omit to leave unchanged. Send an empty string to clear it. Not accepted on feature flags. When setting it, structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." same as on create.
@@ -482,6 +493,7 @@ class RawExperimentsClient:
                 "control": convert_and_respect_annotation_metadata(
                     object_=control, annotation=UpdateExperimentsRequestControl, direction="write"
                 ),
+                "decision_mode": decision_mode,
                 "hypothesis": hypothesis,
                 "related_resource": convert_and_respect_annotation_metadata(
                     object_=related_resource, annotation=ExperimentResourceReference, direction="write"
@@ -983,6 +995,7 @@ class AsyncRawExperimentsClient:
         flag_key: str,
         bucket_by: typing.Optional[CreateExperimentsRequestBucketBy] = OMIT,
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
+        decision_mode: typing.Optional[CreateExperimentsRequestDecisionMode] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         kind: typing.Optional[CreateExperimentsRequestKind] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -1007,6 +1020,9 @@ class AsyncRawExperimentsClient:
             Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]`; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
 
         control : typing.Optional[CreateExperimentsRequestControl]
+
+        decision_mode : typing.Optional[CreateExperimentsRequestDecisionMode]
+            How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Omit to leave it to the owner. Not accepted on feature flags.
 
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
@@ -1047,6 +1063,7 @@ class AsyncRawExperimentsClient:
                 "control": convert_and_respect_annotation_metadata(
                     object_=control, annotation=CreateExperimentsRequestControl, direction="write"
                 ),
+                "decision_mode": decision_mode,
                 "flag_key": flag_key,
                 "hypothesis": hypothesis,
                 "kind": kind,
@@ -1250,6 +1267,7 @@ class AsyncRawExperimentsClient:
         *,
         account_id: typing.Optional[str] = None,
         control: typing.Optional[UpdateExperimentsRequestControl] = OMIT,
+        decision_mode: typing.Optional[UpdateExperimentsRequestDecisionMode] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
         variants: typing.Optional[typing.Sequence[UpdateExperimentsRequestVariantsItem]] = OMIT,
@@ -1267,6 +1285,9 @@ class AsyncRawExperimentsClient:
             Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
+
+        decision_mode : typing.Optional[UpdateExperimentsRequestDecisionMode]
+            How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Send `null` to leave it to the owner. Not accepted on feature flags. Omit to leave unchanged.
 
         hypothesis : typing.Optional[str]
             Omit to leave unchanged. Send an empty string to clear it. Not accepted on feature flags. When setting it, structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." same as on create.
@@ -1296,6 +1317,7 @@ class AsyncRawExperimentsClient:
                 "control": convert_and_respect_annotation_metadata(
                     object_=control, annotation=UpdateExperimentsRequestControl, direction="write"
                 ),
+                "decision_mode": decision_mode,
                 "hypothesis": hypothesis,
                 "related_resource": convert_and_respect_annotation_metadata(
                     object_=related_resource, annotation=ExperimentResourceReference, direction="write"

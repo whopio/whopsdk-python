@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .create_experiments_request_bucket_by import CreateExperimentsRequestBucketBy
     from .create_experiments_request_control import CreateExperimentsRequestControl
+    from .create_experiments_request_decision_mode import CreateExperimentsRequestDecisionMode
     from .create_experiments_request_kind import CreateExperimentsRequestKind
     from .create_experiments_request_variants_item import CreateExperimentsRequestVariantsItem
     from .exposures_experiments_response import ExposuresExperimentsResponse
@@ -19,10 +20,12 @@ if typing.TYPE_CHECKING:
     from .results_experiments_response import ResultsExperimentsResponse
     from .results_experiments_response_status import ResultsExperimentsResponseStatus
     from .update_experiments_request_control import UpdateExperimentsRequestControl
+    from .update_experiments_request_decision_mode import UpdateExperimentsRequestDecisionMode
     from .update_experiments_request_variants_item import UpdateExperimentsRequestVariantsItem
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateExperimentsRequestBucketBy": ".create_experiments_request_bucket_by",
     "CreateExperimentsRequestControl": ".create_experiments_request_control",
+    "CreateExperimentsRequestDecisionMode": ".create_experiments_request_decision_mode",
     "CreateExperimentsRequestKind": ".create_experiments_request_kind",
     "CreateExperimentsRequestVariantsItem": ".create_experiments_request_variants_item",
     "ExposuresExperimentsResponse": ".exposures_experiments_response",
@@ -34,6 +37,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResultsExperimentsResponse": ".results_experiments_response",
     "ResultsExperimentsResponseStatus": ".results_experiments_response_status",
     "UpdateExperimentsRequestControl": ".update_experiments_request_control",
+    "UpdateExperimentsRequestDecisionMode": ".update_experiments_request_decision_mode",
     "UpdateExperimentsRequestVariantsItem": ".update_experiments_request_variants_item",
 }
 
@@ -62,6 +66,7 @@ def __dir__():
 __all__ = [
     "CreateExperimentsRequestBucketBy",
     "CreateExperimentsRequestControl",
+    "CreateExperimentsRequestDecisionMode",
     "CreateExperimentsRequestKind",
     "CreateExperimentsRequestVariantsItem",
     "ExposuresExperimentsResponse",
@@ -73,5 +78,6 @@ __all__ = [
     "ResultsExperimentsResponse",
     "ResultsExperimentsResponseStatus",
     "UpdateExperimentsRequestControl",
+    "UpdateExperimentsRequestDecisionMode",
     "UpdateExperimentsRequestVariantsItem",
 ]
