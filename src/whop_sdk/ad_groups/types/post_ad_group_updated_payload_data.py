@@ -79,7 +79,7 @@ class PostAdGroupUpdatedPayloadData(UniversalBaseModel):
 
     desired_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Cost per result to aim for (`average_target`) or never exceed (`maximum_target`). `null` for `minimum_cost` bidding.
+    The cost per result the advertiser wants for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` when the ad group uses its campaign's `desired_cost_per_result`.
     """
 
     devices: AdGroupDevices = pydantic.Field()

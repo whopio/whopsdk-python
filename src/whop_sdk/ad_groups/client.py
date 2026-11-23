@@ -141,7 +141,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -230,7 +230,7 @@ class AdGroupsClient:
             Age, gender, and automatic-audience targeting.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+            The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
 
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
@@ -269,7 +269,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -343,7 +343,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -383,7 +383,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -449,7 +449,7 @@ class AdGroupsClient:
             Age, gender, and automatic-audience targeting.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+            The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
 
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
@@ -488,7 +488,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -554,7 +554,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -589,7 +589,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -622,7 +622,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -742,7 +742,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -838,7 +838,7 @@ class AsyncAdGroupsClient:
             Age, gender, and automatic-audience targeting.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+            The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
 
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
@@ -879,7 +879,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -961,7 +961,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1011,7 +1011,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1083,7 +1083,7 @@ class AsyncAdGroupsClient:
             Age, gender, and automatic-audience targeting.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+            The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
 
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
@@ -1124,7 +1124,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1198,7 +1198,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1241,7 +1241,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1282,7 +1282,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -129,7 +129,7 @@ class AdCampaign(UniversalBaseModel):
 
     cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Spend divided by Whop pixel-attributed results; null when nothing Whop-attributable is being optimized for.
+    Spend divided by Whop pixel-attributed results. For `impressions`, it's the spend per 1,000 impressions. `null` when nothing Whop-attributable is being optimized for.
     """
 
     cost_per_schedule: typing.Optional[float] = pydantic.Field(default=None)
@@ -179,7 +179,7 @@ class AdCampaign(UniversalBaseModel):
 
     desired_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The cost per result, in USD, the advertiser wants this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. `null` when no target is set.
+    The cost per result, in USD, the advertiser wants this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` when no target is set.
     """
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -220,7 +220,7 @@ class AdCampaign(UniversalBaseModel):
 
     objective: typing.Optional[AdCampaignObjective] = pydantic.Field(default=None)
     """
-    The goal the campaign optimizes toward. `awareness` appears only on campaigns created before it was retired; those campaigns can't launch.
+    The goal the campaign optimizes toward. `awareness` optimizes for impressions. `engagement` appears only on campaigns created before it was retired.
     """
 
     purchase_value: float = pydantic.Field()
@@ -240,7 +240,7 @@ class AdCampaign(UniversalBaseModel):
 
     result_event: typing.Optional[AdCampaignResultEvent] = pydantic.Field(default=None)
     """
-    The Whop pixel conversion event whose attributed count represents results — the optimization goal, or the highest-volume attributed event for campaigns that budget per ad group. Null when the goal isn't a Whop-attributed event.
+    The Whop pixel event whose attributed count represents results. It's the optimization goal, or the highest-volume attributed event for a campaign that budgets per ad group. `impressions` counts reported impressions. `null` when the goal isn't a Whop-attributed event.
     """
 
     result_event_name: typing.Optional[str] = pydantic.Field(default=None)
@@ -301,7 +301,7 @@ class AdCampaign(UniversalBaseModel):
 
     target_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The desired cost per result for `target_result_event`, in USD. `null` when none is set.
+    The desired cost per result for `target_result_event`, in USD. For `impressions`, it's the cost per 1,000 impressions. `null` when none is set or the ad groups set different ones.
     """
 
     target_result_event: typing.Optional[str] = pydantic.Field(default=None)

@@ -137,7 +137,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -215,7 +215,7 @@ class AdCampaignsClient:
             The kind of campaign to create. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
 
         desired_cost_per_result : typing.Optional[float]
-            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. Omit or send `null` for no target.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. Omit or send `null` for no target.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -239,12 +239,12 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.ad_campaigns.create(
-            objective="traffic",
+            objective="awareness",
             title="Now hiring mobile detailers — Austin",
         )
         """
@@ -308,7 +308,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -348,7 +348,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -400,7 +400,7 @@ class AdCampaignsClient:
             Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
 
         desired_cost_per_result : typing.Optional[float]
-            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. `null` clears it.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` clears it.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -430,7 +430,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -477,7 +477,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -515,7 +515,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -548,7 +548,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -581,7 +581,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -697,7 +697,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -782,7 +782,7 @@ class AsyncAdCampaignsClient:
             The kind of campaign to create. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
 
         desired_cost_per_result : typing.Optional[float]
-            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. Omit or send `null` for no target.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. Omit or send `null` for no target.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -808,7 +808,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -816,7 +816,7 @@ class AsyncAdCampaignsClient:
 
         async def main() -> None:
             await client.ad_campaigns.create(
-                objective="traffic",
+                objective="awareness",
                 title="Now hiring mobile detailers — Austin",
             )
 
@@ -885,7 +885,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -935,7 +935,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -993,7 +993,7 @@ class AsyncAdCampaignsClient:
             Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
 
         desired_cost_per_result : typing.Optional[float]
-            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. `null` clears it.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` clears it.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -1025,7 +1025,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1080,7 +1080,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1126,7 +1126,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1167,7 +1167,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1208,7 +1208,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-20",
+            "2026-11-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
