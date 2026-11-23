@@ -4,7 +4,6 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .ad_content_review_tag_restriction import AdContentReviewTagRestriction
 
 
 class AdContentReviewTag(UniversalBaseModel):
@@ -13,7 +12,6 @@ class AdContentReviewTag(UniversalBaseModel):
     The evidence the review recorded for this rule.
     """
 
-    restrictions: typing.List[AdContentReviewTagRestriction]
     title: str = pydantic.Field()
     """
     The rule Whop content review found the ad breaks.

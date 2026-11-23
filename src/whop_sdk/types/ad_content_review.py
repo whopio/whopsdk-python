@@ -4,13 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .ad_content_review_network import AdContentReviewNetwork
 from .ad_content_review_status import AdContentReviewStatus
 from .ad_content_review_tag import AdContentReviewTag
 
 
 class AdContentReview(UniversalBaseModel):
-    networks: typing.List[AdContentReviewNetwork]
     status: AdContentReviewStatus = pydantic.Field()
     """
     `reviewed` once Whop content review finishes, `in_review` while it runs, `not_reviewed` when it never ran.

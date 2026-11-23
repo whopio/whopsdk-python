@@ -73,7 +73,7 @@ class Ad(UniversalBaseModel):
 
     content_review: AdContentReview = pydantic.Field()
     """
-    Whop's content review of this ad: whether it has finished, which ad networks it is recommended for, and the content rules it breaks.
+    Whop's content review of this ad: whether it has finished and the content rules it breaks.
     """
 
     cost_per_added_to_cart: typing.Optional[float] = pydantic.Field(default=None)
