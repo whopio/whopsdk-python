@@ -1606,6 +1606,8 @@ if typing.TYPE_CHECKING:
     from .unprocessable_entity_error_body_error import UnprocessableEntityErrorBodyError
     from .upload_statuses import UploadStatuses
     from .user import User
+    from .user_badge import UserBadge
+    from .user_badge_type import UserBadgeType
     from .user_balance import UserBalance
     from .user_balance_business import UserBalanceBusiness
     from .user_balance_cash import UserBalanceCash
@@ -3129,6 +3131,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UnprocessableEntityErrorBodyError": ".unprocessable_entity_error_body_error",
     "UploadStatuses": ".upload_statuses",
     "User": ".user",
+    "UserBadge": ".user_badge",
+    "UserBadgeType": ".user_badge_type",
     "UserBalance": ".user_balance",
     "UserBalanceBusiness": ".user_balance_business",
     "UserBalanceCash": ".user_balance_cash",
@@ -4676,6 +4680,8 @@ __all__ = [
     "UnprocessableEntityErrorBodyError",
     "UploadStatuses",
     "User",
+    "UserBadge",
+    "UserBadgeType",
     "UserBalance",
     "UserBalanceBusiness",
     "UserBalanceCash",

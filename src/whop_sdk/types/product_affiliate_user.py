@@ -4,10 +4,12 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .user_badge import UserBadge
 from .user_profile_picture import UserProfilePicture
 
 
 class ProductAffiliateUser(UniversalBaseModel):
+    badges: typing.List[UserBadge]
     email: typing.Optional[str] = pydantic.Field(default=None)
     """
     The affiliate's email address. Requires the `member:email:read` scope; `null` without it.

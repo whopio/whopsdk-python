@@ -4,10 +4,12 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .user_badge import UserBadge
 from .user_profile_picture import UserProfilePicture
 
 
 class UserSummary(UniversalBaseModel):
+    badges: typing.List[UserBadge]
     id: str = pydantic.Field()
     """
     User ID, prefixed `user_`.
