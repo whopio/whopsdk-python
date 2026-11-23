@@ -152,7 +152,7 @@ class RawAudiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateAudiencesResponse]:
         """
-        Creates a custom audience from a customer list or your account's Whop People data, or a lookalike audience that reaches people similar to an existing one. Processing runs asynchronously. A custom audience returns one audience; a lookalike returns the requested similarity bands in `data`.
+        Creates a custom audience from a CSV or Whop People filters, or lookalikes of an existing audience. Processing is asynchronous.
 
         Parameters
         ----------
@@ -163,31 +163,31 @@ class RawAudiencesClient:
             Audience type. Defaults to `custom`.
 
         auto_refresh : typing.Optional[bool]
-            Filter audiences only, and set only at creation. `true` (the default) rebuilds membership from the filters twice a day. `false` keeps whoever matched at creation and never rebuilds.
+            People audiences only. When `true`, the default, Whop rebuilds membership twice a day. When `false`, the audience keeps the people it matched at creation. You cannot change it later.
 
         column_mapping : typing.Optional[CreateAudiencesRequestColumnMapping]
-            CSV audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
+            CSV audiences only. The CSV header for each identity field. Map `email`, `phone`, or both.
 
         count : typing.Optional[int]
-            Lookalikes only. Number of lookalike audiences to create (1–6).
+            Lookalikes only. Number of lookalike audiences to create, from 1 to 6.
 
         file_id : typing.Optional[str]
-            CSV audiences only. The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
+            CSV audiences only. File ID of the CSV, prefixed `file_`, from `POST /files`.
 
         filters : typing.Optional[typing.Dict[str, typing.Any]]
-            Filter audiences only. The People filters that define membership, keyed exactly as `GET /people` accepts them — for example `{"os": "iOS", "country": "US"}`. Activity dates `event_from` and `event_to` are inclusive and remain fixed on refresh. Use `event_within_days`, `first_seen_within_days` or `last_seen_within_days` for a rolling window. Source values are canonical source paths (`whop:<campaign>:<group>:<ad>`, `ext:<platform>:...`, `referrer:<domain>`, `direct`), exact or with a trailing `:*` wildcard.
+            People audiences only. The filters that define membership, with the same keys as `GET /people`. `event_from` and `event_to` stay fixed when the audience rebuilds. For a rolling window, use `event_within_days`, `first_seen_within_days`, or `last_seen_within_days`.
 
         name : typing.Optional[str]
-            Audience display name. Required for custom audiences; lookalike names are generated from the source audience.
+            Audience display name. Required for custom audiences. Lookalikes take their name from the source audience.
 
         percentage : typing.Optional[int]
-            Lookalikes only. Total similarity reach as a whole percent (1–20), sliced evenly across `count` — must be divisible by `count`. For example, 3 audiences at 6% creates 0–2%, 2–4%, and 4–6% bands.
+            Lookalikes only. Total reach as a whole percent, from 1 to 20. It must divide evenly by `count`. For example, 3 audiences at 6% make the 0 to 2%, 2 to 4%, and 4 to 6% bands.
 
         source_audience_id : typing.Optional[str]
-            Lookalikes only. The ready custom audience (`adaud_`) to build from; uploaded and People audiences need at least 100 matched people.
+            Lookalikes only. The ready custom audience to build from, prefixed `adaud_`. It must have at least 100 people.
 
         source_type : typing.Optional[CreateAudiencesRequestSourceType]
-            Custom audience source. Inferred from `filters`, otherwise defaults to `csv_upload`. Supply only the fields for the selected source.
+            Custom audience source. Defaults to `people_filter` when `filters` is set, otherwise `csv_upload`. Send only that source's fields.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -195,7 +195,7 @@ class RawAudiencesClient:
         Returns
         -------
         HttpResponse[CreateAudiencesResponse]
-            Audience created. Custom creation returns one audience; lookalike creation returns an array in `data`.
+            Audience created. A lookalike request returns its audiences in `data`.
         """
         _response = self._client_wrapper.httpx_client.request(
             "audiences",
@@ -594,7 +594,7 @@ class AsyncRawAudiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateAudiencesResponse]:
         """
-        Creates a custom audience from a customer list or your account's Whop People data, or a lookalike audience that reaches people similar to an existing one. Processing runs asynchronously. A custom audience returns one audience; a lookalike returns the requested similarity bands in `data`.
+        Creates a custom audience from a CSV or Whop People filters, or lookalikes of an existing audience. Processing is asynchronous.
 
         Parameters
         ----------
@@ -605,31 +605,31 @@ class AsyncRawAudiencesClient:
             Audience type. Defaults to `custom`.
 
         auto_refresh : typing.Optional[bool]
-            Filter audiences only, and set only at creation. `true` (the default) rebuilds membership from the filters twice a day. `false` keeps whoever matched at creation and never rebuilds.
+            People audiences only. When `true`, the default, Whop rebuilds membership twice a day. When `false`, the audience keeps the people it matched at creation. You cannot change it later.
 
         column_mapping : typing.Optional[CreateAudiencesRequestColumnMapping]
-            CSV audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
+            CSV audiences only. The CSV header for each identity field. Map `email`, `phone`, or both.
 
         count : typing.Optional[int]
-            Lookalikes only. Number of lookalike audiences to create (1–6).
+            Lookalikes only. Number of lookalike audiences to create, from 1 to 6.
 
         file_id : typing.Optional[str]
-            CSV audiences only. The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
+            CSV audiences only. File ID of the CSV, prefixed `file_`, from `POST /files`.
 
         filters : typing.Optional[typing.Dict[str, typing.Any]]
-            Filter audiences only. The People filters that define membership, keyed exactly as `GET /people` accepts them — for example `{"os": "iOS", "country": "US"}`. Activity dates `event_from` and `event_to` are inclusive and remain fixed on refresh. Use `event_within_days`, `first_seen_within_days` or `last_seen_within_days` for a rolling window. Source values are canonical source paths (`whop:<campaign>:<group>:<ad>`, `ext:<platform>:...`, `referrer:<domain>`, `direct`), exact or with a trailing `:*` wildcard.
+            People audiences only. The filters that define membership, with the same keys as `GET /people`. `event_from` and `event_to` stay fixed when the audience rebuilds. For a rolling window, use `event_within_days`, `first_seen_within_days`, or `last_seen_within_days`.
 
         name : typing.Optional[str]
-            Audience display name. Required for custom audiences; lookalike names are generated from the source audience.
+            Audience display name. Required for custom audiences. Lookalikes take their name from the source audience.
 
         percentage : typing.Optional[int]
-            Lookalikes only. Total similarity reach as a whole percent (1–20), sliced evenly across `count` — must be divisible by `count`. For example, 3 audiences at 6% creates 0–2%, 2–4%, and 4–6% bands.
+            Lookalikes only. Total reach as a whole percent, from 1 to 20. It must divide evenly by `count`. For example, 3 audiences at 6% make the 0 to 2%, 2 to 4%, and 4 to 6% bands.
 
         source_audience_id : typing.Optional[str]
-            Lookalikes only. The ready custom audience (`adaud_`) to build from; uploaded and People audiences need at least 100 matched people.
+            Lookalikes only. The ready custom audience to build from, prefixed `adaud_`. It must have at least 100 people.
 
         source_type : typing.Optional[CreateAudiencesRequestSourceType]
-            Custom audience source. Inferred from `filters`, otherwise defaults to `csv_upload`. Supply only the fields for the selected source.
+            Custom audience source. Defaults to `people_filter` when `filters` is set, otherwise `csv_upload`. Send only that source's fields.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -637,7 +637,7 @@ class AsyncRawAudiencesClient:
         Returns
         -------
         AsyncHttpResponse[CreateAudiencesResponse]
-            Audience created. Custom creation returns one audience; lookalike creation returns an array in `data`.
+            Audience created. A lookalike request returns its audiences in `data`.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "audiences",

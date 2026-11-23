@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class CreateAudiencesRequestColumnMapping(UniversalBaseModel):
     """
-    CSV audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
+    CSV audiences only. The CSV header for each identity field. Map `email`, `phone`, or both.
     """
 
     country: typing.Optional[str] = pydantic.Field(default=None)
@@ -29,11 +29,6 @@ class CreateAudiencesRequestColumnMapping(UniversalBaseModel):
     last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     CSV header for last names.
-    """
-
-    ltv: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    CSV header for each customer's lifetime value — a non-negative number, currency symbols allowed. When mapped, Meta creates the audience as value-based, so lookalikes built from it favor people similar to the highest-value customers.
     """
 
     phone: typing.Optional[str] = pydantic.Field(default=None)

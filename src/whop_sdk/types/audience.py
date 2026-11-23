@@ -5,7 +5,6 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .audience_audience_type import AudienceAudienceType
-from .audience_match_rate import AudienceMatchRate
 from .audience_source_type import AudienceSourceType
 from .audience_status import AudienceStatus
 
@@ -56,10 +55,9 @@ class Audience(UniversalBaseModel):
     For lookalikes: the lower bound of the similarity band as a fraction. `null` for custom audiences and first-tier lookalikes.
     """
 
-    match_rates: typing.List[AudienceMatchRate]
     matched_rows: float = pydantic.Field()
     """
-    Members successfully uploaded to connected ad accounts. Always 0 for lookalikes and engagement audiences.
+    Members Whop can target with ads. Always 0 for lookalikes and engagement audiences.
     """
 
     name: str = pydantic.Field()
@@ -67,7 +65,6 @@ class Audience(UniversalBaseModel):
     Audience display name.
     """
 
-    platform_audience_ids: typing.List[str]
     processed_rows: float = pydantic.Field()
     """
     Members processed from the source so far. Always 0 for lookalikes and engagement audiences.
@@ -90,12 +87,12 @@ class Audience(UniversalBaseModel):
 
     status: AudienceStatus = pydantic.Field()
     """
-    Current state of audience creation. When a `pending` audience is waiting on something, such as an ad account to upload to, `error_message` says what. When status is `partial` or `failed`, `error_message` explains what went wrong.
+    Processing state. When the audience is `pending`, `partial`, or `failed`, `error_message` says why.
     """
 
     total_rows: float = pydantic.Field()
     """
-    Total members detected in the source — CSV rows for uploaded lists, matching people for automatic audiences. Always 0 for lookalikes and engagement audiences.
+    Members found in the source: CSV rows for an uploaded list, or matching people for a People audience. Always 0 for lookalikes and engagement audiences.
     """
 
     updated_at: str = pydantic.Field()
