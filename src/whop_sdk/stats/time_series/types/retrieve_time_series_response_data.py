@@ -31,7 +31,7 @@ class RetrieveTimeSeriesResponseData(UniversalBaseModel):
 
     totals: typing.Optional[typing.List[RetrieveTimeSeriesResponseDataTotalsItem]] = pydantic.Field(default=None)
     """
-    Whole-window aggregates, present when the metric computes them. Don't derive these from `points`: a rate is measured across the whole window, not averaged across its points, and whole-window unique people are distinct across every bucket.
+    Whole-window aggregates, present when the metric computes them. Don't derive these from `points`. A rate is measured across the whole window, not averaged across its points. Whole-window unique people are distinct across every bucket.
     """
 
     if IS_PYDANTIC_V2:
