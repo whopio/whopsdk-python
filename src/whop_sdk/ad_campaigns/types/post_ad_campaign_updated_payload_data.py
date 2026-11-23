@@ -69,7 +69,7 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
 
     desired_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The cost per result, in USD, the advertiser wants this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. `null` when no target is set.
+    The cost per result, in USD, the advertiser wants this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` when no target is set.
     """
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -85,7 +85,7 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
     issues: typing.List[AdPlatformIssue]
     objective: typing.Optional[PostAdCampaignUpdatedPayloadDataObjective] = pydantic.Field(default=None)
     """
-    The goal the campaign optimizes toward. `awareness` appears only on campaigns created before it was retired; those campaigns can't launch.
+    The goal the campaign optimizes toward. `awareness` optimizes for impressions. `engagement` appears only on campaigns created before it was retired.
     """
 
     special_ad_categories: typing.List[PostAdCampaignUpdatedPayloadDataSpecialAdCategoriesItem]
@@ -101,7 +101,7 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
 
     target_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The desired cost per result for `target_result_event`, in USD. `null` when none is set.
+    The desired cost per result for `target_result_event`, in USD. For `impressions`, it's the cost per 1,000 impressions. `null` when none is set or the ad groups set different ones.
     """
 
     target_result_event: typing.Optional[str] = pydantic.Field(default=None)

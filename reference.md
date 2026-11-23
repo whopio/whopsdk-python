@@ -2043,7 +2043,7 @@ client = Whop(
 )
 
 client.ad_campaigns.create(
-    objective="traffic",
+    objective="awareness",
     title="Now hiring mobile detailers — Austin",
 )
 
@@ -2125,7 +2125,7 @@ client.ad_campaigns.create(
 <dl>
 <dd>
 
-**desired_cost_per_result:** `typing.Optional[float]` — The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. Omit or send `null` for no target.
+**desired_cost_per_result:** `typing.Optional[float]` — The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. Omit or send `null` for no target.
     
 </dd>
 </dl>
@@ -2448,7 +2448,7 @@ client.ad_campaigns.update(
 <dl>
 <dd>
 
-**desired_cost_per_result:** `typing.Optional[float]` — The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. `null` clears it.
+**desired_cost_per_result:** `typing.Optional[float]` — The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` clears it.
     
 </dd>
 </dl>
@@ -3137,7 +3137,7 @@ client.ad_groups.create(
 <dl>
 <dd>
 
-**desired_cost_per_result:** `typing.Optional[float]` — Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+**desired_cost_per_result:** `typing.Optional[float]` — The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
     
 </dd>
 </dl>
@@ -3524,7 +3524,7 @@ client.ad_groups.update(
 <dl>
 <dd>
 
-**desired_cost_per_result:** `typing.Optional[float]` — Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+**desired_cost_per_result:** `typing.Optional[float]` — The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
     
 </dd>
 </dl>

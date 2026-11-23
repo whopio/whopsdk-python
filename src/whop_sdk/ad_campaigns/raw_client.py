@@ -269,7 +269,7 @@ class RawAdCampaignsClient:
             The kind of campaign to create. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
 
         desired_cost_per_result : typing.Optional[float]
-            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. Omit or send `null` for no target.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. Omit or send `null` for no target.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -529,7 +529,7 @@ class RawAdCampaignsClient:
             Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
 
         desired_cost_per_result : typing.Optional[float]
-            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. `null` clears it.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` clears it.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -1080,7 +1080,7 @@ class AsyncRawAdCampaignsClient:
             The kind of campaign to create. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
 
         desired_cost_per_result : typing.Optional[float]
-            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. Omit or send `null` for no target.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. Omit or send `null` for no target.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -1340,7 +1340,7 @@ class AsyncRawAdCampaignsClient:
             Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
 
         desired_cost_per_result : typing.Optional[float]
-            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. `null` clears it.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. An ad group's own `desired_cost_per_result` overrides it. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` clears it.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.

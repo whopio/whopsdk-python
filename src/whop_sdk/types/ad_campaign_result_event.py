@@ -14,6 +14,7 @@ AdCampaignResultEvent = typing.Union[
         "add_to_cart",
         "custom",
         "messaging_conversation",
+        "impressions",
     ],
     typing.Any,
 ]

@@ -260,7 +260,7 @@ class RawAdGroupsClient:
             Age, gender, and automatic-audience targeting.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+            The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
 
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
@@ -571,7 +571,7 @@ class RawAdGroupsClient:
             Age, gender, and automatic-audience targeting.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+            The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
 
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
@@ -1101,7 +1101,7 @@ class AsyncRawAdGroupsClient:
             Age, gender, and automatic-audience targeting.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+            The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
 
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
@@ -1412,7 +1412,7 @@ class AsyncRawAdGroupsClient:
             Age, gender, and automatic-audience targeting.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
+            The cost per result you want for this ad group, in USD. For an `awareness` campaign, it's the cost per 1,000 impressions. `null` uses the campaign's `desired_cost_per_result`.
 
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
