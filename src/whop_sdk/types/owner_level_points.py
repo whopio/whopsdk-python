@@ -7,6 +7,11 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class OwnerLevelPoints(UniversalBaseModel):
+    actions: int = pydantic.Field()
+    """
+    Points earned from eligible actions on Whop, rounded toward zero.
+    """
+
     ads: int = pydantic.Field()
     """
     Points from paid Whop Ads charges, net of refunds: 10 for every dollar, rounded toward zero.

@@ -20,7 +20,7 @@ class AccountLevel(UniversalBaseModel):
 
     points: int = pydantic.Field()
     """
-    Points earned this month across every account the owner owns, plus the owner's partner points, rounded down. An account whose month nets below zero counts as zero.
+    Points earned this month by the owner and their accounts, rounded down. An account whose month nets below zero counts as zero.
     """
 
     points_by_source: OwnerLevelPoints = pydantic.Field()

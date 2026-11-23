@@ -15,7 +15,7 @@ class UserLevel(UniversalBaseModel):
 
     points: typing.Optional[int] = pydantic.Field(default=None)
     """
-    Points earned this month across every account the user owns, plus their partner points, rounded down. An account whose month nets below zero counts as zero. `null` unless you retrieve yourself with the reserved id `me` and have balance-read scope.
+    Points earned this month by the user and their accounts, rounded down. An account whose month nets below zero counts as zero. `null` unless you retrieve yourself with the reserved id `me` and have balance-read scope.
     """
 
     points_by_source: typing.Optional[OwnerLevelPoints] = pydantic.Field(default=None)
