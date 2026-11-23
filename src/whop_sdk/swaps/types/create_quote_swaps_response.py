@@ -53,6 +53,11 @@ class CreateQuoteSwapsResponse(UniversalBaseModel):
     Metadata from the request.
     """
 
+    mid_market_rate: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Mid-market exchange rate for a fiat pair, before the FX charge, as a decimal string. `rate` is after the FX charge. `null` for a crypto pair.
+    """
+
     object: CreateQuoteSwapsResponseObject
     rate: str = pydantic.Field()
     """
