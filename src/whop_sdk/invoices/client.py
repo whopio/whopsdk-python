@@ -635,6 +635,7 @@ class InvoicesClient:
         charge_at: typing.Optional[dt.datetime] = OMIT,
         collection_method: typing.Optional[SendInvoicesRequestCollectionMethod] = OMIT,
         message: typing.Optional[str] = OMIT,
+        quote_deposit_percentage: typing.Optional[float] = OMIT,
         send_as: typing.Optional[SendInvoicesRequestSendAs] = OMIT,
         send_at: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -655,6 +656,9 @@ class InvoicesClient:
 
         message : typing.Optional[str]
             A note to the customer in the quote email. It is not stored. Only with `send_as` set to `quote`. Defaults to "Please review and accept this quote" when it is blank or left out.
+
+        quote_deposit_percentage : typing.Optional[float]
+            The share of the quote to bill as a deposit when the customer signs, such as `30` for 30%. The customer is then taken to pay it. Only with `send_as` set to `quote`.
 
         send_as : typing.Optional[SendInvoicesRequestSendAs]
             How to send the draft. `invoice` issues it and emails it to be paid. `quote` emails it as a quote and keeps it a draft. Defaults to `invoice`.
@@ -688,6 +692,7 @@ class InvoicesClient:
             charge_at=charge_at,
             collection_method=collection_method,
             message=message,
+            quote_deposit_percentage=quote_deposit_percentage,
             send_as=send_as,
             send_at=send_at,
             request_options=request_options,
@@ -1448,6 +1453,7 @@ class AsyncInvoicesClient:
         charge_at: typing.Optional[dt.datetime] = OMIT,
         collection_method: typing.Optional[SendInvoicesRequestCollectionMethod] = OMIT,
         message: typing.Optional[str] = OMIT,
+        quote_deposit_percentage: typing.Optional[float] = OMIT,
         send_as: typing.Optional[SendInvoicesRequestSendAs] = OMIT,
         send_at: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1468,6 +1474,9 @@ class AsyncInvoicesClient:
 
         message : typing.Optional[str]
             A note to the customer in the quote email. It is not stored. Only with `send_as` set to `quote`. Defaults to "Please review and accept this quote" when it is blank or left out.
+
+        quote_deposit_percentage : typing.Optional[float]
+            The share of the quote to bill as a deposit when the customer signs, such as `30` for 30%. The customer is then taken to pay it. Only with `send_as` set to `quote`.
 
         send_as : typing.Optional[SendInvoicesRequestSendAs]
             How to send the draft. `invoice` issues it and emails it to be paid. `quote` emails it as a quote and keeps it a draft. Defaults to `invoice`.
@@ -1509,6 +1518,7 @@ class AsyncInvoicesClient:
             charge_at=charge_at,
             collection_method=collection_method,
             message=message,
+            quote_deposit_percentage=quote_deposit_percentage,
             send_as=send_as,
             send_at=send_at,
             request_options=request_options,
