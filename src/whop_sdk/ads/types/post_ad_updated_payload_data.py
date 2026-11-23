@@ -32,7 +32,7 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
 
     content_review: AdContentReview = pydantic.Field()
     """
-    Whop's content review of this ad: whether it has finished, which ad networks it is recommended for, and the content rules it breaks.
+    Whop's content review of this ad: whether it has finished and the content rules it breaks.
     """
 
     created_at: str = pydantic.Field()
