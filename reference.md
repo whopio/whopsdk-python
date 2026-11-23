@@ -24040,7 +24040,7 @@ client.external_accounts.list()
 <dl>
 <dd>
 
-**platform:** `typing.Optional[ListExternalAccountsRequestPlatform]` — Only return external accounts for the platform that is specified. An `aimerce` account is returned only with this filter, which requires the `company:manage_checkout` scope instead of `social_account:read`.
+**platform:** `typing.Optional[ListExternalAccountsRequestPlatform]` — Only return external accounts for the platform that is specified. An `aimerce` account is returned only with this filter, which requires the `company:manage_checkout` scope instead of `social_account:read`. A `stripe` account is also returned only with this filter, which requires the `payout:account:update` scope.
     
 </dd>
 </dl>
@@ -24262,7 +24262,7 @@ client.external_accounts.connect(
 <dl>
 <dd>
 
-**platform:** `ConnectExternalAccountsRequestPlatform` — The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks.
+**platform:** `ConnectExternalAccountsRequestPlatform` — The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks. Use `stripe` to let Whop read the past payments of the account’s Stripe account: pass `account_id`, and the user installs Whop’s app in Stripe. It requires the `payout:account:update` scope instead of `social_account:create`.
     
 </dd>
 </dl>
@@ -45610,7 +45610,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**platform:** `typing.Optional[ListSocialAccountsRequestPlatform]` — Only return external accounts for the platform that is specified. An `aimerce` account is returned only with this filter, which requires the `company:manage_checkout` scope instead of `social_account:read`.
+**platform:** `typing.Optional[ListSocialAccountsRequestPlatform]` — Only return external accounts for the platform that is specified. An `aimerce` account is returned only with this filter, which requires the `company:manage_checkout` scope instead of `social_account:read`. A `stripe` account is also returned only with this filter, which requires the `payout:account:update` scope.
     
 </dd>
 </dl>
@@ -45832,7 +45832,7 @@ client.social_accounts.connect(
 <dl>
 <dd>
 
-**platform:** `ConnectSocialAccountsRequestPlatform` — The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks.
+**platform:** `ConnectSocialAccountsRequestPlatform` — The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks. Use `stripe` to let Whop read the past payments of the account’s Stripe account: pass `account_id`, and the user installs Whop’s app in Stripe. It requires the `payout:account:update` scope instead of `social_account:create`.
     
 </dd>
 </dl>

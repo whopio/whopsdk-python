@@ -600,6 +600,7 @@ if typing.TYPE_CHECKING:
     from .export_status import ExportStatus
     from .exposures_experiments_request_subject import ExposuresExperimentsRequestSubject
     from .external_account import ExternalAccount
+    from .external_account_connection_status import ExternalAccountConnectionStatus
     from .external_account_parent import ExternalAccountParent
     from .external_account_parent_platform import ExternalAccountParentPlatform
     from .external_account_platform import ExternalAccountPlatform
@@ -2244,6 +2245,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExportStatus": ".export_status",
     "ExposuresExperimentsRequestSubject": ".exposures_experiments_request_subject",
     "ExternalAccount": ".external_account",
+    "ExternalAccountConnectionStatus": ".external_account_connection_status",
     "ExternalAccountParent": ".external_account_parent",
     "ExternalAccountParentPlatform": ".external_account_parent_platform",
     "ExternalAccountPlatform": ".external_account_platform",
@@ -3790,6 +3792,7 @@ __all__ = [
     "ExportStatus",
     "ExposuresExperimentsRequestSubject",
     "ExternalAccount",
+    "ExternalAccountConnectionStatus",
     "ExternalAccountParent",
     "ExternalAccountParentPlatform",
     "ExternalAccountPlatform",

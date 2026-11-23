@@ -71,7 +71,7 @@ class RawExternalAccountsClient:
             The User that the external accounts are connected to. Provide either this or account_id.
 
         platform : typing.Optional[ListExternalAccountsRequestPlatform]
-            Only return external accounts for the platform that is specified. An `aimerce` account is returned only with this filter, which requires the `company:manage_checkout` scope instead of `social_account:read`.
+            Only return external accounts for the platform that is specified. An `aimerce` account is returned only with this filter, which requires the `company:manage_checkout` scope instead of `social_account:read`. A `stripe` account is also returned only with this filter, which requires the `payout:account:update` scope.
 
         trust_level : typing.Optional[ListExternalAccountsRequestTrustLevel]
             Only return external accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
@@ -295,7 +295,7 @@ class RawExternalAccountsClient:
         Parameters
         ----------
         platform : ConnectExternalAccountsRequestPlatform
-            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks.
+            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks. Use `stripe` to let Whop read the past payments of the account’s Stripe account: pass `account_id`, and the user installs Whop’s app in Stripe. It requires the `payout:account:update` scope instead of `social_account:create`.
 
         redirect_url : str
             Where to send the user once they finish connecting their accounts. Must be an `https` URL on whop.com; any other host is rejected. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
@@ -630,7 +630,7 @@ class AsyncRawExternalAccountsClient:
             The User that the external accounts are connected to. Provide either this or account_id.
 
         platform : typing.Optional[ListExternalAccountsRequestPlatform]
-            Only return external accounts for the platform that is specified. An `aimerce` account is returned only with this filter, which requires the `company:manage_checkout` scope instead of `social_account:read`.
+            Only return external accounts for the platform that is specified. An `aimerce` account is returned only with this filter, which requires the `company:manage_checkout` scope instead of `social_account:read`. A `stripe` account is also returned only with this filter, which requires the `payout:account:update` scope.
 
         trust_level : typing.Optional[ListExternalAccountsRequestTrustLevel]
             Only return external accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
@@ -857,7 +857,7 @@ class AsyncRawExternalAccountsClient:
         Parameters
         ----------
         platform : ConnectExternalAccountsRequestPlatform
-            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks.
+            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks. Use `stripe` to let Whop read the past payments of the account’s Stripe account: pass `account_id`, and the user installs Whop’s app in Stripe. It requires the `payout:account:update` scope instead of `social_account:create`.
 
         redirect_url : str
             Where to send the user once they finish connecting their accounts. Must be an `https` URL on whop.com; any other host is rejected. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.

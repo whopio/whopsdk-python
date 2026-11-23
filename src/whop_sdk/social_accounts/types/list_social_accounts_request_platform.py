@@ -16,6 +16,7 @@ ListSocialAccountsRequestPlatform = typing.Union[
         "klaviyo",
         "quickbooks",
         "aimerce",
+        "stripe",
     ],
     typing.Any,
 ]
