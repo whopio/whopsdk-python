@@ -4,6 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .notification_topic_email_delivery import NotificationTopicEmailDelivery
+from .notification_topic_push_delivery import NotificationTopicPushDelivery
 from .notification_topic_topic_type import NotificationTopicTopicType
 
 
@@ -16,6 +18,16 @@ class NotificationTopic(UniversalBaseModel):
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Human-readable explanation of what notifications in this topic are about. `null` when no description has been set.
+    """
+
+    email_delivery: NotificationTopicEmailDelivery = pydantic.Field()
+    """
+    How the topic sends email. `optional` means a preference with channel `email` turns its emails on or off. `always` means its emails are sent whatever the preferences say. `unavailable` means the topic sends no email.
+    """
+
+    every_channel_covers_email: bool = pydantic.Field()
+    """
+    Whether a preference with no channel also turns this topic's email on or off. When `false`, only a preference with channel `email` changes its email.
     """
 
     id: str = pydantic.Field()
@@ -36,6 +48,11 @@ class NotificationTopic(UniversalBaseModel):
     name: str = pydantic.Field()
     """
     Display name shown in notification preference settings.
+    """
+
+    push_delivery: NotificationTopicPushDelivery = pydantic.Field()
+    """
+    How the topic sends push and in-app notifications. `optional` means a preference with channel `mobile` or `in_app` turns them on or off. A `mobile` preference wins over an `in_app` one. `unavailable` means the topic sends no push or in-app notification.
     """
 
     topic_type: NotificationTopicTopicType = pydantic.Field()

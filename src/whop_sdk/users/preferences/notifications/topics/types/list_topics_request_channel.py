@@ -2,4 +2,4 @@
 
 import typing
 
-ListTopicsRequestChannel = typing.Union[typing.Literal["in_app", "mobile"], typing.Any]
+ListTopicsRequestChannel = typing.Union[typing.Literal["in_app", "mobile", "email"], typing.Any]

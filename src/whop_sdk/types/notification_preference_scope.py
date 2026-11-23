@@ -15,7 +15,7 @@ class NotificationPreferenceScope(UniversalBaseModel):
 
     channel: typing.Optional[NotificationPreferenceScopeChannel] = pydantic.Field(default=None)
     """
-    Delivery channel the preference applies to. `null` applies to every channel.
+    Delivery channel the preference applies to. `null` applies to every channel. Email is the exception when the topic's `every_channel_covers_email` is `false`.
     """
 
     experience_id: typing.Optional[str] = pydantic.Field(default=None)
