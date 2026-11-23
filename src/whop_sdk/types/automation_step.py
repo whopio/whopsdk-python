@@ -22,7 +22,7 @@ class AutomationStep(UniversalBaseModel):
 
     config: AutomationStepConfig = pydantic.Field()
     """
-    The step's settings for its `action_type`: `delay_seconds` for a `wait`, `sender_id` for an `email` or `message`. Writing it replaces the whole object.
+    The step's settings for its `action_type`: `delay_seconds` for a `wait`, and `sender_id` and `attachment_ids` for an `email` or `message`. Writing it replaces the whole object, except that a step keeps its `attachment_ids` when the write leaves them out.
     """
 
     created_at: str = pydantic.Field()
