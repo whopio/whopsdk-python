@@ -64,7 +64,7 @@ class PostAdGroupUpdatedPayloadData(UniversalBaseModel):
 
     delivery_schedule: typing.Optional[AdGroupDeliverySchedule] = pydantic.Field(default=None)
     """
-    Hours the ad group delivers in each week, keyed by day. Days it doesn't deliver are omitted. `null` when it delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
+    Hours the ad group delivers in each week, keyed by day. Days it doesn't deliver are omitted. `null` when it delivers at every hour. A schedule needs a lifetime budget on the ad group, or on its campaign when the campaign holds the budget. Only ad groups and campaigns that already have one can use it.
     """
 
     delivery_status: PostAdGroupUpdatedPayloadDataDeliveryStatus = pydantic.Field()
