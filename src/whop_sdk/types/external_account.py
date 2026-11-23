@@ -4,11 +4,17 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .external_account_connection_status import ExternalAccountConnectionStatus
 from .external_account_parent import ExternalAccountParent
 from .external_account_platform import ExternalAccountPlatform
 
 
 class ExternalAccount(UniversalBaseModel):
+    connection_status: typing.Optional[ExternalAccountConnectionStatus] = pydantic.Field(default=None)
+    """
+    Connection health of the external account. `reconnect_required` means the platform refused Whop's access, and the owner must connect the account again. `active` means Whop has not seen a refusal. Whop checks only Stripe connections for a refusal. `null` when Whop holds no access for the account, for example a claimed profile.
+    """
+
     external_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The platform-specific ID for this external account.
