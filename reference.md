@@ -51155,7 +51155,7 @@ client.verifications.update(
 <dl>
 <dd>
 
-Generates a short-lived link to download one image that a person sent for an individual verification. Use the `identity_document` and `selfie` fields of the verification to know which images exist.
+Generates a short-lived link to download one image that a person sent for an individual verification. Ask for `front`, `back`, or `selfie`. The link always downloads the document that passed the check, whatever its type.
 </dd>
 </dl>
 </dd>
@@ -51180,7 +51180,7 @@ client = Whop(
 
 client.verifications.generate_document_url(
     id="id",
-    document="id_card_front",
+    document="front",
 )
 
 ```
@@ -51205,7 +51205,7 @@ client.verifications.generate_document_url(
 <dl>
 <dd>
 
-**document:** `GenerateDocumentUrlVerificationsRequestDocument` — Image to download. Use the side of the document type on the verification, or `selfie`.
+**document:** `GenerateDocumentUrlVerificationsRequestDocument` — Image to download: the `front` or `back` of the identity document, or the `selfie`. A passport has no `back`.
     
 </dd>
 </dl>

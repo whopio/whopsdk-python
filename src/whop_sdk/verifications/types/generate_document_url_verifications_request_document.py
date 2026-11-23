@@ -2,16 +2,4 @@
 
 import typing
 
-GenerateDocumentUrlVerificationsRequestDocument = typing.Union[
-    typing.Literal[
-        "id_card_front",
-        "id_card_back",
-        "drivers_front",
-        "drivers_back",
-        "residence_permit_front",
-        "residence_permit_back",
-        "passport_front",
-        "selfie",
-    ],
-    typing.Any,
-]
+GenerateDocumentUrlVerificationsRequestDocument = typing.Union[typing.Literal["front", "back", "selfie"], typing.Any]
