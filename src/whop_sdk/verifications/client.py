@@ -254,7 +254,7 @@ class VerificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GenerateDocumentUrlVerificationsResponse:
         """
-        Generates a short-lived link to download one image that a person sent for an individual verification. Use the `identity_document` and `selfie` fields of the verification to know which images exist.
+        Generates a short-lived link to download one image that a person sent for an individual verification. Ask for `front`, `back`, or `selfie`. The link always downloads the document that passed the check, whatever its type.
 
         Parameters
         ----------
@@ -262,7 +262,7 @@ class VerificationsClient:
             Verification profile ID, prefixed `idpf_`.
 
         document : GenerateDocumentUrlVerificationsRequestDocument
-            Image to download. Use the side of the document type on the verification, or `selfie`.
+            Image to download: the `front` or `back` of the identity document, or the `selfie`. A passport has no `back`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -283,7 +283,7 @@ class VerificationsClient:
         )
         client.verifications.generate_document_url(
             id="id",
-            document="id_card_front",
+            document="front",
         )
         """
         _response = self._raw_client.generate_document_url(id, document=document, request_options=request_options)
@@ -555,7 +555,7 @@ class AsyncVerificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GenerateDocumentUrlVerificationsResponse:
         """
-        Generates a short-lived link to download one image that a person sent for an individual verification. Use the `identity_document` and `selfie` fields of the verification to know which images exist.
+        Generates a short-lived link to download one image that a person sent for an individual verification. Ask for `front`, `back`, or `selfie`. The link always downloads the document that passed the check, whatever its type.
 
         Parameters
         ----------
@@ -563,7 +563,7 @@ class AsyncVerificationsClient:
             Verification profile ID, prefixed `idpf_`.
 
         document : GenerateDocumentUrlVerificationsRequestDocument
-            Image to download. Use the side of the document type on the verification, or `selfie`.
+            Image to download: the `front` or `back` of the identity document, or the `selfie`. A passport has no `back`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -589,7 +589,7 @@ class AsyncVerificationsClient:
         async def main() -> None:
             await client.verifications.generate_document_url(
                 id="id",
-                document="id_card_front",
+                document="front",
             )
 
 
