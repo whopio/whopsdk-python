@@ -137,7 +137,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -209,7 +209,7 @@ class AdCampaignsClient:
             Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group individually (`ad_group`). Defaults to `ad_group`.
 
         budget_type : typing.Optional[CreateAdCampaignsRequestBudgetType]
-            Whether the budget is spent per day (`daily`) or over the campaign's full run (`lifetime`). Defaults to `daily`.
+            Deprecated: lifetime budgets have ended. Every new campaign has a daily budget. `lifetime` returns a `400`.
 
         campaign_type : typing.Optional[CreateAdCampaignsRequestCampaignType]
             The kind of campaign to create. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
@@ -239,7 +239,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -308,7 +308,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -348,7 +348,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -385,7 +385,7 @@ class AdCampaignsClient:
             The ad campaign ID.
 
         budget_amount : typing.Optional[float]
-            The campaign budget in USD, which is what it is stored and billed in. Interpreted as daily or lifetime per the campaign's budget type, including a budget_type sent in the same request.
+            The campaign budget in USD, which is what it is stored and billed in. Spent per day, or over the campaign's full run when its `budget_type` is `lifetime`.
 
         budget_amount_local : typing.Optional[float]
             The campaign budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
@@ -394,7 +394,7 @@ class AdCampaignsClient:
             Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group individually (`ad_group`). Only changeable before the campaign launches; switching to `ad_campaign` requires budget_amount in the same request, and switching to `ad_group` clears the campaign budget.
 
         budget_type : typing.Optional[UpdateAdCampaignsRequestBudgetType]
-            Whether `budget_amount` is spent per day (`daily`) or over the campaign's full run (`lifetime`). Only changeable while the campaign is a draft; send budget_amount in the same request so the amount lands on the new type.
+            Deprecated: lifetime budgets have ended. A draft campaign with a lifetime budget can switch to `daily`. Send `budget_amount` in the same request. A switch to `lifetime` returns a `400`.
 
         campaign_type : typing.Optional[UpdateAdCampaignsRequestCampaignType]
             Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
@@ -430,7 +430,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -477,7 +477,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -492,7 +492,7 @@ class AdCampaignsClient:
         self, id: str, *, count: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> DuplicateAdCampaignsResponse:
         """
-        Creates copies of the campaign in `duplicating` status and returns them; each copy transitions to `draft` once duplication completes. Poll each returned campaign until it leaves `duplicating` — a copy that could not be completed is deleted and returns 404.
+        Creates copies of the campaign in `duplicating` status and returns them. Each copy moves to `draft` when duplication completes. Poll each returned campaign until it leaves `duplicating`. A copy that could not be completed is deleted and returns 404. A campaign with a lifetime budget, or with an ad group on one, can't be duplicated.
 
         Parameters
         ----------
@@ -515,7 +515,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -548,7 +548,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -581,7 +581,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -697,7 +697,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -776,7 +776,7 @@ class AsyncAdCampaignsClient:
             Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group individually (`ad_group`). Defaults to `ad_group`.
 
         budget_type : typing.Optional[CreateAdCampaignsRequestBudgetType]
-            Whether the budget is spent per day (`daily`) or over the campaign's full run (`lifetime`). Defaults to `daily`.
+            Deprecated: lifetime budgets have ended. Every new campaign has a daily budget. `lifetime` returns a `400`.
 
         campaign_type : typing.Optional[CreateAdCampaignsRequestCampaignType]
             The kind of campaign to create. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
@@ -808,7 +808,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -885,7 +885,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -935,7 +935,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -978,7 +978,7 @@ class AsyncAdCampaignsClient:
             The ad campaign ID.
 
         budget_amount : typing.Optional[float]
-            The campaign budget in USD, which is what it is stored and billed in. Interpreted as daily or lifetime per the campaign's budget type, including a budget_type sent in the same request.
+            The campaign budget in USD, which is what it is stored and billed in. Spent per day, or over the campaign's full run when its `budget_type` is `lifetime`.
 
         budget_amount_local : typing.Optional[float]
             The campaign budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
@@ -987,7 +987,7 @@ class AsyncAdCampaignsClient:
             Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group individually (`ad_group`). Only changeable before the campaign launches; switching to `ad_campaign` requires budget_amount in the same request, and switching to `ad_group` clears the campaign budget.
 
         budget_type : typing.Optional[UpdateAdCampaignsRequestBudgetType]
-            Whether `budget_amount` is spent per day (`daily`) or over the campaign's full run (`lifetime`). Only changeable while the campaign is a draft; send budget_amount in the same request so the amount lands on the new type.
+            Deprecated: lifetime budgets have ended. A draft campaign with a lifetime budget can switch to `daily`. Send `budget_amount` in the same request. A switch to `lifetime` returns a `400`.
 
         campaign_type : typing.Optional[UpdateAdCampaignsRequestCampaignType]
             Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
@@ -1025,7 +1025,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1080,7 +1080,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1101,7 +1101,7 @@ class AsyncAdCampaignsClient:
         self, id: str, *, count: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> DuplicateAdCampaignsResponse:
         """
-        Creates copies of the campaign in `duplicating` status and returns them; each copy transitions to `draft` once duplication completes. Poll each returned campaign until it leaves `duplicating` — a copy that could not be completed is deleted and returns 404.
+        Creates copies of the campaign in `duplicating` status and returns them. Each copy moves to `draft` when duplication completes. Poll each returned campaign until it leaves `duplicating`. A copy that could not be completed is deleted and returns 404. A campaign with a lifetime budget, or with an ad group on one, can't be duplicated.
 
         Parameters
         ----------
@@ -1126,7 +1126,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1167,7 +1167,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1208,7 +1208,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-22-1",
+            "2026-11-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

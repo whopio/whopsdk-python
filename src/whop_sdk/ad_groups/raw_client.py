@@ -249,12 +249,12 @@ class RawAdGroupsClient:
             This ad group's budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; on an update, an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
 
         budget_type : typing.Optional[CreateAdGroupsRequestBudgetType]
-            Whether budget_amount is spent per day (`daily`) or over the ad group's full run (`lifetime`).
+            Deprecated: lifetime budgets have ended. Leave this out, or send `daily`. `lifetime` returns a `400` unless the ad group already has a lifetime budget.
 
         conversion_event : typing.Optional[ConversionEvent]
 
         delivery_schedule : typing.Optional[CreateAdGroupsRequestDeliverySchedule]
-            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight. A day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. The schedule is replaced as a whole. `null` delivers at every hour. A schedule needs a lifetime budget on the ad group, or on its campaign when the campaign holds the budget. Only ad groups and campaigns that already have one can use it.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -560,12 +560,12 @@ class RawAdGroupsClient:
             This ad group's budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; on an update, an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
 
         budget_type : typing.Optional[UpdateAdGroupsRequestBudgetType]
-            Whether budget_amount is spent per day (`daily`) or over the ad group's full run (`lifetime`).
+            Deprecated: lifetime budgets have ended. Leave this out, or send `daily`. `lifetime` returns a `400` unless the ad group already has a lifetime budget.
 
         conversion_event : typing.Optional[ConversionEvent]
 
         delivery_schedule : typing.Optional[UpdateAdGroupsRequestDeliverySchedule]
-            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight. A day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. The schedule is replaced as a whole. `null` delivers at every hour. A schedule needs a lifetime budget on the ad group, or on its campaign when the campaign holds the budget. Only ad groups and campaigns that already have one can use it.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -689,7 +689,7 @@ class RawAdGroupsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DuplicateAdGroupsResponse]:
         """
-        Starts copying an ad group and returns the copies in `duplicating` status. Poll each returned ad group until it leaves `duplicating`: it then takes the source's `active` or `paused` status, or, if the copy could not be completed, is deleted and returns 404.
+        Starts copying an ad group and returns the copies in `duplicating` status. Poll each returned ad group until it leaves `duplicating`. A copy then takes the source's `active` or `paused` status. A copy that could not be completed is deleted and returns 404. An ad group with a lifetime budget can't be duplicated.
 
         Parameters
         ----------
@@ -1090,12 +1090,12 @@ class AsyncRawAdGroupsClient:
             This ad group's budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; on an update, an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
 
         budget_type : typing.Optional[CreateAdGroupsRequestBudgetType]
-            Whether budget_amount is spent per day (`daily`) or over the ad group's full run (`lifetime`).
+            Deprecated: lifetime budgets have ended. Leave this out, or send `daily`. `lifetime` returns a `400` unless the ad group already has a lifetime budget.
 
         conversion_event : typing.Optional[ConversionEvent]
 
         delivery_schedule : typing.Optional[CreateAdGroupsRequestDeliverySchedule]
-            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight. A day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. The schedule is replaced as a whole. `null` delivers at every hour. A schedule needs a lifetime budget on the ad group, or on its campaign when the campaign holds the budget. Only ad groups and campaigns that already have one can use it.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -1401,12 +1401,12 @@ class AsyncRawAdGroupsClient:
             This ad group's budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; on an update, an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
 
         budget_type : typing.Optional[UpdateAdGroupsRequestBudgetType]
-            Whether budget_amount is spent per day (`daily`) or over the ad group's full run (`lifetime`).
+            Deprecated: lifetime budgets have ended. Leave this out, or send `daily`. `lifetime` returns a `400` unless the ad group already has a lifetime budget.
 
         conversion_event : typing.Optional[ConversionEvent]
 
         delivery_schedule : typing.Optional[UpdateAdGroupsRequestDeliverySchedule]
-            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight. A day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. The schedule is replaced as a whole. `null` delivers at every hour. A schedule needs a lifetime budget on the ad group, or on its campaign when the campaign holds the budget. Only ad groups and campaigns that already have one can use it.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -1530,7 +1530,7 @@ class AsyncRawAdGroupsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DuplicateAdGroupsResponse]:
         """
-        Starts copying an ad group and returns the copies in `duplicating` status. Poll each returned ad group until it leaves `duplicating`: it then takes the source's `active` or `paused` status, or, if the copy could not be completed, is deleted and returns 404.
+        Starts copying an ad group and returns the copies in `duplicating` status. Poll each returned ad group until it leaves `duplicating`. A copy then takes the source's `active` or `paused` status. A copy that could not be completed is deleted and returns 404. An ad group with a lifetime budget can't be duplicated.
 
         Parameters
         ----------
