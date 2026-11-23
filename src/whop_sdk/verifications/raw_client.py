@@ -19,6 +19,8 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from .types.create_verifications_request_body import CreateVerificationsRequestBody
 from .types.create_verifications_response import CreateVerificationsResponse
+from .types.generate_document_url_verifications_request_document import GenerateDocumentUrlVerificationsRequestDocument
+from .types.generate_document_url_verifications_response import GenerateDocumentUrlVerificationsResponse
 from .types.list_verifications_request_direction import ListVerificationsRequestDirection
 from .types.list_verifications_request_order import ListVerificationsRequestOrder
 from .types.list_verifications_response import ListVerificationsResponse
@@ -464,6 +466,119 @@ class RawVerificationsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def generate_document_url(
+        self,
+        id: str,
+        *,
+        document: GenerateDocumentUrlVerificationsRequestDocument,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[GenerateDocumentUrlVerificationsResponse]:
+        """
+        Generates a short-lived link to download one image that a person sent for an individual verification. Use the `identity_document` and `selfie` fields of the verification to know which images exist.
+
+        Parameters
+        ----------
+        id : str
+            Verification profile ID, prefixed `idpf_`.
+
+        document : GenerateDocumentUrlVerificationsRequestDocument
+            Image to download. Use the side of the document type on the verification, or `selfie`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GenerateDocumentUrlVerificationsResponse]
+            link generated
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"verifications/{encode_path_param(id)}/generate_document_url",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "document": document,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GenerateDocumentUrlVerificationsResponse,
+                    parse_obj_as(
+                        type_=GenerateDocumentUrlVerificationsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawVerificationsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -882,6 +997,119 @@ class AsyncRawVerificationsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def generate_document_url(
+        self,
+        id: str,
+        *,
+        document: GenerateDocumentUrlVerificationsRequestDocument,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[GenerateDocumentUrlVerificationsResponse]:
+        """
+        Generates a short-lived link to download one image that a person sent for an individual verification. Use the `identity_document` and `selfie` fields of the verification to know which images exist.
+
+        Parameters
+        ----------
+        id : str
+            Verification profile ID, prefixed `idpf_`.
+
+        document : GenerateDocumentUrlVerificationsRequestDocument
+            Image to download. Use the side of the document type on the verification, or `selfie`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GenerateDocumentUrlVerificationsResponse]
+            link generated
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"verifications/{encode_path_param(id)}/generate_document_url",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "document": document,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GenerateDocumentUrlVerificationsResponse,
+                    parse_obj_as(
+                        type_=GenerateDocumentUrlVerificationsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

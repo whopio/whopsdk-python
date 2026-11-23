@@ -8,6 +8,8 @@ from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawVerificationsClient, RawVerificationsClient
 from .types.create_verifications_request_body import CreateVerificationsRequestBody
 from .types.create_verifications_response import CreateVerificationsResponse
+from .types.generate_document_url_verifications_request_document import GenerateDocumentUrlVerificationsRequestDocument
+from .types.generate_document_url_verifications_response import GenerateDocumentUrlVerificationsResponse
 from .types.list_verifications_request_direction import ListVerificationsRequestDirection
 from .types.list_verifications_request_order import ListVerificationsRequestOrder
 from .types.list_verifications_response import ListVerificationsResponse
@@ -242,6 +244,49 @@ class VerificationsClient:
         )
         """
         _response = self._raw_client.update(id, request=request, request_options=request_options)
+        return _response.data
+
+    def generate_document_url(
+        self,
+        id: str,
+        *,
+        document: GenerateDocumentUrlVerificationsRequestDocument,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GenerateDocumentUrlVerificationsResponse:
+        """
+        Generates a short-lived link to download one image that a person sent for an individual verification. Use the `identity_document` and `selfie` fields of the verification to know which images exist.
+
+        Parameters
+        ----------
+        id : str
+            Verification profile ID, prefixed `idpf_`.
+
+        document : GenerateDocumentUrlVerificationsRequestDocument
+            Image to download. Use the side of the document type on the verification, or `selfie`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GenerateDocumentUrlVerificationsResponse
+            link generated
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-23-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.verifications.generate_document_url(
+            id="id",
+            document="id_card_front",
+        )
+        """
+        _response = self._raw_client.generate_document_url(id, document=document, request_options=request_options)
         return _response.data
 
 
@@ -500,4 +545,55 @@ class AsyncVerificationsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(id, request=request, request_options=request_options)
+        return _response.data
+
+    async def generate_document_url(
+        self,
+        id: str,
+        *,
+        document: GenerateDocumentUrlVerificationsRequestDocument,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GenerateDocumentUrlVerificationsResponse:
+        """
+        Generates a short-lived link to download one image that a person sent for an individual verification. Use the `identity_document` and `selfie` fields of the verification to know which images exist.
+
+        Parameters
+        ----------
+        id : str
+            Verification profile ID, prefixed `idpf_`.
+
+        document : GenerateDocumentUrlVerificationsRequestDocument
+            Image to download. Use the side of the document type on the verification, or `selfie`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GenerateDocumentUrlVerificationsResponse
+            link generated
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-23-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.verifications.generate_document_url(
+                id="id",
+                document="id_card_front",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.generate_document_url(id, document=document, request_options=request_options)
         return _response.data

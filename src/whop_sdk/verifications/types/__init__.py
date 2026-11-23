@@ -75,6 +75,9 @@ if typing.TYPE_CHECKING:
     from .create_verifications_response_selfie_capture import CreateVerificationsResponseSelfieCapture
     from .create_verifications_response_selfie_status import CreateVerificationsResponseSelfieStatus
     from .create_verifications_response_status import CreateVerificationsResponseStatus
+    from .generate_document_url_verifications_request_document import GenerateDocumentUrlVerificationsRequestDocument
+    from .generate_document_url_verifications_response import GenerateDocumentUrlVerificationsResponse
+    from .generate_document_url_verifications_response_document import GenerateDocumentUrlVerificationsResponseDocument
     from .list_verifications_request_direction import ListVerificationsRequestDirection
     from .list_verifications_request_order import ListVerificationsRequestOrder
     from .list_verifications_response import ListVerificationsResponse
@@ -309,6 +312,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsResponseSelfieCapture": ".create_verifications_response_selfie_capture",
     "CreateVerificationsResponseSelfieStatus": ".create_verifications_response_selfie_status",
     "CreateVerificationsResponseStatus": ".create_verifications_response_status",
+    "GenerateDocumentUrlVerificationsRequestDocument": ".generate_document_url_verifications_request_document",
+    "GenerateDocumentUrlVerificationsResponse": ".generate_document_url_verifications_response",
+    "GenerateDocumentUrlVerificationsResponseDocument": ".generate_document_url_verifications_response_document",
     "ListVerificationsRequestDirection": ".list_verifications_request_direction",
     "ListVerificationsRequestOrder": ".list_verifications_request_order",
     "ListVerificationsResponse": ".list_verifications_response",
@@ -467,6 +473,9 @@ __all__ = [
     "CreateVerificationsResponseSelfieCapture",
     "CreateVerificationsResponseSelfieStatus",
     "CreateVerificationsResponseStatus",
+    "GenerateDocumentUrlVerificationsRequestDocument",
+    "GenerateDocumentUrlVerificationsResponse",
+    "GenerateDocumentUrlVerificationsResponseDocument",
     "ListVerificationsRequestDirection",
     "ListVerificationsRequestOrder",
     "ListVerificationsResponse",

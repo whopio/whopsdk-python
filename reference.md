@@ -51143,6 +51143,88 @@ client.verifications.update(
 </dl>
 </details>
 
+<details><summary><code>client.verifications.<a href="src/whop_sdk/verifications/client.py">generate_document_url</a>(...) -> GenerateDocumentUrlVerificationsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generates a short-lived link to download one image that a person sent for an individual verification. Use the `identity_document` and `selfie` fields of the verification to know which images exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.verifications.generate_document_url(
+    id="id",
+    document="id_card_front",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Verification profile ID, prefixed `idpf_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**document:** `GenerateDocumentUrlVerificationsRequestDocument` — Image to download. Use the side of the document type on the verification, or `selfie`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Waitlist Entries
 <details><summary><code>client.waitlist_entries.<a href="src/whop_sdk/waitlist_entries/client.py">list</a>(...) -> ListWaitlistEntriesResponse</code></summary>
 <dl>
