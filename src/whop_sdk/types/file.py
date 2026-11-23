@@ -61,6 +61,11 @@ class File(UniversalBaseModel):
     The type of this object, always `file`.
     """
 
+    optimized_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    URL to the optimized file. `null` when no optimized version is available.
+    """
+
     removed_by_moderation: bool = pydantic.Field()
     """
     Whether moderation removed the file. When `true`, `url` serves a replacement image. `filename`, `size` and `content_type` still describe the original file.
