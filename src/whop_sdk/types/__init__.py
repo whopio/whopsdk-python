@@ -265,9 +265,6 @@ if typing.TYPE_CHECKING:
     from .app_view_types import AppViewTypes
     from .audience import Audience
     from .audience_audience_type import AudienceAudienceType
-    from .audience_match_rate import AudienceMatchRate
-    from .audience_match_rate_platform import AudienceMatchRatePlatform
-    from .audience_match_rate_status import AudienceMatchRateStatus
     from .audience_source_type import AudienceSourceType
     from .audience_status import AudienceStatus
     from .authorized_user import AuthorizedUser
@@ -1926,9 +1923,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AppViewTypes": ".app_view_types",
     "Audience": ".audience",
     "AudienceAudienceType": ".audience_audience_type",
-    "AudienceMatchRate": ".audience_match_rate",
-    "AudienceMatchRatePlatform": ".audience_match_rate_platform",
-    "AudienceMatchRateStatus": ".audience_match_rate_status",
     "AudienceSourceType": ".audience_source_type",
     "AudienceStatus": ".audience_status",
     "AuthorizedUser": ".authorized_user",
@@ -3475,9 +3469,6 @@ __all__ = [
     "AppViewTypes",
     "Audience",
     "AudienceAudienceType",
-    "AudienceMatchRate",
-    "AudienceMatchRatePlatform",
-    "AudienceMatchRateStatus",
     "AudienceSourceType",
     "AudienceStatus",
     "AuthorizedUser",
