@@ -886,6 +886,8 @@ if typing.TYPE_CHECKING:
     from .notification_preference_state_type import NotificationPreferenceStateType
     from .notification_sender import NotificationSender
     from .notification_topic import NotificationTopic
+    from .notification_topic_email_delivery import NotificationTopicEmailDelivery
+    from .notification_topic_push_delivery import NotificationTopicPushDelivery
     from .notification_topic_summary import NotificationTopicSummary
     from .notification_topic_summary_topic_type import NotificationTopicSummaryTopicType
     from .notification_topic_topic_type import NotificationTopicTopicType
@@ -2525,6 +2527,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationPreferenceStateType": ".notification_preference_state_type",
     "NotificationSender": ".notification_sender",
     "NotificationTopic": ".notification_topic",
+    "NotificationTopicEmailDelivery": ".notification_topic_email_delivery",
+    "NotificationTopicPushDelivery": ".notification_topic_push_delivery",
     "NotificationTopicSummary": ".notification_topic_summary",
     "NotificationTopicSummaryTopicType": ".notification_topic_summary_topic_type",
     "NotificationTopicTopicType": ".notification_topic_topic_type",
@@ -4070,6 +4074,8 @@ __all__ = [
     "NotificationPreferenceStateType",
     "NotificationSender",
     "NotificationTopic",
+    "NotificationTopicEmailDelivery",
+    "NotificationTopicPushDelivery",
     "NotificationTopicSummary",
     "NotificationTopicSummaryTopicType",
     "NotificationTopicTopicType",

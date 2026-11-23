@@ -2,4 +2,6 @@
 
 import typing
 
-SetNotificationsRequestPreferencesItemScopeChannel = typing.Union[typing.Literal["in_app", "mobile"], typing.Any]
+SetNotificationsRequestPreferencesItemScopeChannel = typing.Union[
+    typing.Literal["in_app", "mobile", "email"], typing.Any
+]

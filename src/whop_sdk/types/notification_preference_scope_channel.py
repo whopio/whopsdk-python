@@ -2,4 +2,4 @@
 
 import typing
 
-NotificationPreferenceScopeChannel = typing.Union[typing.Literal["in_app", "mobile"], typing.Any]
+NotificationPreferenceScopeChannel = typing.Union[typing.Literal["in_app", "mobile", "email"], typing.Any]
