@@ -46,6 +46,7 @@ class WaitlistEntriesClient:
         variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
         query: typing.Optional[str] = None,
@@ -83,6 +84,9 @@ class WaitlistEntriesClient:
 
         product_id : typing.Optional[str]
             Only return signups for variants on this product, prefixed `prod_`.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return signups for variants on any of these products, prefixed `prod_`. Unknown IDs match nothing.
 
         buyer_account_id : typing.Optional[str]
             List the signups submitted on behalf of this account, prefixed `biz_`, instead of your own and seller signups. Requires `waitlist_entry:read` on the account. The other filters still apply.
@@ -122,7 +126,9 @@ class WaitlistEntriesClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.waitlist_entries.list()
+        response = client.waitlist_entries.list(
+            product_ids=["prod_xxxxxxxxxxxxx"],
+        )
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -138,6 +144,7 @@ class WaitlistEntriesClient:
             variant_id=variant_id,
             account_id=account_id,
             product_id=product_id,
+            product_ids=product_ids,
             buyer_account_id=buyer_account_id,
             status=status,
             query=query,
@@ -409,6 +416,7 @@ class AsyncWaitlistEntriesClient:
         variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
         query: typing.Optional[str] = None,
@@ -446,6 +454,9 @@ class AsyncWaitlistEntriesClient:
 
         product_id : typing.Optional[str]
             Only return signups for variants on this product, prefixed `prod_`.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return signups for variants on any of these products, prefixed `prod_`. Unknown IDs match nothing.
 
         buyer_account_id : typing.Optional[str]
             List the signups submitted on behalf of this account, prefixed `biz_`, instead of your own and seller signups. Requires `waitlist_entry:read` on the account. The other filters still apply.
@@ -490,7 +501,9 @@ class AsyncWaitlistEntriesClient:
 
 
         async def main() -> None:
-            response = await client.waitlist_entries.list()
+            response = await client.waitlist_entries.list(
+                product_ids=["prod_xxxxxxxxxxxxx"],
+            )
             async for item in response:
                 yield item
 
@@ -510,6 +523,7 @@ class AsyncWaitlistEntriesClient:
             variant_id=variant_id,
             account_id=account_id,
             product_id=product_id,
+            product_ids=product_ids,
             buyer_account_id=buyer_account_id,
             status=status,
             query=query,

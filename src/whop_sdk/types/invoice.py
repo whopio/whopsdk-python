@@ -77,6 +77,22 @@ class Invoice(UniversalBaseModel):
     When the customer accepted and signed the quote, as an ISO 8601 timestamp. An edit to the draft clears it, unless the edit changes only `recipient_emails`. `null` when the quote was not accepted.
     """
 
+    quote_amount_paid: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    How much of the quote its paid invoices in `quote_invoice_ids` cover, before tax. `null` when the invoice was never sent as a quote.
+    """
+
+    quote_amount_remaining: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    How much of the quote is not yet billed: its line items before tax, minus every invoice in `quote_invoice_ids`. `null` when the invoice was never sent as a quote.
+    """
+
+    quote_invoice_ids: typing.List[str]
+    quote_payment_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Where the customer pays the next unpaid invoice in `quote_invoice_ids`. Only returned when the quote is read with its customer `token`. `null` otherwise, and when nothing is waiting to be paid.
+    """
+
     quote_sent_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the draft was last emailed to its recipients as a quote, as an ISO 8601 timestamp. A quote stays a draft and cannot be paid. It is not issued on its `due_at`. `null` when the invoice was never sent as a quote.
