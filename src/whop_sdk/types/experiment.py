@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .experiment_bucket_by import ExperimentBucketBy
 from .experiment_control import ExperimentControl
+from .experiment_decision_mode import ExperimentDecisionMode
 from .experiment_kind import ExperimentKind
 from .experiment_resource_reference import ExperimentResourceReference
 from .experiment_stat import ExperimentStat
@@ -43,6 +44,11 @@ class Experiment(UniversalBaseModel):
     created_by: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the user who created the experiment, prefixed `user_`. `null` for experiments created before creators were recorded.
+    """
+
+    decision_mode: typing.Optional[ExperimentDecisionMode] = pydantic.Field(default=None)
+    """
+    How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. `null` leaves it to the owner.
     """
 
     ended_at: typing.Optional[str] = pydantic.Field(default=None)

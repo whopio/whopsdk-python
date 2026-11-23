@@ -22920,6 +22920,14 @@ client.experiments.create(
 <dl>
 <dd>
 
+**decision_mode:** `typing.Optional[CreateExperimentsRequestDecisionMode]` — How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Omit to leave it to the owner. Not accepted on feature flags.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **hypothesis:** `typing.Optional[str]` — Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
     
 </dd>
@@ -23250,6 +23258,14 @@ client.experiments.update(
 <dd>
 
 **control:** `typing.Optional[UpdateExperimentsRequestControl]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**decision_mode:** `typing.Optional[UpdateExperimentsRequestDecisionMode]` — How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Send `null` to leave it to the owner. Not accepted on feature flags. Omit to leave unchanged.
     
 </dd>
 </dl>

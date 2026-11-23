@@ -12,6 +12,7 @@ from ..types.exposures_experiments_request_subject import ExposuresExperimentsRe
 from .raw_client import AsyncRawExperimentsClient, RawExperimentsClient
 from .types.create_experiments_request_bucket_by import CreateExperimentsRequestBucketBy
 from .types.create_experiments_request_control import CreateExperimentsRequestControl
+from .types.create_experiments_request_decision_mode import CreateExperimentsRequestDecisionMode
 from .types.create_experiments_request_kind import CreateExperimentsRequestKind
 from .types.create_experiments_request_variants_item import CreateExperimentsRequestVariantsItem
 from .types.exposures_experiments_response import ExposuresExperimentsResponse
@@ -21,6 +22,7 @@ from .types.list_experiments_request_status import ListExperimentsRequestStatus
 from .types.list_experiments_response import ListExperimentsResponse
 from .types.results_experiments_response import ResultsExperimentsResponse
 from .types.update_experiments_request_control import UpdateExperimentsRequestControl
+from .types.update_experiments_request_decision_mode import UpdateExperimentsRequestDecisionMode
 from .types.update_experiments_request_variants_item import UpdateExperimentsRequestVariantsItem
 
 # this is used as the default value for optional parameters
@@ -132,6 +134,7 @@ class ExperimentsClient:
         flag_key: str,
         bucket_by: typing.Optional[CreateExperimentsRequestBucketBy] = OMIT,
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
+        decision_mode: typing.Optional[CreateExperimentsRequestDecisionMode] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         kind: typing.Optional[CreateExperimentsRequestKind] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -156,6 +159,9 @@ class ExperimentsClient:
             Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]`; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
 
         control : typing.Optional[CreateExperimentsRequestControl]
+
+        decision_mode : typing.Optional[CreateExperimentsRequestDecisionMode]
+            How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Omit to leave it to the owner. Not accepted on feature flags.
 
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
@@ -205,6 +211,7 @@ class ExperimentsClient:
             flag_key=flag_key,
             bucket_by=bucket_by,
             control=control,
+            decision_mode=decision_mode,
             hypothesis=hypothesis,
             kind=kind,
             metadata=metadata,
@@ -328,6 +335,7 @@ class ExperimentsClient:
         *,
         account_id: typing.Optional[str] = None,
         control: typing.Optional[UpdateExperimentsRequestControl] = OMIT,
+        decision_mode: typing.Optional[UpdateExperimentsRequestDecisionMode] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
         variants: typing.Optional[typing.Sequence[UpdateExperimentsRequestVariantsItem]] = OMIT,
@@ -345,6 +353,9 @@ class ExperimentsClient:
             Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
+
+        decision_mode : typing.Optional[UpdateExperimentsRequestDecisionMode]
+            How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Send `null` to leave it to the owner. Not accepted on feature flags. Omit to leave unchanged.
 
         hypothesis : typing.Optional[str]
             Omit to leave unchanged. Send an empty string to clear it. Not accepted on feature flags. When setting it, structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." same as on create.
@@ -380,6 +391,7 @@ class ExperimentsClient:
             id,
             account_id=account_id,
             control=control,
+            decision_mode=decision_mode,
             hypothesis=hypothesis,
             related_resource=related_resource,
             variants=variants,
@@ -697,6 +709,7 @@ class AsyncExperimentsClient:
         flag_key: str,
         bucket_by: typing.Optional[CreateExperimentsRequestBucketBy] = OMIT,
         control: typing.Optional[CreateExperimentsRequestControl] = OMIT,
+        decision_mode: typing.Optional[CreateExperimentsRequestDecisionMode] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         kind: typing.Optional[CreateExperimentsRequestKind] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -721,6 +734,9 @@ class AsyncExperimentsClient:
             Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]`; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
 
         control : typing.Optional[CreateExperimentsRequestControl]
+
+        decision_mode : typing.Optional[CreateExperimentsRequestDecisionMode]
+            How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Omit to leave it to the owner. Not accepted on feature flags.
 
         hypothesis : typing.Optional[str]
             Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
@@ -778,6 +794,7 @@ class AsyncExperimentsClient:
             flag_key=flag_key,
             bucket_by=bucket_by,
             control=control,
+            decision_mode=decision_mode,
             hypothesis=hypothesis,
             kind=kind,
             metadata=metadata,
@@ -917,6 +934,7 @@ class AsyncExperimentsClient:
         *,
         account_id: typing.Optional[str] = None,
         control: typing.Optional[UpdateExperimentsRequestControl] = OMIT,
+        decision_mode: typing.Optional[UpdateExperimentsRequestDecisionMode] = OMIT,
         hypothesis: typing.Optional[str] = OMIT,
         related_resource: typing.Optional[ExperimentResourceReference] = OMIT,
         variants: typing.Optional[typing.Sequence[UpdateExperimentsRequestVariantsItem]] = OMIT,
@@ -934,6 +952,9 @@ class AsyncExperimentsClient:
             Owning account ID. Required when `id` is a flag key, optional for an `expt_` ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
+
+        decision_mode : typing.Optional[UpdateExperimentsRequestDecisionMode]
+            How the experiment is decided. `autopilot` ends it as soon as a result is outside the margin of error, shipping the arm that won or keeping control if it lost. If its window passes with no clear result, `autopilot` keeps control. `require_approval` leaves every arm serving for the owner to end. Send `null` to leave it to the owner. Not accepted on feature flags. Omit to leave unchanged.
 
         hypothesis : typing.Optional[str]
             Omit to leave unchanged. Send an empty string to clear it. Not accepted on feature flags. When setting it, structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." same as on create.
@@ -977,6 +998,7 @@ class AsyncExperimentsClient:
             id,
             account_id=account_id,
             control=control,
+            decision_mode=decision_mode,
             hypothesis=hypothesis,
             related_resource=related_resource,
             variants=variants,
