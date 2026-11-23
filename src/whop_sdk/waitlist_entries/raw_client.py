@@ -47,6 +47,7 @@ class RawWaitlistEntriesClient:
         variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
         query: typing.Optional[str] = None,
@@ -84,6 +85,9 @@ class RawWaitlistEntriesClient:
 
         product_id : typing.Optional[str]
             Only return signups for variants on this product, prefixed `prod_`.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return signups for variants on any of these products, prefixed `prod_`. Unknown IDs match nothing.
 
         buyer_account_id : typing.Optional[str]
             List the signups submitted on behalf of this account, prefixed `biz_`, instead of your own and seller signups. Requires `waitlist_entry:read` on the account. The other filters still apply.
@@ -127,6 +131,7 @@ class RawWaitlistEntriesClient:
                 "variant_id": variant_id,
                 "account_id": account_id,
                 "product_id": product_id,
+                "product_ids": product_ids,
                 "buyer_account_id": buyer_account_id,
                 "status": status,
                 "query": query,
@@ -161,6 +166,7 @@ class RawWaitlistEntriesClient:
                         variant_id=variant_id,
                         account_id=account_id,
                         product_id=product_id,
+                        product_ids=product_ids,
                         buyer_account_id=buyer_account_id,
                         status=status,
                         query=query,
@@ -823,6 +829,7 @@ class AsyncRawWaitlistEntriesClient:
         variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
         query: typing.Optional[str] = None,
@@ -860,6 +867,9 @@ class AsyncRawWaitlistEntriesClient:
 
         product_id : typing.Optional[str]
             Only return signups for variants on this product, prefixed `prod_`.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return signups for variants on any of these products, prefixed `prod_`. Unknown IDs match nothing.
 
         buyer_account_id : typing.Optional[str]
             List the signups submitted on behalf of this account, prefixed `biz_`, instead of your own and seller signups. Requires `waitlist_entry:read` on the account. The other filters still apply.
@@ -903,6 +913,7 @@ class AsyncRawWaitlistEntriesClient:
                 "variant_id": variant_id,
                 "account_id": account_id,
                 "product_id": product_id,
+                "product_ids": product_ids,
                 "buyer_account_id": buyer_account_id,
                 "status": status,
                 "query": query,
@@ -939,6 +950,7 @@ class AsyncRawWaitlistEntriesClient:
                             variant_id=variant_id,
                             account_id=account_id,
                             product_id=product_id,
+                            product_ids=product_ids,
                             buyer_account_id=buyer_account_id,
                             status=status,
                             query=query,

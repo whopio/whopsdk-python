@@ -51261,7 +51261,11 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.waitlist_entries.list()
+client.waitlist_entries.list(
+    product_ids=[
+        "prod_xxxxxxxxxxxxx"
+    ],
+)
 
 ```
 </dd>
@@ -51334,6 +51338,14 @@ client.waitlist_entries.list()
 <dd>
 
 **product_id:** `typing.Optional[str]` — Only return signups for variants on this product, prefixed `prod_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return signups for variants on any of these products, prefixed `prod_`. Unknown IDs match nothing.
     
 </dd>
 </dl>
