@@ -4,10 +4,12 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .user_badge import UserBadge
 from .user_profile_picture import UserProfilePicture
 
 
 class MemberUser(UniversalBaseModel):
+    badges: typing.List[UserBadge]
     city: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user's city, derived from their IP address. `null` when unknown or the user turned off location sharing.
