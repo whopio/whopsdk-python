@@ -28434,6 +28434,14 @@ client.invoices.send(
 <dl>
 <dd>
 
+**quote_deposit_amount:** `typing.Optional[float]` — A fixed amount in the invoice's currency to bill as a deposit when the customer signs, such as `200` for $200.00. It must be less than the quote total. Mutually exclusive with `quote_deposit_percentage`. Only with `send_as` set to `quote`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **quote_deposit_percentage:** `typing.Optional[float]` — The share of the quote to bill as a deposit when the customer signs, such as `30` for 30%. The customer is then taken to pay it. Only with `send_as` set to `quote`.
     
 </dd>
