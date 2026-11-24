@@ -87,6 +87,16 @@ class Invoice(UniversalBaseModel):
     How much of the quote is not yet billed: its line items before tax, minus every invoice in `quote_invoice_ids`. `null` when the invoice was never sent as a quote.
     """
 
+    quote_deposit_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    How much is billed as a deposit when the customer signs, before tax. `null` when the quote has no deposit.
+    """
+
+    quote_deposit_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The share of the quote billed as a deposit when the customer signs, such as `30` for 30%. `null` when the deposit is a fixed amount or there is none.
+    """
+
     quote_invoice_ids: typing.List[str]
     quote_payment_url: typing.Optional[str] = pydantic.Field(default=None)
     """
