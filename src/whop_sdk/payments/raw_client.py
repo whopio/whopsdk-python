@@ -22,6 +22,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.payment import Payment
 from ..types.payment_input_variant import PaymentInputVariant
 from ..types.payment_pdf import PaymentPdf
+from ..types.payment_register_discount import PaymentRegisterDiscount
 from ..types.payment_status import PaymentStatus
 from .types.create_payments_request_billing_address import CreatePaymentsRequestBillingAddress
 from .types.create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
@@ -403,6 +404,7 @@ class RawPaymentsClient:
         billing_address: typing.Optional[CreatePaymentsRequestBillingAddress] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
+        discount: typing.Optional[PaymentRegisterDiscount] = OMIT,
         email: typing.Optional[str] = OMIT,
         ip_address: typing.Optional[str] = OMIT,
         line_items: typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]] = OMIT,
@@ -447,6 +449,9 @@ class RawPaymentsClient:
 
         confirmation_token : typing.Optional[str]
             A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
+
+        discount : typing.Optional[PaymentRegisterDiscount]
+            A discount typed at the register for the whole payment. It comes off what the payment costs after line discounts and the promo code, and can't be more than that amount. Discounts can't bring the payment to zero. Only with a `card_present` `payment_method`, and requires `payment:manage` on the account. Whop takes each line's discount off the line, then the promo code, then the payment's `discount`. Tax is calculated on the discounted amounts.
 
         email : typing.Optional[str]
             The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with a `card_present` `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached; with a `paypal` `payment_method` it names the buyer, and when it and `member_id` are both omitted the buyer is the PayPal account that approves the payment. Ignored with `member_id`.
@@ -522,6 +527,9 @@ class RawPaymentsClient:
                 ),
                 "capture": capture,
                 "confirmation_token": confirmation_token,
+                "discount": convert_and_respect_annotation_metadata(
+                    object_=discount, annotation=typing.Optional[PaymentRegisterDiscount], direction="write"
+                ),
                 "email": email,
                 "ip_address": ip_address,
                 "line_items": convert_and_respect_annotation_metadata(
@@ -2186,6 +2194,7 @@ class AsyncRawPaymentsClient:
         billing_address: typing.Optional[CreatePaymentsRequestBillingAddress] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
+        discount: typing.Optional[PaymentRegisterDiscount] = OMIT,
         email: typing.Optional[str] = OMIT,
         ip_address: typing.Optional[str] = OMIT,
         line_items: typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]] = OMIT,
@@ -2230,6 +2239,9 @@ class AsyncRawPaymentsClient:
 
         confirmation_token : typing.Optional[str]
             A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
+
+        discount : typing.Optional[PaymentRegisterDiscount]
+            A discount typed at the register for the whole payment. It comes off what the payment costs after line discounts and the promo code, and can't be more than that amount. Discounts can't bring the payment to zero. Only with a `card_present` `payment_method`, and requires `payment:manage` on the account. Whop takes each line's discount off the line, then the promo code, then the payment's `discount`. Tax is calculated on the discounted amounts.
 
         email : typing.Optional[str]
             The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with a `card_present` `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached; with a `paypal` `payment_method` it names the buyer, and when it and `member_id` are both omitted the buyer is the PayPal account that approves the payment. Ignored with `member_id`.
@@ -2305,6 +2317,9 @@ class AsyncRawPaymentsClient:
                 ),
                 "capture": capture,
                 "confirmation_token": confirmation_token,
+                "discount": convert_and_respect_annotation_metadata(
+                    object_=discount, annotation=typing.Optional[PaymentRegisterDiscount], direction="write"
+                ),
                 "email": email,
                 "ip_address": ip_address,
                 "line_items": convert_and_respect_annotation_metadata(
