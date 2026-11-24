@@ -305,6 +305,7 @@ class AdsClient:
     def create(
         self,
         *,
+        account_id: typing.Optional[str] = OMIT,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -322,6 +323,9 @@ class AdsClient:
 
         Parameters
         ----------
+        account_id : typing.Optional[str]
+            The account to create an inline `ad_group.ad_campaign` under. Defaults to the account-scoped key's own account.
+
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -372,6 +376,7 @@ class AdsClient:
         client.ads.create()
         """
         _response = self._raw_client.create(
+            account_id=account_id,
             ad_group=ad_group,
             ad_group_id=ad_group_id,
             call_to_action=call_to_action,
@@ -969,6 +974,7 @@ class AsyncAdsClient:
     async def create(
         self,
         *,
+        account_id: typing.Optional[str] = OMIT,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -986,6 +992,9 @@ class AsyncAdsClient:
 
         Parameters
         ----------
+        account_id : typing.Optional[str]
+            The account to create an inline `ad_group.ad_campaign` under. Defaults to the account-scoped key's own account.
+
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -1044,6 +1053,7 @@ class AsyncAdsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
+            account_id=account_id,
             ad_group=ad_group,
             ad_group_id=ad_group_id,
             call_to_action=call_to_action,
