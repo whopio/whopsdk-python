@@ -33787,7 +33787,7 @@ client.partners.retrieve(
 <dl>
 <dd>
 
-Lists the payment method domains registered for your account and its subaccounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
+Lists the payment method domains registered for your account and its subaccounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead. Stops responding after 2026-12-23.
 </dd>
 </dl>
 </dd>
@@ -33946,7 +33946,7 @@ client.payment_method_domains.list()
 <dl>
 <dd>
 
-Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`. Deprecated: add Apple Pay with `POST /domains` and `apple_pay: {}` instead.
+Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`. Deprecated: add Apple Pay with `POST /domains` and `apple_pay: {}` instead. Stops responding after 2026-12-23.
 </dd>
 </dl>
 </dd>
@@ -34027,7 +34027,7 @@ client.payment_method_domains.create(
 <dl>
 <dd>
 
-Retrieves a payment method domain to check its verification status. Deprecated: retrieve the domain with `GET /domains/{id}` instead, using the same ID.
+Retrieves a payment method domain to check its verification status. Deprecated: retrieve the domain with `GET /domains/{id}` instead, using the same ID. Stops responding after 2026-12-23.
 </dd>
 </dl>
 </dd>
@@ -34173,7 +34173,7 @@ client.payment_method_domains.delete(
 <dl>
 <dd>
 
-Re-attempts provider verification of a pending domain once the association file is hosted. Fails with a `bad_request` explaining what to fix; verifying an already `verified` domain is a no-op. Deprecated: check the domain with `POST /domains/{id}/check` instead.
+Re-attempts provider verification of a pending domain once the association file is hosted. Fails with a `bad_request` explaining what to fix; verifying an already `verified` domain is a no-op. Deprecated: check the domain with `POST /domains/{id}/check` instead. Stops responding after 2026-12-23.
 </dd>
 </dl>
 </dd>
