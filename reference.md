@@ -519,7 +519,7 @@ client.accounts.create()
 <dl>
 <dd>
 
-**verification_ids:** `typing.Optional[typing.List[str]]` — IDs of `approved` verifications to reuse on the new business account, each prefixed `idpf_`. Send at most one `individual` verification and one `business` verification. Each one becomes the account's current verification for its kind, and its payout account carries across. Only the signed-in Whop user who started a verification can reuse it. API keys and OAuth tokens are refused. A verification that was denied after review cannot be reused. Business accounts only.
+**verification_ids:** `typing.Optional[typing.List[str]]` — IDs of `approved` verifications to reuse on the new account, each prefixed `idpf_`. Send at most one `individual` verification and one `business` verification. Each one becomes the account's current verification for its kind, and its payout account carries across. A user token can reuse the verifications that user started. Requires the `identity:write` permission. It cannot be set when creating a subaccount.
     
 </dd>
 </dl>
