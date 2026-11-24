@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_summary import AccountSummary
 from .receipt_line_item import ReceiptLineItem
 from .resolution_buyer import ResolutionBuyer
+from .resolution_center_case_answer import ResolutionCenterCaseAnswer
 from .resolution_center_case_available_actions_item import ResolutionCenterCaseAvailableActionsItem
 from .resolution_center_case_outcome import ResolutionCenterCaseOutcome
 from .resolution_center_case_reason import ResolutionCenterCaseReason
@@ -26,6 +27,7 @@ class ResolutionCenterCase(UniversalBaseModel):
     The amount in question, in whole units of `currency`.
     """
 
+    answers: typing.List[ResolutionCenterCaseAnswer]
     available_actions: typing.List[ResolutionCenterCaseAvailableActionsItem]
     buyer: ResolutionBuyer = pydantic.Field()
     """

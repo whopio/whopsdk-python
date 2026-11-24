@@ -12,6 +12,13 @@ if typing.TYPE_CHECKING:
     from .appeal_resolution_center_cases_request_attachments_item import (
         AppealResolutionCenterCasesRequestAttachmentsItem,
     )
+    from .create_resolution_center_cases_request_answers_item import CreateResolutionCenterCasesRequestAnswersItem
+    from .create_resolution_center_cases_request_answers_item_attachments_item import (
+        CreateResolutionCenterCasesRequestAnswersItemAttachmentsItem,
+    )
+    from .create_resolution_center_cases_request_answers_item_question import (
+        CreateResolutionCenterCasesRequestAnswersItemQuestion,
+    )
     from .create_resolution_center_cases_request_attachments_item import (
         CreateResolutionCenterCasesRequestAttachmentsItem,
     )
@@ -65,6 +72,9 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "AcceptResolutionCenterCasesRequestAttachmentsItem": ".accept_resolution_center_cases_request_attachments_item",
     "AppealResolutionCenterCasesRequestAttachmentsItem": ".appeal_resolution_center_cases_request_attachments_item",
+    "CreateResolutionCenterCasesRequestAnswersItem": ".create_resolution_center_cases_request_answers_item",
+    "CreateResolutionCenterCasesRequestAnswersItemAttachmentsItem": ".create_resolution_center_cases_request_answers_item_attachments_item",
+    "CreateResolutionCenterCasesRequestAnswersItemQuestion": ".create_resolution_center_cases_request_answers_item_question",
     "CreateResolutionCenterCasesRequestAttachmentsItem": ".create_resolution_center_cases_request_attachments_item",
     "CreateResolutionCenterCasesRequestReason": ".create_resolution_center_cases_request_reason",
     "DenyResolutionCenterCasesRequestAttachmentsItem": ".deny_resolution_center_cases_request_attachments_item",
@@ -126,6 +136,9 @@ def __dir__():
 __all__ = [
     "AcceptResolutionCenterCasesRequestAttachmentsItem",
     "AppealResolutionCenterCasesRequestAttachmentsItem",
+    "CreateResolutionCenterCasesRequestAnswersItem",
+    "CreateResolutionCenterCasesRequestAnswersItemAttachmentsItem",
+    "CreateResolutionCenterCasesRequestAnswersItemQuestion",
     "CreateResolutionCenterCasesRequestAttachmentsItem",
     "CreateResolutionCenterCasesRequestReason",
     "DenyResolutionCenterCasesRequestAttachmentsItem",

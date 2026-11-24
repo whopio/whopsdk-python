@@ -11,6 +11,7 @@ class SummaryResolutionCenterCasesResponseGroupsReason(UniversalBaseModel):
     How many of the matching cases were opened for each reason. Every reason is present, including those with a count of zero.
     """
 
+    credit_not_processed: int
     fraudulent: int
     not_as_described: int
     product_not_received: int

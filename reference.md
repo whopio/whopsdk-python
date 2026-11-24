@@ -42981,7 +42981,7 @@ client.resolution_center_cases.list(
 <dl>
 <dd>
 
-Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`.
+Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`. Send `answers` to record the customer's answers to the questions for that reason.
 </dd>
 </dl>
 </dd>
@@ -43041,6 +43041,14 @@ client.resolution_center_cases.create(
 <dd>
 
 **receipt_id:** `str` — The payment to open the case against (`pay_` tag).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**answers:** `typing.Optional[typing.List[CreateResolutionCenterCasesRequestAnswersItem]]` — The customer's answers to the questions for this `reason`. Every required question needs an answer, and a question the reason does not ask is refused.
     
 </dd>
 </dl>
