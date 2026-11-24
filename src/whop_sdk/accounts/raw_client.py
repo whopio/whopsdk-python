@@ -261,6 +261,7 @@ class RawAccountsClient:
         reassign_external_id: typing.Optional[bool] = OMIT,
         send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
+        verification_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Account]:
@@ -302,6 +303,9 @@ class RawAccountsClient:
         title : typing.Optional[str]
             The display name of the account. Defaults to `external_id` or the owner's email when omitted.
 
+        verification_ids : typing.Optional[typing.Sequence[str]]
+            IDs of `approved` verifications to reuse on the new business account, each prefixed `idpf_`. Send at most one `individual` verification and one `business` verification. Each one becomes the account's current verification for its kind, and its payout account carries across. Only the signed-in Whop user who started a verification can reuse it. API keys and OAuth tokens are refused. A verification that was denied after review cannot be reused. Business accounts only.
+
         website : typing.Optional[str]
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry.
 
@@ -329,6 +333,7 @@ class RawAccountsClient:
                 "reassign_external_id": reassign_external_id,
                 "send_customer_emails": send_customer_emails,
                 "title": title,
+                "verification_ids": verification_ids,
                 "website": website,
             },
             headers={
@@ -1815,6 +1820,7 @@ class AsyncRawAccountsClient:
         reassign_external_id: typing.Optional[bool] = OMIT,
         send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
+        verification_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Account]:
@@ -1856,6 +1862,9 @@ class AsyncRawAccountsClient:
         title : typing.Optional[str]
             The display name of the account. Defaults to `external_id` or the owner's email when omitted.
 
+        verification_ids : typing.Optional[typing.Sequence[str]]
+            IDs of `approved` verifications to reuse on the new business account, each prefixed `idpf_`. Send at most one `individual` verification and one `business` verification. Each one becomes the account's current verification for its kind, and its payout account carries across. Only the signed-in Whop user who started a verification can reuse it. API keys and OAuth tokens are refused. A verification that was denied after review cannot be reused. Business accounts only.
+
         website : typing.Optional[str]
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry.
 
@@ -1883,6 +1892,7 @@ class AsyncRawAccountsClient:
                 "reassign_external_id": reassign_external_id,
                 "send_customer_emails": send_customer_emails,
                 "title": title,
+                "verification_ids": verification_ids,
                 "website": website,
             },
             headers={
