@@ -240,6 +240,7 @@ PermissionAction = typing.Union[
         "social_account:delete",
         "social_account:read",
         "social_link:update",
+        "social_mention:read",
         "stats:read",
         "support_chat:create",
         "support_chat:message:create",
