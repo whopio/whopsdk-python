@@ -899,8 +899,10 @@ if typing.TYPE_CHECKING:
     from .partner_payout_tier import PartnerPayoutTier
     from .partner_payout_tier_tier import PartnerPayoutTierTier
     from .partner_referral_request import PartnerReferralRequest
+    from .partner_referral_request_lead import PartnerReferralRequestLead
     from .partner_referral_request_request_type import PartnerReferralRequestRequestType
     from .partner_referral_request_status import PartnerReferralRequestStatus
+    from .partner_referral_request_status_reason import PartnerReferralRequestStatusReason
     from .partner_referral_reward import PartnerReferralReward
     from .partner_referral_reward_bot_qualification_type import PartnerReferralRewardBotQualificationType
     from .partner_referral_reward_recipient import PartnerReferralRewardRecipient
@@ -2535,8 +2537,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PartnerPayoutTier": ".partner_payout_tier",
     "PartnerPayoutTierTier": ".partner_payout_tier_tier",
     "PartnerReferralRequest": ".partner_referral_request",
+    "PartnerReferralRequestLead": ".partner_referral_request_lead",
     "PartnerReferralRequestRequestType": ".partner_referral_request_request_type",
     "PartnerReferralRequestStatus": ".partner_referral_request_status",
+    "PartnerReferralRequestStatusReason": ".partner_referral_request_status_reason",
     "PartnerReferralReward": ".partner_referral_reward",
     "PartnerReferralRewardBotQualificationType": ".partner_referral_reward_bot_qualification_type",
     "PartnerReferralRewardRecipient": ".partner_referral_reward_recipient",
@@ -4077,8 +4081,10 @@ __all__ = [
     "PartnerPayoutTier",
     "PartnerPayoutTierTier",
     "PartnerReferralRequest",
+    "PartnerReferralRequestLead",
     "PartnerReferralRequestRequestType",
     "PartnerReferralRequestStatus",
+    "PartnerReferralRequestStatusReason",
     "PartnerReferralReward",
     "PartnerReferralRewardBotQualificationType",
     "PartnerReferralRewardRecipient",
