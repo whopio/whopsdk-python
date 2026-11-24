@@ -635,6 +635,7 @@ class InvoicesClient:
         charge_at: typing.Optional[dt.datetime] = OMIT,
         collection_method: typing.Optional[SendInvoicesRequestCollectionMethod] = OMIT,
         message: typing.Optional[str] = OMIT,
+        quote_deposit_amount: typing.Optional[float] = OMIT,
         quote_deposit_percentage: typing.Optional[float] = OMIT,
         send_as: typing.Optional[SendInvoicesRequestSendAs] = OMIT,
         send_at: typing.Optional[dt.datetime] = OMIT,
@@ -656,6 +657,9 @@ class InvoicesClient:
 
         message : typing.Optional[str]
             A note to the customer in the quote email. It is not stored. Only with `send_as` set to `quote`. Defaults to "Please review and accept this quote" when it is blank or left out.
+
+        quote_deposit_amount : typing.Optional[float]
+            A fixed amount in the invoice's currency to bill as a deposit when the customer signs, such as `200` for $200.00. It must be less than the quote total. Mutually exclusive with `quote_deposit_percentage`. Only with `send_as` set to `quote`.
 
         quote_deposit_percentage : typing.Optional[float]
             The share of the quote to bill as a deposit when the customer signs, such as `30` for 30%. The customer is then taken to pay it. Only with `send_as` set to `quote`.
@@ -692,6 +696,7 @@ class InvoicesClient:
             charge_at=charge_at,
             collection_method=collection_method,
             message=message,
+            quote_deposit_amount=quote_deposit_amount,
             quote_deposit_percentage=quote_deposit_percentage,
             send_as=send_as,
             send_at=send_at,
@@ -1453,6 +1458,7 @@ class AsyncInvoicesClient:
         charge_at: typing.Optional[dt.datetime] = OMIT,
         collection_method: typing.Optional[SendInvoicesRequestCollectionMethod] = OMIT,
         message: typing.Optional[str] = OMIT,
+        quote_deposit_amount: typing.Optional[float] = OMIT,
         quote_deposit_percentage: typing.Optional[float] = OMIT,
         send_as: typing.Optional[SendInvoicesRequestSendAs] = OMIT,
         send_at: typing.Optional[dt.datetime] = OMIT,
@@ -1474,6 +1480,9 @@ class AsyncInvoicesClient:
 
         message : typing.Optional[str]
             A note to the customer in the quote email. It is not stored. Only with `send_as` set to `quote`. Defaults to "Please review and accept this quote" when it is blank or left out.
+
+        quote_deposit_amount : typing.Optional[float]
+            A fixed amount in the invoice's currency to bill as a deposit when the customer signs, such as `200` for $200.00. It must be less than the quote total. Mutually exclusive with `quote_deposit_percentage`. Only with `send_as` set to `quote`.
 
         quote_deposit_percentage : typing.Optional[float]
             The share of the quote to bill as a deposit when the customer signs, such as `30` for 30%. The customer is then taken to pay it. Only with `send_as` set to `quote`.
@@ -1518,6 +1527,7 @@ class AsyncInvoicesClient:
             charge_at=charge_at,
             collection_method=collection_method,
             message=message,
+            quote_deposit_amount=quote_deposit_amount,
             quote_deposit_percentage=quote_deposit_percentage,
             send_as=send_as,
             send_at=send_at,
