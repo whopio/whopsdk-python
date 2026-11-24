@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_affiliate_program import AccountAffiliateProgram
 from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
 from .account_economic_intelligence_previous_period import AccountEconomicIntelligencePreviousPeriod
+from .account_preferences_apple_iap_fee_payer import AccountPreferencesAppleIapFeePayer
 from .account_preferences_merchant_of_record import AccountPreferencesMerchantOfRecord
 from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
 from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
@@ -44,6 +45,11 @@ class AccountPreferences(UniversalBaseModel):
     affiliate_program: AccountAffiliateProgram = pydantic.Field()
     """
     The account's affiliate program: its instructions, its application and the product it features for affiliates. `GET /accounts/{account_id}/affiliate_program` returns the same object without authentication.
+    """
+
+    apple_iap_fee_payer: AccountPreferencesAppleIapFeePayer = pydantic.Field()
+    """
+    Who pays Apple's 30% fee on one-time purchases made in the Whop iOS app. `buyer` (the default) adds about 43% to the iOS price, so the buyer pays the fee. `company` keeps the product's own price, and the fee comes out of the sale.
     """
 
     cancellation_emails: bool = pydantic.Field()

@@ -12,6 +12,7 @@ from .retrieve_preferences_response_ads_payment_methods import RetrievePreferenc
 from .retrieve_preferences_response_ads_triple_whale_integration import (
     RetrievePreferencesResponseAdsTripleWhaleIntegration,
 )
+from .retrieve_preferences_response_apple_iap_fee_payer import RetrievePreferencesResponseAppleIapFeePayer
 from .retrieve_preferences_response_economic_intelligence_offers_item import (
     RetrievePreferencesResponseEconomicIntelligenceOffersItem,
 )
@@ -57,6 +58,11 @@ class RetrievePreferencesResponse(UniversalBaseModel):
     affiliate_program: AccountAffiliateProgram = pydantic.Field()
     """
     The account's affiliate program: its instructions, its application and the product it features for affiliates. `GET /accounts/{account_id}/affiliate_program` returns the same object without authentication.
+    """
+
+    apple_iap_fee_payer: RetrievePreferencesResponseAppleIapFeePayer = pydantic.Field()
+    """
+    Who pays Apple's 30% fee on one-time purchases made in the Whop iOS app. `buyer` (the default) adds about 43% to the iOS price, so the buyer pays the fee. `company` keeps the product's own price, and the fee comes out of the sale.
     """
 
     cancellation_emails: bool = pydantic.Field()

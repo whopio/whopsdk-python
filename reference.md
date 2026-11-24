@@ -53638,7 +53638,7 @@ The required scope depends on which preferences you update.
 - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
 - `payment:manage`: `off_session_payment_rules`.
 - `payment:dispute`: `dispute_fighter_enabled`.
-- `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
+- `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`, `apple_iap_fee_payer`.
 - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
 - `affiliate:update`: `affiliate_program`.
 
@@ -53724,6 +53724,14 @@ client.accounts.preferences.update(
 <dd>
 
 **affiliate_program:** `typing.Optional[UpdatePreferencesRequestAffiliateProgram]` — The account's affiliate program. Only the fields you send change, and fields left out keep their current values. To clear a field, set it to `null`. To turn affiliates on or off, set `global_affiliate_status` and `member_affiliate_status` on each product with `PATCH /products/{id}`. Requires the `affiliate:update` scope on your API key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**apple_iap_fee_payer:** `typing.Optional[UpdatePreferencesRequestAppleIapFeePayer]` — Who pays Apple's 30% fee on one-time purchases made in the Whop iOS app. Set it to `company` to sell at the product's own price and pay the fee from the sale. Set it to `buyer` to add about 43% to the iOS price, so the buyer pays the fee. Requires the `company:update` scope on your API key.
     
 </dd>
 </dl>

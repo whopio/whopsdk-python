@@ -28,6 +28,7 @@ if typing.TYPE_CHECKING:
     from .retrieve_preferences_response_ads_triple_whale_integration_status import (
         RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus,
     )
+    from .retrieve_preferences_response_apple_iap_fee_payer import RetrievePreferencesResponseAppleIapFeePayer
     from .retrieve_preferences_response_economic_intelligence_offers_item import (
         RetrievePreferencesResponseEconomicIntelligenceOffersItem,
     )
@@ -70,6 +71,7 @@ if typing.TYPE_CHECKING:
     from .update_preferences_request_affiliate_program_application_questions_item_field_type import (
         UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItemFieldType,
     )
+    from .update_preferences_request_apple_iap_fee_payer import UpdatePreferencesRequestAppleIapFeePayer
     from .update_preferences_request_card_surcharge import UpdatePreferencesRequestCardSurcharge
     from .update_preferences_request_customer_tracking import UpdatePreferencesRequestCustomerTracking
     from .update_preferences_request_economic_intelligence_duration_key import (
@@ -106,6 +108,7 @@ if typing.TYPE_CHECKING:
     from .update_preferences_response_ads_triple_whale_integration_status import (
         UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus,
     )
+    from .update_preferences_response_apple_iap_fee_payer import UpdatePreferencesResponseAppleIapFeePayer
     from .update_preferences_response_economic_intelligence_offers_item import (
         UpdatePreferencesResponseEconomicIntelligenceOffersItem,
     )
@@ -140,6 +143,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseAdsPaymentMethodsPrimaryType": ".retrieve_preferences_response_ads_payment_methods_primary_type",
     "RetrievePreferencesResponseAdsTripleWhaleIntegration": ".retrieve_preferences_response_ads_triple_whale_integration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus": ".retrieve_preferences_response_ads_triple_whale_integration_status",
+    "RetrievePreferencesResponseAppleIapFeePayer": ".retrieve_preferences_response_apple_iap_fee_payer",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem": ".retrieve_preferences_response_economic_intelligence_offers_item",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".retrieve_preferences_response_economic_intelligence_offers_item_duration_unit",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey": ".retrieve_preferences_response_economic_intelligence_offers_item_key",
@@ -158,6 +162,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAffiliateProgram": ".update_preferences_request_affiliate_program",
     "UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItem": ".update_preferences_request_affiliate_program_application_questions_item",
     "UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItemFieldType": ".update_preferences_request_affiliate_program_application_questions_item_field_type",
+    "UpdatePreferencesRequestAppleIapFeePayer": ".update_preferences_request_apple_iap_fee_payer",
     "UpdatePreferencesRequestCardSurcharge": ".update_preferences_request_card_surcharge",
     "UpdatePreferencesRequestCustomerTracking": ".update_preferences_request_customer_tracking",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey": ".update_preferences_request_economic_intelligence_duration_key",
@@ -176,6 +181,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseAdsPaymentMethodsPrimaryType": ".update_preferences_response_ads_payment_methods_primary_type",
     "UpdatePreferencesResponseAdsTripleWhaleIntegration": ".update_preferences_response_ads_triple_whale_integration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus": ".update_preferences_response_ads_triple_whale_integration_status",
+    "UpdatePreferencesResponseAppleIapFeePayer": ".update_preferences_response_apple_iap_fee_payer",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem": ".update_preferences_response_economic_intelligence_offers_item",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".update_preferences_response_economic_intelligence_offers_item_duration_unit",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey": ".update_preferences_response_economic_intelligence_offers_item_key",
@@ -220,6 +226,7 @@ __all__ = [
     "RetrievePreferencesResponseAdsPaymentMethodsPrimaryType",
     "RetrievePreferencesResponseAdsTripleWhaleIntegration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus",
+    "RetrievePreferencesResponseAppleIapFeePayer",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey",
@@ -238,6 +245,7 @@ __all__ = [
     "UpdatePreferencesRequestAffiliateProgram",
     "UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItem",
     "UpdatePreferencesRequestAffiliateProgramApplicationQuestionsItemFieldType",
+    "UpdatePreferencesRequestAppleIapFeePayer",
     "UpdatePreferencesRequestCardSurcharge",
     "UpdatePreferencesRequestCustomerTracking",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey",
@@ -256,6 +264,7 @@ __all__ = [
     "UpdatePreferencesResponseAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesResponseAdsTripleWhaleIntegration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus",
+    "UpdatePreferencesResponseAppleIapFeePayer",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey",
