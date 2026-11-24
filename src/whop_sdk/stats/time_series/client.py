@@ -384,7 +384,7 @@ class TimeSeriesClient:
             Whose figures the metric reads, one of the modes the metric lists. `global` reads all of Whop and takes no account_id. `public` reads the figures of Whop that are shown in public, and takes no account_id. Without it, the metric reads the account or user named.
 
         account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Business ids (biz_...) to scope the series to. The series sums their figures. On a metric that lists account as a breakdown, it replaces account_id and takes at most 50 ids. On such a metric, breakdown_by=account returns an entry for each id. Available on metrics that list account_ids.
+            Business ids (biz_...) to scope the series to. The series sums their figures. On a metric that lists account as a breakdown, it replaces account_id and takes at most 50 ids. On such a metric, breakdown_by=account returns an entry for each id. Available on metrics that list account_ids. With a mode other than `owner`, `global` and `public`, it is used with account_id. It keeps only these accounts inside the mode. An account that is not inside the mode adds nothing. It cannot be combined with `global` or `public`.
 
         runner_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Runner user ids (user_...) to scope the series to; the series sums the figures of the campaigns they hold. Available on metrics that list runner_ids.
@@ -879,7 +879,7 @@ class AsyncTimeSeriesClient:
             Whose figures the metric reads, one of the modes the metric lists. `global` reads all of Whop and takes no account_id. `public` reads the figures of Whop that are shown in public, and takes no account_id. Without it, the metric reads the account or user named.
 
         account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Business ids (biz_...) to scope the series to. The series sums their figures. On a metric that lists account as a breakdown, it replaces account_id and takes at most 50 ids. On such a metric, breakdown_by=account returns an entry for each id. Available on metrics that list account_ids.
+            Business ids (biz_...) to scope the series to. The series sums their figures. On a metric that lists account as a breakdown, it replaces account_id and takes at most 50 ids. On such a metric, breakdown_by=account returns an entry for each id. Available on metrics that list account_ids. With a mode other than `owner`, `global` and `public`, it is used with account_id. It keeps only these accounts inside the mode. An account that is not inside the mode adds nothing. It cannot be combined with `global` or `public`.
 
         runner_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Runner user ids (user_...) to scope the series to; the series sums the figures of the campaigns they hold. Available on metrics that list runner_ids.
