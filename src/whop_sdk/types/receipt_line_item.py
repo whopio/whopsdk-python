@@ -8,6 +8,11 @@ from .money import Money
 
 
 class ReceiptLineItem(UniversalBaseModel):
+    discount_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The amount taken off this item's `subtotal` by discounts and the promo code, before tax. Returns `null` when no discount was recorded for the item.
+    """
+
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line item ID, prefixed `li_`. Null when the payment predates item snapshots and the item is read from the payment's variant.

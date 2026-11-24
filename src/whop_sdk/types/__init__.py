@@ -1281,6 +1281,17 @@ if typing.TYPE_CHECKING:
     from .payment_quote_located_by import PaymentQuoteLocatedBy
     from .payment_quote_tax_behavior import PaymentQuoteTaxBehavior
     from .payment_quote_tax_status import PaymentQuoteTaxStatus
+    from .payment_register_discount import (
+        PaymentRegisterDiscount,
+        PaymentRegisterDiscount_FlatAmount,
+        PaymentRegisterDiscount_Percentage,
+    )
+    from .payment_register_discount_flat_amount import PaymentRegisterDiscountFlatAmount
+    from .payment_register_discount_flat_amount_amount_off import PaymentRegisterDiscountFlatAmountAmountOff
+    from .payment_register_discount_flat_amount_amount_off_amount import (
+        PaymentRegisterDiscountFlatAmountAmountOffAmount,
+    )
+    from .payment_register_discount_percentage import PaymentRegisterDiscountPercentage
     from .payment_required_error_body import PaymentRequiredErrorBody
     from .payment_required_error_body_error import PaymentRequiredErrorBodyError
     from .payment_required_error_body_error_type import PaymentRequiredErrorBodyErrorType
@@ -2808,6 +2819,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentQuoteLocatedBy": ".payment_quote_located_by",
     "PaymentQuoteTaxBehavior": ".payment_quote_tax_behavior",
     "PaymentQuoteTaxStatus": ".payment_quote_tax_status",
+    "PaymentRegisterDiscount": ".payment_register_discount",
+    "PaymentRegisterDiscountFlatAmount": ".payment_register_discount_flat_amount",
+    "PaymentRegisterDiscountFlatAmountAmountOff": ".payment_register_discount_flat_amount_amount_off",
+    "PaymentRegisterDiscountFlatAmountAmountOffAmount": ".payment_register_discount_flat_amount_amount_off_amount",
+    "PaymentRegisterDiscountPercentage": ".payment_register_discount_percentage",
+    "PaymentRegisterDiscount_FlatAmount": ".payment_register_discount",
+    "PaymentRegisterDiscount_Percentage": ".payment_register_discount",
     "PaymentRequiredErrorBody": ".payment_required_error_body",
     "PaymentRequiredErrorBodyError": ".payment_required_error_body_error",
     "PaymentRequiredErrorBodyErrorType": ".payment_required_error_body_error_type",
@@ -4355,6 +4373,13 @@ __all__ = [
     "PaymentQuoteLocatedBy",
     "PaymentQuoteTaxBehavior",
     "PaymentQuoteTaxStatus",
+    "PaymentRegisterDiscount",
+    "PaymentRegisterDiscountFlatAmount",
+    "PaymentRegisterDiscountFlatAmountAmountOff",
+    "PaymentRegisterDiscountFlatAmountAmountOffAmount",
+    "PaymentRegisterDiscountPercentage",
+    "PaymentRegisterDiscount_FlatAmount",
+    "PaymentRegisterDiscount_Percentage",
     "PaymentRequiredErrorBody",
     "PaymentRequiredErrorBodyError",
     "PaymentRequiredErrorBodyErrorType",

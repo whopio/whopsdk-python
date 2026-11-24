@@ -36217,6 +36217,14 @@ client.payments.create(
 <dl>
 <dd>
 
+**discount:** `typing.Optional[PaymentRegisterDiscount]` — A discount typed at the register for the whole payment. It comes off what the payment costs after line discounts and the promo code, and can't be more than that amount. Discounts can't bring the payment to zero. Only with a `card_present` `payment_method`, and requires `payment:manage` on the account. Whop takes each line's discount off the line, then the promo code, then the payment's `discount`. Tax is calculated on the discounted amounts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **email:** `typing.Optional[str]` — The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with a `card_present` `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached; with a `paypal` `payment_method` it names the buyer, and when it and `member_id` are both omitted the buyer is the PayPal account that approves the payment. Ignored with `member_id`.
     
 </dd>
