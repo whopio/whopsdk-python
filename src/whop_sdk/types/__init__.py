@@ -443,7 +443,6 @@ if typing.TYPE_CHECKING:
     from .direction import Direction
     from .dispute import Dispute
     from .dispute_alert import DisputeAlert
-    from .dispute_alert_category import DisputeAlertCategory
     from .dispute_alert_legacy import DisputeAlertLegacy
     from .dispute_alert_legacy_dispute import DisputeAlertLegacyDispute
     from .dispute_alert_legacy_payment import DisputeAlertLegacyPayment
@@ -453,6 +452,7 @@ if typing.TYPE_CHECKING:
     from .dispute_alert_list_item import DisputeAlertListItem
     from .dispute_alert_list_item_dispute import DisputeAlertListItemDispute
     from .dispute_alert_list_item_payment import DisputeAlertListItemPayment
+    from .dispute_alert_reason import DisputeAlertReason
     from .dispute_alert_source import DisputeAlertSource
     from .dispute_alert_type import DisputeAlertType
     from .dispute_alert_types import DisputeAlertTypes
@@ -2095,7 +2095,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Direction": ".direction",
     "Dispute": ".dispute",
     "DisputeAlert": ".dispute_alert",
-    "DisputeAlertCategory": ".dispute_alert_category",
     "DisputeAlertLegacy": ".dispute_alert_legacy",
     "DisputeAlertLegacyDispute": ".dispute_alert_legacy_dispute",
     "DisputeAlertLegacyPayment": ".dispute_alert_legacy_payment",
@@ -2105,6 +2104,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DisputeAlertListItem": ".dispute_alert_list_item",
     "DisputeAlertListItemDispute": ".dispute_alert_list_item_dispute",
     "DisputeAlertListItemPayment": ".dispute_alert_list_item_payment",
+    "DisputeAlertReason": ".dispute_alert_reason",
     "DisputeAlertSource": ".dispute_alert_source",
     "DisputeAlertType": ".dispute_alert_type",
     "DisputeAlertTypes": ".dispute_alert_types",
@@ -3639,7 +3639,6 @@ __all__ = [
     "Direction",
     "Dispute",
     "DisputeAlert",
-    "DisputeAlertCategory",
     "DisputeAlertLegacy",
     "DisputeAlertLegacyDispute",
     "DisputeAlertLegacyPayment",
@@ -3649,6 +3648,7 @@ __all__ = [
     "DisputeAlertListItem",
     "DisputeAlertListItemDispute",
     "DisputeAlertListItemPayment",
+    "DisputeAlertReason",
     "DisputeAlertSource",
     "DisputeAlertType",
     "DisputeAlertTypes",
