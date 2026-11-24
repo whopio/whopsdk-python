@@ -40,7 +40,7 @@ class AdStat(UniversalBaseModel):
 
     spend: Money = pydantic.Field()
     """
-    The spend recorded and paid for the ad in the hour, exactly as reported.
+    The spend recorded for the ad in the hour, exactly as reported.
     """
 
     if IS_PYDANTIC_V2:
