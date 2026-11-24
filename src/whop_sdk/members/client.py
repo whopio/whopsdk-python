@@ -62,6 +62,7 @@ class MembersClient:
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         affiliate_id: typing.Optional[str] = None,
         buyer_account_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        metadata: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -111,6 +112,9 @@ class MembersClient:
 
         buyer_account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members bought by these accounts, prefixed `biz_`. Unknown IDs match nothing.
+
+        metadata : typing.Optional[str]
+            JSON-encoded object of key and value pairs. Only returns members whose own metadata holds every pair with exactly that value, for example `{"utm_source":"twitter"}`. Takes up to 5 keys. Only the account's newest 50,000 members are searched, and a search that takes over 5 seconds returns a 400. Stored numbers and true or false values match their text. Nested query keys such as `metadata[utm_source]=twitter` also work.
 
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
@@ -185,6 +189,7 @@ class MembersClient:
             promo_code_ids=promo_code_ids,
             affiliate_id=affiliate_id,
             buyer_account_ids=buyer_account_ids,
+            metadata=metadata,
             query=query,
             created_after=created_after,
             created_before=created_before,
@@ -420,6 +425,7 @@ class AsyncMembersClient:
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         affiliate_id: typing.Optional[str] = None,
         buyer_account_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        metadata: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -469,6 +475,9 @@ class AsyncMembersClient:
 
         buyer_account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members bought by these accounts, prefixed `biz_`. Unknown IDs match nothing.
+
+        metadata : typing.Optional[str]
+            JSON-encoded object of key and value pairs. Only returns members whose own metadata holds every pair with exactly that value, for example `{"utm_source":"twitter"}`. Takes up to 5 keys. Only the account's newest 50,000 members are searched, and a search that takes over 5 seconds returns a 400. Stored numbers and true or false values match their text. Nested query keys such as `metadata[utm_source]=twitter` also work.
 
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
@@ -552,6 +561,7 @@ class AsyncMembersClient:
             promo_code_ids=promo_code_ids,
             affiliate_id=affiliate_id,
             buyer_account_ids=buyer_account_ids,
+            metadata=metadata,
             query=query,
             created_after=created_after,
             created_before=created_before,

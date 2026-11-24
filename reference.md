@@ -12868,7 +12868,7 @@ client.cards.list()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The owning account ID (a biz_ identifier). Provide this or user_id.
+**account_id:** `typing.Optional[str]` — The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
     
 </dd>
 </dl>
@@ -12947,7 +12947,7 @@ client.cards.create()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The owning account ID (a biz_ identifier). Provide this or user_id.
+**account_id:** `typing.Optional[str]` — The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
     
 </dd>
 </dl>
@@ -13100,7 +13100,7 @@ client.cards.retrieve(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The owning account ID (a biz_ identifier). Provide this or user_id.
+**account_id:** `typing.Optional[str]` — The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
     
 </dd>
 </dl>
@@ -13189,7 +13189,7 @@ client.cards.update(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The owning account ID (a biz_ identifier). Provide this or user_id.
+**account_id:** `typing.Optional[str]` — The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
     
 </dd>
 </dl>
@@ -29641,6 +29641,14 @@ client.members.list(
 <dd>
 
 **buyer_account_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return members bought by these accounts, prefixed `biz_`. Unknown IDs match nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[str]` — JSON-encoded object of key and value pairs. Only returns members whose own metadata holds every pair with exactly that value, for example `{"utm_source":"twitter"}`. Takes up to 5 keys. Only the account's newest 50,000 members are searched, and a search that takes over 5 seconds returns a 400. Stored numbers and true or false values match their text. Nested query keys such as `metadata[utm_source]=twitter` also work.
     
 </dd>
 </dl>

@@ -7,6 +7,11 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class StorefrontAccount(UniversalBaseModel):
+    banner_image_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Account banner image URL. `null` when the account has not set one.
+    """
+
     id: str = pydantic.Field()
     """
     Account ID, prefixed `biz_`.
