@@ -5,7 +5,7 @@ import typing
 RecommendedActionType = typing.Union[
     typing.Literal[
         "add_cancel_offer",
-        "create_email_automation",
+        "create_message_automation",
         "improve_landing_page",
         "fix_broken_website",
         "clone_and_ab_test_site",
