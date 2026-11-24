@@ -11,6 +11,7 @@ from .types.list_time_series_response import ListTimeSeriesResponse
 from .types.retrieve_time_series_request_activity import RetrieveTimeSeriesRequestActivity
 from .types.retrieve_time_series_request_event_type import RetrieveTimeSeriesRequestEventType
 from .types.retrieve_time_series_request_interval import RetrieveTimeSeriesRequestInterval
+from .types.retrieve_time_series_request_mode import RetrieveTimeSeriesRequestMode
 from .types.retrieve_time_series_request_snapshot_window import RetrieveTimeSeriesRequestSnapshotWindow
 from .types.retrieve_time_series_response import RetrieveTimeSeriesResponse
 
@@ -138,6 +139,7 @@ class TimeSeriesClient:
         team_lead_id: typing.Optional[str] = None,
         activity: typing.Optional[RetrieveTimeSeriesRequestActivity] = None,
         breakdown_limit: typing.Optional[int] = None,
+        mode: typing.Optional[RetrieveTimeSeriesRequestMode] = None,
         account_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         runner_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -378,6 +380,9 @@ class TimeSeriesClient:
         breakdown_limit : typing.Optional[int]
             With a single breakdown_by, keep this many groups with the highest whole-range values. Every other group folds into one entry named other. A rate or an average ranks its groups by the deals it divides by. The other entry is measured from the underlying rows, so a distinct count or a rate stays exact rather than being added up from groups.
 
+        mode : typing.Optional[RetrieveTimeSeriesRequestMode]
+            Whose figures the metric reads, one of the modes the metric lists. `global` reads all of Whop and takes no account_id. Without it, the metric reads the account or user named.
+
         account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Business ids (biz_...) to scope the series to. The series sums their figures. On a metric that lists account as a breakdown, it replaces account_id and takes at most 50 ids. On such a metric, breakdown_by=account returns an entry for each id. Available on metrics that list account_ids.
 
@@ -490,6 +495,7 @@ class TimeSeriesClient:
             team_lead_id=team_lead_id,
             activity=activity,
             breakdown_limit=breakdown_limit,
+            mode=mode,
             account_ids=account_ids,
             runner_ids=runner_ids,
             request_options=request_options,
@@ -628,6 +634,7 @@ class AsyncTimeSeriesClient:
         team_lead_id: typing.Optional[str] = None,
         activity: typing.Optional[RetrieveTimeSeriesRequestActivity] = None,
         breakdown_limit: typing.Optional[int] = None,
+        mode: typing.Optional[RetrieveTimeSeriesRequestMode] = None,
         account_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         runner_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -868,6 +875,9 @@ class AsyncTimeSeriesClient:
         breakdown_limit : typing.Optional[int]
             With a single breakdown_by, keep this many groups with the highest whole-range values. Every other group folds into one entry named other. A rate or an average ranks its groups by the deals it divides by. The other entry is measured from the underlying rows, so a distinct count or a rate stays exact rather than being added up from groups.
 
+        mode : typing.Optional[RetrieveTimeSeriesRequestMode]
+            Whose figures the metric reads, one of the modes the metric lists. `global` reads all of Whop and takes no account_id. Without it, the metric reads the account or user named.
+
         account_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Business ids (biz_...) to scope the series to. The series sums their figures. On a metric that lists account as a breakdown, it replaces account_id and takes at most 50 ids. On such a metric, breakdown_by=account returns an entry for each id. Available on metrics that list account_ids.
 
@@ -988,6 +998,7 @@ class AsyncTimeSeriesClient:
             team_lead_id=team_lead_id,
             activity=activity,
             breakdown_limit=breakdown_limit,
+            mode=mode,
             account_ids=account_ids,
             runner_ids=runner_ids,
             request_options=request_options,

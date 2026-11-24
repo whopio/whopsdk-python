@@ -23,6 +23,11 @@ class ListStatsResponseDataItem(UniversalBaseModel):
     The metric's key. Pass it to GET /stats/time_series/{metric} to query its values.
     """
 
+    modes: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The values of the mode parameter that the metric takes. owner reads the account or user named. global reads all of Whop.
+    """
+
     name: str = pydantic.Field()
     """
     Human-readable display name for the metric.

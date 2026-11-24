@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
     from .list_reports_response_data_item_window_kind import ListReportsResponseDataItemWindowKind
     from .partner_revenue_lines_reports_request_breakdown_by import PartnerRevenueLinesReportsRequestBreakdownBy
     from .partner_revenue_lines_reports_request_direction import PartnerRevenueLinesReportsRequestDirection
+    from .partner_revenue_lines_reports_request_mode import PartnerRevenueLinesReportsRequestMode
     from .partner_revenue_lines_reports_request_order import PartnerRevenueLinesReportsRequestOrder
     from .partner_revenue_lines_reports_response import PartnerRevenueLinesReportsResponse
     from .partner_revenue_lines_reports_response_data import PartnerRevenueLinesReportsResponseData
@@ -34,6 +35,7 @@ if typing.TYPE_CHECKING:
     from .partner_revenue_lines_reports_response_page_info import PartnerRevenueLinesReportsResponsePageInfo
     from .platform_trends_reports_request_breakdown_by import PlatformTrendsReportsRequestBreakdownBy
     from .platform_trends_reports_request_direction import PlatformTrendsReportsRequestDirection
+    from .platform_trends_reports_request_mode import PlatformTrendsReportsRequestMode
     from .platform_trends_reports_request_order import PlatformTrendsReportsRequestOrder
     from .platform_trends_reports_response import PlatformTrendsReportsResponse
     from .platform_trends_reports_response_data import PlatformTrendsReportsResponseData
@@ -84,6 +86,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListReportsResponseDataItemWindowKind": ".list_reports_response_data_item_window_kind",
     "PartnerRevenueLinesReportsRequestBreakdownBy": ".partner_revenue_lines_reports_request_breakdown_by",
     "PartnerRevenueLinesReportsRequestDirection": ".partner_revenue_lines_reports_request_direction",
+    "PartnerRevenueLinesReportsRequestMode": ".partner_revenue_lines_reports_request_mode",
     "PartnerRevenueLinesReportsRequestOrder": ".partner_revenue_lines_reports_request_order",
     "PartnerRevenueLinesReportsResponse": ".partner_revenue_lines_reports_response",
     "PartnerRevenueLinesReportsResponseData": ".partner_revenue_lines_reports_response_data",
@@ -94,6 +97,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PartnerRevenueLinesReportsResponsePageInfo": ".partner_revenue_lines_reports_response_page_info",
     "PlatformTrendsReportsRequestBreakdownBy": ".platform_trends_reports_request_breakdown_by",
     "PlatformTrendsReportsRequestDirection": ".platform_trends_reports_request_direction",
+    "PlatformTrendsReportsRequestMode": ".platform_trends_reports_request_mode",
     "PlatformTrendsReportsRequestOrder": ".platform_trends_reports_request_order",
     "PlatformTrendsReportsResponse": ".platform_trends_reports_response",
     "PlatformTrendsReportsResponseData": ".platform_trends_reports_response_data",
@@ -146,6 +150,7 @@ __all__ = [
     "ListReportsResponseDataItemWindowKind",
     "PartnerRevenueLinesReportsRequestBreakdownBy",
     "PartnerRevenueLinesReportsRequestDirection",
+    "PartnerRevenueLinesReportsRequestMode",
     "PartnerRevenueLinesReportsRequestOrder",
     "PartnerRevenueLinesReportsResponse",
     "PartnerRevenueLinesReportsResponseData",
@@ -156,6 +161,7 @@ __all__ = [
     "PartnerRevenueLinesReportsResponsePageInfo",
     "PlatformTrendsReportsRequestBreakdownBy",
     "PlatformTrendsReportsRequestDirection",
+    "PlatformTrendsReportsRequestMode",
     "PlatformTrendsReportsRequestOrder",
     "PlatformTrendsReportsResponse",
     "PlatformTrendsReportsResponseData",
