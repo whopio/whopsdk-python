@@ -93,7 +93,7 @@ class LedgerActivity(UniversalBaseModel):
 
     source: typing.Optional[LedgerActivitySource] = pydantic.Field(default=None)
     """
-    Source of this ledger activity. Platform markup fees use object platform_fee and the ledger activity ID.
+    Source of this ledger activity. Platform markup fees use object platform_fee and the ledger activity ID. Treasury pay-ins use object `crypto_offramp` and an ID prefixed `cofr_`. With `include_resource=false`, a treasury pay-in's source and a deposit's `bank_deposit_id` can be null.
     """
 
     usd_amount: typing.Optional[str] = pydantic.Field(default=None)

@@ -14,7 +14,7 @@ from .user_summary import UserSummary
 
 class LedgerActivitySource(UniversalBaseModel):
     """
-    Source of this ledger activity. Platform markup fees use object platform_fee and the ledger activity ID.
+    Source of this ledger activity. Platform markup fees use object platform_fee and the ledger activity ID. Treasury pay-ins use object `crypto_offramp` and an ID prefixed `cofr_`. With `include_resource=false`, a treasury pay-in's source and a deposit's `bank_deposit_id` can be null.
     """
 
     account_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -24,7 +24,12 @@ class LedgerActivitySource(UniversalBaseModel):
 
     amount_float: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Payout amount as a decimal number in the destination currency (payout sources only; requires payout:withdrawal:read).
+    Payout amount as a decimal number in the destination currency. Present only on `withdrawal` sources. Requires `payout:withdrawal:read`.
+    """
+
+    bank_deposit_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID of the bank deposit that this on-chain deposit delivered, prefixed `vbt_`. Present only on onchain_transaction sources for bank deposits.
     """
 
     card_brand: typing.Optional[str] = pydantic.Field(default=None)
@@ -166,7 +171,7 @@ class LedgerActivitySource(UniversalBaseModel):
 
     tx_hash: typing.Optional[str] = pydantic.Field(default=None)
     """
-    On-chain transaction hash (onchain_transaction and swap sources only).
+    On-chain transaction hash (onchain_transaction, swap, and crypto_offramp sources only). On crypto_offramp sources, this is the wallet send that funded the pay-in.
     """
 
     if IS_PYDANTIC_V2:
