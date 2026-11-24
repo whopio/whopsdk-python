@@ -5,8 +5,10 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_summary import AccountSummary
+from .partner_referral_request_lead import PartnerReferralRequestLead
 from .partner_referral_request_request_type import PartnerReferralRequestRequestType
 from .partner_referral_request_status import PartnerReferralRequestStatus
+from .partner_referral_request_status_reason import PartnerReferralRequestStatusReason
 from .partner_referral_reward import PartnerReferralReward
 from .user_summary import UserSummary
 
@@ -32,9 +34,19 @@ class PartnerReferralRequest(UniversalBaseModel):
     When the request was created, as an ISO 8601 timestamp.
     """
 
+    expires_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When a lead offer stops taking a response, as an ISO 8601 timestamp. `null` for other request types.
+    """
+
     id: str = pydantic.Field()
     """
     Partner referral request ID, prefixed `prfr_`.
+    """
+
+    lead: typing.Optional[PartnerReferralRequestLead] = pydantic.Field(default=None)
+    """
+    The business's signup answers on a lead offer. Only the partner it was offered to sees them. `null` for anyone else and for other request types.
     """
 
     max_redemptions: typing.Optional[int] = pydantic.Field(default=None)
@@ -49,12 +61,12 @@ class PartnerReferralRequest(UniversalBaseModel):
 
     partner: UserSummary = pydantic.Field()
     """
-    Public profile of the requesting partner.
+    Public profile of the partner associated with this referral request.
     """
 
     referring_account: typing.Optional[AccountSummary] = pydantic.Field(default=None)
     """
-    Business the partner sent this request on behalf of, when the referral belongs to their team. `null` for a personal referral.
+    The partner's team account that this referral counts toward. `null` for a personal referral. A lead offer counts toward the partner-mode team where the partner earned the most in the last 30 days, or the newest on a tie. It is set when the offer is made.
     """
 
     request_type: PartnerReferralRequestRequestType = pydantic.Field()
@@ -65,7 +77,12 @@ class PartnerReferralRequest(UniversalBaseModel):
     rewards: typing.List[PartnerReferralReward]
     status: typing.Optional[PartnerReferralRequestStatus] = pydantic.Field(default=None)
     """
-    The approval state, or null for requests without an approval process.
+    The approval state, or `null` for requests without an approval process. A lead offer that gets no answer before `expires_at` becomes `cancelled`.
+    """
+
+    status_reason: typing.Optional[PartnerReferralRequestStatusReason] = pydantic.Field(default=None)
+    """
+    Why the request reached its status. `expired` means a lead offer got no answer before `expires_at`. `passed` means the partner turned down a lead offer. `withdrawn` means the partner cancelled their own request. `null` for any other status.
     """
 
     updated_at: str = pydantic.Field()
