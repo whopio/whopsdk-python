@@ -50,7 +50,7 @@ class RawCardsClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The owning account ID (a biz_ identifier). Provide this or user_id.
+            The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
 
         user_id : typing.Optional[str]
             The owning user ID (a user_ identifier). Provide this or account_id.
@@ -157,7 +157,7 @@ class RawCardsClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The owning account ID (a biz_ identifier). Provide this or user_id.
+            The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
 
         assigned_user_id : typing.Optional[str]
             The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts. When this call files the card application, the member applies with their identity. An account API key that sends neither this nor kind is refused.
@@ -311,7 +311,7 @@ class RawCardsClient:
             Card ID to retrieve, prefixed `icrd_`.
 
         account_id : typing.Optional[str]
-            The owning account ID (a biz_ identifier). Provide this or user_id.
+            The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
 
         user_id : typing.Optional[str]
             The owning user ID (a user_ identifier). Provide this or account_id.
@@ -391,7 +391,7 @@ class RawCardsClient:
             Card ID to retrieve, prefixed `icrd_`.
 
         account_id : typing.Optional[str]
-            The owning account ID (a biz_ identifier). Provide this or user_id.
+            The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
 
         billing : typing.Optional[UpdateCardsRequestBilling]
             The billing address. On an issued card this replaces the card's billing address and region is also required. On an invited card, sending it as the invited user completes onboarding and starts card provisioning.
@@ -543,7 +543,7 @@ class AsyncRawCardsClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The owning account ID (a biz_ identifier). Provide this or user_id.
+            The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
 
         user_id : typing.Optional[str]
             The owning user ID (a user_ identifier). Provide this or account_id.
@@ -650,7 +650,7 @@ class AsyncRawCardsClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The owning account ID (a biz_ identifier). Provide this or user_id.
+            The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
 
         assigned_user_id : typing.Optional[str]
             The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts. When this call files the card application, the member applies with their identity. An account API key that sends neither this nor kind is refused.
@@ -804,7 +804,7 @@ class AsyncRawCardsClient:
             Card ID to retrieve, prefixed `icrd_`.
 
         account_id : typing.Optional[str]
-            The owning account ID (a biz_ identifier). Provide this or user_id.
+            The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
 
         user_id : typing.Optional[str]
             The owning user ID (a user_ identifier). Provide this or account_id.
@@ -884,7 +884,7 @@ class AsyncRawCardsClient:
             Card ID to retrieve, prefixed `icrd_`.
 
         account_id : typing.Optional[str]
-            The owning account ID (a biz_ identifier). Provide this or user_id.
+            The owning account ID: a biz_ identifier for a business, or a user_ identifier for a personal account. Provide this or user_id.
 
         billing : typing.Optional[UpdateCardsRequestBilling]
             The billing address. On an issued card this replaces the card's billing address and region is also required. On an invited card, sending it as the invited user completes onboarding and starts card provisioning.
