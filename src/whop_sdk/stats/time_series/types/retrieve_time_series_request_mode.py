@@ -2,4 +2,4 @@
 
 import typing
 
-RetrieveTimeSeriesRequestMode = typing.Union[typing.Literal["global", "owner", "trends"], typing.Any]
+RetrieveTimeSeriesRequestMode = typing.Union[typing.Literal["global", "owner", "public"], typing.Any]

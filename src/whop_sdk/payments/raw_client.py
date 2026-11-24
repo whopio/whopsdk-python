@@ -917,7 +917,7 @@ class RawPaymentsClient:
             The payment, prefixed `pay_`.
 
         line_items : typing.Optional[typing.Sequence[UpdatePaymentsRequestLineItemsItem]]
-            Off by default. Whop support must turn it on for your account. Replaces an in-person payment's line items after the card is read. On an open payment, update within 30 seconds of the card read, before the reader confirms it. On a `capture: false` payment, update before you capture it for the new `total`. Send every purchased line back by `id`. Added lines can be kept by `id`, added with `variant`, or removed by leaving them out. Added lines aren't taxed.
+            Only for a `card_present` payment taken in the US in USD. Replaces an in-person payment's line items after the card is read. On an open payment, update within 30 seconds of the card read, before the reader confirms it. On a `capture: false` payment, update before you capture it for the new `total`. Send every purchased line back by `id`. Added lines can be kept by `id`, added with `variant`, or removed by leaving them out. Added lines aren't taxed.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
@@ -1036,7 +1036,7 @@ class RawPaymentsClient:
             The unique identifier of the payment.
 
         amount : typing.Optional[float]
-            The amount to capture, in the payment's currency. It must equal the payment's `total`, and defaults to it. The total moves away from the authorized amount when its line items change after the card was authorized. Capturing more or less than the authorized amount is off by default. Contact Whop support to turn it on for your account.
+            The amount to capture, in the payment's currency. It must equal the payment's `total`, and defaults to it. The total moves away from the authorized amount only when a `card_present` payment's line items change after the card was authorized.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Keys and values added to the payment's `metadata` once it is captured, such as the file of the buyer's signature. Only for an in-person payment created with `capture: false`.
@@ -2709,7 +2709,7 @@ class AsyncRawPaymentsClient:
             The payment, prefixed `pay_`.
 
         line_items : typing.Optional[typing.Sequence[UpdatePaymentsRequestLineItemsItem]]
-            Off by default. Whop support must turn it on for your account. Replaces an in-person payment's line items after the card is read. On an open payment, update within 30 seconds of the card read, before the reader confirms it. On a `capture: false` payment, update before you capture it for the new `total`. Send every purchased line back by `id`. Added lines can be kept by `id`, added with `variant`, or removed by leaving them out. Added lines aren't taxed.
+            Only for a `card_present` payment taken in the US in USD. Replaces an in-person payment's line items after the card is read. On an open payment, update within 30 seconds of the card read, before the reader confirms it. On a `capture: false` payment, update before you capture it for the new `total`. Send every purchased line back by `id`. Added lines can be kept by `id`, added with `variant`, or removed by leaving them out. Added lines aren't taxed.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
@@ -2828,7 +2828,7 @@ class AsyncRawPaymentsClient:
             The unique identifier of the payment.
 
         amount : typing.Optional[float]
-            The amount to capture, in the payment's currency. It must equal the payment's `total`, and defaults to it. The total moves away from the authorized amount when its line items change after the card was authorized. Capturing more or less than the authorized amount is off by default. Contact Whop support to turn it on for your account.
+            The amount to capture, in the payment's currency. It must equal the payment's `total`, and defaults to it. The total moves away from the authorized amount only when a `card_present` payment's line items change after the card was authorized.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Keys and values added to the payment's `metadata` once it is captured, such as the file of the buyer's signature. Only for an in-person payment created with `capture: false`.
