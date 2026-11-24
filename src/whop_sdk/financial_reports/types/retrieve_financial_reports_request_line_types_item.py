@@ -122,6 +122,8 @@ RetrieveFinancialReportsRequestLineTypesItem = typing.Union[
         "platform_credits_payment",
         "platform_credits_payment_refund",
         "platform_earning",
+        "platform_interchange_share",
+        "platform_interchange_share_reversal",
         "platform_markup_fee",
         "platform_markup_fee_payout",
         "promo_reversal",
