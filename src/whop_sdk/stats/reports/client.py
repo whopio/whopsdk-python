@@ -8,10 +8,12 @@ from .raw_client import AsyncRawReportsClient, RawReportsClient
 from .types.list_reports_response import ListReportsResponse
 from .types.partner_revenue_lines_reports_request_breakdown_by import PartnerRevenueLinesReportsRequestBreakdownBy
 from .types.partner_revenue_lines_reports_request_direction import PartnerRevenueLinesReportsRequestDirection
+from .types.partner_revenue_lines_reports_request_mode import PartnerRevenueLinesReportsRequestMode
 from .types.partner_revenue_lines_reports_request_order import PartnerRevenueLinesReportsRequestOrder
 from .types.partner_revenue_lines_reports_response import PartnerRevenueLinesReportsResponse
 from .types.platform_trends_reports_request_breakdown_by import PlatformTrendsReportsRequestBreakdownBy
 from .types.platform_trends_reports_request_direction import PlatformTrendsReportsRequestDirection
+from .types.platform_trends_reports_request_mode import PlatformTrendsReportsRequestMode
 from .types.platform_trends_reports_request_order import PlatformTrendsReportsRequestOrder
 from .types.platform_trends_reports_response import PlatformTrendsReportsResponse
 
@@ -74,6 +76,7 @@ class ReportsClient:
         convert_to: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
+        mode: typing.Optional[PartnerRevenueLinesReportsRequestMode] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PartnerRevenueLinesReportsResponse:
         """
@@ -117,6 +120,9 @@ class ReportsClient:
         after : typing.Optional[str]
             Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
+        mode : typing.Optional[PartnerRevenueLinesReportsRequestMode]
+            Whose figures the report reads, one of the modes the report has. `global` reads all of Whop with nothing left out.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -151,6 +157,7 @@ class ReportsClient:
             convert_to=convert_to,
             first=first,
             after=after,
+            mode=mode,
             request_options=request_options,
         )
         return _response.data
@@ -173,6 +180,7 @@ class ReportsClient:
         blueprint: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
+        mode: typing.Optional[PlatformTrendsReportsRequestMode] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PlatformTrendsReportsResponse:
         """
@@ -225,6 +233,9 @@ class ReportsClient:
         after : typing.Optional[str]
             Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
+        mode : typing.Optional[PlatformTrendsReportsRequestMode]
+            Whose figures the report reads, one of the modes the report has. `global` reads all of Whop with nothing left out.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -260,6 +271,7 @@ class ReportsClient:
             blueprint=blueprint,
             first=first,
             after=after,
+            mode=mode,
             request_options=request_options,
         )
         return _response.data
@@ -331,6 +343,7 @@ class AsyncReportsClient:
         convert_to: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
+        mode: typing.Optional[PartnerRevenueLinesReportsRequestMode] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PartnerRevenueLinesReportsResponse:
         """
@@ -374,6 +387,9 @@ class AsyncReportsClient:
         after : typing.Optional[str]
             Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
+        mode : typing.Optional[PartnerRevenueLinesReportsRequestMode]
+            Whose figures the report reads, one of the modes the report has. `global` reads all of Whop with nothing left out.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -416,6 +432,7 @@ class AsyncReportsClient:
             convert_to=convert_to,
             first=first,
             after=after,
+            mode=mode,
             request_options=request_options,
         )
         return _response.data
@@ -438,6 +455,7 @@ class AsyncReportsClient:
         blueprint: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
+        mode: typing.Optional[PlatformTrendsReportsRequestMode] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PlatformTrendsReportsResponse:
         """
@@ -490,6 +508,9 @@ class AsyncReportsClient:
         after : typing.Optional[str]
             Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
+        mode : typing.Optional[PlatformTrendsReportsRequestMode]
+            Whose figures the report reads, one of the modes the report has. `global` reads all of Whop with nothing left out.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -533,6 +554,7 @@ class AsyncReportsClient:
             blueprint=blueprint,
             first=first,
             after=after,
+            mode=mode,
             request_options=request_options,
         )
         return _response.data

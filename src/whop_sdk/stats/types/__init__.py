@@ -12,6 +12,7 @@ if typing.TYPE_CHECKING:
     from .retrieve_stats_request_activity import RetrieveStatsRequestActivity
     from .retrieve_stats_request_event_type import RetrieveStatsRequestEventType
     from .retrieve_stats_request_interval import RetrieveStatsRequestInterval
+    from .retrieve_stats_request_mode import RetrieveStatsRequestMode
     from .retrieve_stats_request_snapshot_window import RetrieveStatsRequestSnapshotWindow
     from .retrieve_stats_response import RetrieveStatsResponse
     from .retrieve_stats_response_data import RetrieveStatsResponseData
@@ -27,6 +28,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveStatsRequestActivity": ".retrieve_stats_request_activity",
     "RetrieveStatsRequestEventType": ".retrieve_stats_request_event_type",
     "RetrieveStatsRequestInterval": ".retrieve_stats_request_interval",
+    "RetrieveStatsRequestMode": ".retrieve_stats_request_mode",
     "RetrieveStatsRequestSnapshotWindow": ".retrieve_stats_request_snapshot_window",
     "RetrieveStatsResponse": ".retrieve_stats_response",
     "RetrieveStatsResponseData": ".retrieve_stats_response_data",
@@ -64,6 +66,7 @@ __all__ = [
     "RetrieveStatsRequestActivity",
     "RetrieveStatsRequestEventType",
     "RetrieveStatsRequestInterval",
+    "RetrieveStatsRequestMode",
     "RetrieveStatsRequestSnapshotWindow",
     "RetrieveStatsResponse",
     "RetrieveStatsResponseData",
