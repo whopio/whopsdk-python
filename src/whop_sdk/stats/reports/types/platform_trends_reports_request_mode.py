@@ -2,4 +2,4 @@
 
 import typing
 
-PlatformTrendsReportsRequestMode = typing.Union[typing.Literal["global", "trends"], typing.Any]
+PlatformTrendsReportsRequestMode = typing.Union[typing.Literal["global", "public"], typing.Any]
