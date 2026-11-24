@@ -241,6 +241,7 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "psp_dispute_fee",
         "psp_dispute_management_fee",
         "psp_dispute_payable",
+        "psp_error_loss",
         "psp_external_account_connection_fee",
         "psp_fixed_fee",
         "psp_fx_adjustment",

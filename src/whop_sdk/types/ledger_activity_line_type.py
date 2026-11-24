@@ -242,6 +242,7 @@ LedgerActivityLineType = typing.Union[
         "payment_unreconciled_clearing",
         "payment_unreconciled_reversal",
         "settlement_shortfall_loss",
+        "psp_error_loss",
         "fx_settlement_gain_loss",
         "settlement_rounding_variance",
         "psp_payout_settlement",
