@@ -116,7 +116,7 @@ class ProductLegacy(UniversalBaseModel):
 
     route: str = pydantic.Field()
     """
-    URL slug in the product's public link, e.g. `pickaxe-analytics` in whop.com/company/pickaxe-analytics.
+    URL slug in the product's public link, e.g. `ceramic-coating-package` in whop.com/company/ceramic-coating-package.
     """
 
     title: str = pydantic.Field()

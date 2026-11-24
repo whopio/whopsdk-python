@@ -29800,7 +29800,7 @@ client = Whop(
 )
 
 client.members.create(
-    email="jane@example.com",
+    email="dana@shinetime.example",
 )
 
 ```

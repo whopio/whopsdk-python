@@ -19,7 +19,7 @@ class ProductLegacyProductTaxCode(UniversalBaseModel):
 
     name: str = pydantic.Field()
     """
-    Human-readable name of this tax classification, such as 'Digital - SaaS'.
+    Human-readable name of this tax classification, such as 'Services'.
     """
 
     product_type: ProductTaxCodeProductTypes = pydantic.Field()
