@@ -82,6 +82,7 @@ if typing.TYPE_CHECKING:
     )
     from .account_payment_controls_undated_pending_reason import AccountPaymentControlsUndatedPendingReason
     from .account_preferences import AccountPreferences
+    from .account_preferences_apple_iap_fee_payer import AccountPreferencesAppleIapFeePayer
     from .account_preferences_merchant_of_record import AccountPreferencesMerchantOfRecord
     from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
     from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
@@ -1742,6 +1743,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountPaymentControlsRestrictedPaymentMethodsItem": ".account_payment_controls_restricted_payment_methods_item",
     "AccountPaymentControlsUndatedPendingReason": ".account_payment_controls_undated_pending_reason",
     "AccountPreferences": ".account_preferences",
+    "AccountPreferencesAppleIapFeePayer": ".account_preferences_apple_iap_fee_payer",
     "AccountPreferencesMerchantOfRecord": ".account_preferences_merchant_of_record",
     "AccountPreferencesPreferredSettlementCurrency": ".account_preferences_preferred_settlement_currency",
     "AccountPreferencesSubscriptionFailureBehavior": ".account_preferences_subscription_failure_behavior",
@@ -3288,6 +3290,7 @@ __all__ = [
     "AccountPaymentControlsRestrictedPaymentMethodsItem",
     "AccountPaymentControlsUndatedPendingReason",
     "AccountPreferences",
+    "AccountPreferencesAppleIapFeePayer",
     "AccountPreferencesMerchantOfRecord",
     "AccountPreferencesPreferredSettlementCurrency",
     "AccountPreferencesSubscriptionFailureBehavior",

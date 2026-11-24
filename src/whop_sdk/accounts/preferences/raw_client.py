@@ -21,6 +21,7 @@ from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
 )
 from .types.update_preferences_request_affiliate_program import UpdatePreferencesRequestAffiliateProgram
+from .types.update_preferences_request_apple_iap_fee_payer import UpdatePreferencesRequestAppleIapFeePayer
 from .types.update_preferences_request_card_surcharge import UpdatePreferencesRequestCardSurcharge
 from .types.update_preferences_request_customer_tracking import UpdatePreferencesRequestCustomerTracking
 from .types.update_preferences_request_economic_intelligence_duration_key import (
@@ -120,6 +121,7 @@ class RawPreferencesClient:
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
         affiliate_program: typing.Optional[UpdatePreferencesRequestAffiliateProgram] = OMIT,
+        apple_iap_fee_payer: typing.Optional[UpdatePreferencesRequestAppleIapFeePayer] = OMIT,
         cancellation_emails: typing.Optional[bool] = OMIT,
         card_surcharge: typing.Optional[UpdatePreferencesRequestCardSurcharge] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
@@ -152,7 +154,7 @@ class RawPreferencesClient:
         - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
         - `payment:manage`: `off_session_payment_rules`.
         - `payment:dispute`: `dispute_fighter_enabled`.
-        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
+        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`, `apple_iap_fee_payer`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
         - `affiliate:update`: `affiliate_program`.
 
@@ -177,6 +179,9 @@ class RawPreferencesClient:
 
         affiliate_program : typing.Optional[UpdatePreferencesRequestAffiliateProgram]
             The account's affiliate program. Only the fields you send change, and fields left out keep their current values. To clear a field, set it to `null`. To turn affiliates on or off, set `global_affiliate_status` and `member_affiliate_status` on each product with `PATCH /products/{id}`. Requires the `affiliate:update` scope on your API key.
+
+        apple_iap_fee_payer : typing.Optional[UpdatePreferencesRequestAppleIapFeePayer]
+            Who pays Apple's 30% fee on one-time purchases made in the Whop iOS app. Set it to `company` to sell at the product's own price and pay the fee from the sale. Set it to `buyer` to add about 43% to the iOS price, so the buyer pays the fee. Requires the `company:update` scope on your API key.
 
         cancellation_emails : typing.Optional[bool]
             Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
@@ -261,6 +266,7 @@ class RawPreferencesClient:
                 "affiliate_program": convert_and_respect_annotation_metadata(
                     object_=affiliate_program, annotation=UpdatePreferencesRequestAffiliateProgram, direction="write"
                 ),
+                "apple_iap_fee_payer": apple_iap_fee_payer,
                 "cancellation_emails": cancellation_emails,
                 "card_surcharge": convert_and_respect_annotation_metadata(
                     object_=card_surcharge, annotation=UpdatePreferencesRequestCardSurcharge, direction="write"
@@ -440,6 +446,7 @@ class AsyncRawPreferencesClient:
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
         affiliate_program: typing.Optional[UpdatePreferencesRequestAffiliateProgram] = OMIT,
+        apple_iap_fee_payer: typing.Optional[UpdatePreferencesRequestAppleIapFeePayer] = OMIT,
         cancellation_emails: typing.Optional[bool] = OMIT,
         card_surcharge: typing.Optional[UpdatePreferencesRequestCardSurcharge] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
@@ -472,7 +479,7 @@ class AsyncRawPreferencesClient:
         - `payout:account:update`: `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances`, `merchant_of_record`.
         - `payment:manage`: `off_session_payment_rules`.
         - `payment:dispute`: `dispute_fighter_enabled`.
-        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`.
+        - `company:update`: `economic_intelligence_duration_key`, `economic_intelligence_auto_renew`, `review_request_emails`, `cancellation_emails`, `renewal_reminder_emails`, `failed_payment_emails`, `subaccount_notifications`, `subaccount_team_view_only`, `card_surcharge`, `apple_iap_fee_payer`.
         - `company:manage_checkout`: `feedback_options`, `customer_tracking`.
         - `affiliate:update`: `affiliate_program`.
 
@@ -497,6 +504,9 @@ class AsyncRawPreferencesClient:
 
         affiliate_program : typing.Optional[UpdatePreferencesRequestAffiliateProgram]
             The account's affiliate program. Only the fields you send change, and fields left out keep their current values. To clear a field, set it to `null`. To turn affiliates on or off, set `global_affiliate_status` and `member_affiliate_status` on each product with `PATCH /products/{id}`. Requires the `affiliate:update` scope on your API key.
+
+        apple_iap_fee_payer : typing.Optional[UpdatePreferencesRequestAppleIapFeePayer]
+            Who pays Apple's 30% fee on one-time purchases made in the Whop iOS app. Set it to `company` to sell at the product's own price and pay the fee from the sale. Set it to `buyer` to add about 43% to the iOS price, so the buyer pays the fee. Requires the `company:update` scope on your API key.
 
         cancellation_emails : typing.Optional[bool]
             Whether Whop emails members when their membership is canceled or terminated. Set it to `false` to stop these emails while keeping the account's other customer emails. Requires the `company:update` scope on your API key.
@@ -581,6 +591,7 @@ class AsyncRawPreferencesClient:
                 "affiliate_program": convert_and_respect_annotation_metadata(
                     object_=affiliate_program, annotation=UpdatePreferencesRequestAffiliateProgram, direction="write"
                 ),
+                "apple_iap_fee_payer": apple_iap_fee_payer,
                 "cancellation_emails": cancellation_emails,
                 "card_surcharge": convert_and_respect_annotation_metadata(
                     object_=card_surcharge, annotation=UpdatePreferencesRequestCardSurcharge, direction="write"
