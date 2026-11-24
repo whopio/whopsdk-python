@@ -2,4 +2,6 @@
 
 import typing
 
-ListPaymentsRequestOrder = typing.Union[typing.Literal["created_at", "paid_at", "amount"], typing.Any]
+ListPaymentsRequestOrder = typing.Union[
+    typing.Literal["created_at", "paid_at", "amount", "status", "product", "plan", "method"], typing.Any
+]
