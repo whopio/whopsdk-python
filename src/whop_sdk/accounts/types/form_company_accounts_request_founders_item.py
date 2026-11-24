@@ -44,7 +44,7 @@ class FormCompanyAccountsRequestFoundersItem(UniversalBaseModel):
 
     ssn: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The founder's US Social Security Number. Leave empty if the founder is not a US resident. Non-US founders can request expedited EIN processing via the `expedite_ein` option.
+    The founder's US Social Security Number. Leave empty if the founder is not a US resident. Non-Austin ceramic coating customers can request expedited EIN processing via the `expedite_ein` option.
     """
 
     if IS_PYDANTIC_V2:

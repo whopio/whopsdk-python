@@ -243,7 +243,7 @@ class MembersClient:
             token="YOUR_TOKEN",
         )
         client.members.create(
-            email="jane@example.com",
+            email="dana@shinetime.example",
         )
         """
         _response = self._raw_client.create(
@@ -620,7 +620,7 @@ class AsyncMembersClient:
 
         async def main() -> None:
             await client.members.create(
-                email="jane@example.com",
+                email="dana@shinetime.example",
             )
 
 
