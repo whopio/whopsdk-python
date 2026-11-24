@@ -46836,7 +46836,7 @@ client.stats.retrieve(
 <dl>
 <dd>
 
-**account_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Business ids (biz_...) to scope the series to; the series sums their figures. Available on metrics that list account_ids.
+**account_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Business ids (biz_...) to scope the series to. The series sums their figures. On a metric that lists account as a breakdown, it replaces account_id and takes at most 50 ids. On such a metric, breakdown_by=account returns an entry for each id. Available on metrics that list account_ids.
     
 </dd>
 </dl>
@@ -58632,7 +58632,7 @@ client.stats.time_series.retrieve(
 <dl>
 <dd>
 
-**account_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Business ids (biz_...) to scope the series to; the series sums their figures. Available on metrics that list account_ids.
+**account_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Business ids (biz_...) to scope the series to. The series sums their figures. On a metric that lists account as a breakdown, it replaces account_id and takes at most 50 ids. On such a metric, breakdown_by=account returns an entry for each id. Available on metrics that list account_ids.
     
 </dd>
 </dl>

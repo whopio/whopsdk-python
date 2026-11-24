@@ -42,6 +42,11 @@ class Invoice(UniversalBaseModel):
     email_address: typing.Optional[str] = None
     id: str
     invoice_prefix: typing.Optional[str] = None
+    issued_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the invoice was issued, as an ISO 8601 timestamp. This is when it left draft, which can be after `created_at` for an invoice drafted or scheduled ahead. `null` while the invoice is a draft, and for invoices issued before this field was introduced.
+    """
+
     line_items: typing.List[InvoiceLineItem]
     mailing_address_id: typing.Optional[str] = None
     member_id: typing.Optional[str] = None
