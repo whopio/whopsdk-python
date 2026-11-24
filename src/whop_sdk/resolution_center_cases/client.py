@@ -14,6 +14,7 @@ from .types.accept_resolution_center_cases_request_attachments_item import (
 from .types.appeal_resolution_center_cases_request_attachments_item import (
     AppealResolutionCenterCasesRequestAttachmentsItem,
 )
+from .types.create_resolution_center_cases_request_answers_item import CreateResolutionCenterCasesRequestAnswersItem
 from .types.create_resolution_center_cases_request_attachments_item import (
     CreateResolutionCenterCasesRequestAttachmentsItem,
 )
@@ -213,11 +214,12 @@ class ResolutionCenterCasesClient:
         message: str,
         reason: CreateResolutionCenterCasesRequestReason,
         receipt_id: str,
+        answers: typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem]] = OMIT,
         attachments: typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionCenterCase:
         """
-        Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`.
+        Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`. Send `answers` to record the customer's answers to the questions for that reason.
 
         Parameters
         ----------
@@ -230,6 +232,9 @@ class ResolutionCenterCasesClient:
         receipt_id : str
             The payment to open the case against (`pay_` tag).
 
+        answers : typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem]]
+            The customer's answers to the questions for this `reason`. Every required question needs an answer, and a question the reason does not ask is refused.
+
         attachments : typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem]]
 
         request_options : typing.Optional[RequestOptions]
@@ -238,7 +243,7 @@ class ResolutionCenterCasesClient:
         Returns
         -------
         ResolutionCenterCase
-            case opened
+            case opened with answers
 
         Examples
         --------
@@ -259,6 +264,7 @@ class ResolutionCenterCasesClient:
             message=message,
             reason=reason,
             receipt_id=receipt_id,
+            answers=answers,
             attachments=attachments,
             request_options=request_options,
         )
@@ -941,11 +947,12 @@ class AsyncResolutionCenterCasesClient:
         message: str,
         reason: CreateResolutionCenterCasesRequestReason,
         receipt_id: str,
+        answers: typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem]] = OMIT,
         attachments: typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionCenterCase:
         """
-        Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`.
+        Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`. Send `answers` to record the customer's answers to the questions for that reason.
 
         Parameters
         ----------
@@ -958,6 +965,9 @@ class AsyncResolutionCenterCasesClient:
         receipt_id : str
             The payment to open the case against (`pay_` tag).
 
+        answers : typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem]]
+            The customer's answers to the questions for this `reason`. Every required question needs an answer, and a question the reason does not ask is refused.
+
         attachments : typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem]]
 
         request_options : typing.Optional[RequestOptions]
@@ -966,7 +976,7 @@ class AsyncResolutionCenterCasesClient:
         Returns
         -------
         ResolutionCenterCase
-            case opened
+            case opened with answers
 
         Examples
         --------
@@ -995,6 +1005,7 @@ class AsyncResolutionCenterCasesClient:
             message=message,
             reason=reason,
             receipt_id=receipt_id,
+            answers=answers,
             attachments=attachments,
             request_options=request_options,
         )

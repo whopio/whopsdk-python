@@ -9,6 +9,9 @@ if typing.TYPE_CHECKING:
     from .types import (
         AcceptResolutionCenterCasesRequestAttachmentsItem,
         AppealResolutionCenterCasesRequestAttachmentsItem,
+        CreateResolutionCenterCasesRequestAnswersItem,
+        CreateResolutionCenterCasesRequestAnswersItemAttachmentsItem,
+        CreateResolutionCenterCasesRequestAnswersItemQuestion,
         CreateResolutionCenterCasesRequestAttachmentsItem,
         CreateResolutionCenterCasesRequestReason,
         DenyResolutionCenterCasesRequestAttachmentsItem,
@@ -47,6 +50,9 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "AcceptResolutionCenterCasesRequestAttachmentsItem": ".types",
     "AppealResolutionCenterCasesRequestAttachmentsItem": ".types",
+    "CreateResolutionCenterCasesRequestAnswersItem": ".types",
+    "CreateResolutionCenterCasesRequestAnswersItemAttachmentsItem": ".types",
+    "CreateResolutionCenterCasesRequestAnswersItemQuestion": ".types",
     "CreateResolutionCenterCasesRequestAttachmentsItem": ".types",
     "CreateResolutionCenterCasesRequestReason": ".types",
     "DenyResolutionCenterCasesRequestAttachmentsItem": ".types",
@@ -108,6 +114,9 @@ def __dir__():
 __all__ = [
     "AcceptResolutionCenterCasesRequestAttachmentsItem",
     "AppealResolutionCenterCasesRequestAttachmentsItem",
+    "CreateResolutionCenterCasesRequestAnswersItem",
+    "CreateResolutionCenterCasesRequestAnswersItemAttachmentsItem",
+    "CreateResolutionCenterCasesRequestAnswersItemQuestion",
     "CreateResolutionCenterCasesRequestAttachmentsItem",
     "CreateResolutionCenterCasesRequestReason",
     "DenyResolutionCenterCasesRequestAttachmentsItem",

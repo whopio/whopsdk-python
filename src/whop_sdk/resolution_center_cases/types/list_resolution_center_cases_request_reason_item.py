@@ -4,7 +4,12 @@ import typing
 
 ListResolutionCenterCasesRequestReasonItem = typing.Union[
     typing.Literal[
-        "fraudulent", "product_not_received", "not_as_described", "product_unacceptable", "subscription_canceled"
+        "fraudulent",
+        "product_not_received",
+        "not_as_described",
+        "product_unacceptable",
+        "subscription_canceled",
+        "credit_not_processed",
     ],
     typing.Any,
 ]

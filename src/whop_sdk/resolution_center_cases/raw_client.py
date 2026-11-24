@@ -25,6 +25,7 @@ from .types.accept_resolution_center_cases_request_attachments_item import (
 from .types.appeal_resolution_center_cases_request_attachments_item import (
     AppealResolutionCenterCasesRequestAttachmentsItem,
 )
+from .types.create_resolution_center_cases_request_answers_item import CreateResolutionCenterCasesRequestAnswersItem
 from .types.create_resolution_center_cases_request_attachments_item import (
     CreateResolutionCenterCasesRequestAttachmentsItem,
 )
@@ -277,11 +278,12 @@ class RawResolutionCenterCasesClient:
         message: str,
         reason: CreateResolutionCenterCasesRequestReason,
         receipt_id: str,
+        answers: typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem]] = OMIT,
         attachments: typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ResolutionCenterCase]:
         """
-        Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`.
+        Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`. Send `answers` to record the customer's answers to the questions for that reason.
 
         Parameters
         ----------
@@ -294,6 +296,9 @@ class RawResolutionCenterCasesClient:
         receipt_id : str
             The payment to open the case against (`pay_` tag).
 
+        answers : typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem]]
+            The customer's answers to the questions for this `reason`. Every required question needs an answer, and a question the reason does not ask is refused.
+
         attachments : typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem]]
 
         request_options : typing.Optional[RequestOptions]
@@ -302,13 +307,18 @@ class RawResolutionCenterCasesClient:
         Returns
         -------
         HttpResponse[ResolutionCenterCase]
-            case opened
+            case opened with answers
         """
         _response = self._client_wrapper.httpx_client.request(
             "resolution_center_cases",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "answers": convert_and_respect_annotation_metadata(
+                    object_=answers,
+                    annotation=typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem],
+                    direction="write",
+                ),
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments,
                     annotation=typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem],
@@ -1446,11 +1456,12 @@ class AsyncRawResolutionCenterCasesClient:
         message: str,
         reason: CreateResolutionCenterCasesRequestReason,
         receipt_id: str,
+        answers: typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem]] = OMIT,
         attachments: typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ResolutionCenterCase]:
         """
-        Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`.
+        Opens a case, as the customer, against one of your own payments. Provide the payment (`receipt_id`), the `reason`, and a `message`. Send `answers` to record the customer's answers to the questions for that reason.
 
         Parameters
         ----------
@@ -1463,6 +1474,9 @@ class AsyncRawResolutionCenterCasesClient:
         receipt_id : str
             The payment to open the case against (`pay_` tag).
 
+        answers : typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem]]
+            The customer's answers to the questions for this `reason`. Every required question needs an answer, and a question the reason does not ask is refused.
+
         attachments : typing.Optional[typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem]]
 
         request_options : typing.Optional[RequestOptions]
@@ -1471,13 +1485,18 @@ class AsyncRawResolutionCenterCasesClient:
         Returns
         -------
         AsyncHttpResponse[ResolutionCenterCase]
-            case opened
+            case opened with answers
         """
         _response = await self._client_wrapper.httpx_client.request(
             "resolution_center_cases",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "answers": convert_and_respect_annotation_metadata(
+                    object_=answers,
+                    annotation=typing.Sequence[CreateResolutionCenterCasesRequestAnswersItem],
+                    direction="write",
+                ),
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments,
                     annotation=typing.Sequence[CreateResolutionCenterCasesRequestAttachmentsItem],

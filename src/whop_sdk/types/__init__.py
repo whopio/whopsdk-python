@@ -1429,6 +1429,8 @@ if typing.TYPE_CHECKING:
     from .resolution_buyer import ResolutionBuyer
     from .resolution_center_case import ResolutionCenterCase
     from .resolution_center_case_actions import ResolutionCenterCaseActions
+    from .resolution_center_case_answer import ResolutionCenterCaseAnswer
+    from .resolution_center_case_answer_question import ResolutionCenterCaseAnswerQuestion
     from .resolution_center_case_available_actions_item import ResolutionCenterCaseAvailableActionsItem
     from .resolution_center_case_customer_responses import ResolutionCenterCaseCustomerResponses
     from .resolution_center_case_issue_types import ResolutionCenterCaseIssueTypes
@@ -2951,6 +2953,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResolutionBuyer": ".resolution_buyer",
     "ResolutionCenterCase": ".resolution_center_case",
     "ResolutionCenterCaseActions": ".resolution_center_case_actions",
+    "ResolutionCenterCaseAnswer": ".resolution_center_case_answer",
+    "ResolutionCenterCaseAnswerQuestion": ".resolution_center_case_answer_question",
     "ResolutionCenterCaseAvailableActionsItem": ".resolution_center_case_available_actions_item",
     "ResolutionCenterCaseCustomerResponses": ".resolution_center_case_customer_responses",
     "ResolutionCenterCaseIssueTypes": ".resolution_center_case_issue_types",
@@ -4495,6 +4499,8 @@ __all__ = [
     "ResolutionBuyer",
     "ResolutionCenterCase",
     "ResolutionCenterCaseActions",
+    "ResolutionCenterCaseAnswer",
+    "ResolutionCenterCaseAnswerQuestion",
     "ResolutionCenterCaseAvailableActionsItem",
     "ResolutionCenterCaseCustomerResponses",
     "ResolutionCenterCaseIssueTypes",

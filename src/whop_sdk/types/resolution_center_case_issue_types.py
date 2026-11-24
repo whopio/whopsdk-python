@@ -9,6 +9,7 @@ ResolutionCenterCaseIssueTypes = typing.Union[
         "significantly_not_as_described",
         "unauthorized_transaction",
         "product_unacceptable",
+        "credit_not_processed",
     ],
     typing.Any,
 ]
