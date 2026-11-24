@@ -483,6 +483,7 @@ class RawAdsClient:
     def create(
         self,
         *,
+        account_id: typing.Optional[str] = OMIT,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -500,6 +501,9 @@ class RawAdsClient:
 
         Parameters
         ----------
+        account_id : typing.Optional[str]
+            The account to create an inline `ad_group.ad_campaign` under. Defaults to the account-scoped key's own account.
+
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -543,6 +547,7 @@ class RawAdsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "account_id": account_id,
                 "ad_group": ad_group,
                 "ad_group_id": ad_group_id,
                 "call_to_action": call_to_action,
@@ -1505,6 +1510,7 @@ class AsyncRawAdsClient:
     async def create(
         self,
         *,
+        account_id: typing.Optional[str] = OMIT,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -1522,6 +1528,9 @@ class AsyncRawAdsClient:
 
         Parameters
         ----------
+        account_id : typing.Optional[str]
+            The account to create an inline `ad_group.ad_campaign` under. Defaults to the account-scoped key's own account.
+
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -1565,6 +1574,7 @@ class AsyncRawAdsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "account_id": account_id,
                 "ad_group": ad_group,
                 "ad_group_id": ad_group_id,
                 "call_to_action": call_to_action,
