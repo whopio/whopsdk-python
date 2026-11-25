@@ -4,9 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .ad_content_review_tag_locations_item import AdContentReviewTagLocationsItem
 
 
 class AdContentReviewTag(UniversalBaseModel):
+    blocking: bool = pydantic.Field()
+    """
+    Whether this rule keeps the ad from running until it's fixed. `false` when the ad can still run and fixing it only lets the ad run on more networks.
+    """
+
+    locations: typing.List[AdContentReviewTagLocationsItem]
     message: str = pydantic.Field()
     """
     The evidence the review recorded for this rule.
