@@ -6,6 +6,7 @@ ListMembershipsRequestStatus = typing.Union[
     typing.Literal[
         "active",
         "trialing",
+        "scheduled",
         "past_due",
         "completed",
         "canceled",

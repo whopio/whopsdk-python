@@ -166,7 +166,7 @@ class Membership(UniversalBaseModel):
 
     status: MembershipStatus = pydantic.Field()
     """
-    Billing state of the membership. `active`/`trialing` memberships grant access; `past_due` is the grace period after a failed payment; `completed` one-time purchases keep access; `canceled`/`expired` do not.
+    Billing state of the membership. `active` and `trialing` memberships grant access. `past_due` is the grace period after a failed payment. `completed` one-time purchases keep access. `scheduled` memberships wait for their variant's start date, when the first charge runs and access starts. `canceled` and `expired` memberships do not grant access.
     """
 
     updated_at: str = pydantic.Field()

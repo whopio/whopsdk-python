@@ -3,5 +3,6 @@
 import typing
 
 SearchRecordMembershipStatus = typing.Union[
-    typing.Literal["trialing", "active", "past_due", "completed", "canceled", "expired", "unresolved"], typing.Any
+    typing.Literal["trialing", "active", "past_due", "completed", "canceled", "expired", "unresolved", "scheduled"],
+    typing.Any,
 ]

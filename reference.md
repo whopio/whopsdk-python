@@ -30282,7 +30282,7 @@ client.memberships.list(
 <dl>
 <dd>
 
-**status:** `typing.Optional[ListMembershipsRequestStatus]` — Filter by billing state. `trialing`, `active`, `past_due`, `completed`, `canceled`, and `expired` match the membership's `status`; `active`, `trialing`, and `past_due` exclude memberships set to cancel at period end. The other values are derived buckets that never appear as a `status`: `canceling` matches memberships set to cancel at period end; `paused` matches memberships with payment collection paused; `expiring` matches one-time purchases that have not yet expired; `one_time` matches one-time purchases that never expire; `unclaimed` matches memberships with no buyer user, including memberships bought by another business; `banned` matches memberships whose buyer is banned from the account.
+**status:** `typing.Optional[ListMembershipsRequestStatus]` — Filter by billing state. `trialing`, `active`, `scheduled`, `past_due`, `completed`, `canceled`, and `expired` match the membership's `status`. `active`, `trialing`, and `past_due` exclude memberships set to cancel at period end. The other values are derived buckets that never appear as a `status`. `canceling` matches memberships set to cancel at period end. `paused` matches memberships with payment collection paused. `expiring` matches one-time purchases that have not yet expired. `one_time` matches one-time purchases that never expire. `unclaimed` matches memberships with no buyer user, including memberships bought by another business. `banned` matches memberships whose buyer is banned from the account.
     
 </dd>
 </dl>
