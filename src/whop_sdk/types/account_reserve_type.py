@@ -25,7 +25,7 @@ class AccountReserveType(UniversalBaseModel):
 
     type: AccountReserveTypeType = pydantic.Field()
     """
-    Why this part of the balance is held. `regular` is the account's standing risk reserve; `bnpl` and `sequra` cover buy-now-pay-later settlement; `preshipment_hold` covers a physical order that has not shipped yet; `fraud_hold` is held while activity is reviewed.
+    Why this part of the balance is held. `regular` is the account's standing risk reserve. `bnpl` and `sequra` cover buy-now-pay-later settlement. `preshipment_hold` covers a physical order that has not shipped yet. `fraud_hold` is held while activity is reviewed. `subaccount_negative_balances` is held by a platform for the negative balances of its sub-accounts.
     """
 
     if IS_PYDANTIC_V2:
