@@ -1804,6 +1804,7 @@ if typing.TYPE_CHECKING:
         ListAdPixelsResponsePageInfo,
     )
     from .ads import (
+        AppealAdsRequestType,
         CreateAdsRequestCallToAction,
         CreateAdsRequestCreativesItem,
         CreateAdsRequestCreativesItemCrop,
@@ -3827,6 +3828,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AppUsageStats": ".types",
     "AppValidScopes": ".types",
     "AppViewTypes": ".types",
+    "AppealAdsRequestType": ".ads",
     "AppealResolutionCenterCasesRequestAttachmentsItem": ".resolution_center_cases",
     "ApproveAllWaitlistEntriesResponse": ".waitlist_entries",
     "AssignAffiliateMembershipsRequestCommissionType": ".memberships",
@@ -7260,6 +7262,7 @@ __all__ = [
     "AppUsageStats",
     "AppValidScopes",
     "AppViewTypes",
+    "AppealAdsRequestType",
     "AppealResolutionCenterCasesRequestAttachmentsItem",
     "ApproveAllWaitlistEntriesResponse",
     "AssignAffiliateMembershipsRequestCommissionType",

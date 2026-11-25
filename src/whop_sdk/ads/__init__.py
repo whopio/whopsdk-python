@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        AppealAdsRequestType,
         CreateAdsRequestCallToAction,
         CreateAdsRequestCreativesItem,
         CreateAdsRequestCreativesItemCrop,
@@ -45,6 +46,7 @@ if typing.TYPE_CHECKING:
         UpdateAdsRequestPrimaryTextsItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "AppealAdsRequestType": ".types",
     "CreateAdsRequestCallToAction": ".types",
     "CreateAdsRequestCreativesItem": ".types",
     "CreateAdsRequestCreativesItemCrop": ".types",
@@ -106,6 +108,7 @@ def __dir__():
 
 
 __all__ = [
+    "AppealAdsRequestType",
     "CreateAdsRequestCallToAction",
     "CreateAdsRequestCreativesItem",
     "CreateAdsRequestCreativesItemCrop",

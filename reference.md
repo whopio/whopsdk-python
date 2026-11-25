@@ -4734,6 +4734,88 @@ client.ads.update(
 </dl>
 </details>
 
+<details><summary><code>client.ads.<a href="src/whop_sdk/ads/client.py">appeal</a>(...) -> Ad</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Asks Whop to review the ad again. A `website` appeal reviews the ad against its website as it is now. It only applies to an ad held back for something found on its website. An ad can be appealed once an hour.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.ads.appeal(
+    id="id",
+    type="website",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ad ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `AppealAdsRequestType` — How to review the ad again. `website` reviews it against its website as it is now.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.ads.<a href="src/whop_sdk/ads/client.py">duplicate</a>(...) -> DuplicateAdsResponse</code></summary>
 <dl>
 <dd>

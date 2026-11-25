@@ -9,6 +9,7 @@ from ..core.request_options import RequestOptions
 from ..types.ad import Ad
 from ..types.ad_stat import AdStat
 from .raw_client import AsyncRawAdsClient, RawAdsClient
+from .types.appeal_ads_request_type import AppealAdsRequestType
 from .types.create_ads_request_call_to_action import CreateAdsRequestCallToAction
 from .types.create_ads_request_creatives_item import CreateAdsRequestCreativesItem
 from .types.create_ads_request_descriptions_item import CreateAdsRequestDescriptionsItem
@@ -564,6 +565,45 @@ class AdsClient:
             url_parameters=url_parameters,
             request_options=request_options,
         )
+        return _response.data
+
+    def appeal(
+        self, id: str, *, type: AppealAdsRequestType, request_options: typing.Optional[RequestOptions] = None
+    ) -> Ad:
+        """
+        Asks Whop to review the ad again. A `website` appeal reviews the ad against its website as it is now. It only applies to an ad held back for something found on its website. An ad can be appealed once an hour.
+
+        Parameters
+        ----------
+        id : str
+            The ad ID.
+
+        type : AppealAdsRequestType
+            How to review the ad again. `website` reviews it against its website as it is now.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Ad
+            review started
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-23-3",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.ads.appeal(
+            id="id",
+            type="website",
+        )
+        """
+        _response = self._raw_client.appeal(id, type=type, request_options=request_options)
         return _response.data
 
     def duplicate(
@@ -1265,6 +1305,53 @@ class AsyncAdsClient:
             url_parameters=url_parameters,
             request_options=request_options,
         )
+        return _response.data
+
+    async def appeal(
+        self, id: str, *, type: AppealAdsRequestType, request_options: typing.Optional[RequestOptions] = None
+    ) -> Ad:
+        """
+        Asks Whop to review the ad again. A `website` appeal reviews the ad against its website as it is now. It only applies to an ad held back for something found on its website. An ad can be appealed once an hour.
+
+        Parameters
+        ----------
+        id : str
+            The ad ID.
+
+        type : AppealAdsRequestType
+            How to review the ad again. `website` reviews it against its website as it is now.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Ad
+            review started
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-23-3",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.ads.appeal(
+                id="id",
+                type="website",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.appeal(id, type=type, request_options=request_options)
         return _response.data
 
     async def duplicate(

@@ -25,6 +25,11 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     The ad group this ad belongs to.
     """
 
+    appeal_available_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the ad can next be appealed, as an ISO 8601 timestamp. `null` when it can be appealed now.
+    """
+
     call_to_action: typing.Optional[PostAdUpdatedPayloadDataCallToAction] = pydantic.Field(default=None)
     """
     The call-to-action button shown on the ad.
