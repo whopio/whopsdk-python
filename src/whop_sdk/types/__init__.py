@@ -135,6 +135,7 @@ if typing.TYPE_CHECKING:
     from .ad_content_review import AdContentReview
     from .ad_content_review_status import AdContentReviewStatus
     from .ad_content_review_tag import AdContentReviewTag
+    from .ad_content_review_tag_locations_item import AdContentReviewTagLocationsItem
     from .ad_creative import AdCreative
     from .ad_creative_crop import AdCreativeCrop
     from .ad_creative_format import AdCreativeFormat
@@ -1807,6 +1808,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdContentReview": ".ad_content_review",
     "AdContentReviewStatus": ".ad_content_review_status",
     "AdContentReviewTag": ".ad_content_review_tag",
+    "AdContentReviewTagLocationsItem": ".ad_content_review_tag_locations_item",
     "AdCreative": ".ad_creative",
     "AdCreativeCrop": ".ad_creative_crop",
     "AdCreativeFormat": ".ad_creative_format",
@@ -3361,6 +3363,7 @@ __all__ = [
     "AdContentReview",
     "AdContentReviewStatus",
     "AdContentReviewTag",
+    "AdContentReviewTagLocationsItem",
     "AdCreative",
     "AdCreativeCrop",
     "AdCreativeFormat",
