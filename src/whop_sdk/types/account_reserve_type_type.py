@@ -3,5 +3,6 @@
 import typing
 
 AccountReserveTypeType = typing.Union[
-    typing.Literal["regular", "bnpl", "sequra", "fraud_hold", "preshipment_hold"], typing.Any
+    typing.Literal["regular", "bnpl", "sequra", "fraud_hold", "preshipment_hold", "subaccount_negative_balances"],
+    typing.Any,
 ]
