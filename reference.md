@@ -16613,7 +16613,7 @@ client.course_chapters.create(
 <dl>
 <dd>
 
-**course_id:** `str` — The unique identifier of the course to create the chapter in (e.g., "course_XXXXX").
+**course_id:** `str` — The unique identifier of the course to create the chapter in (for example, "cors_XXXXX").
     
 </dd>
 </dl>
@@ -17478,7 +17478,7 @@ client.course_lessons.delete(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the lesson to delete (e.g., "les_XXXXX").
+**id:** `str` — The unique identifier of the lesson to delete (for example, "lesn_XXXXX").
     
 </dd>
 </dl>
@@ -17554,7 +17554,7 @@ client.course_lessons.update(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the lesson to update (e.g., "les_XXXXX").
+**id:** `str` — The unique identifier of the lesson to update (for example, "lesn_XXXXX").
     
 </dd>
 </dl>
@@ -17739,7 +17739,7 @@ client.course_lessons.mark_as_completed(
 <dl>
 <dd>
 
-**lesson_id:** `str` — The unique identifier of the lesson to mark as completed (e.g., "les_XXXXX").
+**lesson_id:** `str` — The unique identifier of the lesson to mark as completed (for example, "lesn_XXXXX").
     
 </dd>
 </dl>
@@ -17812,7 +17812,7 @@ client.course_lessons.start(
 <dl>
 <dd>
 
-**lesson_id:** `str` — The unique identifier of the lesson the user is starting (e.g., "les_XXXXX").
+**lesson_id:** `str` — The unique identifier of the lesson the user is starting (for example, "lesn_XXXXX").
     
 </dd>
 </dl>
@@ -17891,7 +17891,7 @@ client.course_lessons.submit_assessment(
 <dl>
 <dd>
 
-**lesson_id:** `str` — The unique identifier of the quiz or knowledge check lesson to submit answers for (e.g., "les_XXXXX").
+**lesson_id:** `str` — The unique identifier of the quiz or knowledge check lesson to submit answers for (for example, "lesn_XXXXX").
     
 </dd>
 </dl>
@@ -18501,7 +18501,7 @@ client.courses.delete(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the course to delete (e.g., "course_XXXXX").
+**id:** `str` — The unique identifier of the course to delete (for example, "cors_XXXXX").
     
 </dd>
 </dl>
@@ -18577,7 +18577,7 @@ client.courses.update(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the course to update (e.g., "course_XXXXX").
+**id:** `str` — The unique identifier of the course to update (for example, "cors_XXXXX").
     
 </dd>
 </dl>
@@ -41414,7 +41414,7 @@ client.promo_codes.create(
 <dl>
 <dd>
 
-**amount_off:** `float` 
+**amount_off:** `float` — The discount. For `percentage`, a whole percent from 0.01 to 100 (25 means 25% off). Responses return it as a fraction, 0.25. For `flat_amount`, an amount in `base_currency` units, such as dollars (5 means $5.00).
     
 </dd>
 </dl>
@@ -41430,7 +41430,7 @@ client.promo_codes.create(
 <dl>
 <dd>
 
-**code:** `str` 
+**code:** `str` — The code customers enter at checkout. Stored lowercase.
     
 </dd>
 </dl>
@@ -41446,7 +41446,7 @@ client.promo_codes.create(
 <dl>
 <dd>
 
-**promo_duration_months:** `int` 
+**promo_duration_months:** `int` — How many billing cycles the discount applies to: 0 for every payment, 1 for the first payment only, N to cover the first N payments.
     
 </dd>
 </dl>
@@ -41502,7 +41502,7 @@ client.promo_codes.create(
 <dl>
 <dd>
 
-**stock:** `typing.Optional[int]` 
+**stock:** `typing.Optional[int]` — How many times the code can be used. Required unless `unlimited_stock` is true.
     
 </dd>
 </dl>
@@ -41510,7 +41510,7 @@ client.promo_codes.create(
 <dl>
 <dd>
 
-**unlimited_stock:** `typing.Optional[bool]` 
+**unlimited_stock:** `typing.Optional[bool]` — Allow unlimited uses. When false or omitted, `stock` is required.
     
 </dd>
 </dl>
@@ -50139,7 +50139,7 @@ client.variants.create()
 <dl>
 <dd>
 
-**custom_fields:** `typing.Optional[typing.List[CreateVariantsRequestCustomFieldsItem]]` — An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+**custom_fields:** `typing.Optional[typing.List[CreateVariantsRequestCustomFieldsItem]]` — An array of custom field definitions to collect from customers at checkout. On update, omitting this field leaves existing custom fields unchanged. Send an empty array to clear them.
     
 </dd>
 </dl>
@@ -50617,7 +50617,7 @@ client.variants.update(
 <dl>
 <dd>
 
-**custom_fields:** `typing.Optional[typing.List[UpdateVariantsRequestCustomFieldsItem]]` — An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+**custom_fields:** `typing.Optional[typing.List[UpdateVariantsRequestCustomFieldsItem]]` — An array of custom field definitions to collect from customers at checkout. On update, omitting this field leaves existing custom fields unchanged. Send an empty array to clear them.
     
 </dd>
 </dl>
@@ -51523,7 +51523,7 @@ client.waitlist_entries.list(
 <dl>
 <dd>
 
-**created_before:** `typing.Optional[str]` — Only return signups submitted at or before this ISO 8601 timestamp.
+**created_before:** `typing.Optional[datetime.datetime]` — Only return signups submitted at or before this ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -51531,7 +51531,7 @@ client.waitlist_entries.list(
 <dl>
 <dd>
 
-**created_after:** `typing.Optional[str]` — Only return signups submitted at or after this ISO 8601 timestamp.
+**created_after:** `typing.Optional[datetime.datetime]` — Only return signups submitted at or after this ISO 8601 timestamp.
     
 </dd>
 </dl>

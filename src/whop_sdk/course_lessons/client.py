@@ -246,7 +246,7 @@ class CourseLessonsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the lesson to delete (e.g., "les_XXXXX").
+            The unique identifier of the lesson to delete (for example, "lesn_XXXXX").
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -305,7 +305,7 @@ class CourseLessonsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the lesson to update (e.g., "les_XXXXX").
+            The unique identifier of the lesson to update (for example, "lesn_XXXXX").
 
         assessment_completion_requirement : typing.Optional[UpdateCourseLessonsRequestAssessmentCompletionRequirement]
             The passing criteria for quiz or knowledge check lessons, such as minimum grade or correct answers.
@@ -397,7 +397,7 @@ class CourseLessonsClient:
         Parameters
         ----------
         lesson_id : str
-            The unique identifier of the lesson to mark as completed (e.g., "les_XXXXX").
+            The unique identifier of the lesson to mark as completed (for example, "lesn_XXXXX").
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -430,7 +430,7 @@ class CourseLessonsClient:
         Parameters
         ----------
         lesson_id : str
-            The unique identifier of the lesson the user is starting (e.g., "les_XXXXX").
+            The unique identifier of the lesson the user is starting (for example, "lesn_XXXXX").
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -469,7 +469,7 @@ class CourseLessonsClient:
         Parameters
         ----------
         lesson_id : str
-            The unique identifier of the quiz or knowledge check lesson to submit answers for (e.g., "les_XXXXX").
+            The unique identifier of the quiz or knowledge check lesson to submit answers for (for example, "lesn_XXXXX").
 
         answers : typing.Sequence[SubmitAssessmentCourseLessonsRequestAnswersItem]
             The list of answers to submit for each assessment question.
@@ -749,7 +749,7 @@ class AsyncCourseLessonsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the lesson to delete (e.g., "les_XXXXX").
+            The unique identifier of the lesson to delete (for example, "lesn_XXXXX").
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -816,7 +816,7 @@ class AsyncCourseLessonsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the lesson to update (e.g., "les_XXXXX").
+            The unique identifier of the lesson to update (for example, "lesn_XXXXX").
 
         assessment_completion_requirement : typing.Optional[UpdateCourseLessonsRequestAssessmentCompletionRequirement]
             The passing criteria for quiz or knowledge check lessons, such as minimum grade or correct answers.
@@ -918,7 +918,7 @@ class AsyncCourseLessonsClient:
         Parameters
         ----------
         lesson_id : str
-            The unique identifier of the lesson to mark as completed (e.g., "les_XXXXX").
+            The unique identifier of the lesson to mark as completed (for example, "lesn_XXXXX").
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -959,7 +959,7 @@ class AsyncCourseLessonsClient:
         Parameters
         ----------
         lesson_id : str
-            The unique identifier of the lesson the user is starting (e.g., "les_XXXXX").
+            The unique identifier of the lesson the user is starting (for example, "lesn_XXXXX").
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1006,7 +1006,7 @@ class AsyncCourseLessonsClient:
         Parameters
         ----------
         lesson_id : str
-            The unique identifier of the quiz or knowledge check lesson to submit answers for (e.g., "les_XXXXX").
+            The unique identifier of the quiz or knowledge check lesson to submit answers for (for example, "lesn_XXXXX").
 
         answers : typing.Sequence[SubmitAssessmentCourseLessonsRequestAnswersItem]
             The list of answers to submit for each assessment question.

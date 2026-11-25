@@ -247,7 +247,7 @@ class VariantsClient:
             The three-letter ISO currency code for the variant's pricing. Defaults to USD.
 
         custom_fields : typing.Optional[typing.Sequence[CreateVariantsRequestCustomFieldsItem]]
-            An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+            An array of custom field definitions to collect from customers at checkout. On update, omitting this field leaves existing custom fields unchanged. Send an empty array to clear them.
 
         description : typing.Optional[str]
             A text description of the variant displayed to customers on the product page.
@@ -525,7 +525,7 @@ class VariantsClient:
             The three-letter ISO currency code for the variant's pricing. Defaults to USD.
 
         custom_fields : typing.Optional[typing.Sequence[UpdateVariantsRequestCustomFieldsItem]]
-            An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+            An array of custom field definitions to collect from customers at checkout. On update, omitting this field leaves existing custom fields unchanged. Send an empty array to clear them.
 
         description : typing.Optional[str]
             A text description of the variant displayed to customers on the product page.
@@ -933,7 +933,7 @@ class AsyncVariantsClient:
             The three-letter ISO currency code for the variant's pricing. Defaults to USD.
 
         custom_fields : typing.Optional[typing.Sequence[CreateVariantsRequestCustomFieldsItem]]
-            An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+            An array of custom field definitions to collect from customers at checkout. On update, omitting this field leaves existing custom fields unchanged. Send an empty array to clear them.
 
         description : typing.Optional[str]
             A text description of the variant displayed to customers on the product page.
@@ -1237,7 +1237,7 @@ class AsyncVariantsClient:
             The three-letter ISO currency code for the variant's pricing. Defaults to USD.
 
         custom_fields : typing.Optional[typing.Sequence[UpdateVariantsRequestCustomFieldsItem]]
-            An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+            An array of custom field definitions to collect from customers at checkout. On update, omitting this field leaves existing custom fields unchanged. Send an empty array to clear them.
 
         description : typing.Optional[str]
             A text description of the variant displayed to customers on the product page.
