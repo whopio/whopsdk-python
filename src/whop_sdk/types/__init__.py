@@ -321,6 +321,7 @@ if typing.TYPE_CHECKING:
     from .bounty_submission_status import BountySubmissionStatus
     from .bounty_types import BountyTypes
     from .business_goal_types import BusinessGoalTypes
+    from .business_type_reference import BusinessTypeReference
     from .cancel_options import CancelOptions
     from .cancelation_status import CancelationStatus
     from .candle import Candle
@@ -672,6 +673,7 @@ if typing.TYPE_CHECKING:
     from .identity_profile_personal_address import IdentityProfilePersonalAddress
     from .identity_profile_statuses import IdentityProfileStatuses
     from .identity_profile_verifications_item import IdentityProfileVerificationsItem
+    from .industry_type_reference import IndustryTypeReference
     from .internal_server_error_body import InternalServerErrorBody
     from .internal_server_error_body_error import InternalServerErrorBodyError
     from .invoice import Invoice
@@ -1990,6 +1992,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BountySubmissionStatus": ".bounty_submission_status",
     "BountyTypes": ".bounty_types",
     "BusinessGoalTypes": ".business_goal_types",
+    "BusinessTypeReference": ".business_type_reference",
     "CancelOptions": ".cancel_options",
     "CancelationStatus": ".cancelation_status",
     "Candle": ".candle",
@@ -2329,6 +2332,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "IdentityProfilePersonalAddress": ".identity_profile_personal_address",
     "IdentityProfileStatuses": ".identity_profile_statuses",
     "IdentityProfileVerificationsItem": ".identity_profile_verifications_item",
+    "IndustryTypeReference": ".industry_type_reference",
     "InternalServerErrorBody": ".internal_server_error_body",
     "InternalServerErrorBodyError": ".internal_server_error_body_error",
     "Invoice": ".invoice",
@@ -3545,6 +3549,7 @@ __all__ = [
     "BountySubmissionStatus",
     "BountyTypes",
     "BusinessGoalTypes",
+    "BusinessTypeReference",
     "CancelOptions",
     "CancelationStatus",
     "Candle",
@@ -3884,6 +3889,7 @@ __all__ = [
     "IdentityProfilePersonalAddress",
     "IdentityProfileStatuses",
     "IdentityProfileVerificationsItem",
+    "IndustryTypeReference",
     "InternalServerErrorBody",
     "InternalServerErrorBodyError",
     "Invoice",
