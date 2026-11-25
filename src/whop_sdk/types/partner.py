@@ -24,6 +24,16 @@ class Partner(UniversalBaseModel):
     When the user joined the partner program, as an ISO 8601 timestamp. Null when they have not joined.
     """
 
+    lead_slot_limit: int = pydantic.Field()
+    """
+    How many leads the partner can hold at once. A waiting lead offer takes a slot, and so does a lead accepted in the last 30 days whose business has made $1 or less.
+    """
+
+    lead_slots_used: int = pydantic.Field()
+    """
+    How many of the partner's lead slots are taken now.
+    """
+
     payout_rates: typing.List[PartnerPayoutTier]
     referred_businesses_count: int = pydantic.Field()
     """

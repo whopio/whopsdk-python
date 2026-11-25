@@ -4,18 +4,24 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .industry_type_reference import IndustryTypeReference
 from .user_summary import UserSummary
 
 
 class PartnerReferralRequestLead(UniversalBaseModel):
     business_type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    What the business sells, as the owner picked it at signup, such as `education` or `coaching_and_courses`. `null` when they skipped it.
+    The business type Whop classified the business into, the same value as the account's `business_type`, such as `education`. `null` until the business is classified.
     """
 
     country: typing.Optional[str] = pydantic.Field(default=None)
     """
     The business's country as a two-letter ISO 3166-1 code, such as `us`.
+    """
+
+    industry_type: typing.Optional[IndustryTypeReference] = pydantic.Field(default=None)
+    """
+    The industry type Whop classified the business into, the same one the account's `industry_type` names. `null` until the business is classified, or when no industry type fits.
     """
 
     migrating_from: typing.Optional[str] = pydantic.Field(default=None)
@@ -26,6 +32,21 @@ class PartnerReferralRequestLead(UniversalBaseModel):
     owner: UserSummary = pydantic.Field()
     """
     The business owner. A partner messages them with this user's ID.
+    """
+
+    owner_email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The business owner's email address. `null` until the partner accepts the offer.
+    """
+
+    owner_phone: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The business owner's phone number in E.164 format, such as `+14155552671`. `null` until the partner accepts the offer, or when the owner gave none.
+    """
+
+    revenue_band: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The revenue range the owner picked at signup, such as `0-50k` or `50-250k`. `null` when they skipped it.
     """
 
     signed_up_at: str = pydantic.Field()
