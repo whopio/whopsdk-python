@@ -229,14 +229,17 @@ class RawPromoCodesClient:
         account_id : str
 
         amount_off : float
+            The discount. For `percentage`, a whole percent from 0.01 to 100 (25 means 25% off). Responses return it as a fraction, 0.25. For `flat_amount`, an amount in `base_currency` units, such as dollars (5 means $5.00).
 
         base_currency : CreatePromoCodesRequestBaseCurrency
 
         code : str
+            The code customers enter at checkout. Stored lowercase.
 
         new_users_only : bool
 
         promo_duration_months : int
+            How many billing cycles the discount applies to: 0 for every payment, 1 for the first payment only, N to cover the first N payments.
 
         promo_type : CreatePromoCodesRequestPromoType
 
@@ -251,8 +254,10 @@ class RawPromoCodesClient:
         product_id : typing.Optional[str]
 
         stock : typing.Optional[int]
+            How many times the code can be used. Required unless `unlimited_stock` is true.
 
         unlimited_stock : typing.Optional[bool]
+            Allow unlimited uses. When false or omitted, `stock` is required.
 
         variant_ids : typing.Optional[typing.Sequence[str]]
 
@@ -749,14 +754,17 @@ class AsyncRawPromoCodesClient:
         account_id : str
 
         amount_off : float
+            The discount. For `percentage`, a whole percent from 0.01 to 100 (25 means 25% off). Responses return it as a fraction, 0.25. For `flat_amount`, an amount in `base_currency` units, such as dollars (5 means $5.00).
 
         base_currency : CreatePromoCodesRequestBaseCurrency
 
         code : str
+            The code customers enter at checkout. Stored lowercase.
 
         new_users_only : bool
 
         promo_duration_months : int
+            How many billing cycles the discount applies to: 0 for every payment, 1 for the first payment only, N to cover the first N payments.
 
         promo_type : CreatePromoCodesRequestPromoType
 
@@ -771,8 +779,10 @@ class AsyncRawPromoCodesClient:
         product_id : typing.Optional[str]
 
         stock : typing.Optional[int]
+            How many times the code can be used. Required unless `unlimited_stock` is true.
 
         unlimited_stock : typing.Optional[bool]
+            Allow unlimited uses. When false or omitted, `stock` is required.
 
         variant_ids : typing.Optional[typing.Sequence[str]]
 

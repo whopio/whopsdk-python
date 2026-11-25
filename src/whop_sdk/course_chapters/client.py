@@ -110,7 +110,7 @@ class CourseChaptersClient:
         Parameters
         ----------
         course_id : str
-            The unique identifier of the course to create the chapter in (e.g., "course_XXXXX").
+            The unique identifier of the course to create the chapter in (for example, "cors_XXXXX").
 
         title : typing.Optional[str]
             The display title of the chapter (e.g., "Module 1: Introduction").
@@ -357,7 +357,7 @@ class AsyncCourseChaptersClient:
         Parameters
         ----------
         course_id : str
-            The unique identifier of the course to create the chapter in (e.g., "course_XXXXX").
+            The unique identifier of the course to create the chapter in (for example, "cors_XXXXX").
 
         title : typing.Optional[str]
             The display title of the chapter (e.g., "Module 1: Introduction").

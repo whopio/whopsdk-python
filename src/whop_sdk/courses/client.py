@@ -236,7 +236,7 @@ class CoursesClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the course to delete (e.g., "course_XXXXX").
+            The unique identifier of the course to delete (for example, "cors_XXXXX").
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -287,7 +287,7 @@ class CoursesClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the course to update (e.g., "course_XXXXX").
+            The unique identifier of the course to update (for example, "cors_XXXXX").
 
         certificate_after_completion_enabled : typing.Optional[bool]
             Whether the course awards students a PDF certificate after completing all lessons.
@@ -599,7 +599,7 @@ class AsyncCoursesClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the course to delete (e.g., "course_XXXXX").
+            The unique identifier of the course to delete (for example, "cors_XXXXX").
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -658,7 +658,7 @@ class AsyncCoursesClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the course to update (e.g., "course_XXXXX").
+            The unique identifier of the course to update (for example, "cors_XXXXX").
 
         certificate_after_completion_enabled : typing.Optional[bool]
             Whether the course awards students a PDF certificate after completing all lessons.
