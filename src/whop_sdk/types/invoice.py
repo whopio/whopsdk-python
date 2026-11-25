@@ -152,13 +152,21 @@ class Invoice(UniversalBaseModel):
     """
 
     subtotal: Money
-    tax_amount: typing.Optional[Money] = None
+    tax_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The tax charged on the invoice. On a draft, it is an estimate once the draft has a complete billing address, calculated as if it were issued now. Issuing calculates it again, so the final tax can differ. `null` on a draft without a complete billing address, and when tax could not be estimated.
+    """
+
     time_zone: str = pydantic.Field()
     """
     The IANA time zone for the dates on the invoice's email and PDF, such as `America/New_York`. `UTC` unless one was set.
     """
 
-    total: Money
+    total: Money = pydantic.Field()
+    """
+    The amount the invoice charges, including tax. On a draft, it includes the estimated `tax_amount`, if any.
+    """
+
     totals_status: InvoiceTotalsStatus
     updated_at: str
 
