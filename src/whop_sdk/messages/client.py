@@ -237,7 +237,7 @@ class MessagesClient:
         )
         client.messages.create(
             channel_id="feed_xxxxxxxxxxxxxxxxxxxxxx",
-            content="New **message**",
+            content="Your **ceramic coating** is booked for Tuesday.",
         )
         """
         _response = self._raw_client.create(
@@ -863,7 +863,7 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.messages.create(
                 channel_id="feed_xxxxxxxxxxxxxxxxxxxxxx",
-                content="New **message**",
+                content="Your **ceramic coating** is booked for Tuesday.",
             )
 
 

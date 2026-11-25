@@ -96,7 +96,7 @@ class DirectClient:
                     postal_code="94105",
                 ),
                 email="dana@shinetime.example",
-                name="Dana Shine",
+                name="Dana Whitfield",
             ),
             payment_method=CreateDirectRequestPaymentMethod(
                 type="card",
@@ -204,7 +204,7 @@ class AsyncDirectClient:
                         postal_code="94105",
                     ),
                     email="dana@shinetime.example",
-                    name="Dana Shine",
+                    name="Dana Whitfield",
                 ),
                 payment_method=CreateDirectRequestPaymentMethod(
                     type="card",

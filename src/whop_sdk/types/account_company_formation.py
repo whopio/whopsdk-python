@@ -18,7 +18,7 @@ class AccountCompanyFormation(UniversalBaseModel):
 
     legal_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Registered company name including the entity ending, for example `Acme, LLC`. Present once `status` leaves `draft`.
+    Registered company name including the entity ending, for example `Shine Time Auto Detailing, LLC`. Present once `status` leaves `draft`.
     """
 
     signatures: typing.Optional[AccountCompanyFormationSignatures] = pydantic.Field(default=None)

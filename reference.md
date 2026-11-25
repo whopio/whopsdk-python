@@ -31617,7 +31617,7 @@ client = Whop(
 
 client.messages.create(
     channel_id="feed_xxxxxxxxxxxxxxxxxxxxxx",
-    content="New **message**",
+    content="Your **ceramic coating** is booked for Tuesday.",
 )
 
 ```
@@ -56347,7 +56347,7 @@ client.payments.direct.create(
             postal_code="94105",
         ),
         email="dana@shinetime.example",
-        name="Dana Shine",
+        name="Dana Whitfield",
     ),
     payment_method=CreateDirectRequestPaymentMethod(
         type="card",
@@ -57401,7 +57401,7 @@ client.setup_intents.direct.create(
             postal_code="94105",
         ),
         email="dana@shinetime.example",
-        name="Dana Shine",
+        name="Dana Whitfield",
     ),
     payment_method=CreateDirectRequestPaymentMethod(
         type="card",

@@ -21,7 +21,7 @@ class RetrievePreferencesResponseAdsTripleWhaleIntegration(UniversalBaseModel):
 
     shop_domain: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The shop domain spend is reported for, such as `acme.myshopify.com` or a custom domain for a non-Shopify store. `null` when none is set.
+    The shop domain spend is reported for, such as `shine-time.myshopify.com` or a custom domain for a non-Shopify store. `null` when none is set.
     """
 
     status: RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus = pydantic.Field()
