@@ -2,4 +2,4 @@
 
 import typing
 
-RetrieveStatsRequestMode = typing.Union[typing.Literal["global", "owner", "public"], typing.Any]
+RetrieveStatsRequestMode = typing.Union[typing.Literal["global", "owner", "platforms", "public"], typing.Any]
