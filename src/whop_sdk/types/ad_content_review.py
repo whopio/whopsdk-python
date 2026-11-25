@@ -9,6 +9,11 @@ from .ad_content_review_tag import AdContentReviewTag
 
 
 class AdContentReview(UniversalBaseModel):
+    blocked_by_website: bool = pydantic.Field()
+    """
+    Whether the ad is held back for a rule the review found on its website. Changing the website and rechecking it can clear the ad.
+    """
+
     status: AdContentReviewStatus = pydantic.Field()
     """
     `reviewed` once Whop content review finishes, `in_review` while it runs, `not_reviewed` when it never ran.

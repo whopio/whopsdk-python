@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .appeal_ads_request_type import AppealAdsRequestType
     from .create_ads_request_call_to_action import CreateAdsRequestCallToAction
     from .create_ads_request_creatives_item import CreateAdsRequestCreativesItem
     from .create_ads_request_creatives_item_crop import CreateAdsRequestCreativesItemCrop
@@ -43,6 +44,7 @@ if typing.TYPE_CHECKING:
     from .update_ads_request_headlines_item import UpdateAdsRequestHeadlinesItem
     from .update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
 _dynamic_imports: typing.Dict[str, str] = {
+    "AppealAdsRequestType": ".appeal_ads_request_type",
     "CreateAdsRequestCallToAction": ".create_ads_request_call_to_action",
     "CreateAdsRequestCreativesItem": ".create_ads_request_creatives_item",
     "CreateAdsRequestCreativesItemCrop": ".create_ads_request_creatives_item_crop",
@@ -104,6 +106,7 @@ def __dir__():
 
 
 __all__ = [
+    "AppealAdsRequestType",
     "CreateAdsRequestCallToAction",
     "CreateAdsRequestCreativesItem",
     "CreateAdsRequestCreativesItemCrop",
