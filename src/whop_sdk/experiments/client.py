@@ -85,7 +85,7 @@ class ExperimentsClient:
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListExperimentsRequestOrder]
-            The field to sort experiments by.
+            The field to sort experiments by. `lift` puts the experiment whose primary measure moved the most first. With `account_id=global` it is the only order allowed.
 
         direction : typing.Optional[ListExperimentsRequestDirection]
             Sort direction.
@@ -651,7 +651,7 @@ class AsyncExperimentsClient:
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListExperimentsRequestOrder]
-            The field to sort experiments by.
+            The field to sort experiments by. `lift` puts the experiment whose primary measure moved the most first. With `account_id=global` it is the only order allowed.
 
         direction : typing.Optional[ListExperimentsRequestDirection]
             Sort direction.

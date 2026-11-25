@@ -2,4 +2,4 @@
 
 import typing
 
-ListExperimentsRequestOrder = typing.Union[typing.Literal["created_at", "flag_key"], typing.Any]
+ListExperimentsRequestOrder = typing.Union[typing.Literal["created_at", "flag_key", "lift"], typing.Any]
