@@ -4,7 +4,16 @@ import typing
 
 MembershipStatus = typing.Union[
     typing.Literal[
-        "trialing", "active", "past_due", "completed", "canceled", "expired", "unresolved", "drafted", "canceling"
+        "trialing",
+        "active",
+        "past_due",
+        "completed",
+        "canceled",
+        "expired",
+        "unresolved",
+        "scheduled",
+        "drafted",
+        "canceling",
     ],
     typing.Any,
 ]

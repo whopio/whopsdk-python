@@ -102,7 +102,7 @@ class PlanListItem(UniversalBaseModel):
 
     initial_price_due: Money = pydantic.Field()
     """
-    Total charged at checkout for one unit, before promo codes and tax: `initial_price` plus the first `renewal_price` for recurring variants, or `initial_price` alone while a free trial applies. The trial does not apply when the viewing user has already used one for this variant. Stated in `currency`.
+    Total charged at checkout for one unit, before promo codes and tax. For recurring variants it is `initial_price` plus the first `renewal_price`. It is `initial_price` alone while a free trial applies or the `subscription_starts_at` metadata key is in the future. The trial does not apply when the viewing user has already used one for this variant. Stated in `currency`.
     """
 
     internal_notes: typing.Optional[str] = pydantic.Field(default=None)
@@ -122,7 +122,7 @@ class PlanListItem(UniversalBaseModel):
 
     metadata: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    Custom key-value pairs stored on the variant. Included in webhook payloads for payment and membership events. Maximum 50 keys, 100 characters per key, 500 characters per value. The reserved keys `custom_cta` and `custom_cta_url`, when set, override the product's checkout call to action for this variant.
+    Custom key-value pairs stored on the variant. Included in webhook payloads for payment and membership events. Maximum 50 keys, 100 characters per key, 500 characters per value. The reserved keys `custom_cta` and `custom_cta_url`, when set, override the product's checkout call to action for this variant. The reserved key `subscription_starts_at` takes an ISO 8601 timestamp on a recurring variant. Until then, checkout saves the payment method without charging it. The membership is `scheduled` with no access until the first charge runs at that time.
     """
 
     offer_cancel_discount: typing.Optional[bool] = pydantic.Field(default=None)
