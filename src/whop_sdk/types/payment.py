@@ -295,6 +295,11 @@ class Payment(UniversalBaseModel):
     The shipping address for physical goods, or null.
     """
 
+    statement_descriptor: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The text the buyer's bank or card statement shows for this payment. Null when the processor did not report one.
+    """
+
     status: ReceiptStatus = pydantic.Field()
     """
     The lifecycle state of the charge: `open` while collection is outstanding, `paid` once the money moved, `pending` while a settlement rail clears, `void`/`uncollectible` when it ended without collecting.
