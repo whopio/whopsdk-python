@@ -27692,6 +27692,14 @@ client.invoices.create(
 <dl>
 <dd>
 
+**charge_at_subscription_start:** `typing.Optional[bool]` — When true, the customer pays only each item's initial fee now, and their payment method is first charged the renewal price at `subscription_starts_at`. The membership is `scheduled` and has no access until then. Needs `subscription_starts_at`, items that all renew, no split pay, and renewals that charge the payment method. With nothing due now, it also needs `payment_method_id`. Defaults to `false`. Can be updated on drafts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **customer_name:** `typing.Optional[str]` — The contact name when creating an email-only member.
     
 </dd>
@@ -27772,7 +27780,7 @@ client.invoices.create(
 <dl>
 <dd>
 
-**subscription_starts_at:** `typing.Optional[datetime.datetime]` — When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+**subscription_starts_at:** `typing.Optional[datetime.datetime]` — When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price. With `charge_at_subscription_start`, the subscription, its first renewal charge and its access begin at this moment instead.
     
 </dd>
 </dl>
@@ -28023,6 +28031,14 @@ client.invoices.update(
 <dl>
 <dd>
 
+**charge_at_subscription_start:** `typing.Optional[bool]` — When true, the customer pays only each item's initial fee now, and their payment method is first charged the renewal price at `subscription_starts_at`. The membership is `scheduled` and has no access until then. Needs `subscription_starts_at`, items that all renew, no split pay, and renewals that charge the payment method. With nothing due now, it also needs `payment_method_id`. Defaults to `false`. Can be updated on drafts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **due_at:** `typing.Optional[datetime.datetime]` — When payment is due, as an ISO 8601 timestamp.
     
 </dd>
@@ -28095,7 +28111,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**subscription_starts_at:** `typing.Optional[datetime.datetime]` — When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+**subscription_starts_at:** `typing.Optional[datetime.datetime]` — When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price. With `charge_at_subscription_start`, the subscription, its first renewal charge and its access begin at this moment instead.
     
 </dd>
 </dl>
