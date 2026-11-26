@@ -3,7 +3,7 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fwhopio%2Fwhopsdk-python)
 [![pypi](https://img.shields.io/pypi/v/whop_sdk)](https://pypi.python.org/pypi/whop_sdk)
 
-The Whop SDK gives you typed access to the Whop API. Pass your API key to the client explicitly — the SDK reads no environment variables, so a client built without a key sends unauthenticated requests and the API answers 401.
+The Whop SDK gives you typed access to the Whop API. Pass your API key to the client explicitly: the SDK reads no environment variables, so a client built without a key sends unauthenticated requests and the API answers 401.
 
 
 ## Table of Contents
