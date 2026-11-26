@@ -26,6 +26,11 @@ class Invoice(UniversalBaseModel):
     billing_address: typing.Optional[PaymentAddress] = None
     buyer_fee_amount: Money
     buyer_fee_percentage: float
+    charge_at_subscription_start: bool = pydantic.Field()
+    """
+    True when the customer pays only the initial fee of each item now and is first charged the renewal price at `subscription_starts_at`. Until then the membership is `scheduled` and has no access.
+    """
+
     checkout_link: typing.Optional[str] = pydantic.Field(default=None)
     """
     A signed link that opens this invoice in a checkout session so the buyer can pay it. Pass it as `link` to `POST /checkout_sessions`. Present while the invoice is open. `null` in any other status, for an invoice billed to a business buyer, and for an invoice whose membership was canceled. Also `null` unless you have `payment:charge`, or `invoice:create` or `invoice:update` on an invoice with no `payment_method_id`.
@@ -148,7 +153,7 @@ class Invoice(UniversalBaseModel):
     status: InvoiceStatus
     subscription_starts_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp. Renewals count from this moment. `null` starts the period when the invoice is paid, and so does a time that has passed by then. An invoice with a start date skips its variants' free trial.
+    When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp. Renewals count from this moment. `null` starts the period when the invoice is paid, and so does a time that has passed by then. An invoice with a start date skips its variants' free trial. With `charge_at_subscription_start`, the subscription and its access begin at this moment instead.
     """
 
     subtotal: Money

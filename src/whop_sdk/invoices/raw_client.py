@@ -253,6 +253,7 @@ class RawInvoicesClient:
         items: typing.Sequence[CreateInvoicesRequestItemsItem],
         billing_address: typing.Optional[CreateInvoicesRequestBillingAddress] = OMIT,
         buyer_fee_percentage: typing.Optional[float] = OMIT,
+        charge_at_subscription_start: typing.Optional[bool] = OMIT,
         customer_name: typing.Optional[str] = OMIT,
         due_at: typing.Optional[dt.datetime] = OMIT,
         email_address: typing.Optional[str] = OMIT,
@@ -283,6 +284,9 @@ class RawInvoicesClient:
 
         buyer_fee_percentage : typing.Optional[float]
             The buyer's adjustable fee in percentage points, with at most two decimal places: `0` for none, or between 5 and 100. The account keeps it, and Whop waives its take rate on the invoice.
+
+        charge_at_subscription_start : typing.Optional[bool]
+            When true, the customer pays only each item's initial fee now, and their payment method is first charged the renewal price at `subscription_starts_at`. The membership is `scheduled` and has no access until then. Needs `subscription_starts_at`, items that all renew, no split pay, and renewals that charge the payment method. With nothing due now, it also needs `payment_method_id`. Defaults to `false`. Can be updated on drafts.
 
         customer_name : typing.Optional[str]
             The contact name when creating an email-only member.
@@ -315,7 +319,7 @@ class RawInvoicesClient:
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
         subscription_starts_at : typing.Optional[dt.datetime]
-            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price. With `charge_at_subscription_start`, the subscription, its first renewal charge and its access begin at this moment instead.
 
         time_zone : typing.Optional[str]
             The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
@@ -340,6 +344,7 @@ class RawInvoicesClient:
                     direction="write",
                 ),
                 "buyer_fee_percentage": buyer_fee_percentage,
+                "charge_at_subscription_start": charge_at_subscription_start,
                 "customer_name": customer_name,
                 "due_at": due_at,
                 "email_address": email_address,
@@ -598,6 +603,7 @@ class RawInvoicesClient:
         *,
         billing_address: typing.Optional[UpdateInvoicesRequestBillingAddress] = OMIT,
         buyer_fee_percentage: typing.Optional[float] = OMIT,
+        charge_at_subscription_start: typing.Optional[bool] = OMIT,
         due_at: typing.Optional[dt.datetime] = OMIT,
         items: typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]] = OMIT,
         mailing_address_id: typing.Optional[str] = OMIT,
@@ -624,6 +630,9 @@ class RawInvoicesClient:
 
         buyer_fee_percentage : typing.Optional[float]
             The buyer's adjustable fee in percentage points, with at most two decimal places: `0` for none, or between 5 and 100. The account keeps it, and Whop waives its take rate on the invoice.
+
+        charge_at_subscription_start : typing.Optional[bool]
+            When true, the customer pays only each item's initial fee now, and their payment method is first charged the renewal price at `subscription_starts_at`. The membership is `scheduled` and has no access until then. Needs `subscription_starts_at`, items that all renew, no split pay, and renewals that charge the payment method. With nothing due now, it also needs `payment_method_id`. Defaults to `false`. Can be updated on drafts.
 
         due_at : typing.Optional[dt.datetime]
             When payment is due, as an ISO 8601 timestamp.
@@ -653,7 +662,7 @@ class RawInvoicesClient:
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
         subscription_starts_at : typing.Optional[dt.datetime]
-            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price. With `charge_at_subscription_start`, the subscription, its first renewal charge and its access begin at this moment instead.
 
         time_zone : typing.Optional[str]
             The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
@@ -677,6 +686,7 @@ class RawInvoicesClient:
                     direction="write",
                 ),
                 "buyer_fee_percentage": buyer_fee_percentage,
+                "charge_at_subscription_start": charge_at_subscription_start,
                 "due_at": due_at,
                 "items": convert_and_respect_annotation_metadata(
                     object_=items, annotation=typing.Sequence[UpdateInvoicesRequestItemsItem], direction="write"
@@ -1660,6 +1670,7 @@ class AsyncRawInvoicesClient:
         items: typing.Sequence[CreateInvoicesRequestItemsItem],
         billing_address: typing.Optional[CreateInvoicesRequestBillingAddress] = OMIT,
         buyer_fee_percentage: typing.Optional[float] = OMIT,
+        charge_at_subscription_start: typing.Optional[bool] = OMIT,
         customer_name: typing.Optional[str] = OMIT,
         due_at: typing.Optional[dt.datetime] = OMIT,
         email_address: typing.Optional[str] = OMIT,
@@ -1690,6 +1701,9 @@ class AsyncRawInvoicesClient:
 
         buyer_fee_percentage : typing.Optional[float]
             The buyer's adjustable fee in percentage points, with at most two decimal places: `0` for none, or between 5 and 100. The account keeps it, and Whop waives its take rate on the invoice.
+
+        charge_at_subscription_start : typing.Optional[bool]
+            When true, the customer pays only each item's initial fee now, and their payment method is first charged the renewal price at `subscription_starts_at`. The membership is `scheduled` and has no access until then. Needs `subscription_starts_at`, items that all renew, no split pay, and renewals that charge the payment method. With nothing due now, it also needs `payment_method_id`. Defaults to `false`. Can be updated on drafts.
 
         customer_name : typing.Optional[str]
             The contact name when creating an email-only member.
@@ -1722,7 +1736,7 @@ class AsyncRawInvoicesClient:
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
         subscription_starts_at : typing.Optional[dt.datetime]
-            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price. With `charge_at_subscription_start`, the subscription, its first renewal charge and its access begin at this moment instead.
 
         time_zone : typing.Optional[str]
             The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
@@ -1747,6 +1761,7 @@ class AsyncRawInvoicesClient:
                     direction="write",
                 ),
                 "buyer_fee_percentage": buyer_fee_percentage,
+                "charge_at_subscription_start": charge_at_subscription_start,
                 "customer_name": customer_name,
                 "due_at": due_at,
                 "email_address": email_address,
@@ -2007,6 +2022,7 @@ class AsyncRawInvoicesClient:
         *,
         billing_address: typing.Optional[UpdateInvoicesRequestBillingAddress] = OMIT,
         buyer_fee_percentage: typing.Optional[float] = OMIT,
+        charge_at_subscription_start: typing.Optional[bool] = OMIT,
         due_at: typing.Optional[dt.datetime] = OMIT,
         items: typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]] = OMIT,
         mailing_address_id: typing.Optional[str] = OMIT,
@@ -2033,6 +2049,9 @@ class AsyncRawInvoicesClient:
 
         buyer_fee_percentage : typing.Optional[float]
             The buyer's adjustable fee in percentage points, with at most two decimal places: `0` for none, or between 5 and 100. The account keeps it, and Whop waives its take rate on the invoice.
+
+        charge_at_subscription_start : typing.Optional[bool]
+            When true, the customer pays only each item's initial fee now, and their payment method is first charged the renewal price at `subscription_starts_at`. The membership is `scheduled` and has no access until then. Needs `subscription_starts_at`, items that all renew, no split pay, and renewals that charge the payment method. With nothing due now, it also needs `payment_method_id`. Defaults to `false`. Can be updated on drafts.
 
         due_at : typing.Optional[dt.datetime]
             When payment is due, as an ISO 8601 timestamp.
@@ -2062,7 +2081,7 @@ class AsyncRawInvoicesClient:
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
         subscription_starts_at : typing.Optional[dt.datetime]
-            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price.
+            When the first billing period of the invoice's recurring items starts, as an ISO 8601 timestamp in the future. Renewals count from this moment. `null` starts the period when the invoice is paid. Needs a recurring item. Can be updated on drafts. A start date replaces a variant's free trial, and the invoice bills the full price. With `charge_at_subscription_start`, the subscription, its first renewal charge and its access begin at this moment instead.
 
         time_zone : typing.Optional[str]
             The IANA time zone for the dates on the invoice's email and PDF. Set it so the due date reads as the day you picked. When omitted, a new invoice uses the time zone Whop has for the user creating it, else UTC. Can be updated on drafts.
@@ -2086,6 +2105,7 @@ class AsyncRawInvoicesClient:
                     direction="write",
                 ),
                 "buyer_fee_percentage": buyer_fee_percentage,
+                "charge_at_subscription_start": charge_at_subscription_start,
                 "due_at": due_at,
                 "items": convert_and_respect_annotation_metadata(
                     object_=items, annotation=typing.Sequence[UpdateInvoicesRequestItemsItem], direction="write"
