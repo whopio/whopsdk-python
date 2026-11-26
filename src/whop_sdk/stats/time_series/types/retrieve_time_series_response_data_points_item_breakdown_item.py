@@ -8,6 +8,11 @@ from ....types.funnel_step_result import FunnelStepResult
 
 
 class RetrieveTimeSeriesResponseDataPointsItemBreakdownItem(UniversalBaseModel):
+    label: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The display name of the property value. It is present only when the value has a name. For example, a country code has the name of its country.
+    """
+
     name: str = pydantic.Field()
     """
     The property value, for example usd or visa.
