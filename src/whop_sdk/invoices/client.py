@@ -261,6 +261,7 @@ class InvoicesClient:
         Examples
         --------
         from whop_sdk import Whop
+        from whop_sdk.invoices import CreateInvoicesRequestItemsItem
 
         client = Whop(
             "2026-11-25",
@@ -269,7 +270,7 @@ class InvoicesClient:
         )
         client.invoices.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            items=[],
+            items=[CreateInvoicesRequestItemsItem()],
         )
         """
         _response = self._raw_client.create(
@@ -1028,6 +1029,7 @@ class AsyncInvoicesClient:
         import asyncio
 
         from whop_sdk import AsyncWhop
+        from whop_sdk.invoices import CreateInvoicesRequestItemsItem
 
         client = AsyncWhop(
             "2026-11-25",
@@ -1039,7 +1041,7 @@ class AsyncInvoicesClient:
         async def main() -> None:
             await client.invoices.create(
                 account_id="biz_xxxxxxxxxxxxxx",
-                items=[],
+                items=[CreateInvoicesRequestItemsItem()],
             )
 
 

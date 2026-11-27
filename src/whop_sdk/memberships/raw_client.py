@@ -12,7 +12,6 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
@@ -22,7 +21,6 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.membership import Membership
 from ..types.v1error_response import V1ErrorResponse
 from .types.assign_affiliate_memberships_request_commission_type import AssignAffiliateMembershipsRequestCommissionType
-from .types.invite_memberships_request_body import InviteMembershipsRequestBody
 from .types.invite_memberships_response import InviteMembershipsResponse
 from .types.list_memberships_request_direction import ListMembershipsRequestDirection
 from .types.list_memberships_request_order import ListMembershipsRequestOrder
@@ -261,14 +259,26 @@ class RawMembershipsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def invite(
-        self, *, request: InviteMembershipsRequestBody, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        variant_id: str,
+        email: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[InviteMembershipsResponse]:
         """
         Emails one recipient an invitation to a free variant's membership. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
 
         Parameters
         ----------
-        request : InviteMembershipsRequestBody
+        variant_id : str
+            Free variant whose membership the recipient is invited to, prefixed `plan_`.
+
+        email : typing.Optional[str]
+            Recipient email address. Pass exactly one of `user_id` or `email`.
+
+        user_id : typing.Optional[str]
+            Recipient user ID, prefixed `user_`. Pass exactly one of `user_id` or `email`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -282,9 +292,14 @@ class RawMembershipsClient:
             "memberships/invite",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=InviteMembershipsRequestBody, direction="write"
-            ),
+            json={
+                "email": email,
+                "user_id": user_id,
+                "variant_id": variant_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1626,14 +1641,26 @@ class AsyncRawMembershipsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def invite(
-        self, *, request: InviteMembershipsRequestBody, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        variant_id: str,
+        email: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[InviteMembershipsResponse]:
         """
         Emails one recipient an invitation to a free variant's membership. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
 
         Parameters
         ----------
-        request : InviteMembershipsRequestBody
+        variant_id : str
+            Free variant whose membership the recipient is invited to, prefixed `plan_`.
+
+        email : typing.Optional[str]
+            Recipient email address. Pass exactly one of `user_id` or `email`.
+
+        user_id : typing.Optional[str]
+            Recipient user ID, prefixed `user_`. Pass exactly one of `user_id` or `email`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1647,9 +1674,14 @@ class AsyncRawMembershipsClient:
             "memberships/invite",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=InviteMembershipsRequestBody, direction="write"
-            ),
+            json={
+                "email": email,
+                "user_id": user_id,
+                "variant_id": variant_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )

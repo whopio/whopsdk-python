@@ -27635,6 +27635,7 @@ Creates a draft invoice backed by a receipt, with saved items, quantities, price
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
+from whop_sdk.invoices import CreateInvoicesRequestItemsItem
 
 client = Whop(
     token="<token>",
@@ -27643,7 +27644,9 @@ client = Whop(
 
 client.invoices.create(
     account_id="biz_xxxxxxxxxxxxxx",
-    items=[],
+    items=[
+        CreateInvoicesRequestItemsItem()
+    ],
 )
 
 ```
@@ -30467,7 +30470,6 @@ Emails one recipient an invitation to a free variant's membership. The invitatio
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-from whop_sdk.memberships import InviteMembershipsRequestBodyUserId
 
 client = Whop(
     token="<token>",
@@ -30475,10 +30477,7 @@ client = Whop(
 )
 
 client.memberships.invite(
-    request=InviteMembershipsRequestBodyUserId(
-        user_id="user_xxxxxxxxxxxxxx",
-        variant_id="plan_xxxxxxxxxxxxxx",
-    ),
+    variant_id="plan_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -30495,7 +30494,23 @@ client.memberships.invite(
 <dl>
 <dd>
 
-**request:** `InviteMembershipsRequestBody` 
+**variant_id:** `str` — Free variant whose membership the recipient is invited to, prefixed `plan_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[str]` — Recipient email address. Pass exactly one of `user_id` or `email`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — Recipient user ID, prefixed `user_`. Pass exactly one of `user_id` or `email`.
     
 </dd>
 </dl>
@@ -60039,6 +60054,7 @@ client = Whop(
 client.users.preferences.notifications.set(
     preferences=[
         SetNotificationsRequestPreferencesItem(
+            level=None,
             scope=SetNotificationsRequestPreferencesItemScope(),
         )
     ],

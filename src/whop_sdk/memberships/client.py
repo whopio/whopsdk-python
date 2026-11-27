@@ -9,7 +9,6 @@ from ..core.request_options import RequestOptions
 from ..types.membership import Membership
 from .raw_client import AsyncRawMembershipsClient, RawMembershipsClient
 from .types.assign_affiliate_memberships_request_commission_type import AssignAffiliateMembershipsRequestCommissionType
-from .types.invite_memberships_request_body import InviteMembershipsRequestBody
 from .types.invite_memberships_response import InviteMembershipsResponse
 from .types.list_memberships_request_direction import ListMembershipsRequestDirection
 from .types.list_memberships_request_order import ListMembershipsRequestOrder
@@ -183,14 +182,26 @@ class MembershipsClient:
         )
 
     def invite(
-        self, *, request: InviteMembershipsRequestBody, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        variant_id: str,
+        email: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> InviteMembershipsResponse:
         """
         Emails one recipient an invitation to a free variant's membership. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
 
         Parameters
         ----------
-        request : InviteMembershipsRequestBody
+        variant_id : str
+            Free variant whose membership the recipient is invited to, prefixed `plan_`.
+
+        email : typing.Optional[str]
+            Recipient email address. Pass exactly one of `user_id` or `email`.
+
+        user_id : typing.Optional[str]
+            Recipient user ID, prefixed `user_`. Pass exactly one of `user_id` or `email`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -203,7 +214,6 @@ class MembershipsClient:
         Examples
         --------
         from whop_sdk import Whop
-        from whop_sdk.memberships import InviteMembershipsRequestBodyUserId
 
         client = Whop(
             "2026-11-25",
@@ -211,13 +221,12 @@ class MembershipsClient:
             token="YOUR_TOKEN",
         )
         client.memberships.invite(
-            request=InviteMembershipsRequestBodyUserId(
-                user_id="user_xxxxxxxxxxxxxx",
-                variant_id="plan_xxxxxxxxxxxxxx",
-            ),
+            variant_id="plan_xxxxxxxxxxxxxx",
         )
         """
-        _response = self._raw_client.invite(request=request, request_options=request_options)
+        _response = self._raw_client.invite(
+            variant_id=variant_id, email=email, user_id=user_id, request_options=request_options
+        )
         return _response.data
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Membership:
@@ -874,14 +883,26 @@ class AsyncMembershipsClient:
         )
 
     async def invite(
-        self, *, request: InviteMembershipsRequestBody, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        variant_id: str,
+        email: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> InviteMembershipsResponse:
         """
         Emails one recipient an invitation to a free variant's membership. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
 
         Parameters
         ----------
-        request : InviteMembershipsRequestBody
+        variant_id : str
+            Free variant whose membership the recipient is invited to, prefixed `plan_`.
+
+        email : typing.Optional[str]
+            Recipient email address. Pass exactly one of `user_id` or `email`.
+
+        user_id : typing.Optional[str]
+            Recipient user ID, prefixed `user_`. Pass exactly one of `user_id` or `email`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -896,7 +917,6 @@ class AsyncMembershipsClient:
         import asyncio
 
         from whop_sdk import AsyncWhop
-        from whop_sdk.memberships import InviteMembershipsRequestBodyUserId
 
         client = AsyncWhop(
             "2026-11-25",
@@ -907,16 +927,15 @@ class AsyncMembershipsClient:
 
         async def main() -> None:
             await client.memberships.invite(
-                request=InviteMembershipsRequestBodyUserId(
-                    user_id="user_xxxxxxxxxxxxxx",
-                    variant_id="plan_xxxxxxxxxxxxxx",
-                ),
+                variant_id="plan_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.invite(request=request, request_options=request_options)
+        _response = await self._raw_client.invite(
+            variant_id=variant_id, email=email, user_id=user_id, request_options=request_options
+        )
         return _response.data
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Membership:
