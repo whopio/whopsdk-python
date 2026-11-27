@@ -626,6 +626,7 @@ class RawVariantsClient:
         sku: typing.Optional[str] = OMIT,
         split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
+        stock_adjustment: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
         three_ds_level: typing.Optional[UpdateVariantsRequestThreeDsLevel] = OMIT,
@@ -712,6 +713,9 @@ class RawVariantsClient:
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
+        stock_adjustment : typing.Optional[int]
+            The number of units to add to the current stock. Use a negative number to remove units. The change applies after the other changes in this request, to the stock at that time. This keeps a sale made at the same time. Do not send 0, and do not send it with `stock`. A variant with unlimited stock, or a change that takes the stock below 0, returns a `409`.
+
         strike_through_initial_price : typing.Optional[float]
             A comparison price displayed with a strikethrough for the initial price.
 
@@ -779,6 +783,7 @@ class RawVariantsClient:
                 "sku": sku,
                 "split_pay_required_payments": split_pay_required_payments,
                 "stock": stock,
+                "stock_adjustment": stock_adjustment,
                 "strike_through_initial_price": strike_through_initial_price,
                 "strike_through_renewal_price": strike_through_renewal_price,
                 "three_ds_level": three_ds_level,
@@ -816,6 +821,17 @@ class RawVariantsClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1553,6 +1569,7 @@ class AsyncRawVariantsClient:
         sku: typing.Optional[str] = OMIT,
         split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
+        stock_adjustment: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
         three_ds_level: typing.Optional[UpdateVariantsRequestThreeDsLevel] = OMIT,
@@ -1639,6 +1656,9 @@ class AsyncRawVariantsClient:
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
+        stock_adjustment : typing.Optional[int]
+            The number of units to add to the current stock. Use a negative number to remove units. The change applies after the other changes in this request, to the stock at that time. This keeps a sale made at the same time. Do not send 0, and do not send it with `stock`. A variant with unlimited stock, or a change that takes the stock below 0, returns a `409`.
+
         strike_through_initial_price : typing.Optional[float]
             A comparison price displayed with a strikethrough for the initial price.
 
@@ -1706,6 +1726,7 @@ class AsyncRawVariantsClient:
                 "sku": sku,
                 "split_pay_required_payments": split_pay_required_payments,
                 "stock": stock,
+                "stock_adjustment": stock_adjustment,
                 "strike_through_initial_price": strike_through_initial_price,
                 "strike_through_renewal_price": strike_through_renewal_price,
                 "three_ds_level": three_ds_level,
@@ -1743,6 +1764,17 @@ class AsyncRawVariantsClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

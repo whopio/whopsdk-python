@@ -483,6 +483,7 @@ class VariantsClient:
         sku: typing.Optional[str] = OMIT,
         split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
+        stock_adjustment: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
         three_ds_level: typing.Optional[UpdateVariantsRequestThreeDsLevel] = OMIT,
@@ -569,6 +570,9 @@ class VariantsClient:
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
+        stock_adjustment : typing.Optional[int]
+            The number of units to add to the current stock. Use a negative number to remove units. The change applies after the other changes in this request, to the stock at that time. This keeps a sale made at the same time. Do not send 0, and do not send it with `stock`. A variant with unlimited stock, or a change that takes the stock below 0, returns a `409`.
+
         strike_through_initial_price : typing.Optional[float]
             A comparison price displayed with a strikethrough for the initial price.
 
@@ -636,6 +640,7 @@ class VariantsClient:
             sku=sku,
             split_pay_required_payments=split_pay_required_payments,
             stock=stock,
+            stock_adjustment=stock_adjustment,
             strike_through_initial_price=strike_through_initial_price,
             strike_through_renewal_price=strike_through_renewal_price,
             three_ds_level=three_ds_level,
@@ -1195,6 +1200,7 @@ class AsyncVariantsClient:
         sku: typing.Optional[str] = OMIT,
         split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
+        stock_adjustment: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
         three_ds_level: typing.Optional[UpdateVariantsRequestThreeDsLevel] = OMIT,
@@ -1281,6 +1287,9 @@ class AsyncVariantsClient:
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
+        stock_adjustment : typing.Optional[int]
+            The number of units to add to the current stock. Use a negative number to remove units. The change applies after the other changes in this request, to the stock at that time. This keeps a sale made at the same time. Do not send 0, and do not send it with `stock`. A variant with unlimited stock, or a change that takes the stock below 0, returns a `409`.
+
         strike_through_initial_price : typing.Optional[float]
             A comparison price displayed with a strikethrough for the initial price.
 
@@ -1356,6 +1365,7 @@ class AsyncVariantsClient:
             sku=sku,
             split_pay_required_payments=split_pay_required_payments,
             stock=stock,
+            stock_adjustment=stock_adjustment,
             strike_through_initial_price=strike_through_initial_price,
             strike_through_renewal_price=strike_through_renewal_price,
             three_ds_level=three_ds_level,
