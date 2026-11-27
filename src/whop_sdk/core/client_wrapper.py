@@ -38,11 +38,10 @@ class BaseClientWrapper:
         import platform
 
         headers: typing.Dict[str, str] = {
+            "User-Agent": "whop_sdk/2.8.1",
             "X-Fern-Language": "Python",
             "X-Fern-Runtime": f"python/{platform.python_version()}",
             "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
-            "X-Fern-SDK-Name": "whop_sdk",
-            "X-Fern-SDK-Version": "2.8.1",
             **(self.get_custom_headers() or {}),
         }
         if self._api_version_date is not None:

@@ -523,14 +523,14 @@ trio = ["trio (>=0.22.0,<1.0)"]
 
 [[package]]
 name = "httpx"
-version = "0.29.0"
+version = "0.28.1"
 description = "The next generation HTTP client."
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "httpx-0.29.0-py3-none-any.whl", hash = "sha256:6734dcf742ced6e8018e45d3f9f7728975b6b3e1085a24f3e2c056069d858bd1"},
-    {file = "httpx-0.29.0.tar.gz", hash = "sha256:700928ee6c1f4213795e67c47eba8f8553639069fea89199f71d654e38edc593"},
+    {file = "httpx-0.28.1-py3-none-any.whl", hash = "sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad"},
+    {file = "httpx-0.28.1.tar.gz", hash = "sha256:75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc"},
 ]
 
 [package.dependencies]
@@ -541,7 +541,7 @@ idna = "*"
 
 [package.extras]
 brotli = ["brotli ; platform_python_implementation == \"CPython\"", "brotlicffi ; platform_python_implementation != \"CPython\""]
-cli = ["click (==8.*)", "pygments (==2.*)", "rich (>=10,<15)"]
+cli = ["click (==8.*)", "pygments (==2.*)", "rich (>=10,<14)"]
 http2 = ["h2 (>=3,<5)"]
 socks = ["socksio (==1.*)"]
 zstd = ["zstandard (>=0.18.0)"]
@@ -843,14 +843,14 @@ files = [
 
 [[package]]
 name = "packaging"
-version = "26.4"
+version = "26.3"
 description = "Core utilities for Python packages"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "packaging-26.4-py3-none-any.whl", hash = "sha256:81383611a09c1bc0b08b76e0fd5829d7c6824c65b27a6aee339da133f4233ea2"},
-    {file = "packaging-26.4.tar.gz", hash = "sha256:c4b671c41ddb9bf26e543c37723610d28fb6bf7affc4da17cf048d419d2c062a"},
+    {file = "packaging-26.3-py3-none-any.whl", hash = "sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"},
+    {file = "packaging-26.3.tar.gz", hash = "sha256:94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"},
 ]
 
 [[package]]
@@ -1415,14 +1415,14 @@ files = [
 
 [[package]]
 name = "types-python-dateutil"
-version = "2.9.0.20261122"
+version = "2.9.0.20261116"
 description = "Typing stubs for python-dateutil"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "types_python_dateutil-2.9.0.20261122-py3-none-any.whl", hash = "sha256:c2c257d7ce04f8ede622bb2452223461ee3016872f59d2351522723073e226ff"},
-    {file = "types_python_dateutil-2.9.0.20261122.tar.gz", hash = "sha256:1db0012e9e63028891e36fd8a9f685dc4e8cf89353fbefcf6b1eb55538e9f7ed"},
+    {file = "types_python_dateutil-2.9.0.20261116-py3-none-any.whl", hash = "sha256:62e7c65849170a4847539573153d34f4007777dd62651ec8849ec8f08e8922a2"},
+    {file = "types_python_dateutil-2.9.0.20261116.tar.gz", hash = "sha256:4213748a3f699431a83edf71969de9caa79d0846a5e8785c8a49072ff1968613"},
 ]
 
 [[package]]

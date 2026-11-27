@@ -214,7 +214,7 @@ def test_rejects_a_verified_body_that_is_not_a_json_object() -> None:
 def test_pyproject_declares_standardwebhooks() -> None:
     """src/whop_sdk/lib is kept by .fernignore, but pyproject.toml is generated: the
     dependency is re-declared from extra_dependencies in the python config in
-    whop-monorepo sdks/fern/generators.yml. Without it, importing this helper from a
+    whop-monorepo sdks/python/fern/generators.yml. Without it, importing this helper from a
     clean install raises ImportError."""
     # tomllib is 3.11+ and this SDK supports 3.10, so read the section by hand.
     pyproject = (Path(__file__).resolve().parents[2] / "pyproject.toml").read_text()
@@ -224,5 +224,5 @@ def test_pyproject_declares_standardwebhooks() -> None:
     assert re.search(r"^standardwebhooks\s*=", section.group(1), re.M), (
         "pyproject.toml must declare standardwebhooks. It is generated, so .fernignore "
         "does not preserve the declaration: set extra_dependencies in the python config "
-        "in whop-monorepo sdks/fern/generators.yml."
+        "in whop-monorepo sdks/python/fern/generators.yml."
     )

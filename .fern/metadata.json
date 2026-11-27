@@ -5,19 +5,14 @@
   "generatorConfig": {
     "package_name": "whop_sdk",
     "client": {
-      "class_name": "Whop",
-      "filename": "client.py"
-    },
-    "mypy_exclude": [
-      "src/whop_sdk/lib"
-    ],
-    "extra_dependencies": {
-      "standardwebhooks": ">=1.0.1,<2"
+      "class_name": "BaseWhop",
+      "filename": "base_client.py",
+      "exported_class_name": "Whop",
+      "exported_filename": "client.py"
     }
   },
-  "originGitCommit": "7a8c4aeb376d1f66f55ce0386ce3a20d1cf9cd2b",
+  "originGitCommit": "8b99bb640b8832543c4cfd3ac565a20cb04ce6b9",
   "invokedBy": "ci",
   "requestedVersion": "2.8.1",
-  "ciProvider": "unknown",
-  "sdkVersion": "2.8.1"
+  "ciProvider": "unknown"
 }

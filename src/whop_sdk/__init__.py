@@ -3551,7 +3551,6 @@ if typing.TYPE_CHECKING:
         UpdateVerificationsResponseSelfieStatus,
         UpdateVerificationsResponseStatus,
     )
-    from .version import __version__
     from .waitlist_entries import (
         ApproveAllWaitlistEntriesResponse,
         CreateWaitlistEntriesRequestCustomFieldResponsesItem,
@@ -6881,7 +6880,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "WhopEnvironment": ".environment",
     "WorkforceBounty": ".types",
     "WorkforceBountyListItem": ".types",
-    "__version__": ".version",
     "access_tokens": ".access_tokens",
     "account_links": ".account_links",
     "accounts": ".accounts",
@@ -10314,7 +10312,6 @@ __all__ = [
     "WhopEnvironment",
     "WorkforceBounty",
     "WorkforceBountyListItem",
-    "__version__",
     "access_tokens",
     "account_links",
     "accounts",

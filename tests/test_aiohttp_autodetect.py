@@ -13,7 +13,7 @@ class TestMakeDefaultAsyncClientWithoutAiohttp(unittest.TestCase):
     def test_returns_httpx_async_client(self) -> None:
         """When httpx_aiohttp is not installed, returns plain httpx.AsyncClient."""
         with mock.patch.dict(sys.modules, {"httpx_aiohttp": None}):
-            from whop_sdk.client import _make_default_async_client
+            from whop_sdk.base_client import _make_default_async_client
 
             client = _make_default_async_client(timeout=60, follow_redirects=True)
             self.assertIsInstance(client, httpx.AsyncClient)
@@ -23,7 +23,7 @@ class TestMakeDefaultAsyncClientWithoutAiohttp(unittest.TestCase):
     def test_follow_redirects_none(self) -> None:
         """When follow_redirects is None, omits it from httpx.AsyncClient."""
         with mock.patch.dict(sys.modules, {"httpx_aiohttp": None}):
-            from whop_sdk.client import _make_default_async_client
+            from whop_sdk.base_client import _make_default_async_client
 
             client = _make_default_async_client(timeout=60, follow_redirects=None)
             self.assertIsInstance(client, httpx.AsyncClient)
@@ -33,7 +33,7 @@ class TestMakeDefaultAsyncClientWithoutAiohttp(unittest.TestCase):
         """When user passes httpx_client explicitly, _make_default_async_client is not called."""
 
         explicit_client = httpx.AsyncClient(timeout=120)
-        with mock.patch("whop_sdk.client._make_default_async_client") as mock_make:
+        with mock.patch("whop_sdk.base_client._make_default_async_client") as mock_make:
             # Replicate the generated conditional: httpx_client if httpx_client is not None else _make_default_async_client(...)
             result = explicit_client if explicit_client is not None else mock_make(timeout=60, follow_redirects=True)
             mock_make.assert_not_called()
@@ -47,8 +47,7 @@ class TestMakeDefaultAsyncClientWithAiohttp(unittest.TestCase):
     def test_returns_aiohttp_client(self) -> None:
         """When httpx_aiohttp is installed, returns HttpxAiohttpClient."""
         import httpx_aiohttp  # type: ignore[import-not-found]
-
-        from whop_sdk.client import _make_default_async_client
+        from whop_sdk.base_client import _make_default_async_client
 
         client = _make_default_async_client(timeout=60, follow_redirects=True)
         self.assertIsInstance(client, httpx_aiohttp.HttpxAiohttpClient)
@@ -58,8 +57,7 @@ class TestMakeDefaultAsyncClientWithAiohttp(unittest.TestCase):
     def test_follow_redirects_none(self) -> None:
         """When httpx_aiohttp is installed and follow_redirects is None, omits it."""
         import httpx_aiohttp  # type: ignore[import-not-found]
-
-        from whop_sdk.client import _make_default_async_client
+        from whop_sdk.base_client import _make_default_async_client
 
         client = _make_default_async_client(timeout=60, follow_redirects=None)
         self.assertIsInstance(client, httpx_aiohttp.HttpxAiohttpClient)
@@ -107,7 +105,6 @@ class TestDefaultClientsWithAiohttp(unittest.TestCase):
     def test_default_aiohttp_client_defaults(self) -> None:
         """DefaultAioHttpClient works when httpx_aiohttp is installed."""
         import httpx_aiohttp  # type: ignore[import-not-found]
-
         from whop_sdk._default_clients import SDK_DEFAULT_TIMEOUT, DefaultAioHttpClient
 
         client = DefaultAioHttpClient()
