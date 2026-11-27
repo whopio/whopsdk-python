@@ -182,6 +182,8 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "payment_revshare",
         "payment_revshare_payout",
         "payment_revshare_refund",
+        "payment_revshare_reinstated",
+        "payment_revshare_reinstated_payout",
         "payment_revshare_reversal",
         "payment_unreconciled_clearing",
         "payment_unreconciled_reversal",

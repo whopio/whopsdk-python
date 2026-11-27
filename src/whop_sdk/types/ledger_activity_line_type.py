@@ -197,6 +197,8 @@ LedgerActivityLineType = typing.Union[
         "payment_revshare_payout",
         "payment_revshare_reversal",
         "payment_revshare_refund",
+        "payment_revshare_reinstated",
+        "payment_revshare_reinstated_payout",
         "payment_referral",
         "payment_referral_payable",
         "payment_referral_reversal",
