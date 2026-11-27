@@ -8,5 +8,6 @@ poetry install
 poetry run mypy .
 poetry run pytest -rP -n auto .
 
-poetry install --extras aiohttp
+poetry install --extras "aiohttp user-tokens"
 poetry run pytest -rP -n auto -m aiohttp .
+poetry run pytest -rP tests/custom/test_verify_user_token_extra.py
