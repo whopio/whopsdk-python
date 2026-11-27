@@ -18,8 +18,10 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.internal_server_error_body import InternalServerErrorBody
 from ..types.reaction import Reaction
 from ..types.reaction_list_item import ReactionListItem
+from ..types.unprocessable_entity_error_body import UnprocessableEntityErrorBody
 from .types.list_reactions_response import ListReactionsResponse
 from pydantic import ValidationError
 
@@ -161,9 +163,9 @@ class RawReactionsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -183,9 +185,9 @@ class RawReactionsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -309,9 +311,9 @@ class RawReactionsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -331,9 +333,9 @@ class RawReactionsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -435,9 +437,9 @@ class RawReactionsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -457,9 +459,9 @@ class RawReactionsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -569,9 +571,9 @@ class RawReactionsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -591,9 +593,9 @@ class RawReactionsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -745,9 +747,9 @@ class AsyncRawReactionsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -767,9 +769,9 @@ class AsyncRawReactionsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -893,9 +895,9 @@ class AsyncRawReactionsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -915,9 +917,9 @@ class AsyncRawReactionsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1021,9 +1023,9 @@ class AsyncRawReactionsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1043,9 +1045,9 @@ class AsyncRawReactionsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1155,9 +1157,9 @@ class AsyncRawReactionsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1177,9 +1179,9 @@ class AsyncRawReactionsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

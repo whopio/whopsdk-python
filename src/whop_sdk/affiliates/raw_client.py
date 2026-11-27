@@ -22,7 +22,9 @@ from ..types.affiliate import Affiliate
 from ..types.affiliate_list_item import AffiliateListItem
 from ..types.affiliates_sortable_columns import AffiliatesSortableColumns
 from ..types.direction import Direction
+from ..types.internal_server_error_body import InternalServerErrorBody
 from ..types.status import Status
+from ..types.unprocessable_entity_error_body import UnprocessableEntityErrorBody
 from .types.list_affiliates_response import ListAffiliatesResponse
 from pydantic import ValidationError
 
@@ -181,9 +183,9 @@ class RawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -203,9 +205,9 @@ class RawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -316,9 +318,9 @@ class RawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -338,9 +340,9 @@ class RawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -438,9 +440,9 @@ class RawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -460,9 +462,9 @@ class RawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -560,9 +562,9 @@ class RawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -582,9 +584,9 @@ class RawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -682,9 +684,9 @@ class RawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -704,9 +706,9 @@ class RawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -875,9 +877,9 @@ class AsyncRawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -897,9 +899,9 @@ class AsyncRawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1010,9 +1012,9 @@ class AsyncRawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1032,9 +1034,9 @@ class AsyncRawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1134,9 +1136,9 @@ class AsyncRawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1156,9 +1158,9 @@ class AsyncRawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1258,9 +1260,9 @@ class AsyncRawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1280,9 +1282,9 @@ class AsyncRawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1382,9 +1384,9 @@ class AsyncRawAffiliatesClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1404,9 +1406,9 @@ class AsyncRawAffiliatesClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

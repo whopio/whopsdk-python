@@ -20,6 +20,8 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.course_student import CourseStudent
 from ..types.course_student_list_item import CourseStudentListItem
+from ..types.internal_server_error_body import InternalServerErrorBody
+from ..types.unprocessable_entity_error_body import UnprocessableEntityErrorBody
 from .types.list_course_students_response import ListCourseStudentsResponse
 from pydantic import ValidationError
 
@@ -161,9 +163,9 @@ class RawCourseStudentsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -183,9 +185,9 @@ class RawCourseStudentsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -286,9 +288,9 @@ class RawCourseStudentsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -308,9 +310,9 @@ class RawCourseStudentsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -465,9 +467,9 @@ class AsyncRawCourseStudentsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -487,9 +489,9 @@ class AsyncRawCourseStudentsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -590,9 +592,9 @@ class AsyncRawCourseStudentsClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -612,9 +614,9 @@ class AsyncRawCourseStudentsClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

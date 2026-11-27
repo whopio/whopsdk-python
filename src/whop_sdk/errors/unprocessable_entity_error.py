@@ -3,8 +3,9 @@
 import typing
 
 from ..core.api_error import ApiError
+from ..types.unprocessable_entity_error_body import UnprocessableEntityErrorBody
 
 
 class UnprocessableEntityError(ApiError):
-    def __init__(self, body: typing.Any, headers: typing.Optional[typing.Dict[str, str]] = None):
+    def __init__(self, body: UnprocessableEntityErrorBody, headers: typing.Optional[typing.Dict[str, str]] = None):
         super().__init__(status_code=422, headers=headers, body=body)

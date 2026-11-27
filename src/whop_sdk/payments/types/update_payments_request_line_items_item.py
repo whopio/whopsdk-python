@@ -2,4 +2,27 @@
 
 import typing
 
-UpdatePaymentsRequestLineItemsItem = typing.Union[typing.Any]
+import pydantic
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .update_payments_request_line_items_item_variant import UpdatePaymentsRequestLineItemsItemVariant
+
+
+class UpdatePaymentsRequestLineItemsItem(UniversalBaseModel):
+    id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A line already on the payment to keep, prefixed `li_`.
+    """
+
+    variant: typing.Optional[UpdatePaymentsRequestLineItemsItemVariant] = pydantic.Field(default=None)
+    """
+    A line to add. Each product holds one added line, so a new line for the same product replaces it.
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

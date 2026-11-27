@@ -2,4 +2,33 @@
 
 import typing
 
-CreateInvoicesRequestItemsItem = typing.Union[typing.Any]
+import pydantic
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .create_invoices_request_items_item_variant import CreateInvoicesRequestItemsItemVariant
+
+
+class CreateInvoicesRequestItemsItem(UniversalBaseModel):
+    description: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Text shown under a custom charge on the invoice, its email, and its PDF, up to 1,000 characters. Line breaks are kept. Only for an item with `variant`, where it is saved as that variant's `description` and overrides `variant.description`. An item with `variant_id` shows its variant's own description and rejects this field.
+    """
+
+    quantity: typing.Optional[int] = None
+    variant: typing.Optional[CreateInvoicesRequestItemsItemVariant] = pydantic.Field(default=None)
+    """
+    Find or create a variant inline by its attributes, using the payment API properties. Requires plan:create.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    An existing variant belonging to the account, identified by its plan_ ID.
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

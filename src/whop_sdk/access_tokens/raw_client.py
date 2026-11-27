@@ -18,6 +18,8 @@ from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.access_token import AccessToken
+from ..types.internal_server_error_body import InternalServerErrorBody
+from ..types.unprocessable_entity_error_body import UnprocessableEntityErrorBody
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -136,9 +138,9 @@ class RawAccessTokensClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -158,9 +160,9 @@ class RawAccessTokensClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -287,9 +289,9 @@ class AsyncRawAccessTokensClient:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        UnprocessableEntityErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=UnprocessableEntityErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -309,9 +311,9 @@ class AsyncRawAccessTokensClient:
                 raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        InternalServerErrorBody,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

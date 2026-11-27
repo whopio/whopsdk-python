@@ -2,4 +2,38 @@
 
 import typing
 
-CreatePaymentsRequestLineItemsItem = typing.Union[typing.Any]
+import pydantic
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.payment_register_discount import PaymentRegisterDiscount
+from .create_payments_request_line_items_item_variant import CreatePaymentsRequestLineItemsItemVariant
+
+
+class CreatePaymentsRequestLineItemsItem(UniversalBaseModel):
+    discount: typing.Optional[PaymentRegisterDiscount] = pydantic.Field(default=None)
+    """
+    A discount typed at the register for this line. It comes off the line's price for its full quantity, and can't be more than that price. Only with a `card_present` `payment_method`, and requires `payment:manage` on the account. Whop takes each line's discount off the line, then the promo code, then the payment's `discount`. Tax is calculated on the discounted amounts.
+    """
+
+    quantity: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    How many units of the variant to purchase. Defaults to 1; more than 1 requires the variant to allow multiple quantities.
+    """
+
+    variant: typing.Optional[CreatePaymentsRequestLineItemsItemVariant] = pydantic.Field(default=None)
+    """
+    Find or create the variant for this entry by its attributes. Unknown properties return an error. Creating a variant requires `plan:create`, and creating or updating a product requires the matching product permission.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    An existing variant to charge for, prefixed `plan_`. Mutually exclusive with `variant`. Each variant may appear once — use `quantity` for multiple units.
+    """
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

@@ -7,9 +7,6 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .assign_affiliate_memberships_request_commission_type import AssignAffiliateMembershipsRequestCommissionType
-    from .invite_memberships_request_body import InviteMembershipsRequestBody
-    from .invite_memberships_request_body_email import InviteMembershipsRequestBodyEmail
-    from .invite_memberships_request_body_user_id import InviteMembershipsRequestBodyUserId
     from .invite_memberships_response import InviteMembershipsResponse
     from .list_memberships_request_direction import ListMembershipsRequestDirection
     from .list_memberships_request_order import ListMembershipsRequestOrder
@@ -29,9 +26,6 @@ if typing.TYPE_CHECKING:
     from .transfer_memberships_response import TransferMembershipsResponse
 _dynamic_imports: typing.Dict[str, str] = {
     "AssignAffiliateMembershipsRequestCommissionType": ".assign_affiliate_memberships_request_commission_type",
-    "InviteMembershipsRequestBody": ".invite_memberships_request_body",
-    "InviteMembershipsRequestBodyEmail": ".invite_memberships_request_body_email",
-    "InviteMembershipsRequestBodyUserId": ".invite_memberships_request_body_user_id",
     "InviteMembershipsResponse": ".invite_memberships_response",
     "ListMembershipsRequestDirection": ".list_memberships_request_direction",
     "ListMembershipsRequestOrder": ".list_memberships_request_order",
@@ -75,9 +69,6 @@ def __dir__():
 
 __all__ = [
     "AssignAffiliateMembershipsRequestCommissionType",
-    "InviteMembershipsRequestBody",
-    "InviteMembershipsRequestBodyEmail",
-    "InviteMembershipsRequestBodyUserId",
     "InviteMembershipsResponse",
     "ListMembershipsRequestDirection",
     "ListMembershipsRequestOrder",
