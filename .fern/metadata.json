@@ -11,7 +11,7 @@
       "exported_filename": "client.py"
     }
   },
-  "originGitCommit": "3e82d756323c04cb6608b0255691a2bac90cf76f",
+  "originGitCommit": "ddbeaf4402f80dded5b8164e2db0d03d99b2de87",
   "invokedBy": "ci",
   "requestedVersion": "2.8.1",
   "ciProvider": "unknown"
