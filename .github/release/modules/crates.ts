@@ -5,9 +5,9 @@ export default registry({
   label: 'crates.io',
   page: ({ package: name, version }) => `https://crates.io/crates/${name}/${version}`,
   version: ({ package: name, version }) => `https://crates.io/api/v1/crates/${name}/${version}`,
-  // crates.io refuses a request without a User-Agent that says who is asking.
+  // crates.io refuses a request without a User-Agent that says who is asking; only whopsdk-rust publishes a crate.
   init: {
-    headers: { 'User-Agent': 'whop-sdk-release (https://github.com/whopio/whop-monorepo/tree/main/sdks/release)' },
+    headers: { 'User-Agent': 'whop-sdk-release (https://github.com/whopio/whopsdk-rust)' },
   },
   latest: {
     url: ({ package: name }) => `https://crates.io/api/v1/crates/${name}`,

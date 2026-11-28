@@ -1,5 +1,4 @@
 .fern/metadata.json
-CONTRIBUTING.md
 reference.md
 src/whop_sdk/__init__.py
 src/whop_sdk/_default_clients.py

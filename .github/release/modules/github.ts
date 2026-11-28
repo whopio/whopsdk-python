@@ -1,4 +1,4 @@
-import { exists, highest } from '../module.ts';
+import { compareVersions, exists, highest } from '../module.ts';
 import type { Fetch, ModuleContext, ReleaseConfig, ReleaseModule } from '../module.ts';
 
 /** What giving the version its GitHub release reads, in the run of the SDK repo's release workflow. */
@@ -27,6 +27,14 @@ async function tags(fetch: Fetch, repository: string): Promise<string[]> {
 }
 
 const page = ({ repository, tag }: ReleaseConfig) => `https://github.com/${repository}/releases/tag/${tag}`;
+
+/** The repo's newest stable tag before the version (a leading v or not, as the repo tags), if any. */
+async function previousTag(fetch: Fetch, { repository, version }: ReleaseConfig): Promise<string | undefined> {
+  return (await tags(fetch, repository))
+    .filter((name) => /^v?\d+\.\d+\.\d+$/.test(name) && compareVersions(name.replace(/^v/, ''), version) < 0)
+    .sort((a, b) => compareVersions(a.replace(/^v/, ''), b.replace(/^v/, '')))
+    .at(-1);
+}
 
 /**
  * The SDK repo's own tag and GitHub release for the version, the last module of every release. The
@@ -69,11 +77,15 @@ const github: ReleaseModule & {
     }
     const at = tagged.status === 404 ? sha : config.tag;
     const { commit } = await answer<{ commit: { message: string } }>(await request(`/commits/${at}`), `GitHub's commit ${at}`);
-    const source = /github\.com\/whopio\/whop-monorepo\/commit\/([0-9a-f]{40})/.exec(commit.message)?.[1];
+    // A delivery's message names its monorepo commit as `whop-monorepo@<sha>` (older deliveries: the
+    // commit's URL). The monorepo is private, so the body names it in plain text.
+    const source = /whop-monorepo(?:@|\/commit\/)([0-9a-f]{40})/.exec(commit.message)?.[1];
+    const previous = await previousTag(fetch, config);
     const where = before.length > 0 ? before : [{ label: '', page: page(config) }];
     const body = [
       ...where.map(({ label, page: url }) => `${config.package} ${config.version}${label ? ` on ${label}` : ''}: ${url}`),
-      ...(source ? [`Built from [whop-monorepo@${source.slice(0, 12)}](https://github.com/whopio/whop-monorepo/commit/${source}).`] : []),
+      ...(previous ? [`Changes since ${previous}: https://github.com/${config.repository}/compare/${previous}...${config.tag}`] : []),
+      ...(source ? [`Built from whop-monorepo@${source.slice(0, 12)}.`] : []),
     ].join('\n\n');
     const created = await answer<{ html_url: string }>(
       await request('/releases', {
