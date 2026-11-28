@@ -5,12 +5,18 @@ name: Release
 # (sdks/release/publish-main.yml.liquid there): plan asks each module whether it has the version
 # (.github/release/cli.ts), build checks and packages it (scripts/package.sh), and one job per
 # module publishes it, in order. Re-running a run, or dispatching one on main, publishes nothing a
-# module already has.
+# module already has. A dispatch with rehearse builds and checks main's version as a release would
+# (plan and build alone) and publishes, tags and releases nothing.
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      rehearse:
+        description: Build and check main's version as a release would, publishing, tagging and releasing nothing
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -32,6 +38,7 @@ jobs:
       version: ${{ steps.plan.outputs.version }}
       tag: ${{ steps.plan.outputs.tag }}
       page: ${{ steps.plan.outputs.page }}
+      rehearse: ${{ steps.plan.outputs.rehearse }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -47,6 +54,7 @@ jobs:
         run: node .github/release/cli.ts plan --module pypi --module github
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          REHEARSE: ${{ github.event_name == 'workflow_dispatch' && inputs.rehearse }}
 
   # The release, built and checked from this commit: scripts/package.sh leaves what each module's
   # job publishes where the build uploads it from.
@@ -117,10 +125,10 @@ jobs:
 
   # Runs even when nothing was published: a version tagged before it had a GitHub release gets one,
   # and a repo shipped dark writes nothing. A new tag goes only on the commit of the run that planned
-  # to publish (PUBLISHED): re-run that run's failed jobs.
+  # to publish (PUBLISHED): re-run that run's failed jobs. A rehearsal never runs it.
   github:
     needs: [plan, build, pypi]
-    if: ${{ !cancelled() && needs.plan.result == 'success' && !contains(needs.*.result, 'failure') }}
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.rehearse != 'true' && !contains(needs.*.result, 'failure') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write # cli.ts release creates the version's tag and GitHub release.
@@ -139,3 +147,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           PUBLISHED: ${{ needs.plan.outputs.publish == 'true' }}
+          REHEARSE: ${{ needs.plan.outputs.rehearse }}

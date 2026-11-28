@@ -23,17 +23,19 @@ const USAGE = `Usage: node .github/release/cli.ts <plan|confirm|release> --modul
 
   plan      Whether any of the release's modules lacks the version release.json names, so the
             workflow builds it (build), and whether it then publishes it (publish: build, unless
-            release.json turns releases off); outputs version, tag, page, build and publish, and
-            fails on a version behind the newest any module has, or one a module has while a module
-            after it lacks it (GITHUB_TOKEN for GitHub's API)
+            release.json turns releases off); outputs version, tag, page, build, publish and
+            rehearse, and fails on a version behind the newest any module has, or one a module has
+            while a module after it lacks it (GITHUB_TOKEN for GitHub's API). REHEARSE=true builds
+            the version whatever the modules have and publishes nothing
   confirm   Waits until the one module given has the version its job just uploaded
   release   Gives the version its GitHub release (github, the last module), naming where the modules
             before it published it (GITHUB_SHA and GITHUB_TOKEN; PUBLISHED=true in the run that
-            decided to publish, the only run that may tag a new commit); with releases off, says what
-            it would do and writes nothing
+            decided to publish, the only run that may tag a new commit); with releases off or
+            REHEARSE=true, says what it would do and writes nothing
 `;
 
 const DARK = `Releases are off for this repo (delivery.releases in whop-monorepo's sdks/<language>/language.ts).`;
+const REHEARSAL = 'This run is a rehearsal (the dispatch asked for one): it builds and checks the version and publishes, tags and releases nothing.';
 
 /**
  * Whether the workflow builds the version as a release (a module lacks it) and whether it then
@@ -45,9 +47,7 @@ export async function plan(
   config: ReleaseConfig,
   context: ModuleContext,
 ): Promise<{ build: boolean; publish: boolean; lacking: string[] }> {
-  if (!/^\d+\.\d+\.\d+$/.test(config.version)) {
-    throw new Error(`${config.version} is not a stable version; main releases only stable versions`);
-  }
+  requireStable(config);
   const held: boolean[] = [];
   for (const module of release) held.push(await module.has(config, context));
   const lacking = release.filter((_, index) => !held[index]).map(({ label }) => label);
@@ -72,6 +72,16 @@ export async function plan(
     }
   }
   return { build: true, publish: config.releases, lacking };
+}
+
+function requireStable({ version }: ReleaseConfig) {
+  if (!/^\d+\.\d+\.\d+$/.test(version)) throw new Error(`${version} is not a stable version; main releases only stable versions`);
+}
+
+/** A rehearsal's plan: build the version whatever the modules have, and publish nothing. */
+export function rehearsal(config: ReleaseConfig): { build: true; publish: false; lacking: string[] } {
+  requireStable(config);
+  return { build: true, publish: false, lacking: [] };
 }
 
 export async function release(
@@ -135,10 +145,15 @@ export async function main(
     }
     modules ??= releaseOf(names);
     const page = modules[0].page(config);
+    const rehearse = env.REHEARSE === 'true';
     if (command === 'plan') {
-      const { build, publish, lacking } = await plan(modules, config, context);
-      const outputs = `version=${config.version}\ntag=${config.tag}\npage=${page}\nbuild=${build}\npublish=${publish}\n`;
+      const { build, publish, lacking } = rehearse ? rehearsal(config) : await plan(modules, config, context);
+      const outputs = `version=${config.version}\ntag=${config.tag}\npage=${page}\nbuild=${build}\npublish=${publish}\nrehearse=${rehearse}\n`;
       if (env.GITHUB_OUTPUT) fs.appendFileSync(env.GITHUB_OUTPUT, outputs);
+      if (rehearse) {
+        console.log(`${REHEARSAL} Building ${config.package} ${config.version}.`);
+        return 0;
+      }
       const everywhere = labels(modules.map(({ label }) => label));
       console.log(
         !build
@@ -147,6 +162,10 @@ export async function main(
             ? `Publishing ${config.package} ${config.version}: ${labels(lacking)} ${lacking.length > 1 ? 'do' : 'does'} not have it yet.`
             : `${DARK} Building ${config.package} ${config.version} as a release would, without publishing it to ${everywhere} at ${config.tag} (${page}).`,
       );
+      return 0;
+    }
+    if (rehearse) {
+      console.log(`${REHEARSAL} Would make sure ${config.tag} has a GitHub release; writing nothing.`);
       return 0;
     }
     if (!config.releases) {
