@@ -1855,4 +1855,4 @@ user-tokens = ["pyjwt"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "27c8053f8255b50d93627ace5724e81907fa073592a28c7d38c3de16391ff365"
+content-hash = "30aaf724004bd709aa93cc3532313a7dd081272b77a8c4e7047eb014e5096e38"
